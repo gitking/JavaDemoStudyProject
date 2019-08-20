@@ -1,12 +1,12 @@
-package com.yale.design.iterator;
+package com.yale.test.design.iterator;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import com.yale.design.iterator.before.CafeMenu;
-import com.yale.design.iterator.before.DinerMenu;
-import com.yale.design.iterator.before.MenuItem;
-import com.yale.design.iterator.before.PancakeHouseMenu;
+import com.yale.test.design.iterator.before.CafeMenu;
+import com.yale.test.design.iterator.before.DinerMenu;
+import com.yale.test.design.iterator.before.MenuItem;
+import com.yale.test.design.iterator.before.PancakeHouseMenu;
 
 public class TestSec {
 	

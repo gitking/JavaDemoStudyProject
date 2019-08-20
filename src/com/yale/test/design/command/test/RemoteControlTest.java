@@ -1,8 +1,8 @@
-package com.yale.design.command.test;
+package com.yale.test.design.command.test;
 
-import com.yale.design.command.SimpleRemoteControl;
-import com.yale.design.command.impl.LightOnCommand;
-import com.yale.design.command.vo.Light;
+import com.yale.test.design.command.SimpleRemoteControl;
+import com.yale.test.design.command.impl.LightOnCommand;
+import com.yale.test.design.command.vo.Light;
 
 /**
  * 命令模式：将"请求"封装成对象，以便使用不同的请求，队列或者日志来参数化其他对象。

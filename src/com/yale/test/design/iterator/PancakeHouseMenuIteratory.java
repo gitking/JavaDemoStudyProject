@@ -1,8 +1,8 @@
-package com.yale.design.iterator;
+package com.yale.test.design.iterator;
 
 import java.util.ArrayList;
 
-import com.yale.design.iterator.before.MenuItem;
+import com.yale.test.design.iterator.before.MenuItem;
 
 public class PancakeHouseMenuIteratory implements Iterator {
 	ArrayList menuItemList;

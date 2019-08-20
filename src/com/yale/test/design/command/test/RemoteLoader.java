@@ -1,20 +1,20 @@
-package com.yale.design.command.test;
+package com.yale.test.design.command.test;
 
-import com.yale.design.command.Command;
-import com.yale.design.command.RemoteControl;
-import com.yale.design.command.RemoteControlWithUndo;
-import com.yale.design.command.impl.CeilingFanHighCommand;
-import com.yale.design.command.impl.CeilingFanLowCommand;
-import com.yale.design.command.impl.CeilingFanMediumCommand;
-import com.yale.design.command.impl.CeilingFanOffCommand;
-import com.yale.design.command.impl.LightOffCommand;
-import com.yale.design.command.impl.LightOnCommand;
-import com.yale.design.command.impl.StereoOffCommand;
-import com.yale.design.command.impl.StereoOnCommand;
-import com.yale.design.command.vo.CeilingFan;
-import com.yale.design.command.vo.Light;
-import com.yale.design.command.vo.MacroCommand;
-import com.yale.design.command.vo.Stereo;
+import com.yale.test.design.command.Command;
+import com.yale.test.design.command.RemoteControl;
+import com.yale.test.design.command.RemoteControlWithUndo;
+import com.yale.test.design.command.impl.CeilingFanHighCommand;
+import com.yale.test.design.command.impl.CeilingFanLowCommand;
+import com.yale.test.design.command.impl.CeilingFanMediumCommand;
+import com.yale.test.design.command.impl.CeilingFanOffCommand;
+import com.yale.test.design.command.impl.LightOffCommand;
+import com.yale.test.design.command.impl.LightOnCommand;
+import com.yale.test.design.command.impl.StereoOffCommand;
+import com.yale.test.design.command.impl.StereoOnCommand;
+import com.yale.test.design.command.vo.CeilingFan;
+import com.yale.test.design.command.vo.Light;
+import com.yale.test.design.command.vo.MacroCommand;
+import com.yale.test.design.command.vo.Stereo;
 
 public class RemoteLoader {
 	public static void main(String[] args) {

@@ -13,7 +13,14 @@ class ThreadThird implements Runnable {
 	public void run () {
 		try {
 			this.wirteFile();
-		} catch (IOException | InterruptedException e) {
+		} 
+		//catch (IOException | InterruptedException e) {
+		// 上面这种写法JAVA7以后才支持
+		//	e.printStackTrace();
+		//}
+		catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}

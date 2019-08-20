@@ -1,7 +1,7 @@
-package com.yale.design.strategypattern.vo;
+package com.yale.test.design.strategypattern.vo;
 
-import com.yale.design.strategypattern.interfacevo.FlyBehavior;
-import com.yale.design.strategypattern.interfacevo.QuackBehavior;
+import com.yale.test.design.strategypattern.interfacevo.FlyBehavior;
+import com.yale.test.design.strategypattern.interfacevo.QuackBehavior;
 
 public abstract class Duck {
 	public Duck(){

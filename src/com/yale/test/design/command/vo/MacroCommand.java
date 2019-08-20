@@ -1,6 +1,6 @@
-package com.yale.design.command.vo;
+package com.yale.test.design.command.vo;
 
-import com.yale.design.command.Command;
+import com.yale.test.design.command.Command;
 
 /**
  * 宏命令,一次执行一组命令

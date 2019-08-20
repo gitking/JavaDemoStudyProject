@@ -1,13 +1,13 @@
-package com.yale.design.facade;
+package com.yale.test.design.facade;
 
-import com.yale.design.facade.vo.Amplifier;
-import com.yale.design.facade.vo.CdPlayer;
-import com.yale.design.facade.vo.DvdPlayer;
-import com.yale.design.facade.vo.PopcornPopper;
-import com.yale.design.facade.vo.Projector;
-import com.yale.design.facade.vo.Screen;
-import com.yale.design.facade.vo.TheaterLights;
-import com.yale.design.facade.vo.Tuner;
+import com.yale.test.design.facade.vo.Amplifier;
+import com.yale.test.design.facade.vo.CdPlayer;
+import com.yale.test.design.facade.vo.DvdPlayer;
+import com.yale.test.design.facade.vo.PopcornPopper;
+import com.yale.test.design.facade.vo.Projector;
+import com.yale.test.design.facade.vo.Screen;
+import com.yale.test.design.facade.vo.TheaterLights;
+import com.yale.test.design.facade.vo.Tuner;
 
 /**
  * 外观模式
