@@ -1,4 +1,4 @@
-package com.yale.design.command;
+package com.yale.test.design.command;
 
 /**
  * CommandPattern 命令模式

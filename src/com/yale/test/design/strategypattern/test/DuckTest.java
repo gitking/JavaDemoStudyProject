@@ -1,9 +1,9 @@
-package com.yale.design.strategypattern.test;
+package com.yale.test.design.strategypattern.test;
 
-import com.yale.design.strategypattern.interfacevo.impl.FlyRocketPowerd;
-import com.yale.design.strategypattern.vo.Duck;
-import com.yale.design.strategypattern.vo.MallardDuck;
-import com.yale.design.strategypattern.vo.ModelDuck;
+import com.yale.test.design.strategypattern.interfacevo.impl.FlyRocketPowerd;
+import com.yale.test.design.strategypattern.vo.Duck;
+import com.yale.test.design.strategypattern.vo.MallardDuck;
+import com.yale.test.design.strategypattern.vo.ModelDuck;
 
 /**
  * 策略模式

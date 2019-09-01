@@ -1,4 +1,4 @@
-package com.yale.design.state;
+package com.yale.test.design.state;
 
 import java.util.Random;
 

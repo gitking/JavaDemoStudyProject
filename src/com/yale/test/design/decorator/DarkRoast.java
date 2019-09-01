@@ -1,4 +1,4 @@
-package com.yale.design.decorator;
+package com.yale.test.design.decorator;
 
 public class DarkRoast extends Beverage {
 	public DarkRoast(){

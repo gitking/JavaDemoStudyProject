@@ -1,4 +1,4 @@
-package com.yale.design.decorator;
+package com.yale.test.design.decorator;
 
 import java.io.FilterInputStream;
 import java.io.IOException;

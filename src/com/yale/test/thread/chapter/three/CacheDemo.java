@@ -9,7 +9,6 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * @author Administrator
  */
 public class CacheDemo {
-
 	private Map<String,Object> cache = new HashMap<String,Object>();
 	private ReadWriteLock rwl = new ReentrantReadWriteLock();
 	public static void main(String[] args) {

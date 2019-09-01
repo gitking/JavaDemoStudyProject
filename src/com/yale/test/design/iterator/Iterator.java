@@ -1,4 +1,4 @@
-package com.yale.design.iterator;
+package com.yale.test.design.iterator;
 
 /**
  * 迭代器接口

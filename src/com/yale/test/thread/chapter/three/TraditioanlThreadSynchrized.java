@@ -7,7 +7,7 @@ public class TraditioanlThreadSynchrized {
 	}
 	
 	public void init () {
-		Outputer outputer = new Outputer();
+		final Outputer outputer = new Outputer();
 		new Thread(){
 			public void run () {
 				while (true) {

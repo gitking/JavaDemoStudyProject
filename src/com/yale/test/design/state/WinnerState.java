@@ -1,4 +1,4 @@
-package com.yale.design.state;
+package com.yale.test.design.state;
 
 public class WinnerState implements State {
 	public GumballMachine gumballMachine;

@@ -6,7 +6,7 @@ import java.util.concurrent.BlockingQueue;
 public class Test {
 	
 	public static void main(String[] args){
-		BlockingQueue<String> bq = new ArrayBlockingQueue<String>(16);
+		final BlockingQueue<String> bq = new ArrayBlockingQueue<String>(16);
 		for (int i=0;i<4;i++) {
 			new Thread(new Runnable(){
 				public void run(){

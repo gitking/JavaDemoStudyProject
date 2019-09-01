@@ -9,7 +9,7 @@ public class CyclisBarrietTest {
 
 	public static void main(String[] args) {
 		ExecutorService es = Executors.newCachedThreadPool();
-		CyclicBarrier cb = new CyclicBarrier(3);//可以让多人线程等待,等线程都到达某个点,再让所有线程一起出发
+		final CyclicBarrier cb = new CyclicBarrier(3);//可以让多人线程等待,等线程都到达某个点,再让所有线程一起出发
 		for (int i=0;i<3;i++) {
 			Runnable runnable = new Runnable(){
 				public void run(){

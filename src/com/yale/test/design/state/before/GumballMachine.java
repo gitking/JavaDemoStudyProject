@@ -1,6 +1,6 @@
-package com.yale.design.state.before;
+package com.yale.test.design.state.before;
 
-import com.yale.design.state.State;
+import com.yale.test.design.state.State;
 
 
 public class GumballMachine {

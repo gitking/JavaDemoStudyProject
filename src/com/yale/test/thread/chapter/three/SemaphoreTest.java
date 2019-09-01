@@ -6,9 +6,9 @@ import java.util.concurrent.Semaphore;
 
 public class SemaphoreTest {
 	public static void main(String[] args) {
-		ExecutorService es = Executors.newCachedThreadPool();
+		final ExecutorService es = Executors.newCachedThreadPool();
 		//Semaphore可以保证某个东西同时最多能有几个线程访问,只用来控制访问的数量,不用来控制同步或者互斥
-		Semaphore st = new Semaphore(3,true);//创建3个线程信号灯,true代表是否公平
+		final Semaphore st = new Semaphore(3,true);//创建3个线程信号灯,true代表是否公平
 		for (int i=0;i<10;i++) {
 			Runnable runnable = new Runnable(){
 				public void run (){

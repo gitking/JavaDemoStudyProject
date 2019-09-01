@@ -1,6 +1,6 @@
-package com.yale.design.strategypattern.interfacevo.impl;
+package com.yale.test.design.strategypattern.interfacevo.impl;
 
-import com.yale.design.strategypattern.interfacevo.QuackBehavior;
+import com.yale.test.design.strategypattern.interfacevo.QuackBehavior;
 
 public class Quack implements QuackBehavior {
 

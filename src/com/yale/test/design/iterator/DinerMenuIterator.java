@@ -1,6 +1,6 @@
-package com.yale.design.iterator;
+package com.yale.test.design.iterator;
 
-import com.yale.design.iterator.before.MenuItem;
+import com.yale.test.design.iterator.before.MenuItem;
 import java.util.Iterator;
 public class DinerMenuIterator implements Iterator {
 	

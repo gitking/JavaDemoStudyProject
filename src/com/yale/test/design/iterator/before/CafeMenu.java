@@ -1,10 +1,10 @@
-package com.yale.design.iterator.before;
+package com.yale.test.design.iterator.before;
 
 import java.util.Hashtable;
 import java.util.Iterator;
 
-import com.yale.design.iterator.DinerMenuIterator;
-import com.yale.design.iterator.Menu;
+import com.yale.test.design.iterator.DinerMenuIterator;
+import com.yale.test.design.iterator.Menu;
 
 public class CafeMenu implements Menu{
 	Hashtable menuItems = new Hashtable();

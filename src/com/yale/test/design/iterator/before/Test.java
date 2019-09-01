@@ -1,4 +1,4 @@
-package com.yale.design.iterator.before;
+package com.yale.test.design.iterator.before;
 
 import java.util.ArrayList;
 

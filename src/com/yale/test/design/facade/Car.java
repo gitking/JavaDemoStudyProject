@@ -1,4 +1,4 @@
-package com.yale.design.facade;
+package com.yale.test.design.facade;
 
 /**
  * 最少知识原则:就任何对象而言,在该对象的方法内,我们只应该调用属于以下范围的方法:

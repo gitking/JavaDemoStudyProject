@@ -1,4 +1,4 @@
-package com.yale.design.templatemethod;
+package com.yale.test.design.templatemethod;
 
 public class TemplatemethodTest {
 	public static void main(String[] args) {

@@ -11,7 +11,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class ConditionCommunication {
 
 	public static void main(String[] args) {
-		Bussiness bs = new Bussiness();
+		final Bussiness bs = new Bussiness();
 		new Thread(){
 			public void run(){
 				for(int i=0;i<3;i++) {

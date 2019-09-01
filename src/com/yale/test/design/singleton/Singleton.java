@@ -1,4 +1,4 @@
-package com.yale.design.singleton;
+package com.yale.test.design.singleton;
 
 public class Singleton {
 	

@@ -1,9 +1,9 @@
-package com.yale.design.iterator.before;
+package com.yale.test.design.iterator.before;
 
 import java.util.Iterator;
 
-import com.yale.design.iterator.DinerMenuIterator;
-import com.yale.design.iterator.Menu;
+import com.yale.test.design.iterator.DinerMenuIterator;
+import com.yale.test.design.iterator.Menu;
 
 public class DinerMenu implements Menu{
 	static final int MAX_ITEMS = 6;

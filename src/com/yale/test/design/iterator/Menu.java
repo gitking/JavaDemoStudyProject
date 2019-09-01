@@ -1,4 +1,4 @@
-package com.yale.design.iterator;
+package com.yale.test.design.iterator;
 
 import java.util.Iterator;
 

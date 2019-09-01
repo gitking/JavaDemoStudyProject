@@ -1,4 +1,4 @@
-package com.yale.design.templatemethod;
+package com.yale.test.design.templatemethod;
 
 public class Coffee extends Templatemethod {
 

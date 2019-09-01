@@ -1,4 +1,4 @@
-package com.yale.design.templatemethod;
+package com.yale.test.design.templatemethod;
 
 /**
  * 模版方法模式:在一个方法中定义个算法的骨架,而将一些步骤延迟的子类中。

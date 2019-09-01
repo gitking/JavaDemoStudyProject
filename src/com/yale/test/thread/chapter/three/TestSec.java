@@ -13,14 +13,14 @@ import java.util.concurrent.SynchronousQueue;
 public class TestSec {
 
 	public static void main(String[] args) {
-		Semaphore sh = new Semaphore(1);
+		final Semaphore sh = new Semaphore(1);
 		/**
 		 * SynchronousQueue只有有人在排队等着取数据了,sq.put()该方法才会将数据放进去,否则不放数据
 		 * sq.put()方法放进数据后,sq.take()就会立即把数据取出来,所以说SynchronousQueue这个队列中永远都没有数据存在
 		 * 同步队列类似于 CSP 和 Ada 中使用的 rendezvous 信道。
 		 * 它非常适合于传递性设计，在这种设计中，在一个线程中运行的对象要将某些信息、事件或任务传递给在另一个线程中运行的对象，它就必须与该对象同步。 
 		 */
-		SynchronousQueue<String> sq = new SynchronousQueue<String>();
+		final SynchronousQueue<String> sq = new SynchronousQueue<String>();
 		TestDo td = new TestDo();
 		for (int i=0;i<10;i++) {
 			new Thread(new Runnable(){

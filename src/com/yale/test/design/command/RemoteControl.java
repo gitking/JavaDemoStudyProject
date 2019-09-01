@@ -1,6 +1,6 @@
-package com.yale.design.command;
+package com.yale.test.design.command;
 
-import com.yale.design.command.impl.NoCommand;
+import com.yale.test.design.command.impl.NoCommand;
 
 
 public class RemoteControl {

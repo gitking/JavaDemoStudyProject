@@ -1,4 +1,4 @@
-package com.yale.design.facade.vo;
+package com.yale.test.design.facade.vo;
 
 public class Projector {
 

@@ -10,7 +10,7 @@ import java.util.concurrent.BlockingQueue;
  */
 public class BlockingQueueCommunication {
 	public static void main(String[] args){
-		Business bs = new Business();
+		final Business bs = new Business();
 		new Thread(){
 			public void run(){
 				for(int i=0;i<3;i++){

@@ -1,4 +1,4 @@
-package com.yale.design.command.vo;
+package com.yale.test.design.command.vo;
 
 public class Stereo {
 	public String desc;

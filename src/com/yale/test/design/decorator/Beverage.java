@@ -1,4 +1,4 @@
-package com.yale.design.decorator;
+package com.yale.test.design.decorator;
 
 /**
  * Decorator Pattern装饰者模式

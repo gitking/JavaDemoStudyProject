@@ -6,7 +6,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class LockTest {
 
 	public static void main(String[] args) {
-		Outputer outputer = new Outputer();
+		final Outputer outputer = new Outputer();
 		new Thread(new Runnable(){
 			public void run(){
 				while(true){

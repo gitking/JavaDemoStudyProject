@@ -1,4 +1,4 @@
-package com.yale.design.strategypattern.interfacevo;
+package com.yale.test.design.strategypattern.interfacevo;
 
 /**
  * 策略模式

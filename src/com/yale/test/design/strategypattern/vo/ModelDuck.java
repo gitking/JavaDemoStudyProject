@@ -1,7 +1,7 @@
-package com.yale.design.strategypattern.vo;
+package com.yale.test.design.strategypattern.vo;
 
-import com.yale.design.strategypattern.interfacevo.impl.FlyNoWay;
-import com.yale.design.strategypattern.interfacevo.impl.Quack;
+import com.yale.test.design.strategypattern.interfacevo.impl.FlyNoWay;
+import com.yale.test.design.strategypattern.interfacevo.impl.Quack;
 
 public class ModelDuck extends Duck {
 	
