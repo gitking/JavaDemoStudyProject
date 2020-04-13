@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<china>
+	<guangdong>
+		<guangzhou>
+			<luogang>萝岗</luogang>
+			<tianhe>天河</tianhe>
+		</guangzhou>
+	</guangdong>
+	<name littleName="属性值">dom4j模板</name>
+</china>
