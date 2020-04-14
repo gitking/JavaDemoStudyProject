@@ -1,5 +1,7 @@
 package com.yale.test.design.singleton;
 
+import java.lang.management.ManagementFactory;
+
 public class Singleton {
 	
 	public volatile static Singleton singleton = null;
@@ -17,7 +19,7 @@ public class Singleton {
 	/**
 	 * 这种方式效率比较低
 	 * 通过增加synchronized关键字到getInstence()方法中,我们迫使每个线程在进入这个方法之前,要先等到别的线程离开该方法。
-	 * 也就是说,不会有来个线程可以同时进入这个方法。
+	 * 也就是说,不会有俩个线程可以同时进入这个方法。
 	 * @return
 	 */
 	public static synchronized Singleton getInstenceSec(){
@@ -28,7 +30,7 @@ public class Singleton {
 	}
 	
 	/**
-	 * 双重检查锁
+	 * 双重检查锁,这个性能是最高的
 	 * @return
 	 */
 	public static Singleton getInstenceThrid(){

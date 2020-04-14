@@ -1,5 +1,8 @@
 package com.yale.test.thread.heima.zhangxiaoxiang;
 
+import java.lang.management.ManagementFactory;
+import java.lang.management.MemoryMXBean;
+import java.lang.management.ThreadMXBean;
 import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletionService;
@@ -27,6 +30,8 @@ public class CallableAndFuture {
 		//System.out.println("等待1秒后那结果,拿不到结果就报错, 拿到线程返回的结果:" + future.get(1, TimeUnit.SECONDS));
 
 		ec.shutdown();
+		
+		System.exit(1);
 		
 		ExecutorService ec2 = Executors.newFixedThreadPool(10);
 		//把线程池传进去,提交一组线程进去,哪个线程先返回结果,就把哪个线程的返回结果取出来

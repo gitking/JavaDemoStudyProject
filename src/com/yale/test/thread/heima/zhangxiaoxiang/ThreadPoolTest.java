@@ -1,5 +1,8 @@
 package com.yale.test.thread.heima.zhangxiaoxiang;
 
+import java.lang.management.ManagementFactory;
+import java.lang.management.MemoryMXBean;
+import java.lang.management.ThreadMXBean;
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -16,6 +19,11 @@ public class ThreadPoolTest {
 				@Override
 				public void run() {
 					for(int j=0; j<=10;j++){
+						try {
+							Thread.sleep(10000);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
 						System.out.println(Thread.currentThread().getName() + "is loop of" + j + "for task of" + task);
 						if (task ==2) {
 							int ss = 1/0;//当线程由于代码异常撕掉了,newFixedThreadPool会自动再创建一个线程来运行
@@ -26,6 +34,7 @@ public class ThreadPoolTest {
 		}
 		
 		System.out.println("上面我往线程池里面丢了10个任务,但是在同一时间最多有3个线程在运行。");
+		
 		threadPool.shutdown();//当线程池里面的所有任务都执行完时,线程处于空闲状态时,关闭线程池
 		
 		/**
