@@ -1,0 +1,21 @@
+package com.yale.test.io.print;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+
+public class PrintWriterDemo {
+
+	public static void main(String[] args) throws FileNotFoundException {
+		String name = "小鱼仔";
+		int age = 20;
+		double salart = -10000.88884646;
+		PrintWriter pu = new PrintWriter(new FileOutputStream(new File("d:" + File.separator + "JavaDemo" + File.separator + "print.txt")));
+		pu.printf("姓名:%s, 年龄:%d, 工资 :%7.2f", name, age, salart);
+		pu.close();
+		
+		String str = String.format("姓名:%s, 年龄:%d, 工资 :%7.2f", name, age, salart);
+		System.out.println("String也可以实现格式化输出:" + str);
+	}
+}

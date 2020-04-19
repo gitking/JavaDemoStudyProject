@@ -11,14 +11,27 @@ import java.io.OutputStreamWriter;
 
 public class FileTest {
 	public static void main (String[] args) throws IOException {
+		
+	
 		File file = new File("file.txt");
+		System.out.println("判断路径是否是一个文件" + file.isFile());
+		
+		//下面这个俩个构造方法是一个意思
+		//File file = new File("d:\\javaio\\file.txt");
+		//File file = new File("fd:\\javaio", "file.txt");
+
 		if (!file.exists()) {
 			System.out.println(file.getAbsolutePath() + "不存在");
 			if (file.isDirectory()) {//是否是目录
+				System.out.println("直接打印file对象跟打印file.getAbsolutePath()是一样的结果" + file);
 				System.out.println(file.getAbsolutePath() + "目录");
+				System.out.println("打印父目录的路径:" + file.getParent());
 			} else {
 				System.out.println(file.getAbsolutePath() + "不是目录");
 				boolean success = file.createNewFile();//创建问题件
+				//file.mkdir();mkdir创建一级目录,上面没有别的目录
+				//file.mkdirs();//如果多级目录都不存在,直接创建多级目录
+				System.out.println("如果是目录打印目录的名字,如果是文件打印文件的名字:" + file.getName());
 				if (success) {
 					System.out.println("文件创建成功");
 				} else {
