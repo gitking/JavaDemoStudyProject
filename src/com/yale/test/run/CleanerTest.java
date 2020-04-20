@@ -1,6 +1,5 @@
 package com.yale.test.run;
 
-import sun.misc.Cleaner;
 
 /**
  * 但是从JDK1.9开始,这一操作已经不建议使用了,而对于对象回收释放.从JDK1.9开始建议开发者使用AutoCloseable

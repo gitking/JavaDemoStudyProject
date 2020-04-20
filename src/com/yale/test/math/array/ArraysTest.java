@@ -1,9 +1,9 @@
 package com.yale.test.math.array;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class ArraysTest {
-
 	public static void main(String[] args) {
 		int [] dataA = new int[]{1,2,3,4,5};
 		int [] dataB = new int[]{1,2,3,4,5};
@@ -14,6 +14,13 @@ public class ArraysTest {
 		int [] dataC = new int[]{6,9,10,22,1,2,3,4,5};
 		Arrays.sort(dataC);
 		System.out.println("排序后的数组:" + Arrays.toString(dataC));
+		
+		HashMap<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("a", "A");
+		paramMap.put("b", "B");
+		paramMap.put("c", "C");
+		String []paramNames = new String[paramMap.size()];
+		paramMap.keySet().toArray(paramNames);//软通框架JAR包里面看到的
+		System.out.println("数组转成String" + Arrays.toString(paramNames));
 	}
-
 }
