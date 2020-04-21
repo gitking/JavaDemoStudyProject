@@ -17,7 +17,7 @@ public class Test {
 		testMethod4(per);
 		//testMethod4(intPer);
 		
-		//当使用泛型类不指定尖括号里面的类型是,默认就是Object类型
+		//当使用泛型类不指定尖括号里面的类型是,默认就是Object类型,这是为了向后兼容泛型没出来之前的那些类不能报错,只会给你警告
 		Point objPer = new Point();
 		objPer.setX(10.1);
 		objPer.setY(20.2);

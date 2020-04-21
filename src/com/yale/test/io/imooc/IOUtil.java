@@ -38,6 +38,7 @@ public class IOUtil {
 		FileInputStream in = new FileInputStream(fileName);
 		byte[] buf = new byte[20 * 1024];
 		/**
+		 * java的char是16位无符号整数,是字符的unicode编码(双字节编码)
 		 * 从in中批量读取字节,放入到buf这个字节数组中,
 		 * 从第0个位置开始做,最多放buf.length个
 		 * 返回的是读到的字节的个数
