@@ -18,6 +18,10 @@ public class RegexTestEg {
 		System.out.println("[0-9a-zA-Z]表示只能是数字或英文字母并且不区分大小写:" + "F".matches("[0-9a-zA-Z]"));
 		System.out.println("************下面展示简化表达式,即上面的简写方式************");
 		System.out.println(".点这个字符表示任意一个字符:" + "/".matches("."));
+		System.out.println(".点这个字符表示任意一个字符:" + ".".matches("."));
+		System.out.println(".点这个字符表示任意一个字符:" + ".".matches("\\."));
+
+
 		System.out.println("\\d表示任意一个数字,等价于[0-9]:" + "9".matches("\\d"));
 		System.out.println("\\D表示任意一个不是数字的字符,等价取反的[^0-9]:" + ",".matches("\\D"));
 		System.out.println("\\s表示是一位空格,可能是空格,\\t,\\n:" + "\n".matches("\\s"));
@@ -38,6 +42,9 @@ public class RegexTestEg {
 		System.out.println("正则A正则B,表示并且的关系,在第一个匹配之后立即匹配第二个:" + "qweasd".matches("\\d?\\w{6}"));
 		System.out.println("正则A|正则B,表示满足任意一个正则就可以:" + "a123".matches("\\d{6,9}|\\w+\\d{3}"));
 		System.out.println("正则A|正则B,表示满足任意一个正则就可以:" + "1234567".matches("\\d{6,9}|\\w+\\d{3}"));
+		System.out.println("匹配一个斜杠\\" + "\\".matches("\\\\"));
+
+
 		System.out.println("(正则):表示按照一组正则匹配处理");
 		
 		System.out.println("*******************String类的对正则的支持*************************");

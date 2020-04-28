@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dom4j> 
+  <name littleName="属性值">dom4j模板</name>  
+  <age littleName="20">9999</age> 
+</dom4j>

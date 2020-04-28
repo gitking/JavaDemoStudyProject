@@ -76,6 +76,11 @@ public class ProxyInvocationHandler {
 	 * @throws InvocationTargetException
 	 */
 	public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		//保存生成的代理类 class文件,会将JVM动态生成的代理类的class文件保存下来com.yale.test.java.fanshe.proxy.$Proxy0  
+	    //JDK1.7是这样写的, System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");jdk8及之前：
+		//jdk8之后：
+		System.setProperty("jdk.proxy.ProxyGenerator.saveGeneratedFiles", "true");
+
 		ISubjectSec subject = (ISubjectSec)new ProxySubjectSec().bind(new RealSubjectSec());
 		subject.eat("鱼香肉丝", 20);
 	}

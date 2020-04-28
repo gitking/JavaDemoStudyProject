@@ -1,13 +1,18 @@
 package com.yale.test.xml;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
+import org.dom4j.io.XMLWriter;
 
 /**
  * dom4j
@@ -20,7 +25,7 @@ import org.dom4j.io.SAXReader;
  * @author dell
  */
 public class XmlDom4j {
-	public static void main(String[] args) throws DocumentException {
+	public static void main(String[] args) throws DocumentException, IOException {
 		//获取到解析器
 		SAXReader saxreader = new SAXReader();
 		InputStream is = XmlDom4j.class.getClassLoader().getResourceAsStream("city.xml");
@@ -43,6 +48,10 @@ public class XmlDom4j {
 	    
 	    read();
 	    read2();
+	    add();
+	    addPosition();
+	    update();
+	    delete();
 	}
 	
 	public static void read() throws DocumentException {
@@ -67,5 +76,82 @@ public class XmlDom4j {
 		String attribute = name.attributeValue("littleName");
 		System.out.println("文本内容是:" + text);
 		System.out.println("属性内容是:" + attribute);
+	}
+	
+	public static void add() throws DocumentException, IOException{
+		SAXReader saxReader = new SAXReader();
+		InputStream inputStream = XmlDom4j.class.getClassLoader().getResourceAsStream("dom4j.xml");
+		Document document = saxReader.read(inputStream);
+		
+		//创建出新的节点,为节点设置文本内容
+		Element newElement = DocumentHelper.createElement("addName");
+		newElement.setText("通过DOM4j用代码添加的街道");
+		
+		Element root = document.getRootElement();
+		root.add(newElement);//把心创建的节点挂在root节点下面
+		
+		//创建带有格式的对象
+		OutputFormat outputFormat = OutputFormat.createPrettyPrint();
+		outputFormat.setEncoding("UTF-8");
+		
+		XMLWriter xmlWriter = new XMLWriter(new FileWriter("dom4jAdd.xml"), outputFormat);
+		xmlWriter.write(document);
+		xmlWriter.close();
+	}
+	//在指定位置添加节点
+	public static void addPosition() throws DocumentException, IOException{
+		SAXReader saxReader = new SAXReader();
+		InputStream inputStream = XmlDom4j.class.getClassLoader().getResourceAsStream("dom4j.xml");
+		Document document = saxReader.read(inputStream);
+		
+		//创建出新的节点,为节点设置文本内容
+		Element newElement = DocumentHelper.createElement("addName");
+		newElement.setText("通过DOM4j用代码添加的街道");
+		
+		List<Element> elements = document.getRootElement().elements();
+		elements.add(1, newElement);//将节点添加到指定位置上
+		
+		//创建带有格式的对象
+		OutputFormat outputFormat = OutputFormat.createPrettyPrint();
+		outputFormat.setEncoding("UTF-8");
+		
+		XMLWriter xmlWriter = new XMLWriter(new FileWriter("dom4jAddSec.xml"), outputFormat);
+		xmlWriter.write(document);
+		xmlWriter.close();
+	}
+	
+	public static void update() throws DocumentException, IOException{
+		SAXReader saxReader = new SAXReader();
+		InputStream inputStream = XmlDom4j.class.getClassLoader().getResourceAsStream("dom4j.xml");
+		Document document = saxReader.read(inputStream);
+		
+		Element ageEle = document.getRootElement().element("age");
+		ageEle.setText("9999");
+		
+		//创建带有格式的对象
+		OutputFormat outputFormat = OutputFormat.createPrettyPrint();
+		outputFormat.setEncoding("UTF-8");
+		
+		XMLWriter xmlWriter = new XMLWriter(new FileWriter("dom4jAddThri.xml"), outputFormat);
+		xmlWriter.write(document);
+		xmlWriter.close();
+	}
+	
+	
+	public static void delete() throws DocumentException, IOException{
+		SAXReader saxReader = new SAXReader();
+		InputStream inputStream = XmlDom4j.class.getClassLoader().getResourceAsStream("dom4j.xml");
+		Document document = saxReader.read(inputStream);
+		
+		Element ageEle = document.getRootElement().element("age");
+		ageEle.getParent().remove(ageEle);
+		
+		//创建带有格式的对象
+		OutputFormat outputFormat = OutputFormat.createPrettyPrint();
+		outputFormat.setEncoding("UTF-8");
+		
+		XMLWriter xmlWriter = new XMLWriter(new FileWriter("dom4jAddFour.xml"), outputFormat);
+		xmlWriter.write(document);
+		xmlWriter.close();
 	}
 }

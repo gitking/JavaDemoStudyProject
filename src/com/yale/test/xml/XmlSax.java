@@ -17,6 +17,10 @@ import org.xml.sax.SAXException;
  * 也就是说：当使用SAX解析器扫描XML文档(也就是Document对象)开始、结束，以及元素的开始、结束时都会触发事件，根据不同事件调用相对应的方法!
  * SAX解析采用部分读取的方式，可以处理大型文件，但只能对文件按顺序从头到尾解析一遍，不支持文件的增删改操作
  * https://mp.weixin.qq.com/s/A54bBHUZ_NCmneEzMXzr1Q
+ * DOM和SAX解析的区别：
+ * DOM解析读取整个XML文档，在内存中形成DOM树，很方便地对XML文档的内容进行增删改。但如果XML文档的内容过大，那么就会导致内存溢出！
+ * SAX解析采用部分读取的方式，可以处理大型文件，但只能对文件按顺序从头到尾解析一遍，不支持文件的增删改操作
+ * DOM和SAX解析有着明显的差别，什么时候使用DOM或者SAX就非常明了了。
  * @author dell
  */
 public class XmlSax {

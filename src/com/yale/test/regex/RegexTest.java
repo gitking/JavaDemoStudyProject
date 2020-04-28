@@ -8,6 +8,8 @@ public class RegexTest {
 		System.out.println("用正则表达来校验字符串是否是纯数字,一行代码就解决了,不用自己再写一个方法了。");
 		System.out.println("abc".matches("\\d+"));
 		System.out.println("1230".matches("\\d+"));
+		
+		System.out.println("java.util是JAVA的一个工具包,可以研究一下");
 	}
 	
 	public static boolean isNumber (String str) {
@@ -20,7 +22,7 @@ public class RegexTest {
 		System.out.println("整形987代表字符u:" + ci);
 		
 		char [] charArr = str.toCharArray();
-		for (int i=0; i < charArr.length; i++) {
+		for (int i=0; i < charArr.length; i++) {//这个也可以判断一个字符数是否都是由数字组成的
 			if (charArr[i] > '9' || charArr[i] < '0') {
 				return false;
 			}
