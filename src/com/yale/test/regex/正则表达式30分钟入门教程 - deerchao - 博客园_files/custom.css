@@ -1,0 +1,22 @@
+.postText a {font-weight:bold;}
+        p {text-indent:2em; line-height:140%; margin:5px 20px}
+        span {margin:3px}
+        table {margin:auto; border-style:solid; border-width:1px 1px 0 0; border-color:gray; background:#eee;}
+        td, th {border-style:solid; border-width:0 0 1px 1px; border-color:gray}
+        caption {margin:auto; font-weight:bold}
+        dl {margin-left:20px}
+        dt {font-weight:bold}
+        em {font-style:normal; font-weight:bold; }
+        .webStandards {text-align:right; font-size:80%; color: gray;}
+        .webStandards a {text-align:right; font-size:small; color: gray;}
+        #ad2 { border: solid 1px #eee; margin-bottom:60px; margin-top:30px; clear:right; }
+        .note, #ad1 { float:right; width:300px; padding:5px; background-color:#eee; border:solid 1px gray; clear:right;}
+        #meta {text-align: center}
+        .important {color:orange;}
+        .name {font-weight:bold}
+        .code {color:blue}
+        .regex {color:red}
+        .part {color:green}
+        .string {font-style:italic}
+        .desc {text-decoration:underline}
+        #clearButton,#hideButton {text-decoration:none; border:solid 1px gray; background-color:#eee;}

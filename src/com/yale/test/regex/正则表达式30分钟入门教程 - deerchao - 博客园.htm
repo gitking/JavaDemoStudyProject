@@ -1,0 +1,2819 @@
+<!DOCTYPE html>
+<html lang="zh-cn"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="never">
+    <meta property="og:description" content="别被下面那些复杂的表达式吓倒，只要跟着我一步一步来，你会发现正则表达式其实并不像你想像中的那么困难。当然，如果你看完了这篇教程之后发现自己明白了很多，却又几乎什么都记不得，那也是很正常的--其实我认为">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>正则表达式30分钟入门教程 - deerchao - 博客园</title>
+    
+    <link rel="stylesheet" href="%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F30%E5%88%86%E9%92%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%20-%20deerchao%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/blog-common.css">
+    <link id="MainCss" rel="stylesheet" href="%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F30%E5%88%86%E9%92%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%20-%20deerchao%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/bundle-simpleclear.css">
+    <link type="text/css" rel="stylesheet" href="%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F30%E5%88%86%E9%92%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%20-%20deerchao%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/custom.css">
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F30%E5%88%86%E9%92%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%20-%20deerchao%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/bundle-simpleclear-mobile.css">
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/deerchao/rss">
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/deerchao/rsd.xml">
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/deerchao/wlwmanifest.xml">
+    <script async="" src="%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F30%E5%88%86%E9%92%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%20-%20deerchao%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/analytics.js"></script><script src="%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F30%E5%88%86%E9%92%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%20-%20deerchao%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/jquery-2.js"></script>
+    <script src="%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F30%E5%88%86%E9%92%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%20-%20deerchao%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/blog-common.js"></script>
+    <script>
+        var currentBlogId = 20876;
+        var currentBlogApp = 'deerchao';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var skinName = 'SimpleClear';
+    </script>
+    
+    
+    
+<link rel="preload" href="%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F30%E5%88%86%E9%92%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%20-%20deerchao%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/integrator.js" as="script"><script type="text/javascript" src="%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F30%E5%88%86%E9%92%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%20-%20deerchao%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/integrator.js"></script><script src="%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F30%E5%88%86%E9%92%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%20-%20deerchao%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/pubads_impl_2020042302.js" async=""></script><link rel="preload" href="%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F30%E5%88%86%E9%92%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%20-%20deerchao%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/integrator.js" as="script"><script type="text/javascript" src="%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F30%E5%88%86%E9%92%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%20-%20deerchao%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/integrator.js"></script></head>
+<body>
+    <a name="top"></a>
+    
+    <div id="main">
+    <div id="header">
+        
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/deerchao/">deerchao的blog</a>
+</h1>
+<p id="tagline">
+Be and aware of who you are.
+</p>
+
+
+    </div>
+    <div id="post_detail">
+<div class="post">
+    <h2 class="postTitle">
+<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/deerchao/archive/2006/08/24/zhengzhe30fengzhongjiaocheng.html">正则表达式30分钟入门教程</a>
+</h2>
+    <div class="postText">
+<div id="cnblogs_post_body" class="blogpost-body ">
+    <p>
+<script type="text/javascript">// <![CDATA[
+[CDATA[
+            function clearFormats()
+            {
+                var spans=document.getElementsByTagName("span");
+                for(var i=0; i<spans.length; i++)
+                {
+                    spans[i].bakClassName=spans[i].className;
+                    spans[i].className="";
+                }
+                var button=document.getElementById("clearButton");
+                button.innerHTML="恢复格式";
+                button.onclick=setFormats;
+                return false;
+            }
+            function setFormats()
+            {
+                var spans=document.getElementsByTagName("span");
+                for(var i=0; i<spans.length; i++)
+                {
+                    spans[i].className=spans[i].bakClassName;
+                }
+                var button=document.getElementById("clearButton");
+                button.innerHTML="清除格式";
+                button.onclick=clearFormats;
+                return false;
+            }
+            function hideNotes()
+            {
+            	var note= getCSSRule(".note");
+            	note.style.display = "none";
+            	var button=document.getElementById("hideButton");
+            	button.innerHTML="显示边注";
+            	button.onclick=showNotes;
+            	return false;
+            }
+
+            function showNotes()
+            {
+            	var note= getCSSRule(".note");
+            	note.style.display = "block";
+            	var button=document.getElementById("hideButton");
+            	button.innerHTML="隐藏边注";
+            	button.onclick=hideNotes;
+            	return false;
+            }
+// ]]></script>
+</p>
+<p>来园子之前写的一篇<a href="http://deerchao.cn/tutorials/regex/regex.htm">正则表达式教程</a>，部分翻译自codeproject的<a href="http://www.codeproject.com/dotnet/regextutorial.asp">The 30 Minute Regex Tutorial</a>。</p>
+<p><span style="color: #ff9a18;">由于评论里有过长的URL,所以本页排版比较混乱,推荐你<a href="http://deerchao.cn/tutorials/regex/regex.htm">到原处查看</a>,看完了如果有问题,再到这里来提出.</span></p>
+<p>一些要说的话：</p>
+<ol>
+<li>如果你没有正则表达式的基础，请跟着教程“一步步来”。请不要大概地扫两眼就说看不懂——以这种态度我写成什么样你也看不懂。当我告诉你这是“30分钟入门教程”时，请不要试图在30秒内入门。<br>
+    <br>
+    事实是，我身边有个才接触电脑，对操作都不是很熟练的人通过自己学习这篇教程，最后都能在文章采集系统中使用正则表达式完成任务。而且，他写的表达式中，还使用了“零宽断言”等“高级”技术。<br>
+    <br>
+    所以，如果你能具体地说明你的问题，我很愿意帮助你。但是如果你概括地说看不懂，那不是我的问题。</li>
+<li>欢迎转载，但请声明作者以及来源。</li>
+
+
+
+</ol>
+<h1>正则表达式30分钟入门教程</h1>
+<p id="meta">版本：v2.31 (2009-4-11) 作者：<a href="http://deerchao.cn/">deerchao</a>  转载请注明<a href="http://deerchao.cn/tutorials/regex/regex.htm">来源</a></p>
+<h2 id="contents">目录</h2>
+<p id="skipContents" class="note"><a title="转到正文内容" href="#mission">跳过目录</a></p>
+<ol>
+<li><a href="#mission">本文目标</a></li>
+<li><a href="#howtouse">如何使用本教程</a></li>
+<li><a href="#introduction">正则表达式到底是什么东西？</a></li>
+<li><a href="#getstarted">入门</a></li>
+<li><a href="#testing">测试正则表达式</a></li>
+<li><a href="#metacode">元字符</a></li>
+<li><a href="#escape">字符转义</a></li>
+<li><a href="#repeat">重复</a></li>
+<li><a href="#charclass">字符类</a></li>
+<li><a href="#alternative">分枝条件</a></li>
+<li><a href="#negation">反义</a></li>
+<li><a href="#grouping">分组</a></li>
+<li><a href="#backreference">后向引用</a></li>
+<li><a href="#lookaround">零宽断言</a></li>
+<li><a href="#negativelookaround">负向零宽断言</a></li>
+<li><a href="#commenting">注释</a></li>
+<li><a href="#greedyandlazy">贪婪与懒惰</a></li>
+<li><a href="#regexoptions">处理选项</a></li>
+<li><a href="#balancedgroup">平衡组/递归匹配</a></li>
+<li><a href="#more">还有些什么东西没提到</a></li>
+<li><a href="#contact">联系作者</a></li>
+<li><a href="#resources">网上的资源及本文参考文献</a></li>
+<li><a href="#updatelog">更新纪录</a></li>
+
+
+
+</ol>
+<h2 id="mission">本文目标</h2>
+<p>30分钟内让你明白正则表达式是什么，并对它有一些基本的了解，让你可以在自己的程序或网页里使用它。</p>
+<h2 id="howtouse">如何使用本教程</h2>
+<p id="giveMe30Minutes" class="important note">最重要的是——请给我<em>30分钟</em>，如果你没有使用正则表达式的经验，请不要试图在30<em>秒</em>内入门——除非你是超人 :)</p>
+<p>别被下面那些复杂的表达式吓倒，只要跟着我一步一步来，你会发现正则表达式其实并<span lang="zh-cn">没有</span>你想像
+中的那么困难。当然，如果你看完了这篇教程之后，发现自己明白了很多，却又几乎什么都记不得，那也是很正常的——我认为，没接触过正则表达式的人在看完这
+篇教程后，能把提到过的语法记住80%以上的可能性为零。这里只是让你明白基本的原理，以后你还需要多练习，多使用，才能熟练掌握正则表达式。</p>
+<p>除了作为入门教程之外，本文还试图成为可以在日常工作中使用的正则表达式语法参考手册。就作者本人的经历来说，这个目标还是完成得不错的——你看，我自己也没能把所有的东西记下来，不是吗？</p>
+<p><a id="clearButton" onclick="return clearFormats();" href="http://deerchao.cn/tutorials/regex/regex.htm">清除格式</a>&nbsp;文本格式约定：<span class="name">专业术语</span>&nbsp;<span class="code">元字符/语法格式</span>&nbsp;<span class="regex">正则表达式</span>&nbsp;<span class="part">正则表达式中的一部分(用于分析)</span>&nbsp;<span class="string">对其进行匹配的源字符串</span>&nbsp;<span class="desc">对正则表达式或其中一部分的说明</span></p>
+<p><a id="hideButton" onclick="return hideNotes();" href="http://deerchao.cn/tutorials/regex/regex.htm">隐藏边注</a>&nbsp;本文右边有一些注释，主要是用来提供一些相关信息，或者给没有程序员背景的读者解释一些基本概念，通常可以忽略。</p>
+<h2 id="introduction">正则表达式到底是什么东西？</h2>
+<p class="note"><span class="name">字符</span>是计算机软件处理文字时最基本的单位，可能是字母，数字，标点符号，空格，换行符，汉字等等。<span class="name">字符串</span>是0个或更多个字符的序列。<span class="name">文本</span>也就是文字，字符串。说某个字符串<span class="name">匹配</span>某个正则表达式，通常是指这个字符串里有一部分（或几部分分别）能满足表达式给出的条件。</p>
+<p>在编写处理字符串的程序或网页时，经常会有查找符合某些复杂规则的字符串的需要。<span class="name">正则表达式</span>就是用于描述这些规则的工具。换句话说，正则表达式就是记录文本规则的代码。</p>
+<p>很可能你使用过Windows/Dos下用于文件查找的<span class="name">通配符(wildcard)</span>，也就是<span class="code">*</span>和<span class="code">?</span>。如果你想查找某个目录下的所有的Word文档的话，你会搜索<span style="color: red;">*.doc</span>。在这里，<span class="code">*</span>会被解释成任意的字符串。和通配符类似，正则表达式也是用来进行文本匹配的工具，只不过比起通配符，它能更精确地描述你的需求——当然，代价就是更复杂——比如你可以编写一个正则表达式，用来查找<span class="desc">所有以0开头，后面跟着2-3个数字，然后是一个连字号“-”，最后是7或8位数字的字符串</span>(像<span class="string">010-12345678</span>或<span class="string">0376-7654321</span>)。</p>
+<h2 id="getstarted">入门</h2>
+<p>学习正则表达式的最好方法是从例子开始，理解例子之后再自己对例子进行修改，实验。下面给出了不少简单的例子，并对它们作了详细的说明。</p>
+<p>假设你在一篇英文小说里查找<span class="desc">hi</span>，你可以使用正则表达式<span class="regex">hi</span>。</p>
+<p>这几乎是最简单的正则表达式了，它可以精确匹配这样的字符串：<span class="desc">由两个字符组成，前一个字符是h,后一个是i</span>。通常，处理正则表达式的工具会提供一个忽略大小写的选项，如果选中了这个选项，它可以匹配<span class="string">hi</span>,<span class="string">HI</span>,<span class="string">Hi</span>,<span class="string">hI</span>这四种情况中的任意一种。</p>
+<p>不幸的是，很多单词里包含<span class="string">hi</span>这两个连续的字符，比如<span class="string">him</span>,<span class="string">history</span>,<span class="string">high</span>等等。用<span class="regex">hi</span>来查找的话，这里边的<span class="string">hi</span>也会被找出来。如果要<span class="desc">精确地查找hi这个单词</span>的话，我们应该使用<span class="regex">\bhi\b</span>。</p>
+<p><span class="part">\b</span>是正则表达式规定的一个特殊代码（好吧，某些人叫它<span class="name">元字符，metacharacter</span>），代表着<span class="desc">单词的开头或结尾，也就是单词的分界处</span>。虽然通常英文的单词是由空格，标点符号或者换行来分隔的，但是<span class="code">\b</span>并不匹配这些单词分隔字符中的任何一个，它<strong>只匹配一个位置</strong>。</p>
+<p class="note">如果需要更精确的说法，<span class="code">\b</span>匹配这样的位置：它的前一个字符和后一个字符不全是(一个是,一个不是或不存在)<span class="code">\w</span>。</p>
+<p>假如你要找的是<span class="desc">hi后面不远处跟着一个Lucy</span>，你应该用<span class="regex">\bhi\b.*\bLucy\b</span>。</p>
+<p>这里，<span class="part">.</span>是另一个元字符，匹配<span class="desc">除了换行符以外的任意字符</span>。<span class="part">*</span>同样是元字符，不过它代表的不是字符，也不是位置，而是数量——它指定*<span class="desc">前边的内容可以连续重复使用任意次以使整个表达式得到匹配</span>。因此，<span class="part">.*</span>连在一起就意味着<span class="desc">任意数量的不包含换行的字符</span>。现在<span class="regex">\bhi\b.*\bLucy\b</span>的意思就很明显了：<span class="desc">先是一个单词hi,然后是任意个任意字符(但不能是换行)，最后是Lucy这个单词</span>。</p>
+<p class="note">换行符就是'\n',ASCII编码为10(十六进制0x0A)的字符。</p>
+<p>如果同时使用其它元字符，我们就能构造出功能更强大的正则表达式。比如下面这个例子：</p>
+<p><span class="regex">0\d\d-\d\d\d\d\d\d\d\d</span>匹配这样的字符串：<span class="desc">以0开头，然后是两个数字，然后是一个连字号“-”，最后是8个数字</span>(也就是中国的电话号码。当然，这个例子只能匹配区号为3位的情形)。</p>
+<p>这里的<span class="part">\d</span>是个新的元字符，匹配<span class="desc">一位数字(0，或1，或2，或……)</span>。<span class="part">-</span>不是元字符，只匹配它本身——连字符(或者减号，或者中横线，或者随你怎么称呼它)。</p>
+<p>为了避免那么多烦人的重复，我们也可以这样写这个表达式：<span class="regex">0\d{2}-\d{8}</span>。
+        这里<span class="part">\d</span>后面的<span class="part">{2}</span>(<span class="part">{8}</span>)的意思是前面<span class="part">\d</span><span class="desc">必须连续重复匹配2次(8次)</span>。</p>
+<h2 id="testing">测试正则表达式</h2>
+<div class="note">
+<p>其它可用的测试工具:</p>
+<ul>
+<li><a href="http://www.regexbuddy.com/">RegexBuddy</a></li>
+<li><a href="http://regexpal.com/">Javascript正则表达式在线测试工具</a></li>
+
+
+
+</ul>
+
+
+
+</div>
+<p>如果你不觉得正则表达式很难读写的话，要么你是一个天才，要么，你不是地球人。正则表达式的语法很令人头疼，即使对经常使用它的人来说也是如此。由于难于读写，容易出错，所以找一种工具对正则表达式进行测试是很有必要的。</p>
+<p>不同的环境下正则表达式的一些细节是不相同的，本教程介绍的是微软 .Net Framework 4.0 下正则表达式的行为，所以，我向你推荐我编写的.Net下的工具 <a title="转到RegexTester页面" href="http://deerchao.net/tools/regex_tester/index.htm">正则表达式测试器</a>。请参考该页面的说明来安装和运行该软件。</p>
+<p>下面是Regex Tester运行时的截图：</p>
+<p><a href="http://deerchao.net/tools/regex_tester/index.htm"><img src="%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F30%E5%88%86%E9%92%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%20-%20deerchao%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/regex_tester.png" alt="正则表达式测试器运行截图"></a></p>
+<h2 id="metacode">元字符</h2>
+<p>现在你已经知道几个很有用的元字符了，如<span class="code">\b</span>,<span class="code">.</span>,<span class="code">*</span>，还有<span class="code">\d</span>.正则表达式里还有更多的元字符，比如<span class="code">\s</span>匹配<span class="desc">任意的空白符，包括空格，制表符(Tab)，换行符，中文全角空格等</span>。<span class="code">\w</span>匹配<span class="desc">字母或数字或下划线或汉字等</span>。</p>
+<p class="note important">对中文/汉字的特殊处理是由.Net提供的正则表达式引擎支持的，其它环境下的具体情况请查看相关文档。</p>
+<p>下面来看看更多的例子：</p>
+<p><span class="regex">\ba\w*\b</span>匹配<span class="desc">以字母<span class="part">a</span>开头的单词——先是某个单词开始处(<span class="part">\b</span>)，然后是字母<span class="part">a</span>,然后是任意数量的字母或数字(<span class="part">\w*</span>)，最后是单词结束处(<span class="part">\b</span>)</span>。</p>
+<p class="note">好吧，现在我们说说正则表达式里的单词是什么意思吧：就是不少于一个的连续的<span class="code">\w</span>。不错，这与学习英文时要背的成千上万个同名的东西的确关系不大 :)</p>
+<p><span class="regex">\d+</span>匹配<span class="desc">1个或更多连续的数字</span>。这里的<span class="part">+</span>是和<span class="code">*</span>类似的元字符，不同的是<span class="code">*</span>匹配<span class="desc">重复任意次(可能是0次)</span>，而<span class="code">+</span>则匹配<span class="desc">重复1次或更多次</span>。</p>
+<p><span class="regex">\b\w{6}\b</span> 匹配<span class="desc">刚好6个字符的单词</span>。</p>
+<table cellspacing="0"><caption>表1.常用的元字符</caption>
+<thead>
+<tr><th scope="col">代码</th><th scope="col">说明</th></tr>
+
+
+
+</thead>
+<tbody>
+<tr>
+<td><span class="code">.</span></td>
+<td><span class="desc">匹配除换行符以外的任意字符</span></td>
+
+
+
+</tr>
+<tr>
+<td><span class="code">\w</span></td>
+<td><span class="desc">匹配字母或数字或下划线或汉字</span></td>
+
+
+
+</tr>
+<tr>
+<td><span class="code">\s</span></td>
+<td><span class="desc">匹配任意的空白符</span></td>
+
+
+
+</tr>
+<tr>
+<td><span class="code">\d</span></td>
+<td><span class="desc">匹配数字</span></td>
+
+
+
+</tr>
+<tr>
+<td><span class="code">\b</span></td>
+<td><span class="desc">匹配单词的开始或结束</span></td>
+
+
+
+</tr>
+<tr>
+<td><span class="code">^</span></td>
+<td><span class="desc">匹配字符串的开始</span></td>
+
+
+
+</tr>
+<tr>
+<td><span class="code">$</span></td>
+<td><span class="desc">匹配字符串的结束</span></td>
+
+
+
+</tr>
+
+
+
+</tbody>
+
+
+
+</table>
+<p class="note">正则表达式引擎通常会提供一个“测试指定的字符串是否匹配一个正则表达式”的方法，如JavaScript里的RegExp.test()方法或.NET里的Regex.IsMatch()方法。这里的匹配是指是字符串里有没有符合表达式规则的部分。如果不使用<span class="code">^</span>和<span class="code">$</span>的话，对于<span class="regex">\d{5,12}</span>而言，使用这样的方法就只能保证字符串里<span class="desc">包含5到12连续位数字</span>，而不是整个字符串就是5到12位数字。</p>
+<p>元字符<span class="code">^</span>（和数字6在同一个键位上的符号）和<span class="code">$</span>都匹配一个位置，这和<span class="code">\b</span>有点类似。<span class="code">^</span>匹配你要用来查找的字符串的开头，<span class="code">$</span>匹配结尾。这两个代码在验证输入的内容时非常有用，比如一个网站如果要求你填写的QQ号必须为5位到12位数字时，可以使用：<span class="regex">^\d{5,12}$</span>。</p>
+<p>这里的<span class="part">{5,12}</span>和前面介绍过的<span class="part">{2}</span>是类似的，只不过<span class="part">{2}</span>匹配<span class="desc">只能不多不少重复2次</span>，<span class="part">{5,12}</span>则是<span class="desc">重复的次数不能少于5次，不能多于12次</span>，否则都不匹配。</p>
+<p>因为使用了<span class="part">^</span>和<span class="part">$</span>，所以输入的整个字符串都要用来和<span class="part">\d{5,12}</span>来匹配，也就是说整个输入<span class="desc">必须是5到12个数字</span>，因此如果输入的QQ号能匹配这个正则表达式的话，那就符合要求了。</p>
+<p>和忽略大小写的选项类似，有些正则表达式处理工具还有一个处理多行的选项。如果选中了这个选项，<span class="code">^</span>和<span class="code">$</span>的意义就变成了<span class="desc">匹配行的开始处和结束处</span>。</p>
+<h2 id="escape">字符转义</h2>
+<p>如果你想查找元字符本身的话，比如你查找<span class="desc">.</span>,或者<span class="desc">*</span>,就出现了问题：你没办法指定它们，因为它们会被解释成别的意思。这时你就得使用<span class="code">\</span>来取消这些字符的特殊意义。因此，你应该使用<span class="regex">\.</span>和<span class="regex">\*</span>。当然，要查找<span class="desc">\</span>本身，你也得用<span class="regex">\\</span>.</p>
+<p>例如：<span class="regex">unibetter\.com</span>匹配<span class="desc">unibetter.com</span>，<span class="regex">C:\\Windows</span>匹配<span class="desc">C:\Windows</span>。</p>
+<h2 id="repeat">重复</h2>
+<p>你已经看过了前面的<span class="code">*</span>,<span class="code">+</span>,<span class="code">{2}</span>,<span class="code">{5,12}</span>这几个匹配重复的方式了。下面是正则表达式中所有的限定符(指定数量的代码，例如*,{5,12}等)：</p>
+<table cellspacing="0"><caption>表2.常用的限定符</caption>
+<thead>
+<tr><th scope="col">代码/语法</th><th scope="col">说明</th></tr>
+
+
+
+</thead>
+<tbody>
+<tr>
+<td><span class="code">*</span></td>
+<td><span class="desc">重复零次或更多次</span></td>
+
+
+
+</tr>
+<tr>
+<td><span class="code">+</span></td>
+<td><span class="desc">重复一次或更多次</span></td>
+
+
+
+</tr>
+<tr>
+<td><span class="code">?</span></td>
+<td><span class="desc">重复零次或一次</span></td>
+
+
+
+</tr>
+<tr>
+<td><span class="code">{n}</span></td>
+<td><span class="desc">重复n次</span></td>
+
+
+
+</tr>
+<tr>
+<td><span class="code">{n,}</span></td>
+<td><span class="desc">重复n次或更多次</span></td>
+
+
+
+</tr>
+<tr>
+<td><span class="code">{n,m}</span></td>
+<td><span class="desc">重复n到m次</span></td>
+
+
+
+</tr>
+
+
+
+</tbody>
+
+
+
+</table>
+<p>下面是一些使用重复的例子：</p>
+<p><span class="regex">Windows\d+</span>匹配<span class="desc">Windows后面跟1个或更多数字</span></p>
+<p><span class="regex">^\w+</span>匹配<span class="desc">一行的第一个单词(或整个字符串的第一个单词，具体匹配哪个意思得看选项设置)</span></p>
+<h2 id="charclass">字符类</h2>
+<p>要想查找数字，字母或数字，空白是很简单的，因为已经有了对应这些字符集合的元字符，但是如果你想匹配没有预定义元字符的字符集合(比如元音字母a,e,i,o,u),应该怎么办？</p>
+<p>很简单，你只需要在方括号里列出它们就行了，像<span class="regex">[aeiou]</span>就匹配<span class="desc">任何一个英文元音字母</span>，<span class="regex">[.?!]</span>匹配<span class="desc">标点符号(.或?或!)</span>。</p>
+<p>我们也可以轻松地指定一个字符<span class="name">范围</span>，像<span class="regex">[0-9]</span>代表的含意与<span class="regex">\d</span>就是完全一致的：<span class="desc">一位数字</span>；同理<span class="regex">[a-z0-9A-Z_]</span>也完全等同于<span class="code">\w</span>（如果只考虑英文的话）。</p>
+<p>下面是一个更复杂的表达式：<span class="regex">\(?0\d{2}[) -]?\d{8}</span>。</p>
+<p class="note">“(”和“)”也是元字符，后面的<a href="#grouping">分组节</a>里会提到，所以在这里需要使用<a href="#escape">转义</a>。</p>
+<p>这个表达式可以匹配<span class="desc">几种格式的电话号码</span>，像<span class="string">(010)88886666</span>，或<span class="string">022-22334455</span>，或<span class="string">02912345678</span>等。我们对它进行一些分析吧：首先是一个转义字符<span class="part">\(</span>,它能出现0次或1次(<span class="part">?</span>),然后是一个<span class="part">0</span>，后面跟着2个数字(<span class="part">\d{2}</span>)，然后是<span class="part">)</span>或<span class="part">-</span>或<span class="part">空格</span>中的一个，它出现1次或不出现(<span class="part">?</span>)，最后是8个数字(<span class="part">\d{8}</span>)。</p>
+<h2 id="alternative">分枝条件</h2>
+<p>不幸的是，刚才那个表达式也能匹配<span class="string">010)12345678</span>或<span class="string">(022-87654321</span>这样的“不正确”的格式。要解决这个问题，我们需要用到<span class="name">分枝条件</span>。正则表达式里的<span class="name">分枝条件</span>指的是有几种规则，如果满足其中任意一种规则都应该当成匹配，具体方法是用<span class="code">|</span>把不同的规则分隔开。听不明白？没关系，看例子：</p>
+<p><span class="regex">0\d{2}-\d{8}|0\d{3}-\d{7}</span>这个表达式能<span class="desc">匹配两种以连字号分隔的电话号码：一种是三位区号，8位本地号(如010-12345678)，一种是4位区号，7位本地号(0376-2233445)</span>。</p>
+<p><span class="regex">\(0\d{2}\)[- ]?\d{8}|0\d{2}[- ]?\d{8}</span>这个表达式<span class="desc">匹配3位区号的电话号码，其中区号可以用小括号括起来，也可以不用，区号与本地号间可以用连字号或空格间隔，也可以没有间隔</span>。你可以试试用分枝条件把这个表达式扩展成也支持4位区号的。</p>
+<p><span class="regex">\d{5}-\d{4}|\d{5}</span>这个表达式用于匹配美国的邮政编码。美国邮编的规则是5位数字，或者用连字号间隔的9位数字。之所以要给出这个例子是因为它能说明一个问题：<strong>使用分枝条件时，要注意各个条件的顺序</strong>。如果你把它改成<span class="regex">\d{5}|\d{5}-\d{4}</span>的话，那么就只会匹配5位的邮编(以及9位邮编的前5位)。原因是匹配分枝条件时，将会从左到右地测试每个条件，如果满足了某个分枝的话，就不会去再管其它的条件了。</p>
+<h2 id="grouping">分组</h2>
+<p>我们已经提到了怎么重复单个字符（直接在字符后面加上限定符就行了）；但如果想要重复多个字符又该怎么办？你可以用小括号来指定<span class="name">子表达式</span>(也叫做<span class="name">分组</span>)，然后你就可以指定这个子表达式的重复次数了，你也可以对子表达式进行其它一些操作(后面会有介绍)。</p>
+<p><span class="regex">(\d{1,3}\.){3}\d{1,3}</span>是一个<span class="desc">简单的IP地址匹配</span>表达式。要理解这个表达式，请按下列顺序分析它：<span class="part">\d{1,3}</span>匹配<span class="desc">1到3位的数字</span>，<span class="part">(\d{1,3}\.){3}</span>匹配<span class="desc">三位数字加上一个英文句号(这个整体也就是这个<span class="name">分组</span>)重复3次</span>，最后再加上<span class="desc">一个一到三位的数字</span>(<span class="part">\d{1,3}</span>)。</p>
+<p class="note">IP地址中每个数字都不能大于255，大家千万不要被《24》第三季的编剧给忽悠了……</p>
+<p>不幸的是，它也将匹配<span class="string">256.300.888.999</span>这种不可能存在的IP地址。如果能使用算术比较的话，或许能简单地解决这个问题，但是正则表达式中并不提供关于数学的任何功能，所以只能使用冗长的分组，选择，字符类来描述一个正确的IP地址：<span class="regex">((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)</span>。</p>
+<p>理解这个表达式的关键是理解<span class="part">2[0-4]\d|25[0-5]|[01]?\d\d?</span>，这里我就不细说了，你自己应该能分析得出来它的意义。</p>
+<h2 id="negation">反义</h2>
+<p>有时需要查找不属于某个能简单定义的字符类的字符。比如想查找除了数字以外，其它任意字符都行的情况，这时需要用到<span class="name">反义</span>：</p>
+<table cellspacing="0"><caption>表3.常用的反义代码</caption>
+<thead>
+<tr><th scope="col">代码/语法</th><th scope="col">说明</th></tr>
+
+
+
+</thead>
+<tbody>
+<tr>
+<td><span class="code">\W</span></td>
+<td><span class="desc">匹配任意不是字母，数字，下划线，汉字的字符</span></td>
+
+
+
+</tr>
+<tr>
+<td><span class="code">\S</span></td>
+<td><span class="desc">匹配任意不是空白符的字符</span></td>
+
+
+
+</tr>
+<tr>
+<td><span class="code">\D</span></td>
+<td><span class="desc">匹配任意非数字的字符</span></td>
+
+
+
+</tr>
+<tr>
+<td><span class="code">\B</span></td>
+<td><span class="desc">匹配不是单词开头或结束的位置</span></td>
+
+
+
+</tr>
+<tr>
+<td><span class="code">[^x]</span></td>
+<td><span class="desc">匹配除了x以外的任意字符</span></td>
+
+
+
+</tr>
+<tr>
+<td><span class="code">[^aeiou]</span></td>
+<td><span class="desc">匹配除了aeiou这几个字母以外的任意字符</span></td>
+
+
+
+</tr>
+
+
+
+</tbody>
+
+
+
+</table>
+<p>例子：<span class="regex">\S+</span>匹配<span class="desc">不包含空白符的字符串</span>。</p>
+<p><span class="regex">&lt;a[^&gt;]+&gt;</span>匹配<span class="desc">用尖括号括起来的以a开头的字符串</span>。</p>
+<h2 id="backreference">后向引用</h2>
+<p>使用小括号指定一个子表达式后，<strong>匹配这个子表达式的文本</strong>(也就是此分组捕获的内容)可以在表达式或其它程序中作进一步的处理。默认情况下，每个分组会自动拥有一个<span class="name">组号</span>，规则是：从左向右，以分组的左括号为标志，第一个出现的分组的组号为1，第二个为2，以此类推。</p>
+<div class="note">
+<p>呃……其实,组号分配还不像我刚说得那么简单：</p>
+<ul>
+<li>分组0对应整个正则表达式</li>
+<li>实际上组号分配过程是要从左向右扫描两遍的：第一遍只给未命名组分配，第二遍只给命名组分配－－因此所有命名组的组号都大于未命名的组号</li>
+<li>你可以使用<span class="code">(?:exp)</span>这样的语法来剥夺一个分组对组号分配的参与权．</li>
+
+
+
+</ul>
+
+
+
+</div>
+<p><span class="name">后向引用</span>用于重复搜索前面某个分组匹配的文本。例如，<span class="part">\1</span>代表<span class="desc">分组1匹配的文本</span>。难以理解？请看示例：</p>
+<p><span class="regex">\b(\w+)\b\s+\1\b</span>可以用来匹配<span class="desc">重复的单词</span>，像<span class="string">go go</span>, 或者<span class="string">kitty kitty</span>。这个表达式首先是<span class="desc">一个单词</span>，也就是<span class="desc">单词开始处和结束处之间的多于一个的字母或数字</span>(<span class="part">\b(\w+)\b</span>)，这个单词会被捕获到编号为1的分组中，然后是<span class="desc">1个或几个空白符</span>(<span class="part">\s+</span>)，最后是<span class="desc">分组1中捕获的内容（也就是前面匹配的那个单词）</span>(<span class="part">\1</span>)。</p>
+<p>你也可以自己指定子表达式的<span class="name">组名</span>。要指定一个子表达式的组名，请使用这样的语法：<span class="code">(?&lt;Word&gt;\w+)</span>(或者把尖括号换成<span class="code">'</span>也行：<span class="code">(?'Word'\w+)</span>),这样就把<span class="part">\w+</span>的组名指定为<span class="part">Word</span>了。要反向引用这个分组<span class="name">捕获</span>的内容，你可以使用<span class="code">\k&lt;Word&gt;</span>,所以上一个例子也可以写成这样：<span class="regex">\b(?&lt;Word&gt;\w+)\b\s+\k&lt;Word&gt;\b</span>。</p>
+<p>使用小括号的时候，还有很多特定用途的语法。下面列出了最常用的一些：</p>
+<table cellspacing="0"><caption>表4.常用分组语法</caption>
+<tbody>
+<tr><th scope="col">分类</th><th scope="col">代码/语法</th><th scope="col">说明</th></tr>
+<tr><th rowspan="3">捕获</th>
+<td><span class="code">(exp)</span></td>
+<td><span class="desc">匹配exp,并捕获文本到自动命名的组里</span></td>
+
+
+
+</tr>
+<tr>
+<td><span class="code">(?&lt;name&gt;exp)</span></td>
+<td><span class="desc">匹配exp,并捕获文本到名称为name的组里，也可以写成(?'name'exp)</span></td>
+
+
+
+</tr>
+<tr>
+<td><span class="code">(?:exp)</span></td>
+<td><span class="desc">匹配exp,不捕获匹配的文本，也不给此分组分配组号</span></td>
+
+
+
+</tr>
+<tr><th rowspan="4">零宽断言</th>
+<td><span class="code">(?=exp)</span></td>
+<td><span class="desc">匹配exp前面的位置</span></td>
+
+
+
+</tr>
+<tr>
+<td><span class="code">(?&lt;=exp)</span></td>
+<td><span class="desc">匹配exp后面的位置</span></td>
+
+
+
+</tr>
+<tr>
+<td><span class="code">(?!exp)</span></td>
+<td><span class="desc">匹配后面跟的不是exp的位置</span></td>
+
+
+
+</tr>
+<tr>
+<td><span class="code">(?&lt;!exp)</span></td>
+<td><span class="desc">匹配前面不是exp的位置</span></td>
+
+
+
+</tr>
+<tr><th>注释</th>
+<td><span class="code">(?#comment)</span></td>
+<td><span class="desc">这种类型的分组不对正则表达式的处理产生任何影响，用于提供注释让人阅读</span></td>
+
+
+
+</tr>
+
+
+
+</tbody>
+
+
+
+</table>
+<p>我们已经讨论了前两种语法。第三个<span class="code">(?:exp)</span>不会改变正则表达式的处理方式，只是这样的组匹配的内容<span class="desc">不会像前两种那样被捕获到某个组里面，也不会拥有组号</span>。“我为什么会想要这样做？”——好问题，你觉得为什么呢？</p>
+<h2 id="lookaround">零宽断言</h2>
+<p class="note">地球人，是不是觉得这些术语名称太复杂，太难记了？我也有同感。知道有这么一种东西就行了，它叫什么，随它去吧！人若无名，便可专心练剑；物若无名，便可随意取舍……</p>
+<p>接下来的四个用于查找在某些内容(但并不包括这些内容)之前或之后的东西，也就是说它们像<span class="code">\b</span>,<span class="code">^</span>,<span class="code">$</span>那样用于指定一个位置，这个位置应该满足一定的条件(即断言)，因此它们也被称为<span class="name">零宽断言</span>。最好还是拿例子来说明吧：</p>
+<p class="note">断言用来声明一个应该为真的事实。正则表达式中只有当断言为真时才会继续进行匹配。</p>
+<p><span class="code">(?=exp)</span>也叫<span class="name">零宽度正预测先行断言</span>，它<span class="desc">断言自身出现的位置的后面能匹配表达式exp</span>。比如<span class="regex">\b\w+(?=ing\b)</span>，匹配<span class="desc">以ing结尾的单词的前面部分(除了ing以外的部分)</span>，如查找<span class="string">I'm singing while you're dancing.</span>时，它会匹配<span class="desc">sing</span>和<span class="desc">danc</span>。</p>
+<p><span class="code">(?&lt;=exp)</span>也叫<span class="name">零宽度正回顾后发断言</span>，它<span class="desc">断言自身出现的位置的前面能匹配表达式exp</span>。比如<span class="regex">(?&lt;=\bre)\w+\b</span>会匹配<span class="desc">以re开头的单词的后半部分(除了re以外的部分)</span>，例如在查找<span class="string">reading a book</span>时，它匹配<span class="desc">ading</span>。</p>
+<p>假如你想要给一个很长的数字中每三位间加一个逗号(当然是从右边加起了)，你可以这样查找需要在前面和里面添加逗号的部分：<span class="regex">((?&lt;=\d)\d{3})+\b</span>，用它对<span class="string">1234567890</span>进行查找时结果是<span class="desc">234567890</span>。</p>
+<p>下面这个例子同时使用了这两种断言：<span class="regex">(?&lt;=\s)\d+(?=\s)</span>匹配<span class="desc">以空白符间隔的数字(再次强调，不包括这些空白符)</span>。</p>
+<h2 id="negativelookaround">负向零宽断言</h2>
+<p>前面我们提到过怎么查找<strong>不是某个字符或不在某个字符类里</strong>的字符的方法(反义)。但是如果我们只是想要<strong>确保某个字符没有出现，但并不想去匹配它</strong>时怎么办？例如，如果我们想查找这样的单词--它里面出现了字母q,但是q后面跟的不是字母u,我们可以尝试这样：</p>
+<p><span class="regex">\b\w*q[^u]\w*\b</span>匹配<span class="desc">包含<strong>后面不是字母u的字母q</strong>的单词</span>。但是如果多做测试(或者你思维足够敏锐，直接就观察出来了)，你会发现，如果q出现在单词的结尾的话，像<strong>Iraq</strong>,<strong>Benq</strong>，这个表达式就会出错。这是因为<span class="part">[^u]</span>总要匹配一个字符，所以如果q是单词的最后一个字符的话，后面的<span class="part">[^u]</span>将会匹配q后面的单词分隔符(可能是空格，或者是句号或其它的什么)，后面的<span class="part">\w*\b</span>将会匹配下一个单词，于是<span class="regex">\b\w*q[^u]\w*\b</span>就能匹配整个<span class="string">Iraq fighting</span>。<span class="name">负向零宽断言</span>能解决这样的问题，因为它只匹配一个位置，并不<strong>消费</strong>任何字符。现在，我们可以这样来解决这个问题：<span class="regex">\b\w*q(?!u)\w*\b</span>。</p>
+<p><span class="name">零宽度负预测先行断言</span><span class="code">(?!exp)</span>，<span class="desc">断言此位置的后面不能匹配表达式exp</span>。例如：<span class="regex">\d{3}(?!\d)</span>匹配<span class="desc">三位数字，而且这三位数字的后面不能是数字</span>；<span class="regex">\b((?!abc)\w)+\b</span>匹配<span class="desc">不包含连续字符串abc的单词</span>。</p>
+<p>同理，我们可以用<span class="code">(?&lt;!exp)</span>,<span class="name">零宽度负回顾后发断言</span>来<span class="desc">断言此位置的前面不能匹配表达式exp</span>：<span class="regex">(?&lt;![a-z])\d{7}</span>匹配<span class="desc">前面不是小写字母的七位数字</span>。</p>
+<p class="note">请详细分析表达式<span class="regex">(?&lt;=&lt;(\w+)&gt;).*(?=&lt;\/\1&gt;)</span>，这个表达式最能表现零宽断言的真正用途。</p>
+<p>一个更复杂的例子：<span class="regex">(?&lt;=&lt;(\w+)&gt;).*(?=&lt;\/\1&gt;)</span>匹配<span class="desc">不包含属性的简单HTML标签内里的内容</span>。<span class="code">(?&lt;=&lt;(\w+)&gt;)</span>指定了这样的<span class="name">前缀</span>：<span class="desc">被尖括号括起来的单词</span>(比如可能是&lt;b&gt;)，然后是<span class="part">.*</span>(任意的字符串),最后是一个<span class="name">后缀</span><span class="part">(?=&lt;\/\1&gt;)</span>。注意后缀里的<span class="part">\/</span>，它用到了前面提过的字符转义；<span class="part">\1</span>则是一个反向引用，引用的正是<span class="desc">捕获的第一组</span>，前面的<span class="part">(\w+)</span>匹配的内容，这样如果前缀实际上是&lt;b&gt;的话，后缀就是&lt;/b&gt;了。整个表达式匹配的是&lt;b&gt;和&lt;/b&gt;之间的内容(再次提醒，不包括前缀和后缀本身)。</p>
+<h2 id="commenting">注释</h2>
+<p>小括号的另一种用途是通过语法<span class="code">(?#comment)</span>来包含注释。例如：<span class="regex">2[0-4]\d(?#200-249)|25[0-5](?#250-255)|[01]?\d\d?(?#0-199)</span>。</p>
+<p>要包含注释的话，最好是启用“忽略模式里的空白符”选项，这样在编写表达式时能任意的添加空格，Tab，换行，而实际使用时这些都将被忽略。启用这个选项后，在#后面到这一行结束的所有文本都将被当成注释忽略掉。例如，我们可以前面的一个表达式写成这样：</p>
+<pre class="regex">      (?&lt;=    # 断言要匹配的文本的前缀
+      &lt;(\w+)&gt; # 查找尖括号括起来的字母或数字(即HTML/XML标签)
+      )       # 前缀结束
+      .*      # 匹配任意文本
+      (?=     # 断言要匹配的文本的后缀
+      &lt;\/\1&gt;  # 查找尖括号括起来的内容：前面是一个"/"，后面是先前捕获的标签
+      )       # 后缀结束</pre>
+<h2 id="greedyandlazy">贪婪与懒惰</h2>
+<p>当正则表达式中包含能接受重复的限定符时，通常的行为是（在使整个表达式能得到匹配的前提下）匹配<strong>尽可能多</strong>的字符。以这个表达式为例：<span class="regex">a.*b</span>，它将会匹配<span class="desc">最长的以a开始，以b结束的字符串</span>。如果用它来搜索<span class="string">aabab</span>的话，它会匹配整个字符串<span class="desc">aabab</span>。这被称为<span class="name">贪婪</span>匹配。</p>
+<p>有时，我们更需要<span class="name">懒惰</span>匹配，也就是匹配<strong>尽可能少</strong>的字符。前面给出的限定符都可以被转化为懒惰匹配模式，只要在它后面加上一个问号<span class="code">?</span>。这样<span class="regex">.*?</span>就意味着<span class="desc">匹配任意数量的重复，但是在能使整个匹配成功的前提下使用最少的重复</span>。现在看看懒惰版的例子吧：</p>
+<p><span class="regex">a.*?b</span>匹配<span class="desc">最短的，以a开始，以b结束的字符串</span>。如果把它应用于<span class="string">aabab</span>的话，它会匹配<span class="desc">aab（第一到第三个字符）</span>和<span class="desc">ab（第四到第五个字符）</span>。</p>
+<p class="note">为什么第一个匹配是aab（第一到第三个字符）而不是ab（第二到第三个字符）？简单地说，因为正则表达式有另一条规则，比懒惰／贪婪规则的优先级更高：最先开始的匹配拥有最高的优先权——The match that begins earliest wins。</p>
+<table cellspacing="0"><caption>表5.懒惰限定符</caption>
+<thead>
+<tr><th scope="col">代码/语法</th><th scope="col">说明</th></tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="code">*?</span></td>
+<td><span class="desc">重复任意次，但尽可能少重复</span></td>
+</tr>
+<tr>
+<td><span class="code">+?</span></td>
+<td><span class="desc">重复1次或更多次，但尽可能少重复</span></td>
+</tr>
+<tr>
+<td><span class="code">??</span></td>
+<td><span class="desc">重复0次或1次，但尽可能少重复</span></td>
+</tr>
+<tr>
+<td><span class="code">{n,m}?</span></td>
+<td><span class="desc">重复n到m次，但尽可能少重复</span></td>
+</tr>
+<tr>
+<td><span class="code">{n,}?</span></td>
+<td><span class="desc">重复n次以上，但尽可能少重复</span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="regexoptions">处理选项</h2>
+<p class="note">在C#中，你可以使用<a title="MSDN 相关文档" href="http://msdn2.microsoft.com/zh-cn/library/h5845fdz.aspx">Regex(String, RegexOptions)构造函数</a>来设置正则表达式的处理选项。如：Regex regex = new Regex(@"\ba\w{6}\b", RegexOptions.IgnoreCase);</p>
+<p>上面介绍了几个选项如忽略大小写，处理多行等，这些选项能用来改变处理正则表达式的方式。下面是.Net中常用的正则表达式选项：</p>
+<table cellspacing="0"><caption>表6.常用的处理选项</caption>
+<thead>
+<tr><th scope="col">名称</th><th scope="col">说明</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>IgnoreCase(忽略大小写)</td>
+<td>匹配时不区分大小写。</td>
+</tr>
+<tr>
+<td>Multiline(多行模式)</td>
+<td>更改<span class="code">^</span>和<span class="code">$</span>的含义，使它们分别在任意一行的行首和行尾匹配，而不仅仅在整个字符串的开头和结尾匹配。(在此模式下,<span class="code">$</span>的精确含意是:匹配\n之前的位置以及字符串结束前的位置.)</td>
+</tr>
+<tr>
+<td>Singleline(单行模式)</td>
+<td>更改<span class="code">.</span>的含义，使它与每一个字符匹配（包括换行符\n）。</td>
+</tr>
+<tr>
+<td>IgnorePatternWhitespace(忽略空白)</td>
+<td>忽略表达式中的非转义空白并启用由<span class="code">#</span>标记的注释。</td>
+</tr>
+<tr>
+<td>ExplicitCapture(显式捕获)</td>
+<td>仅捕获已被显式命名的组。</td>
+</tr>
+</tbody>
+</table>
+<p>一个经常被问到的问题是：是不是只能同时使用多行模式和单行模式中的一种？答案是：不是。这两个选项之间没有任何关系，除了它们的名字比较相似（以至于让人感到疑惑）以外。</p>
+<h2 id="balancedgroup">平衡组/递归匹配</h2>
+<p class="important note">这里介绍的平衡组语法是由.Net Framework支持的；其它语言／库不一定支持这种功能，或者支持此功能但需要使用不同的语法。</p>
+<p>有时我们需要匹配像<span class="desc">( 100 * ( 50 + 15 ) )这样的可嵌套的层次性结构</span>，这时简单地使用<span class="code">\(.+\)</span>则只会匹配到最左边的左括号和最右边的右括号之间的内容(这里我们讨论的是贪婪模式，懒惰模式也有下面的问题)。假如原来的字符串里的左括号和右括号出现的次数不相等，比如<span class="string">( 5 / ( 3 + 2 ) ) )</span>，那我们的匹配结果里两者的个数也不会相等。有没有办法在这样的字符串里匹配到最长的，配对的括号之间的内容呢？</p>
+<p>为了避免<span class="code">(</span>和<span class="code">\(</span>把你的大脑彻底搞糊涂，我们还是用尖括号代替圆括号吧。现在我们的问题变成了如何把<span class="string">xx &lt;aa &lt;bbb&gt; &lt;bbb&gt; aa&gt; yy</span>这样的字符串里，最长的配对的尖括号内的内容捕获出来？</p>
+<p>这里需要用到以下的语法构造：</p>
+<ul>
+<li><span class="code">(?'group')</span> 把捕获的内容命名为group,并压入<span class="name">堆栈(Stack)</span></li>
+<li><span class="code">(?'-group')</span> 从堆栈上弹出最后压入堆栈的名为group的捕获内容，如果堆栈本来为空，则本分组的匹配失败</li>
+<li><span class="code">(?(group)yes|no)</span> 如果堆栈上存在以名为group的捕获内容的话，继续匹配yes部分的表达式，否则继续匹配no部分</li>
+<li><span class="code">(?!)</span> 零宽负向先行断言，由于没有后缀表达式，试图匹配总是失败</li>
+</ul>
+<p class="note">如果你不是一个程序员（或者你自称程序员但是不知道堆栈是什么东西），你就这样理解上面的三种语法吧：第一个就是在黑板
+上写一个"group"，第二个就是从黑板上擦掉一个"group"，第三个就是看黑板上写的还有没有"group"，如果有就继续匹配yes部分，否则
+就匹配no部分。</p>
+<p>我们需要做的是每碰到了左括号，就在压入一个"Open",每碰到一个右括号，就弹出一个，到了最后就看看堆栈是否为空－－如果不为空那就证明左括号比右括号多，那匹配就应该失败。正则表达式引擎会进行回溯(放弃最前面或最后面的一些字符)，尽量使整个表达式得到匹配。</p>
+<pre class="regex">&lt;                         #最外层的左括号
+    [^&lt;&gt;]*                #最外层的左括号后面的不是括号的内容
+    (
+        (
+            (?'Open'&lt;)    #碰到了左括号，在黑板上写一个"Open"
+            [^&lt;&gt;]*       #匹配左括号后面的不是括号的内容
+        )+
+        (
+            (?'-Open'&gt;)   #碰到了右括号，擦掉一个"Open"
+            [^&lt;&gt;]*        #匹配右括号后面不是括号的内容
+        )+
+    )*
+    (?(Open)(?!))         #在遇到最外层的右括号前面，判断黑板上还有没有没擦掉的"Open"；如果还有，则匹配失败
+
+&gt;                         #最外层的右括号</pre>
+<p>平衡组的一个最常见的应用就是匹配HTML,下面这个例子可以匹配<span class="desc">嵌套的&lt;div&gt;标签</span>：<span class="regex">&lt;div[^&gt;]*&gt;[^&lt;&gt;]*(((?'Open'&lt;div[^&gt;]*&gt;)[^&lt;&gt;]*)+((?'-Open'&lt;/div&gt;)[^&lt;&gt;]*)+)*(?(Open)(?!))&lt;/div&gt;</span>.</p>
+<h2 id="more">还有些什么东西没提到</h2>
+<p>上边已经描述了构造正则表达式的大量元素，但是还有很多没有提到的东西。下面是一些未提到的元素的列表，包含语法和简单的说明。你可以在网上找到更
+详细的参考资料来学习它们--当你需要用到它们的时候。如果你安装了MSDN Library,你也可以在里面找到.net下正则表达式详细的文档。</p>
+<p class="note">这里的介绍很简略，如果你需要更详细的信息，而又没有在电脑上安装MSDN Library,可以查看<a href="http://msdn.microsoft.com/zh-cn/library/az24scfc.aspx">关于正则表达式语言元素的MSDN在线文档</a>。</p>
+<table cellspacing="0"><caption>表7.尚未详细讨论的语法</caption>
+<thead>
+<tr><th scope="col">代码/语法</th><th scope="col">说明</th></tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="code">\a</span></td>
+<td><span class="desc">报警字符(打印它的效果是电脑嘀一声)</span></td>
+</tr>
+<tr>
+<td><span class="code">\b</span></td>
+<td><span class="desc">通常是单词分界位置，但如果在字符类里使用代表退格</span></td>
+</tr>
+<tr>
+<td><span class="code">\t</span></td>
+<td><span class="desc">制表符，Tab</span></td>
+</tr>
+<tr>
+<td><span class="code">\r</span></td>
+<td><span class="desc">回车</span></td>
+</tr>
+<tr>
+<td><span class="code">\v</span></td>
+<td><span class="desc">竖向制表符</span></td>
+</tr>
+<tr>
+<td><span class="code">\f</span></td>
+<td><span class="desc">换页符</span></td>
+</tr>
+<tr>
+<td><span class="code">\n</span></td>
+<td><span class="desc">换行符</span></td>
+</tr>
+<tr>
+<td><span class="code">\e</span></td>
+<td><span class="desc">Escape</span></td>
+</tr>
+<tr>
+<td><span class="code">\0nn</span></td>
+<td><span class="desc">ASCII代码中八进制代码为nn的字符</span></td>
+</tr>
+<tr>
+<td><span class="code">\xnn</span></td>
+<td><span class="desc">ASCII代码中十六进制代码为nn的字符</span></td>
+</tr>
+<tr>
+<td><span class="code">\unnnn</span></td>
+<td><span class="desc">Unicode代码中十六进制代码为nnnn的字符</span></td>
+</tr>
+<tr>
+<td><span class="code">\cN</span></td>
+<td><span class="desc">ASCII控制字符。比如\cC代表Ctrl+C</span></td>
+</tr>
+<tr>
+<td><span class="code">\A</span></td>
+<td><span class="desc">字符串开头(类似^，但不受处理多行选项的影响)</span></td>
+</tr>
+<tr>
+<td><span class="code">\Z</span></td>
+<td><span class="desc">字符串结尾或行尾(不受处理多行选项的影响)</span></td>
+</tr>
+<tr>
+<td><span class="code">\z</span></td>
+<td><span class="desc">字符串结尾(类似$，但不受处理多行选项的影响)</span></td>
+</tr>
+<tr>
+<td><span class="code">\G</span></td>
+<td><span class="desc">当前搜索的开头</span></td>
+</tr>
+<tr>
+<td><span class="code">\p{name}</span></td>
+<td><span class="desc">Unicode中命名为name的字符类，例如\p{IsGreek}</span></td>
+</tr>
+<tr>
+<td><span class="code">(?&gt;exp)</span></td>
+<td><span class="desc">贪婪子表达式</span></td>
+</tr>
+<tr>
+<td><span class="code">(?&lt;x&gt;-&lt;y&gt;exp)</span></td>
+<td><span class="desc">平衡组</span></td>
+</tr>
+<tr>
+<td><span class="code">(?im-nsx:exp)</span></td>
+<td><span class="desc">在子表达式exp中改变处理选项</span></td>
+</tr>
+<tr>
+<td><span class="code">(?im-nsx)</span></td>
+<td><span class="desc">为表达式后面的部分改变处理选项</span></td>
+</tr>
+<tr>
+<td><span class="code">(?(exp)yes|no)</span></td>
+<td><span class="desc">把exp当作零宽正向先行断言，如果在这个位置能匹配，使用yes作为此组的表达式；否则使用no</span></td>
+</tr>
+<tr>
+<td><span class="code">(?(exp)yes)</span></td>
+<td><span class="desc">同上，只是使用空表达式作为no</span></td>
+</tr>
+<tr>
+<td><span class="code">(?(name)yes|no)</span></td>
+<td><span class="desc">如果命名为name的组捕获到了内容，使用yes作为表达式；否则使用no</span></td>
+</tr>
+<tr>
+<td><span class="code">(?(name)yes)</span></td>
+<td><span class="desc">同上，只是使用空表达式作为no</span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="contact">联系作者</h2>
+<p>好吧,我承认,我骗了你,读到这里你肯定花了不止30分钟.相信我,这是我的错,而不是因为你太笨.我之所以说"30分钟",是为了让你有信心,有耐心继续下去.既然你看到了这里,那证明我的阴谋成功了.被忽悠的感觉很爽吧？</p>
+<p>要投诉我,或者觉得我其实可以忽悠得更高明,欢迎来<a href="http://weibo.com/deerchao/"><img src="%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F30%E5%88%86%E9%92%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%20-%20deerchao%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/weibo.png" alt="">我的微博</a>让我知道. 如果你有关于正则表达式的问题, 可以到&nbsp;<a href="http://www.stackoverflow.com/"><img src="%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F30%E5%88%86%E9%92%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%20-%20deerchao%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/stackoverflow_002.png" alt="">stackoverflow</a>&nbsp;网站上提问, 记得要添加 regex 标签. 如果你更习惯于用中文交流, 可以到微博上用 #正则# 标签提出问题.</p>
+<p><span style="font-size: 1.5em; line-height: 1.5;">网上的资源及本文参考文献</span></p>
+<ul>
+<li><a href="http://msdn.microsoft.com/library/chs/default.asp?url=/library/CHS/jscript7/html/jsreconintroductiontoregularexpressions.asp">微软的正则表达式教程</a></li>
+<li><a href="http://msdn2.microsoft.com/zh-cn/library/system.text.regularexpressions.regex.aspx">System.Text.RegularExpressions.Regex类(MSDN)</a></li>
+<li><a href="http://www.regular-expressions.info/">专业的正则表达式教学网站(英文)</a></li>
+<li><a href="http://weblogs.asp.net/whaggard/archive/2005/02/20/377025.aspx">关于.Net下的平衡组的详细讨论（英文）</a></li>
+<li><a href="http://www.oreilly.com/catalog/regex2/">Mastering Regular Expressions (Second Edition)</a></li>
+</ul>
+<h2 id="updatelog">更新纪录</h2>
+<ol>
+<li>2006-3-27 第一版</li>
+<li>2006-10-12 第二版
+<ul>
+<li>修正了几个细节上的错误和不准确的地方</li>
+<li>增加了对处理中文时的一些说明</li>
+<li>更改了几个术语的翻译（采用了MSDN的翻译方式）</li>
+<li>增加了平衡组的介绍</li>
+<li>放弃了对The Regulator的介绍，改用Regex Tester</li>
+</ul>
+</li>
+<li>2007-3-12 V2.1
+<ul>
+<li>修正了几个小的错误</li>
+<li>增加了对处理选项(RegexOptions)的介绍</li>
+</ul>
+</li>
+<li>2007-5-28 V2.2
+<ul>
+<li>重新组织了对零宽断言的介绍</li>
+<li>删除了几个不太合适的示例，添加了几个实用的示例</li>
+<li>其它一些微小的更改</li>
+</ul>
+</li>
+<li>2007-8-3 V2.21
+<ul>
+<li>修改了几处文字错误</li>
+<li>修改/添加了对$,\b的精确说明</li>
+<li>承认了作者是个骗子</li>
+<li>给RegexTester添加了Singleline选项的相关功能</li>
+</ul>
+</li>
+<li>2008-4-13 v2.3
+<ul>
+<li>调整了部分章节的次序</li>
+<li>修改了页面布局，删除了专门的参考节</li>
+<li>针对读者的反馈，调整了部分内容</li>
+</ul>
+</li>
+<li>2009-4-11 v2.31
+<ul>
+<li>修改了几处文字错误</li>
+<li>添加了一些注释说明</li>
+<li>调整了一些措词</li>
+</ul>
+</li>
+<li>2011-8-17 v2.32
+<ul>
+<li>更改了工具介绍，换用自行开发的正则表达式测试器</li>
+</ul>
+</li>
+</ol>
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="EntryTag">
+    标签: 
+            <a href="https://www.cnblogs.com/deerchao/tag/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">正则表达式</a>,             <a href="https://www.cnblogs.com/deerchao/tag/Regex/">Regex</a>,             <a href="https://www.cnblogs.com/deerchao/tag/%E6%95%99%E7%A8%8B/">教程</a></div>
+
+    <div id="blog_post_info">
+<div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(485715,cb_blogId,1);green_channel_success(this,'谢谢推荐！');">好文要顶</a>
+        <a id="green_channel_follow" onclick="follow('cf5d360b-63cf-dd11-9e4d-001cf0cd104b');" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F30%E5%88%86%E9%92%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%20-%20deerchao%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F30%E5%88%86%E9%92%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%20-%20deerchao%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="https://home.cnblogs.com/u/deerchao/">deerchao</a><br>
+            <a href="https://home.cnblogs.com/u/deerchao/followees/">关注 - 6</a><br>
+            <a href="https://home.cnblogs.com/u/deerchao/followers/">粉丝 - 534</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow('cf5d360b-63cf-dd11-9e4d-001cf0cd104b');return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(485715,'Digg')">
+        <span class="diggnum" id="digg_count">340</span>
+    </div>
+    <div class="buryit" onclick="votePost(485715,'Bury')">
+        <span class="burynum" id="bury_count">1</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+
+<script type="text/javascript">
+    currentDiggType = 0;
+</script></div>
+    <div class="clear"></div>
+    <div id="post_next_prev">
+
+    <br>
+    <a href="https://www.cnblogs.com/deerchao/archive/2006/11/16/561872.html" class="p_n_p_prefix">» </a> 下一篇：    <a href="https://www.cnblogs.com/deerchao/archive/2006/11/16/561872.html" title="发布于 2006-11-16 02:57">正在改写C#版的ICTCLAS</a>
+
+</div>
+</div></div>
+    <p class="postfoot">posted on 
+<span id="post-date">2006-08-24 22:04</span>&nbsp;
+<a href="https://www.cnblogs.com/deerchao/">deerchao</a>&nbsp;
+阅读(<span id="post_view_count">806481</span>)&nbsp;
+评论(<span id="post_comment_count">971</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=485715" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(485715);return false;">收藏</a></p>
+</div>
+
+
+<script src="%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F30%E5%88%86%E9%92%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%20-%20deerchao%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/highlight.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = false, cb_blogId = 20876, cb_blogApp = 'deerchao', cb_blogUserGuid = 'cf5d360b-63cf-dd11-9e4d-001cf0cd104b';
+    var cb_entryId = 485715, cb_entryCreatedDate = '2006-08-24 22:04', cb_postType = 1; 
+    loadViewCount(cb_entryId);
+    loadSideColumnAd();
+</script><a name="!comments"></a>
+<div id="blog-comments-placeholder">
+
+<div id="comment_pager_top">
+    
+    <div class="pager">
+        <!-- 上一页 -->
+        <a href="#!comments" onclick="commentManager.renderComments(19, 50); return false;">
+            &lt; Prev
+        </a>
+
+        <!-- 第一页 -->
+        <a href="#!comments" onclick="commentManager.renderComments(1, 50); return false;">
+            1
+        </a>
+
+        <!-- 前半部分页码 -->
+        ···
+                <a href="#!comments" onclick="commentManager.renderComments(14, 50); return false;">
+                    14
+                </a>
+                <a href="#!comments" onclick="commentManager.renderComments(15, 50); return false;">
+                    15
+                </a>
+                <a href="#!comments" onclick="commentManager.renderComments(16, 50); return false;">
+                    16
+                </a>
+                <a href="#!comments" onclick="commentManager.renderComments(17, 50); return false;">
+                    17
+                </a>
+                <a href="#!comments" onclick="commentManager.renderComments(18, 50); return false;">
+                    18
+                </a>
+                <a href="#!comments" onclick="commentManager.renderComments(19, 50); return false;">
+                    19
+                </a>
+
+        <!-- 当前页 -->
+        <span class="current">20</span>
+
+        <!-- 后半部分页码 -->
+
+        
+        <!-- 末尾页 -->
+        
+
+        <!-- 下一页 -->
+        
+    </div>
+</div>
+
+<a name="评论"></a>
+<div id="comments">
+<h3>评论</h3>
+	<div class="feedbackNoItems"></div>
+			<h4>
+				
+<a href="#2617691" class="layer">#951楼</a>
+<a name="2617691" id="comment_anchor_2617691"></a>
+
+
+					<span>
+						
+<span class="comment_date">2013-02-17 17:18</span>
+
+
+					</span>
+				
+
+            <a id="a_comment_author_2617691" href="https://home.cnblogs.com/u/400008/" target="_blank">飞鸟_Asuka</a>
+
+			</h4>
+			<p>
+				
+</p><div id="comment_body_2617691" data-format-type="Ubb" class="blog_comment_body cnblogs-ubb">
+    写得很详细，格式也很漂亮，虽然我读的时间超过30分钟了^ ^<br>特别是那个小工具很管用哈。。。
+</div>
+        <div class="comment_vote">
+            <span class="comment_error" style="color: red"></span>
+            <a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2617691, 'Digg', this.parentElement, false);">
+                支持(2)
+            </a>
+            <a href="javascript:void(0);" class="comment_burry" onclick="return voteComment(2617691, 'Bury', this.parentElement, false);">
+                反对(0)
+            </a>
+        </div>
+        
+
+				&nbsp;&nbsp;
+
+<span class="comment_actions">
+    
+    
+    
+    
+</span>
+
+
+			<p></p>
+			<h4>
+				
+<a href="#2623145" class="layer">#952楼</a>
+<a name="2623145" id="comment_anchor_2623145"></a>
+
+
+					<span>
+						
+<span class="comment_date">2013-02-26 09:27</span>
+
+
+					</span>
+				
+
+            <a id="a_comment_author_2623145" href="https://home.cnblogs.com/u/498795/" target="_blank">qq15512009</a>
+
+			</h4>
+			<p>
+				
+</p><div id="comment_body_2623145" data-format-type="Ubb" class="blog_comment_body cnblogs-ubb">
+    <a href="http://126.am/8vi1S2" target="_blank">http://126.am/8vi1S2</a>
+</div>
+        <div class="comment_vote">
+            <span class="comment_error" style="color: red"></span>
+            <a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2623145, 'Digg', this.parentElement, false);">
+                支持(1)
+            </a>
+            <a href="javascript:void(0);" class="comment_burry" onclick="return voteComment(2623145, 'Bury', this.parentElement, false);">
+                反对(0)
+            </a>
+        </div>
+        
+
+				&nbsp;&nbsp;
+
+<span class="comment_actions">
+    
+    
+    
+    
+</span>
+
+
+			<p></p>
+			<h4>
+				
+<a href="#2624703" class="layer">#953楼</a>
+<a name="2624703" id="comment_anchor_2624703"></a>
+
+
+					<span>
+						
+<span class="comment_date">2013-02-27 23:51</span>
+
+
+					</span>
+				
+
+            <a id="a_comment_author_2624703" href="https://home.cnblogs.com/u/425093/" target="_blank">cszeus</a>
+
+			</h4>
+			<p>
+				
+</p><div id="comment_body_2624703" data-format-type="Ubb" class="blog_comment_body cnblogs-ubb">
+    lz好人一生平安啊！光看格式就知道lz不是一般人
+</div>
+        <div class="comment_vote">
+            <span class="comment_error" style="color: red"></span>
+            <a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2624703, 'Digg', this.parentElement, false);">
+                支持(7)
+            </a>
+            <a href="javascript:void(0);" class="comment_burry" onclick="return voteComment(2624703, 'Bury', this.parentElement, false);">
+                反对(0)
+            </a>
+        </div>
+        
+
+				&nbsp;&nbsp;
+
+<span class="comment_actions">
+    
+    
+    
+    
+</span>
+
+
+			<p></p>
+			<h4>
+				
+<a href="#2629033" class="layer">#954楼</a>
+<a name="2629033" id="comment_anchor_2629033"></a>
+
+
+					<span>
+						
+<span class="comment_date">2013-03-06 16:52</span>
+
+
+					</span>
+				
+
+            <a id="a_comment_author_2629033" href="https://home.cnblogs.com/u/237153/" target="_blank">我来也是真的呀</a>
+
+			</h4>
+			<p>
+				
+</p><div id="comment_body_2629033" data-format-type="Ubb" class="blog_comment_body cnblogs-ubb">
+    平衡组/递归匹配  这个看不懂要讲的是什么 ！！！
+</div>
+        <div class="comment_vote">
+            <span class="comment_error" style="color: red"></span>
+            <a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2629033, 'Digg', this.parentElement, false);">
+                支持(0)
+            </a>
+            <a href="javascript:void(0);" class="comment_burry" onclick="return voteComment(2629033, 'Bury', this.parentElement, false);">
+                反对(0)
+            </a>
+        </div>
+        
+
+				&nbsp;&nbsp;
+
+<span class="comment_actions">
+    
+    
+    
+    
+</span>
+
+
+			<p></p>
+			<h4>
+				
+<a href="#2632317" class="layer">#955楼</a>
+<a name="2632317" id="comment_anchor_2632317"></a>
+
+
+					<span>
+						
+<span class="comment_date">2013-03-11 15:07</span>
+
+
+					</span>
+				
+
+            <a id="a_comment_author_2632317" href="https://home.cnblogs.com/u/503368/" target="_blank">53小淘淘</a>
+
+			</h4>
+			<p>
+				
+</p><div id="comment_body_2632317" data-format-type="Ubb" class="blog_comment_body cnblogs-ubb">
+    谢谢楼主....
+</div>
+        <div class="comment_vote">
+            <span class="comment_error" style="color: red"></span>
+            <a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2632317, 'Digg', this.parentElement, false);">
+                支持(0)
+            </a>
+            <a href="javascript:void(0);" class="comment_burry" onclick="return voteComment(2632317, 'Bury', this.parentElement, false);">
+                反对(0)
+            </a>
+        </div>
+        
+
+				&nbsp;&nbsp;
+
+<span class="comment_actions">
+    
+    
+    
+    
+</span>
+
+
+			<p></p>
+			<h4>
+				
+<a href="#2632797" class="layer">#956楼</a>
+<a name="2632797" id="comment_anchor_2632797"></a>
+
+
+					<span>
+						
+<span class="comment_date">2013-03-12 10:04</span>
+
+
+					</span>
+				
+
+            <a id="a_comment_author_2632797" href="https://www.cnblogs.com/langzibuhuitou/" target="_blank">浪子不回头</a>
+
+			</h4>
+			<p>
+				
+</p><div id="comment_body_2632797" data-format-type="Ubb" class="blog_comment_body cnblogs-ubb">
+    获益匪浅，已经右键收藏到了本地，谢谢楼主。
+</div>
+        <div class="comment_vote">
+            <span class="comment_error" style="color: red"></span>
+            <a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2632797, 'Digg', this.parentElement, false);">
+                支持(1)
+            </a>
+            <a href="javascript:void(0);" class="comment_burry" onclick="return voteComment(2632797, 'Bury', this.parentElement, false);">
+                反对(0)
+            </a>
+        </div>
+        
+
+				&nbsp;&nbsp;
+
+<span class="comment_actions">
+    
+    
+    
+    
+</span>
+
+
+			<p></p>
+			<h4>
+				
+<a href="#2635751" class="layer">#957楼</a>
+<a name="2635751" id="comment_anchor_2635751"></a>
+
+
+					<span>
+						
+<span class="comment_date">2013-03-15 17:32</span>
+
+
+					</span>
+				
+
+            <a id="a_comment_author_2635751" href="https://home.cnblogs.com/u/505246/" target="_blank">dangdangl</a>
+
+			</h4>
+			<p>
+				
+</p><div id="comment_body_2635751" data-format-type="Ubb" class="blog_comment_body cnblogs-ubb">
+    特意注册帐号来感谢楼主的。 很详细。
+</div>
+        <div class="comment_vote">
+            <span class="comment_error" style="color: red"></span>
+            <a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2635751, 'Digg', this.parentElement, false);">
+                支持(0)
+            </a>
+            <a href="javascript:void(0);" class="comment_burry" onclick="return voteComment(2635751, 'Bury', this.parentElement, false);">
+                反对(0)
+            </a>
+        </div>
+        
+
+				&nbsp;&nbsp;
+
+<span class="comment_actions">
+    
+    
+    
+    
+</span>
+
+
+			<p></p>
+			<h4>
+				
+<a href="#2640300" class="layer">#958楼</a>
+<a name="2640300" id="comment_anchor_2640300"></a>
+
+
+					<span>
+						
+<span class="comment_date">2013-03-22 10:50</span>
+
+
+					</span>
+				
+
+            <a id="a_comment_author_2640300" href="https://www.cnblogs.com/huxq/" target="_blank">hxq_130</a>
+
+			</h4>
+			<p>
+				
+</p><div id="comment_body_2640300" data-format-type="Ubb" class="blog_comment_body cnblogs-ubb">
+    通俗易懂
+</div>
+        <div class="comment_vote">
+            <span class="comment_error" style="color: red"></span>
+            <a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2640300, 'Digg', this.parentElement, false);">
+                支持(0)
+            </a>
+            <a href="javascript:void(0);" class="comment_burry" onclick="return voteComment(2640300, 'Bury', this.parentElement, false);">
+                反对(0)
+            </a>
+        </div>
+        
+
+				&nbsp;&nbsp;
+
+<span class="comment_actions">
+    
+    
+    
+    
+</span>
+
+
+			<p></p>
+			<h4>
+				
+<a href="#2642930" class="layer">#959楼</a>
+<a name="2642930" id="comment_anchor_2642930"></a>
+
+
+					<span>
+						
+<span class="comment_date">2013-03-26 13:38</span>
+
+
+					</span>
+				
+
+            <a id="a_comment_author_2642930" href="https://www.cnblogs.com/wichell/" target="_blank">潇湘〃细雨</a>
+
+			</h4>
+			<p>
+				
+</p><div id="comment_body_2642930" data-format-type="Ubb" class="blog_comment_body cnblogs-ubb">
+    mark
+</div>
+        <div class="comment_vote">
+            <span class="comment_error" style="color: red"></span>
+            <a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2642930, 'Digg', this.parentElement, false);">
+                支持(0)
+            </a>
+            <a href="javascript:void(0);" class="comment_burry" onclick="return voteComment(2642930, 'Bury', this.parentElement, false);">
+                反对(0)
+            </a>
+        </div>
+        <span id="comment_2642930_avatar" style="display:none">
+            https://pic.cnblogs.com/face/u278717.png?id=31103300
+        </span>
+
+				&nbsp;&nbsp;
+
+<span class="comment_actions">
+    
+    
+    
+    
+</span>
+
+
+			<p></p>
+			<h4>
+				
+<a href="#2643153" class="layer">#960楼</a>
+<a name="2643153" id="comment_anchor_2643153"></a>
+
+
+					<span>
+						
+<span class="comment_date">2013-03-26 16:57</span>
+
+
+					</span>
+				
+
+            <a id="a_comment_author_2643153" href="https://www.cnblogs.com/zb-success/" target="_blank">小菜？大神？</a>
+
+			</h4>
+			<p>
+				
+</p><div id="comment_body_2643153" data-format-type="Ubb" class="blog_comment_body cnblogs-ubb">
+    学习中。。。。。
+</div>
+        <div class="comment_vote">
+            <span class="comment_error" style="color: red"></span>
+            <a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2643153, 'Digg', this.parentElement, false);">
+                支持(0)
+            </a>
+            <a href="javascript:void(0);" class="comment_burry" onclick="return voteComment(2643153, 'Bury', this.parentElement, false);">
+                反对(0)
+            </a>
+        </div>
+        <span id="comment_2643153_avatar" style="display:none">
+            https://pic.cnblogs.com/face/423390/20140210141949.png
+        </span>
+
+				&nbsp;&nbsp;
+
+<span class="comment_actions">
+    
+    
+    
+    
+</span>
+
+
+			<p></p>
+			<h4>
+				
+<a href="#2644126" class="layer">#961楼</a>
+<a name="2644126" id="comment_anchor_2644126"></a>
+
+
+					<span>
+						
+<span class="comment_date">2013-03-27 17:36</span>
+
+
+					</span>
+				
+
+            <a id="a_comment_author_2644126" href="https://home.cnblogs.com/u/329293/" target="_blank">lisency</a>
+
+			</h4>
+			<p>
+				
+</p><div id="comment_body_2644126" data-format-type="Ubb" class="blog_comment_body cnblogs-ubb">
+    说实话，以前我是因为30分钟的标题才不看这个教程的，鬼才相信30分钟能学会呢，从我刚开始接触正则表达式到现在已经有2年了，现在重新温读正则表达式的语法，顺便看了这个教程，觉得楼主写的太好了，赞一个
+</div>
+        <div class="comment_vote">
+            <span class="comment_error" style="color: red"></span>
+            <a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2644126, 'Digg', this.parentElement, false);">
+                支持(1)
+            </a>
+            <a href="javascript:void(0);" class="comment_burry" onclick="return voteComment(2644126, 'Bury', this.parentElement, false);">
+                反对(0)
+            </a>
+        </div>
+        
+
+				&nbsp;&nbsp;
+
+<span class="comment_actions">
+    
+    
+    
+    
+</span>
+
+
+			<p></p>
+			<h4>
+				
+<a href="#2647276" class="layer">#962楼</a>
+<a name="2647276" id="comment_anchor_2647276"></a>
+
+
+					<span>
+						
+<span class="comment_date">2013-04-01 13:42</span>
+
+
+					</span>
+				
+
+            <a id="a_comment_author_2647276" href="https://home.cnblogs.com/u/377224/" target="_blank">ka_miao</a>
+
+			</h4>
+			<p>
+				
+</p><div id="comment_body_2647276" data-format-type="Ubb" class="blog_comment_body cnblogs-ubb">
+    很好的文章，谢谢分享。
+</div>
+        <div class="comment_vote">
+            <span class="comment_error" style="color: red"></span>
+            <a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2647276, 'Digg', this.parentElement, false);">
+                支持(0)
+            </a>
+            <a href="javascript:void(0);" class="comment_burry" onclick="return voteComment(2647276, 'Bury', this.parentElement, false);">
+                反对(0)
+            </a>
+        </div>
+        
+
+				&nbsp;&nbsp;
+
+<span class="comment_actions">
+    
+    
+    
+    
+</span>
+
+
+			<p></p>
+			<h4>
+				
+<a href="#2650671" class="layer">#963楼</a>
+<a name="2650671" id="comment_anchor_2650671"></a>
+
+
+					<span>
+						
+<span class="comment_date">2013-04-06 17:29</span>
+
+
+					</span>
+				
+
+            <a id="a_comment_author_2650671" href="https://www.cnblogs.com/terryheihei/" target="_blank">包子xixi</a>
+
+			</h4>
+			<p>
+				
+</p><div id="comment_body_2650671" data-format-type="Ubb" class="blog_comment_body cnblogs-ubb">
+    赞哦！ 楼主感谢分享经验！
+</div>
+        <div class="comment_vote">
+            <span class="comment_error" style="color: red"></span>
+            <a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2650671, 'Digg', this.parentElement, false);">
+                支持(0)
+            </a>
+            <a href="javascript:void(0);" class="comment_burry" onclick="return voteComment(2650671, 'Bury', this.parentElement, false);">
+                反对(0)
+            </a>
+        </div>
+        
+
+				&nbsp;&nbsp;
+
+<span class="comment_actions">
+    
+    
+    
+    
+</span>
+
+
+			<p></p>
+			<h4>
+				
+<a href="#2651433" class="layer">#964楼</a>
+<a name="2651433" id="comment_anchor_2651433"></a>
+
+
+					<span>
+						
+<span class="comment_date">2013-04-07 21:14</span>
+
+
+					</span>
+				
+
+            <a id="a_comment_author_2651433" href="https://www.cnblogs.com/terryheihei/" target="_blank">包子xixi</a>
+
+			</h4>
+			<p>
+				
+</p><div id="comment_body_2651433" data-format-type="Ubb" class="blog_comment_body cnblogs-ubb">
+    果然是大忽悠，不过还是好好学了一下，虽然不会记住很多，不过用到的时候肯定会回来继续看得！ 已经有大概的理解啦。
+</div>
+        <div class="comment_vote">
+            <span class="comment_error" style="color: red"></span>
+            <a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2651433, 'Digg', this.parentElement, false);">
+                支持(0)
+            </a>
+            <a href="javascript:void(0);" class="comment_burry" onclick="return voteComment(2651433, 'Bury', this.parentElement, false);">
+                反对(0)
+            </a>
+        </div>
+        
+
+				&nbsp;&nbsp;
+
+<span class="comment_actions">
+    
+    
+    
+    
+</span>
+
+
+			<p></p>
+			<h4>
+				
+<a href="#2655317" class="layer">#965楼</a>
+<a name="2655317" id="comment_anchor_2655317"></a>
+
+
+					<span>
+						
+<span class="comment_date">2013-04-11 17:10</span>
+
+
+					</span>
+				
+
+            <a id="a_comment_author_2655317" href="https://www.cnblogs.com/_zjl/" target="_blank">陌香</a>
+
+			</h4>
+			<p>
+				
+</p><div id="comment_body_2655317" data-format-type="Ubb" class="blog_comment_body cnblogs-ubb">
+    能看出来楼主写这篇文章花费了很多心思,很庆幸能看到这篇文章,非常感谢.
+</div>
+        <div class="comment_vote">
+            <span class="comment_error" style="color: red"></span>
+            <a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2655317, 'Digg', this.parentElement, false);">
+                支持(0)
+            </a>
+            <a href="javascript:void(0);" class="comment_burry" onclick="return voteComment(2655317, 'Bury', this.parentElement, false);">
+                反对(0)
+            </a>
+        </div>
+        <span id="comment_2655317_avatar" style="display:none">
+            https://pic.cnblogs.com/face/u74716.jpg
+        </span>
+
+				&nbsp;&nbsp;
+
+<span class="comment_actions">
+    
+    
+    
+    
+</span>
+
+
+			<p></p>
+			<h4>
+				
+<a href="#2660909" class="layer">#966楼</a>
+<a name="2660909" id="comment_anchor_2660909"></a>
+
+
+					<span>
+						
+<span class="comment_date">2013-04-18 17:02</span>
+
+
+					</span>
+				
+
+            <a id="a_comment_author_2660909" href="https://home.cnblogs.com/u/518777/" target="_blank">翔阿狗</a>
+
+			</h4>
+			<p>
+				
+</p><div id="comment_body_2660909" data-format-type="Ubb" class="blog_comment_body cnblogs-ubb">
+    这篇文章，反复看了好多次，每次都有收获！
+</div>
+        <div class="comment_vote">
+            <span class="comment_error" style="color: red"></span>
+            <a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2660909, 'Digg', this.parentElement, false);">
+                支持(1)
+            </a>
+            <a href="javascript:void(0);" class="comment_burry" onclick="return voteComment(2660909, 'Bury', this.parentElement, false);">
+                反对(0)
+            </a>
+        </div>
+        
+
+				&nbsp;&nbsp;
+
+<span class="comment_actions">
+    
+    
+    
+    
+</span>
+
+
+			<p></p>
+			<h4>
+				
+<a href="#2667052" class="layer">#967楼</a>
+<a name="2667052" id="comment_anchor_2667052"></a>
+
+
+					<span>
+						
+<span class="comment_date">2013-04-26 14:14</span>
+
+
+					</span>
+				
+
+            <a id="a_comment_author_2667052" href="https://www.cnblogs.com/rainstorm/" target="_blank">snet</a>
+
+			</h4>
+			<p>
+				
+</p><div id="comment_body_2667052" data-format-type="Ubb" class="blog_comment_body cnblogs-ubb">
+    顶顶顶顶顶顶顶顶，非常高质量的文章。望作者能多给写示例。
+</div>
+        <div class="comment_vote">
+            <span class="comment_error" style="color: red"></span>
+            <a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2667052, 'Digg', this.parentElement, false);">
+                支持(0)
+            </a>
+            <a href="javascript:void(0);" class="comment_burry" onclick="return voteComment(2667052, 'Bury', this.parentElement, false);">
+                反对(0)
+            </a>
+        </div>
+        <span id="comment_2667052_avatar" style="display:none">
+            https://pic.cnblogs.com/face/494079/20130130202341.png
+        </span>
+
+				&nbsp;&nbsp;
+
+<span class="comment_actions">
+    
+    
+    
+    
+</span>
+
+
+			<p></p>
+			<h4>
+				
+<a href="#2667765" class="layer">#968楼</a>
+<a name="2667765" id="comment_anchor_2667765"></a>
+
+
+					<span>
+						
+<span class="comment_date">2013-04-27 11:05</span>
+
+
+					</span>
+				
+
+            <a id="a_comment_author_2667765" href="https://www.cnblogs.com/HeShui/" target="_blank">河水</a>
+
+			</h4>
+			<p>
+				
+</p><div id="comment_body_2667765" data-format-type="Ubb" class="blog_comment_body cnblogs-ubb">
+    来这里看了一次又一次,好东西啊,每当我遇到正则问题我一般都先在这里看看
+</div>
+        <div class="comment_vote">
+            <span class="comment_error" style="color: red"></span>
+            <a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2667765, 'Digg', this.parentElement, false);">
+                支持(0)
+            </a>
+            <a href="javascript:void(0);" class="comment_burry" onclick="return voteComment(2667765, 'Bury', this.parentElement, false);">
+                反对(0)
+            </a>
+        </div>
+        
+
+				&nbsp;&nbsp;
+
+<span class="comment_actions">
+    
+    
+    
+    
+</span>
+
+
+			<p></p>
+			<h4>
+				
+<a href="#2669469" class="layer">#969楼</a>
+<a name="2669469" id="comment_anchor_2669469"></a>
+
+
+					<span>
+						
+<span class="comment_date">2013-04-29 16:38</span>
+
+
+					</span>
+				
+
+            <a id="a_comment_author_2669469" href="https://home.cnblogs.com/u/196440/" target="_blank">无意feel</a>
+
+			</h4>
+			<p>
+				
+</p><div id="comment_body_2669469" data-format-type="Ubb" class="blog_comment_body cnblogs-ubb">
+    好吧，总算看完了，一度怀疑自己是不是有看下去的必要...写的很好的文章，值得反复阅读。
+</div>
+        <div class="comment_vote">
+            <span class="comment_error" style="color: red"></span>
+            <a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2669469, 'Digg', this.parentElement, false);">
+                支持(1)
+            </a>
+            <a href="javascript:void(0);" class="comment_burry" onclick="return voteComment(2669469, 'Bury', this.parentElement, false);">
+                反对(0)
+            </a>
+        </div>
+        
+
+				&nbsp;&nbsp;
+
+<span class="comment_actions">
+    
+    
+    
+    
+</span>
+
+
+			<p></p>
+			<h4>
+				
+<a href="#2671840" class="layer">#970楼</a>
+<a name="2671840" id="comment_anchor_2671840"></a>
+
+
+					<span>
+						
+<span class="comment_date">2013-05-03 15:18</span>
+
+
+					</span>
+				
+
+            <a id="a_comment_author_2671840" href="https://home.cnblogs.com/u/524133/" target="_blank">RyanR</a>
+
+			</h4>
+			<p>
+				
+</p><div id="comment_body_2671840" data-format-type="Ubb" class="blog_comment_body cnblogs-ubb">
+    收藏了，值得反复阅读的好文章！
+</div>
+        <div class="comment_vote">
+            <span class="comment_error" style="color: red"></span>
+            <a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2671840, 'Digg', this.parentElement, false);">
+                支持(0)
+            </a>
+            <a href="javascript:void(0);" class="comment_burry" onclick="return voteComment(2671840, 'Bury', this.parentElement, false);">
+                反对(0)
+            </a>
+        </div>
+        
+
+				&nbsp;&nbsp;
+
+<span class="comment_actions">
+    
+    
+    
+    
+</span>
+
+
+			<p></p>
+			<h4>
+				
+<a href="#2677976" class="layer">#971楼</a>
+<a name="2677976" id="comment_anchor_2677976"></a>
+
+        <span id="comment-maxId" style="display:none">2677976</span>
+        <span id="comment-maxDate" style="display:none">2013/5/10 下午10:25:26</span>
+
+					<span>
+						
+<span class="comment_date">2013-05-10 22:25</span>
+
+
+					</span>
+				
+
+            <a id="a_comment_author_2677976" href="https://www.cnblogs.com/asmblog/" target="_blank">week_translator</a>
+
+			</h4>
+			<p>
+				
+</p><div id="comment_body_2677976" data-format-type="Ubb" class="blog_comment_body cnblogs-ubb">
+    好文章 必须顶
+</div>
+        <div class="comment_vote">
+            <span class="comment_error" style="color: red"></span>
+            <a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2677976, 'Digg', this.parentElement, false);">
+                支持(0)
+            </a>
+            <a href="javascript:void(0);" class="comment_burry" onclick="return voteComment(2677976, 'Bury', this.parentElement, false);">
+                反对(0)
+            </a>
+        </div>
+        <span id="comment_2677976_avatar" style="display:none">
+            https://pic.cnblogs.com/face/511126/20130330004447.png
+        </span>
+
+				&nbsp;&nbsp;
+
+<span class="comment_actions">
+    
+    
+    
+    
+</span>
+
+
+			<p></p>
+</div>
+
+<div id="comment_pager_bottom">
+    
+    <div class="pager">
+        <!-- 上一页 -->
+        <a href="#!comments" onclick="commentManager.renderComments(19, 50); return false;">
+            &lt; Prev
+        </a>
+
+        <!-- 第一页 -->
+        <a href="#!comments" onclick="commentManager.renderComments(1, 50); return false;">
+            1
+        </a>
+
+        <!-- 前半部分页码 -->
+        ···
+                <a href="#!comments" onclick="commentManager.renderComments(14, 50); return false;">
+                    14
+                </a>
+                <a href="#!comments" onclick="commentManager.renderComments(15, 50); return false;">
+                    15
+                </a>
+                <a href="#!comments" onclick="commentManager.renderComments(16, 50); return false;">
+                    16
+                </a>
+                <a href="#!comments" onclick="commentManager.renderComments(17, 50); return false;">
+                    17
+                </a>
+                <a href="#!comments" onclick="commentManager.renderComments(18, 50); return false;">
+                    18
+                </a>
+                <a href="#!comments" onclick="commentManager.renderComments(19, 50); return false;">
+                    19
+                </a>
+
+        <!-- 当前页 -->
+        <span class="current">20</span>
+
+        <!-- 后半部分页码 -->
+
+        
+        <!-- 末尾页 -->
+        
+
+        <!-- 下一页 -->
+        
+    </div>
+</div>
+
+
+</div>
+<script>
+    var commentManager = new blogCommentManager();
+    commentManager.renderComments(0);
+</script>
+
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container" style="visibility: visible;"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank" onclick="ga('send', 'event', 'Link', 'click', 'T2-ucancode')">【推荐】超50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="https://cloud.tencent.com/act/seckill?fromSource=gwzcw.3498755.3498755.3498755&amp;utm_medium=cpc&amp;utm_id=gwzcw.3498755.3498755.3498755" target="_blank" onclick="ga('send', 'event', 'Link', 'click', 'T2-腾讯云')">【推荐】腾讯云产品限时秒杀，爆款1核2G云服务器99元/年！</a><br><a href="https://developer.aliyun.com/article/715141?utm_content=g_1000088938" target="_blank" onclick="ga('send', 'event', 'Link', 'click', 'T2-阿里云开发者社区')">【推荐】12知识点+20干货案例+110面试题，助你拿offer | Python面试宝典</a><br><a href="https://developer.aliyun.com/ask/257760?utm_content=g_1000088949" target="_blank" onclick="ga('send', 'event', 'Link', 'click', 'T2-阿里云开发者社区')">【推荐】精品问答：大数据计算技术 1000 问</a><br></div>
+    <div id="opt_under_post"></div>
+    <script async="async" src="%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F30%E5%88%86%E9%92%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%20-%20deerchao%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/gpt.js"></script>
+    <script>
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+    </script>
+    <script>
+        googletag.cmd.push(function () {
+            googletag.defineSlot("/1090369/C1", [300, 250], "div-gpt-ad-1546353474406-0").addService(googletag.pubads());
+            googletag.defineSlot("/1090369/C2", [468, 60], "div-gpt-ad-1539008685004-0").addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>
+    <div id="cnblogs_c1" class="c_ad_block" style="">
+        <div id="div-gpt-ad-1546353474406-0" style="height: 250px; width: 300px;"><div id="google_ads_iframe_/1090369/C1_0__container__" style="border: 0pt none; width: 300px; height: 250px;"></div></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block" style="">
+        <div id="div-gpt-ad-1539008685004-0" style="height: 60px; width: 468px;">
+            <script>
+                if (new Date() >= new Date(2018, 9, 13)) {
+                    googletag.cmd.push(function () { googletag.display("div-gpt-ad-1539008685004-0"); });
+                }
+            </script>
+        <div id="google_ads_iframe_/1090369/C2_0__container__" style="border: 0pt none; width: 468px; height: 60px;"></div></div>
+    </div>
+    <div id="under_post_kb">
+<div class="itnews c_ad_block">
+    <b>最新 IT 新闻</b>:
+    <br>
+ ·              <a href="https://news.cnblogs.com/n/660804/" target="_blank">屏下摄像头，实现这一全面屏终极方案有多难？</a>
+            <br>
+ ·              <a href="https://news.cnblogs.com/n/660803/" target="_blank">创业板开启注册制改革，谁将迎来利好？</a>
+            <br>
+ ·              <a href="https://news.cnblogs.com/n/660801/" target="_blank">蒋凡玩漏，黄峥够嗨</a>
+            <br>
+ ·              <a href="https://news.cnblogs.com/n/660800/" target="_blank">微软签可口可乐五年大单 云计算用于应对后疫情时代</a>
+            <br>
+ ·              <a href="https://news.cnblogs.com/n/660799/" target="_blank">联想中国所有工厂基地全部满产 已完成万人招聘</a>
+            <br>
+    » <a href="https://news.cnblogs.com/" title="IT 新闻" target="_blank">更多新闻...</a>
+</div></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+        fixPostBody();
+        deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);        deliverAdT2();
+        deliverAdC1();
+        deliverAdC2();
+        loadNewsAndKb();
+        loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+        loadOptUnderPost();
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    </script>
+</div></div>
+
+
+</div>
+<div id="rightmenu">
+    
+<div id="my_links">
+<h3>导航</h3>
+<ul>
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/deerchao/">
+首页</a>
+</li>
+
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/deerchao">
+联系</a></li>
+<li>
+<a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/deerchao/rss/">
+订阅</a></li><!--<partial name="./Shared/_XmlLink.cshtml" model="Model" />-->
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+</div>
+
+
+    <div id="calendar">
+        <div id="blog-calendar" style="">
+
+<table id="blogCalendar" class="Cal" title="Calendar" cellspacing="0" cellpadding="0" border="0">
+    <tbody>
+        <tr>
+            <td colspan="7">
+                <table class="CalTitle" cellspacing="0" border="0">
+                    <tbody>
+                        <tr>
+                            <td class="CalNextPrev">
+                                <a href="javascript:void(0);" onclick="loadBlogCalendar('2006/07/24'); return false;">&lt;</a>
+                            </td>
+                            <td align="center">2006年8月</td>
+                            <td class="CalNextPrev" align="right">
+                                <a href="javascript:void(0);" onclick="loadBlogCalendar('2006/09/24'); return false;">&gt;</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+                    <th class="CalDayHeader" abbr="日" scope="col" align="center">日</th>
+                    <th class="CalDayHeader" abbr="一" scope="col" align="center">一</th>
+                    <th class="CalDayHeader" abbr="二" scope="col" align="center">二</th>
+                    <th class="CalDayHeader" abbr="三" scope="col" align="center">三</th>
+                    <th class="CalDayHeader" abbr="四" scope="col" align="center">四</th>
+                    <th class="CalDayHeader" abbr="五" scope="col" align="center">五</th>
+                    <th class="CalDayHeader" abbr="六" scope="col" align="center">六</th>
+        </tr>
+            <tr>
+                            <td class="CalOtherMonthDay" align="center">30</td>
+                            <td class="CalOtherMonthDay" align="center">31</td>
+                        <td class="" align="center">
+                            1
+                        </td>
+                        <td class="" align="center">
+                            2
+                        </td>
+                        <td class="" align="center">
+                            3
+                        </td>
+                        <td class="" align="center">
+                            4
+                        </td>
+                    <td class="CalWeekendDay" align="center">
+                        5
+                    </td>
+            </tr>
+                <tr>
+                        <td class="CalWeekendDay" align="center">
+                            6
+                        </td>
+                            <td class="" align="center">
+                                7
+                            </td>
+                            <td class="" align="center">
+                                8
+                            </td>
+                            <td class="" align="center">
+                                9
+                            </td>
+                            <td class="" align="center">
+                                10
+                            </td>
+                            <td class="" align="center">
+                                11
+                            </td>
+                        <td class="CalWeekendDay" align="center">
+                            12
+                        </td>
+                </tr>
+                <tr>
+                        <td class="CalWeekendDay" align="center">
+                            13
+                        </td>
+                            <td class="" align="center">
+                                14
+                            </td>
+                            <td class="" align="center">
+                                15
+                            </td>
+                            <td class="" align="center">
+                                16
+                            </td>
+                            <td class="" align="center">
+                                17
+                            </td>
+                            <td class="" align="center">
+                                18
+                            </td>
+                        <td class="CalWeekendDay" align="center">
+                            19
+                        </td>
+                </tr>
+                <tr>
+                        <td class="CalWeekendDay" align="center">
+                            20
+                        </td>
+                            <td class="" align="center">
+                                21
+                            </td>
+                            <td class="" align="center">
+                                22
+                            </td>
+                            <td class="" align="center">
+                                23
+                            </td>
+                            <td class="" align="center">
+                                <a href="https://www.cnblogs.com/deerchao/archive/2006/08/24.html"><u>24</u></a>
+                            </td>
+                            <td class="" align="center">
+                                25
+                            </td>
+                        <td class="CalWeekendDay" align="center">
+                            26
+                        </td>
+                </tr>
+                <tr>
+                        <td class="CalWeekendDay" align="center">
+                            27
+                        </td>
+                            <td class="" align="center">
+                                28
+                            </td>
+                            <td class="" align="center">
+                                29
+                            </td>
+                            <td class="" align="center">
+                                30
+                            </td>
+                            <td class="" align="center">
+                                31
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                1
+                            </td>
+                        <td class="CalOtherMonthDay" align="center">
+                            2
+                        </td>
+                </tr>
+                <tr>
+                        <td class="CalOtherMonthDay" align="center">
+                            3
+                        </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                4
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                5
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                6
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                7
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                8
+                            </td>
+                        <td class="CalOtherMonthDay" align="center">
+                            9
+                        </td>
+                </tr>
+    </tbody>
+</table></div>
+    </div>
+    <script>loadBlogDefaultCalendar();</script>
+    
+<div id="sidebar_news" class="newsItem"><h3>公告</h3>
+<div class="newsItem">
+	
+<div id="blog-news">
+    <p>给网络添加价值,就是让自己增加价值.</p>
+<p>本博客所有内容,均为原创或对互联网已有资源的再加工,希望对你有用.在声明原作者的前提下,你可以任意使用,但本人对其正确性,使用的后果等不做任何担保,也不负任何责任.</p>
+<p><strong><a href="https://deerchao.cn/tutorials/regex/regex.htm">正则表达式30分钟入门教程</a></strong></p>
+<p><strong><a href="https://deerchao.cnt/tools/regex_tester/index.htm">正则表达式测试器</a></strong></p>
+<p><a href="http://www.stackoverflow.com/"><img src="%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F30%E5%88%86%E9%92%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%20-%20deerchao%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/stackoverflow.png" alt="">stackoverflow</a></p>
+<script type="text/javascript">window['__document_write_ajax_callbacks__']['4']();</script><script type="text/javascript">window['__document_write_ajax_callbacks__']['1']();</script>
+<div style="display: none" id="__document_write_ajax_div-2"></div><script type="text/javascript">window['__document_write_ajax_callbacks__']['2']();</script>
+    <div id="profile_block">
+        昵称：
+        <a href="https://home.cnblogs.com/u/deerchao/">
+            deerchao
+        </a>
+        <br>
+        园龄：
+        <a href="https://home.cnblogs.com/u/deerchao/" title="入园时间：2006-08-24">
+            13年8个月
+        </a>
+        <br>
+        粉丝：
+        <a href="https://home.cnblogs.com/u/deerchao/followers/">
+            534
+        </a>
+        <br>
+        关注：
+        <a href="https://home.cnblogs.com/u/deerchao/followees/">
+            6
+        </a>
+        <div id="p_b_follow">
+<a href="javascript:void(0)" onclick="follow('cf5d360b-63cf-dd11-9e4d-001cf0cd104b')">+加关注</a></div>
+        <script type="text/javascript">window['__document_write_ajax_callbacks__']['5']();</script><script>window['__document_write_ajax_callbacks__']['3']();</script>
+    </div>
+</div>
+</div>
+
+</div>
+
+<div id="sidebar_ad"></div>
+    <div id="blog_stats">
+<h3>统计</h3>
+<ul>
+<li>随笔 - 
+154</li>
+<li>文章 - 
+9</li>
+<li>评论 - 
+1645
+<!--<li>引用 - <partial name="./Shared/_PingTrackCount.cshtml" model="BlogServer.Web.Models.DetailBlogPage" />-->
+</li>
+</ul>
+</div>
+
+
+    <div id="blog-sidecolumn">
+<!-- 搜索 -->
+<div id="sidebar_search" class="sidebar-block">
+    <div id="sidebar_search" class="mySearch">
+        <h3 class="catListTitle">搜索</h3>
+        <div id="sidebar_search_box">
+            <div id="widget_my_zzk" class="div_my_zzk">
+                <input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk">
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<!-- 常用链接 -->
+<div id="sidebar_shortcut" class="sidebar-block">
+    
+<h3 class="catListTitle">
+常用链接
+</h3>
+<ul>
+        <li>
+
+<a href="https://www.cnblogs.com/deerchao/p/" title="我的博客的随笔列表">我的随笔</a>
+</li>
+        <li>
+
+<a href="https://www.cnblogs.com/deerchao/MyComments.html" title="我的发表过的评论列表">我的评论</a>
+</li>
+        <li>
+
+<a href="https://www.cnblogs.com/deerchao/OtherPosts.html" title="我评论过的随笔列表">我的参与</a>
+</li>
+        <li>
+
+<a href="https://www.cnblogs.com/deerchao/RecentComments.html" title="我的博客的评论列表">最新评论</a>
+</li>
+        <li>
+
+<a href="https://www.cnblogs.com/deerchao/tag/" title="我的博客的标签列表">我的标签</a>
+</li>
+</ul>
+
+<!-- TODO: 检查是否有使用这一部分的控件，如果没有则应该删除。 -->
+<div id="itemListLin_con" style="display:none">
+    <ul>
+
+    </ul>
+</div>
+
+</div>
+
+<!-- 最新随笔 -->
+
+
+
+<!-- 我的标签 -->
+<div id="sidebar_toptags" class="sidebar-block">
+    
+<h3>我的标签</h3>
+<div id="MyTag">
+    <ul>
+        
+        <li>
+            <a href="https://www.cnblogs.com/deerchao/tag/SVN/">SVN</a>(4)
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/deerchao/tag/Regex/">Regex</a>(3)
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/deerchao/tag/Javascript/">Javascript</a>(3)
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/deerchao/tag/jQuery/">jQuery</a>(3)
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/deerchao/tag/Ajax/">Ajax</a>(3)
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/deerchao/tag/asp.net/">asp.net</a>(3)
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/deerchao/tag/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">正则表达式</a>(3)
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/deerchao/tag/sqlite/">sqlite</a>(3)
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/deerchao/tag/%E4%B8%8B%E8%BD%BD/">下载</a>(2)
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/deerchao/tag/%E6%B1%89%E5%8C%96/">汉化</a>(2)
+        </li>
+    <li>
+        <a href="https://www.cnblogs.com/deerchao/tag/">更多</a>
+    </li>
+
+    </ul>
+</div>
+
+</div>
+
+<!-- 积分与排名 -->
+<div id="sidebar_scorerank" class="sidebar-block">
+    <h3>积分与排名</h3>
+<ul>
+    <li>
+        积分 - 
+298603
+    </li>
+    <li>
+        排名 - 
+1308
+    </li>
+</ul>
+</div>
+
+<!-- 随笔分类、随笔档案、文章分类、新闻分类、相册、链接 -->
+<div id="sidebar_categories">
+    
+		<h3>
+
+随笔档案
+<span style="font-size:11px;font-weight:normal">(154)</span>
+
+</h3>
+				<ul>
+			
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2019/09.html" rel="" target="">
+    2019年9月(1)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2015/05.html" rel="" target="">
+    2015年5月(1)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2011/05.html" rel="" target="">
+    2011年5月(1)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2011/03.html" rel="" target="">
+    2011年3月(1)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2010/05.html" rel="" target="">
+    2010年5月(1)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2010/04.html" rel="" target="">
+    2010年4月(4)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2010/03.html" rel="" target="">
+    2010年3月(1)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2010/02.html" rel="" target="">
+    2010年2月(1)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2010/01.html" rel="" target="">
+    2010年1月(1)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2009/12.html" rel="" target="">
+    2009年12月(1)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2009/11.html" rel="" target="">
+    2009年11月(3)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2009/10.html" rel="" target="">
+    2009年10月(1)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2009/08.html" rel="" target="">
+    2009年8月(1)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2009/04.html" rel="" target="">
+    2009年4月(1)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2009/03.html" rel="" target="">
+    2009年3月(2)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2009/02.html" rel="" target="">
+    2009年2月(1)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2009/01.html" rel="" target="">
+    2009年1月(4)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2008/12.html" rel="" target="">
+    2008年12月(1)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2008/11.html" rel="" target="">
+    2008年11月(2)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2008/09.html" rel="" target="">
+    2008年9月(2)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2008/08.html" rel="" target="">
+    2008年8月(4)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2008/07.html" rel="" target="">
+    2008年7月(4)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2008/06.html" rel="" target="">
+    2008年6月(6)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2008/05.html" rel="" target="">
+    2008年5月(5)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2008/04.html" rel="" target="">
+    2008年4月(4)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2008/03.html" rel="" target="">
+    2008年3月(5)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2008/02.html" rel="" target="">
+    2008年2月(7)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2008/01.html" rel="" target="">
+    2008年1月(3)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2007/12.html" rel="" target="">
+    2007年12月(6)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2007/11.html" rel="" target="">
+    2007年11月(3)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2007/10.html" rel="" target="">
+    2007年10月(2)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2007/09.html" rel="" target="">
+    2007年9月(10)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2007/08.html" rel="" target="">
+    2007年8月(13)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2007/07.html" rel="" target="">
+    2007年7月(5)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2007/06.html" rel="" target="">
+    2007年6月(1)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2007/05.html" rel="" target="">
+    2007年5月(11)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2007/04.html" rel="" target="">
+    2007年4月(13)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2007/03.html" rel="" target="">
+    2007年3月(8)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2007/02.html" rel="" target="">
+    2007年2月(6)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2007/01.html" rel="" target="">
+    2007年1月(2)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2006/12.html" rel="" target="">
+    2006年12月(2)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2006/11.html" rel="" target="">
+    2006年11月(2)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archive/2006/08.html" rel="" target="">
+    2006年8月(1)
+</a>
+ 
+</li>
+			
+				</ul>
+		<h3>
+
+文章分类
+<span style="font-size:11px;font-weight:normal">(9)</span>
+
+</h3>
+				<ul>
+			
+				<li>
+<a href="https://www.cnblogs.com/deerchao/category/85417.html" rel="" target="">
+    Castle(3)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/category/92487.html" rel="" target="">
+    Chameleon(6)
+</a>
+ 
+</li>
+			
+				</ul>
+		<h3>
+
+文章档案
+<span style="font-size:11px;font-weight:normal">(9)</span>
+
+</h3>
+				<ul>
+			
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archives/2007/09.html" rel="nofollow noopener noreferrer" target="">
+    2007年9月(1)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archives/2007/05.html" rel="nofollow noopener noreferrer" target="">
+    2007年5月(5)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archives/2007/04.html" rel="nofollow noopener noreferrer" target="">
+    2007年4月(1)
+</a>
+ 
+</li>
+				<li>
+<a href="https://www.cnblogs.com/deerchao/archives/2007/02.html" rel="nofollow noopener noreferrer" target="">
+    2007年2月(2)
+</a>
+ 
+</li>
+			
+				</ul>
+
+
+</div>
+
+<!-- 最新评论 -->
+<div id="sidebar_recentcomments" class="sidebar-block">
+    <div id="recent_comments_wrap" class="RecentComment">
+    <h3 class="catListTitle">最新评论</h3>
+    <div class="RecentCommentBlock">
+        <ul>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/deerchao/archive/2007/08/03/842155.html">1. Re:终于找到更好的免费Sqlite管理工具了..</a></li>
+                    <li class="recent_comment_body">navicat通杀</li>
+                    <li class="recent_comment_author">--Jeffiy</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/deerchao/p/4485707.html">2. Re:诚聘：全栈开发人员，三线城市10-16K</a></li>
+                    <li class="recent_comment_body">心有余而力不足焉</li>
+                    <li class="recent_comment_author">--jiangjunzhang</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/deerchao/archive/2007/08/14/855788.html">3. Re:如何修改appSettings节的内容</a></li>
+                    <li class="recent_comment_body">顶，和其他人不一样。if (ConfigurationManager.AppSettings[key] != null) { isModified = true; }//没用过楼主的方式，好文。 Co...</li>
+                    <li class="recent_comment_author">--风寒晓</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/deerchao/archive/2007/08/09/849361.html">4. Re:HttpClient, 使用C#操作Web</a></li>
+                    <li class="recent_comment_body">中如何使用？</li>
+                    <li class="recent_comment_author">--阿超－</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/deerchao/archive/2009/02/23/1396707.html">5. Re:jQuery.Excel, 使用Ctrl+方向键/Home/End在input表格中移动</a></li>
+                    <li class="recent_comment_body">jQuery Mobile基础视频教程（24集全）百度网盘下载地址pan.baidu.com/share/link?shareid=439193&amp;uk=2302094866jQuery Mobile ...</li>
+                    <li class="recent_comment_author">--mrlbor</li>
+        </ul>
+    </div>
+</div>
+</div>
+
+
+
+<!-- 阅读排行榜 -->
+
+
+<!-- 评论排行榜 -->
+<div id="sidebar_topcommentedposts" class="sidebar-block">
+    
+<div id="topfeedback_posts_wrap">
+    <h3 class="catListTitle">评论排行榜</h3>
+    <div id="TopFeedbackPostsBlock">
+        <ul style="word-break:break-all">
+                    <li>
+                        <a href="https://www.cnblogs.com/deerchao/archive/2006/08/24/zhengzhe30fengzhongjiaocheng.html">
+                            1. 正则表达式30分钟入门教程(971)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/deerchao/archive/2007/09/19/898898.html">
+                            2. 软件设计基本原则(135)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/deerchao/archive/2007/08/09/849361.html">
+                            3. HttpClient, 使用C#操作Web(42)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/deerchao/archive/2007/02/15/651411.html">
+                            4. 用正则表达式找出不包含连续字符串abc的单词(33)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/deerchao/archive/2007/03/16/677355.html">
+                            5. 使用 LumiSoft.Net.POP3.Client 接收邮件(32)
+                        </a>
+                    </li>
+        </ul>
+    </div>
+</div>
+</div>
+
+<!-- 推荐排行榜 -->
+<div id="sidebar_topdiggedposts" class="sidebar-block">
+    
+<div id="topdigg_posts_wrap">
+    <div class="catListView">
+        <h3 class="catListTitle">推荐排行榜</h3>
+        <div id="TopDiggPostsBlock">
+            <ul style="word-break: break-all">
+                        <li>
+                            <a href="https://www.cnblogs.com/deerchao/archive/2006/08/24/zhengzhe30fengzhongjiaocheng.html">
+                                1. 正则表达式30分钟入门教程(340)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.cnblogs.com/deerchao/archive/2007/08/09/849361.html">
+                                2. HttpClient, 使用C#操作Web(6)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.cnblogs.com/deerchao/archive/2007/08/14/855788.html">
+                                3. 如何修改appSettings节的内容(3)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.cnblogs.com/deerchao/archive/2007/03/16/677355.html">
+                                4. 使用 LumiSoft.Net.POP3.Client 接收邮件(2)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.cnblogs.com/deerchao/archive/2007/08/03/842155.html">
+                                5. 终于找到更好的免费Sqlite管理工具了..(2)
+                            </a>
+                        </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div></div>
+    <script>loadBlogSideColumn();</script>
+    <div id="footer">
+	Powered by: 
+	<br>
+	
+	
+<a href="https://www.cnblogs.com/" id="Footer1_Hyperlink3" style="font-size: 12px; font-family: Verdana">博客园</a>
+	<br>
+	Copyright © 2020 deerchao
+<br><span id="poweredby">Powered by .NET Core on Kubernetes</span>
+
+</div>
+
+
+</div>
+    
+
+<script type="text/javascript">
+google_ad_client = "ca-pub-1134642721173543";
+/* 博客园-图片版 */
+google_ad_slot = "3710403182";
+google_ad_width = 250;
+google_ad_height = 250;
+//</script><script type="text/javascript">getFollowStatus('cf5d360b-63cf-dd11-9e4d-001cf0cd104b');</script></body></html>

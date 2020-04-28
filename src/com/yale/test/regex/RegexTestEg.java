@@ -7,8 +7,8 @@ import java.util.regex.Pattern;
 
 /**
  * 正则表达式练习
+ * https://www.cnblogs.com/deerchao/archive/2006/08/24/zhengzhe30fengzhongjiaocheng.html
  * @author lenovo
- *
  */
 public class RegexTestEg {
 	public static void main(String[] args) throws ParseException {
