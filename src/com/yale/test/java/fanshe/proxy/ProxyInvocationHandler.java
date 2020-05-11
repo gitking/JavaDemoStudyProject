@@ -80,7 +80,11 @@ public class ProxyInvocationHandler {
 	    //JDK1.7是这样写的, System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");jdk8及之前：
 		//jdk8之后：
 		System.setProperty("jdk.proxy.ProxyGenerator.saveGeneratedFiles", "true");
-
+		/**
+		 * https://www.iteye.com/blog/rednaxelafx-727938
+		 * https://www.iteye.com/blog/rednaxelafx-548536
+		 * 上面这俩篇文章是讲,如果将JVM动态生成的class文件保存下来的
+		 */
 		ISubjectSec subject = (ISubjectSec)new ProxySubjectSec().bind(new RealSubjectSec());
 		subject.eat("鱼香肉丝", 20);
 	}

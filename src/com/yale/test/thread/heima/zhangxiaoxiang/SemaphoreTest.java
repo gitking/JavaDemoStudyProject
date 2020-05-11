@@ -10,22 +10,26 @@ import java.util.concurrent.Semaphore;
  * 1、Semaphore等待线程可以是随机获得优先机会,也可以是按照先来后到的顺序获得机会,这取决于构造Semaphore对象时传入的参数选项
  * 2，单个信号量的Semaphore对象可以实现互斥锁的功能,并且可以是由一个线程获得了锁,.再由另一个线程释放锁,这可以用于死锁恢复的一些场合
  * @author dell
- *
  */
 public class SemaphoreTest {
 
 	public static void main(String[] args) {
 		ExecutorService es = Executors.newCachedThreadPool();
-		final Semaphore sp = new Semaphore(3);//每个线程都持有这个对象,最多有三个线程同时运行
+		final Semaphore sp = new Semaphore(3);//每个线程都持有这个对象,最多有三个线程同时运行,Semaphore的主要含义就是限流
 		//Semaphore还有一个构造方法,第二个参数是:是否公平,默认是不公平的,线程随机获得机会
 //		  public Semaphore(int permits, boolean fair) {
 //		        sync = fair ? new FairSync(permits) : new NonfairSync(permits);
 //		    }
+		/**
+		 * 怎么实现公平，排队就是公平,靠队列来实现
+		 * reentrantlock.CountDownLatch. CyclicBarrier、 Phaser. ReadWriteLock、 Semaphore还有后面要讲的Exchanger
+		 * 都是用同一个队列，同一个类来实现的，这个类叫AQS。
+		 */
 		for (int i=0;i<10;i++) {
 			Runnable runable = new Runnable(){
 				public void run() {
 					try {
-						sp.acquire();//获得许可
+						sp.acquire();//获得许可,这个方法是阻塞方法，阻塞方法的意思是说我大概acquire不到的话我就停在这，acquire的意思就是得到。
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
