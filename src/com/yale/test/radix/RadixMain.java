@@ -18,9 +18,18 @@ public class RadixMain {
 		//0xff是十六进制的某一个数字,JAVA规定以0x开始的数据表示16进制，0xff换成十六进制为255。
 		System.out.println(Integer.toBinaryString(0xff));//0xff代表11111111
 		System.out.println();
-		System.out.println(Integer.toBinaryString(16));//十进制数字16转换成二进制,应该是10000
-		System.out.println(Integer.toHexString(16));//十进制数字16转换成十六进制,应该是F
-		System.out.println(Integer.toOctalString(16));//十进制数字16转换成八进制,应该是20
+		/**
+		 * 每俩位的十六进制数就是8位的二进制,刚好是一个字节,所以Java的class文件叫字节码
+		 * 那为什么一个十六进制数占一个字节呢？
+		 * 答:1个字节是8位，二进制8位：xxxxxxxx 范围从00000000－11111111，表示0到255。一位16进制数（用二百进制表示是xxxx）
+		 * 最多只表示到15（即对应16进制的F），要表示到255,就还需要第二位。所以1个字节＝2个16进制字符，一个16进制位＝0.5个字节。
+		 * 同理来说一个8进制数占几个字节？一个二进制数又占几个字节呢？
+		 * clas文件为啥又叫字节码呢?
+		 * 答:看美团技术团队公众号的文章 Java字节码增强探秘
+		 */
+		System.out.println("二进制:" + Integer.toBinaryString(16));//十进制数字16转换成二进制,应该是10000
+		System.out.println("十六进制:" + Integer.toHexString(20));//十进制数字16转换成十六进制,应该是F
+		System.out.println("八进制:" + Integer.toOctalString(16));//十进制数字16转换成八进制,应该是20
 		System.out.println();
 		System.out.println(Integer.parseInt("1111", 2));//“111”转换为二进制，应该是15
 		System.out.println(Integer.parseInt("1111", 8));//“111”转换为八进制，应该是585

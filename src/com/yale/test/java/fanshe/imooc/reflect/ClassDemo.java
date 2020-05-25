@@ -1,6 +1,7 @@
 package com.yale.test.java.fanshe.imooc.reflect;
 class Foo {
 	static {
+		//这里用的是一个参数版的forName()，也就是使用当前方法所在类的ClassLoader来加载
 		System.out.println("如果类已经被JVM加载过了,Class.forName就不会重新加载这个类了");
 	}
 	void print() {

@@ -5,6 +5,7 @@ class ForName {
 		System.out.println("Class.forName相当于JVM加载类,加载类的时候会执行类的静态代码块");
 		System.out.println("不过JDBC那个,把类加载到JVM里面有什么用呢?又不用他,jdbc为啥必须用Class.forname???");
     	try {
+    		//这里用的是一个参数版的forName()，也就是使用当前方法所在类的ClassLoader来加载
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

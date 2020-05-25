@@ -16,7 +16,10 @@ package com.yale.test.radix;
 public class BinaryTest {
 	public static void main(String[] args) {
 		int bin = 0b1100010;//0b开头的是二进制,英文字母b x是不区分大小写的,jvm底层存储的其实还是二进制
-		int oct = 0142;
+		int oct = 0142;//0开头的是八进制
+		/**
+		 * 每俩位的十六进制数就是8位的二进制,刚好是一个字节,所以Java的class文件叫字节码
+		 */
 		int hex = 0x62;//0x开头的是十六进制,英文字母b x是不区分大小写的,jvm底层存储的其实还是二进制
 		int dec = 98;
 		System.out.println("2:" + bin);
@@ -121,5 +124,9 @@ public class BinaryTest {
 		
 		System.out.println("无符号右位移只是在操作的时候不去考虑符号位,而在最终结果的识别方面,它还是以补码的方式存储,也是有符号位的,这一点一定要注意");
 		
+		System.out.println("java中的byte(1字节),shor(2字节),int(字节),long(8字节),java中的整数类型都使用二进制的补码存储");
+		
+		System.out.println("大端模式与小端模式,多字节数据的俩种顺序:大端:高位字节放在低地址,低位字节放在高地址.小端:低位字节放在低地址,高位字节放在高地址.");
+		System.out.println("java语言中默认使用的是大端模式");
 	}
 }

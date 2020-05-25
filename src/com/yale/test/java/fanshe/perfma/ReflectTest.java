@@ -20,7 +20,8 @@ public class ReflectTest {
 			 * GeneratedMethodAccessor2 这个动态生成的类在怎么查看呢？
 			 * 答:HSDB 或者 基于Serviceability Agent（下面简称SA）的自定义ClassFilter都行(https://www.iteye.com/blog/rednaxelafx-727938)
 			 * 大家熟悉的jstack、jmap等工具在使用-F参数启动时其实就是通过SA来实现功能的。
-			 * 
+			 * HSDB 在sa-jdi.jar里，还有一个图形化的工具HSDB，也可以用来查看运行的的字节码。sudo java -classpath "$JAVA_HOME/lib/sa-jdi.jar" sun.jvm.hotspot.HSDB
+			 * https://blog.csdn.net/hengyunabc/article/details/51106980
 			 * 问题是，上述方式其实只是借助ClassLoader把它在classpath上能找到的Class文件复制了一份而已。如果我们想dump的类在加载时被修改过（例如说某些AOP的实现会这么做），
 			 * 或者在运行过程中被修改过（通过HotSwap），或者干脆就是运行时才创建出来的，那就没有现成的Class文件了。
 			 * 需要注意，java.lang.Class<T>这个类虽然实现了java.io.Serializable接口，但直接将一个Class对象序列化是得不到对应的Class文件的。

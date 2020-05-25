@@ -53,6 +53,7 @@ public class ClassLoaderDemo {
 			System.out.println("类加载器的父类(ExtClassLoader扩展类加载器):" + cls.getClassLoader().getParent());
 			System.out.println("类加载器的父类的父类:" + cls.getClassLoader().getParent().getParent());
 
+			//这里用的是一个参数版的forName()，也就是使用当前方法所在类的ClassLoader来加载
 			System.out.println(Class.forName("com.yale.test.java.fanshe.classloader.Member").getClassLoader().loadClass("com.yale.test.java.fanshe.classloader.Member").newInstance());
 			/**
 			 * 类加载器给我们用户最大的帮助在于可以通过动态的路径实现类的加载处理操作。
