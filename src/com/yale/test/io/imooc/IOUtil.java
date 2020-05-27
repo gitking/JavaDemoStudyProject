@@ -22,7 +22,7 @@ public class IOUtil {
 		int b;
 		int i = 1;
 		while((b = in.read()) != -1) {
-			if (b <= 0xf) {//0xf是1位就是1bit的意思
+			if (b <= 0xf) {//十六进制0xf就是十进制的15,0xf刚好是1字节就是1byte的意思,read刚好每次读一个字节
 				//单位数前面补0
 				System.out.print("0");
 			}

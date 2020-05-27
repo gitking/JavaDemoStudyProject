@@ -1,6 +1,7 @@
 package com.yale.test.radix;
 
 /**
+ * 慕课网
  * 二进制的计算规则
  * 1 * 1 = 1 
  * 1 * 0 = 0
@@ -9,7 +10,8 @@ package com.yale.test.radix;
  * 二进制的缺点:位数太长,可读性差
  * 二进制与八，十六进制之间的进制转换非常直接(每3位二进制数可以转换为1位八进制数，每4位二进制数可以转换为1位十六进制数).
  * java中可以直接声明二(0b开头的是二进制),八(0开头的是八进制),十(默认就是十进制),十六进制(0x开头的是十六进制)
- * 八进制和十六进制的优点：既缩短了二进制数,又保持了二进制的表达特点
+ * 八进制和十六进制的优点：既缩短了二进制数,又保持了二进制的表达特点。
+ * 二进制虽然只有0和1俩个数字,但表达信息时会很长。为了简化表达,常用到十六进制。来自微信读书《汇编语言简明教程》钱晓捷
  * 简化了二进制与十进制之间的转换。
  * @author dell
  */
@@ -28,7 +30,7 @@ public class RadixMain {
 		 * 答:看美团技术团队公众号的文章 Java字节码增强探秘
 		 */
 		System.out.println("二进制:" + Integer.toBinaryString(16));//十进制数字16转换成二进制,应该是10000
-		System.out.println("十六进制:" + Integer.toHexString(20));//十进制数字16转换成十六进制,应该是F
+		System.out.println("十六进制:" + Integer.toHexString(15));//十进制数字15转换成十六进制,应该是F
 		System.out.println("八进制:" + Integer.toOctalString(16));//十进制数字16转换成八进制,应该是20
 		System.out.println();
 		System.out.println(Integer.parseInt("1111", 2));//“111”转换为二进制，应该是15

@@ -27,5 +27,38 @@ public class CharTest {
 	public static void main(String[] args) {
 		System.out.println("boolean单独定义占用4个字节,定义在数组中占1个字节");
 		System.out.println("课程总结:值得注意的是二进制的小数问题,大多数的十进制小数转换成二进制存储都是无限循环的");
+		
+		byte num16 = 0xf;//byte是字节,byte变量占用一个字节,0x开头的是十六进制的数字
+		System.out.println(num16);//0xf是15	
+		
+		byte num16b = 0x7f;//byte是字节,byte变量占用一个字节,0x开头的是十六进制的数字
+		System.out.println(num16b);//0x7f是127	
+		
+		//byte num161 = 0x80;//这里会报错,0x80是128,超出了byte能存放的最大整数127,byte是字节,byte变量占用一个字节,
+		//System.out.println(num161);//0x80是128	
+		
+		char num16c = 0xff;//255
+		System.out.println((int)num16c);
+		
+		char num16cc = 0xffff;//65535
+		System.out.println((int)num16cc);
+		
+		char ca = 0xca;
+		System.out.println(ca);
+		
+		char fe = 0xfe;
+		System.out.println(fe);
+		
+		char BA = 0xBA;
+		System.out.println(BA);
+		
+		char BE = 0xBE;
+		System.out.println(BE);
+		
+		char str8 = 56;
+		System.out.println("56字符是数字8:" + str8);
+		
+		String res = Integer.toHexString(15);
+		System.out.println("15转换成十六进制:" + res);
 	}
 }

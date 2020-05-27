@@ -17,6 +17,7 @@ public class SystemTest {
 		 * UNICODE编码:是java提供的十六进制编码,可以描述世界上任意的文字信息,但是如果每个字符都用十六进制编码太浪费了。UTF-8应运而生
 		 * UTF-8:是可变的编码
 		 * ISO8859-1:是国际通用编码,但是所有的编码都需要进行转换。
+		 * https://edu.aliyun.com/lesson_36_484#_484  阿里云 课程《【名师课堂】Java高级开发 》MLDN魔乐科技 课时82 字符编码（常用字符编码）
 		 * 2020年4月19日16:37:33
 		 */
 		System.out.println("java文件编码：" + System.getProperty("file.encoding"));

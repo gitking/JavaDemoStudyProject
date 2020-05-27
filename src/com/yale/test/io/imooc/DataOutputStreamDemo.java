@@ -7,7 +7,7 @@ import java.io.IOException;
 public class DataOutputStreamDemo {
 
 	public static void main(String[] args) throws IOException {
-		String file = "demo/dos.bat";
+		String file = "demo/dos.txt";
 		DataOutputStream dos = new DataOutputStream(new FileOutputStream(file));
 		dos.writeInt(10);
 		dos.writeInt(-10);
