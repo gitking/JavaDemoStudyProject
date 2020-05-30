@@ -1,5 +1,8 @@
 package com.yale.test.xml;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -7,7 +10,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -17,6 +19,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
@@ -74,6 +77,46 @@ public class XmlDom {
 		delete(document);
 		update(document);
 		updateAttribute(document);
+	}
+	
+	/**
+	 * 通过一个文件来创建document
+	 * 参考项目里面的DOMTool.java
+	 * @throws SAXException
+	 * @throws IOException
+	 * @throws ParserConfigurationException
+	 */
+	private static void loadDocumentFromFile() throws SAXException, IOException, ParserConfigurationException {
+		InputStream is = new FileInputStream(new File(""));
+		Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(is);
+	}
+	
+	/**
+	 * 从一个字符串来创建document.
+	 * 参考项目里面的DOMTool.java
+	 * @param str
+	 * @throws SAXException
+	 * @throws IOException
+	 * @throws ParserConfigurationException
+	 */
+	private static void loadDocumentFromStr(String str) throws SAXException, IOException, ParserConfigurationException {
+		 InputStream is = new ByteArrayInputStream(str.getBytes());
+		 Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new InputSource(is));
+	}
+	
+	/**
+	 * 直接创建一个Document
+	 * 参考项目里面的DOMTool.java
+	 * @throws SAXException
+	 * @throws IOException
+	 * @throws ParserConfigurationException
+	 */
+	private static void createNewDocument() throws SAXException, IOException, ParserConfigurationException {
+		Document document =	DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+	}
+	
+	private static void loadDocumentFromUri(String uri) throws SAXException, IOException, ParserConfigurationException {
+		Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(uri);
 	}
 	
 	private static void list(Node node) {
