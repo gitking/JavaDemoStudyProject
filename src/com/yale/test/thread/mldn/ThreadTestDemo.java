@@ -47,5 +47,16 @@ public class ThreadTestDemo {
 		 * 很少适合使用此方法。 它可能对调试或测试有用，可能有助于重现比赛条件引起的错误。 在设计时也可能有用并发控制结构，例如{@link java.util.concurrent.locks} package.
 		 */
 		System.out.println("yield:向调度程序提示当前线程愿意让步,当前使用的处理器。 调度程序可以随意忽略此提示。");
+		
+		System.out.println("所谓的线程优先级指的优先级越高越有可能先执行,但仅仅是有可能而已。");
+		System.out.println("在Thread类里面提供有以下的优先级操作方法:");
+		/**
+		 * 设置优先级:public final void setPriority(int newPriority)
+		 * 取得优先级:public final int getPriority()
+		 * 最高优先级:public static final int MAX_PRIORITY,10;
+		 * 中等优先级:public static final int NORM_PRIORITY,5;
+		 * 最低优先级:public static final int MIN_PRIORITY,1;
+		 */
+		System.out.println("main方法的优先级为:中等优先级(5)" + Thread.currentThread().getPriority());
 	}
 }

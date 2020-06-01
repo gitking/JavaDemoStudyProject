@@ -14,6 +14,7 @@ import java.util.concurrent.FutureTask;
 class CallableDemo implements Callable<String>{
 	@Override
 	public String call() throws Exception {
+		Thread.sleep(10000);//阻塞线程
 		return "票卖完了,下次把";
 	}
 }
@@ -26,5 +27,7 @@ public class TestCallable {
 		FutureTask<String> task = new FutureTask<String>(new CallableDemo());
 		new Thread(task).start();//启动线程
 		System.out.println("通过FutureTask拿到返回值:" + task.get());
+		
+		System.out.println("task.get()方法会阻塞线程,一直到拿到返回值为止");
 	}
 }

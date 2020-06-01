@@ -11,13 +11,30 @@ public class ThreadDemo extends Thread{
 	}
 	
 	public static void main(String[] args) {
+		
+		ThreadRun ddd = new ThreadRun();
+		
+//		Thread t1 = new Thread(ddd);
+//		Thread t2 = new Thread(ddd);
+//		Thread t3 = new Thread(ddd);
+//		Thread t4 = new Thread(ddd);
+//		
+//		t1.start();
+//		t2.start();
+//		t3.start();
+//		t4.start();
+		
+		
 		ThreadDemo sd = new ThreadDemo(new ThreadRun());
 		sd.run();
 	}
 }
 
 class ThreadRun implements Runnable {
+	private int num = 10;
+	
 	public void run () {
-		System.out.println("实现了runnable接口");
+		num = num -1;
+		System.out.println("实现了runnable接口" + num);
 	}
 }
