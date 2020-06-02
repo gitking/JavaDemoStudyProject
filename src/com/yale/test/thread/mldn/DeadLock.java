@@ -2,9 +2,11 @@ package com.yale.test.thread.mldn;
 class Pen {
 	public synchronized void get(Note note) {
 		System.out.println("我为了得到本");
-		for(int i=0;i<Integer.MAX_VALUE;i++) {//下面这个for循环啥都不会输出,这是为什么？因为编译优化了肯定
+		System.out.println(Integer.MAX_VALUE);
+
+		for(int i=0;i<Integer.MAX_VALUE;i++) {
 			int a = i;
-			if (a > (Integer.MAX_VALUE -1)) {
+			if (a > (Integer.MAX_VALUE -2)) {
 				System.out.println(a);
 				break;
 			}
