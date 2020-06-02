@@ -1,6 +1,7 @@
 package com.yale.test.thread.mldn;
 /**
  * java的源码在jdk的安装目录里面,D:\jdk1.8_251\src.zip,但是你要用jdk的exe文件安装才有这个Src文件
+ * 不过sun包下面的代码都不在src.zip里,sun包源码来这里看https://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/63cecc0bd71d/src/share/classes/sun/nio/cs/ArrayDecoder.java
  * @author dell
  */
 class MyThread extends Thread {
@@ -45,6 +46,7 @@ public class ThreadTestDemo {
 		 * jdk官方不建议使用此方法,以下来自yield方法的注释翻译
 		 * yield是启发式尝试，旨在改善相对进展否则会过度使用CPU的线程之间。 使用应该将其与详细的性能分析和基准测试结合起来，以确保它实际上具有所需的效果。
 		 * 很少适合使用此方法。 它可能对调试或测试有用，可能有助于重现比赛条件引起的错误。 在设计时也可能有用并发控制结构，例如{@link java.util.concurrent.locks} package.
+		 * https://club.perfma.com/article/297124
 		 */
 		System.out.println("yield:向调度程序提示当前线程愿意让步,当前使用的处理器。 调度程序可以随意忽略此提示。");
 		

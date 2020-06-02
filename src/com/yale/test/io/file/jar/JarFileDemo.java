@@ -34,6 +34,9 @@ public class JarFileDemo {
 	         * ZipCoder类里面的toString方法明确说明了只支持UTF-8编码
 	         * 不支持的中文主要是sun.nio.cs.ArrayDecoder这类不支持中文
 	         * ArrayDecoder ad = new ArrayDecoder();
+	         * ArrayDecoder源码来这里看
+	         * https://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/63cecc0bd71d/src/share/classes/sun/nio/cs/ArrayDecoder.java
+	         * sun下面的都不在src.zip里
 			 */
 	      ZipFile zfUtf8 = new ZipFile("D:\\浙商SVN\\03-开发\\修改说明UTF-8.zip");
 	      Enumeration<ZipEntry> zipEntryUtf8 = (Enumeration<ZipEntry> )zfUtf8.entries();
