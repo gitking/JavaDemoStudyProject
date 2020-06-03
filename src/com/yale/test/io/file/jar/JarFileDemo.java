@@ -2,14 +2,21 @@ package com.yale.test.io.file.jar;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import sun.nio.cs.ArrayDecoder;
-
+/**
+ * https://cloud.tencent.com/developer/article/1130020
+ * Apache commons-compress 解压 zip 文件是件很幸福的事，可以解决 zip 包中文件名有中文时跨平台的乱码问题，不管文件是在 Windows 压缩的还是在 Mac，Linux 压缩的，解压后都没有再出现乱码问题了。
+ * Windows 压缩的时候使用的是系统的编码 GB2312，而 Mac 系统默认的编码是 UTF-8，于是出现了乱码。
+ * @author dell
+ *
+ */
 public class JarFileDemo {
 	public static void main(String[] args) throws IOException {
 		
@@ -38,15 +45,17 @@ public class JarFileDemo {
 	         * https://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/63cecc0bd71d/src/share/classes/sun/nio/cs/ArrayDecoder.java
 	         * sun下面的都不在src.zip里
 			 */
-	      ZipFile zfUtf8 = new ZipFile("D:\\浙商SVN\\03-开发\\修改说明UTF-8.zip");
+	      String str = new String("D:\\浙商SVN\\03-开发\\修改说明UTF-8.zip");
+	      System.out.println(str);
+	      //StandardCharsets.US_ASCII用这个不会报java.lang.IllegalArgumentException: MALFORMED这个错误,但是会输出的都是乱码的
+	      ZipFile zfUtf8 = new ZipFile(new File(str), ZipFile.OPEN_READ, StandardCharsets.US_ASCII);
 	      Enumeration<ZipEntry> zipEntryUtf8 = (Enumeration<ZipEntry> )zfUtf8.entries();
 	      while (zipEntryUtf8.hasMoreElements()) {
 	    	  ZipEntry temp = zipEntryUtf8.nextElement();
 	    	  System.out.println(temp.getComment());
 	    	  System.out.println(temp.getName());
 	      }
-	      
-	      ZipFile zf = new ZipFile("D:\\浙商SVN\\03-开发\\新建文本文档.zip");
+	      ZipFile zf = new ZipFile(new String("D:\\浙商SVN\\03-开发\\新建文本文档.zip".getBytes(), Charset.forName("UTF-8")));
 	      Enumeration<ZipEntry> zipEntry = (Enumeration<ZipEntry> )zf.entries();
 	      while (zipEntry.hasMoreElements()) {
 	    	  ZipEntry temp = zipEntry.nextElement();
