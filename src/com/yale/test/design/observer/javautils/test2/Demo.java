@@ -7,7 +7,7 @@ import java.util.Observer;
  * @author lenovo
  *
  */
-class House extends Observable{
+class House extends Observable{//被观察者
 	private Double price;//房子价钱
 	
 	public House (Double price) {
@@ -17,13 +17,14 @@ class House extends Observable{
 	public void setPrice (Double price) {
 		if (this.price < price) {//如果房价上涨,则通知所有观察者
 			super.setChanged();//设置状态
-			super.notifyObservers(price);//通知所有观察者,并将发生变化的price通知给所有观察者
+			super.notifyObservers(price);//通知(唤醒)所有观察者,并将发生变化的price通知给所有观察者
 		}
 		this.price = price;
 	}
 }
-class Person implements Observer{
+class Person implements Observer{//观察者
 
+	//update方法的意思是,一旦你关注的事情发生了变化就会调用
 	@Override
 	public void update(Observable o, Object arg) {
 		if (o instanceof House) {//人们只关注房子,别的东西变了,人们不关心

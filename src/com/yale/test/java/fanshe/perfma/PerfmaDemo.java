@@ -1,6 +1,8 @@
 package com.yale.test.java.fanshe.perfma;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * https://club.perfma.com/question/669625
@@ -12,11 +14,19 @@ public class PerfmaDemo {
 	private final String str = "";
 	private final String str2;
 	
+	public String getStr() {
+		return str;
+	}
+
+	public String getStr2() {
+		return str2;
+	}
+
 	PerfmaDemo() {
 		str2 = "反射结果有点怪";
 	}
 	
-	public static void main(String[] args) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+	public static void main(String[] args) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 		PerfmaDemo pd = new PerfmaDemo();
 		Field field = PerfmaDemo.class.getDeclaredField("str");
 		field.setAccessible(true);
@@ -29,6 +39,9 @@ public class PerfmaDemo {
 		 * 其实最主要的是str这个变量是有final修饰的并且是直接赋值了
 		 */
 		System.out.println("直接用final修饰并直接赋值的变量,通过反射重新赋值之后,这种方式取不到值:" + pd.str);
+		System.out.println("直接用final修饰并直接赋值的变量,通过反射重新赋值之后,用get方法也取不到值:" + pd.getStr());
+		Method method = PerfmaDemo.class.getMethod("getStr");
+		System.out.println("直接用final修饰并直接赋值的变量,通过反射重新赋值之后,通过反射调用用get方法也取不到值:" + method.invoke(pd, args));
 		
 		//这里可以取到值
 		System.out.println("直接用final修饰并直接赋值的变量,通过反射重新赋值之后,可以用这种方式取到值:" + field.get(pd));

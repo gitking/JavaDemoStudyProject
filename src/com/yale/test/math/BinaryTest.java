@@ -1,4 +1,4 @@
-package com.yale.test.radix;
+package com.yale.test.math;
 
 /**
  * 二进制的计算规则

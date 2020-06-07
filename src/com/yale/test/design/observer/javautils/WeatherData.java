@@ -4,6 +4,8 @@ import java.util.Observable;
 
 /**
  * java提供的观察者模式API,Observable
+ * 观察者:java.util.Observer
+ * 被观察者:java.util.Observable
  * @author lenovo
  *
  */

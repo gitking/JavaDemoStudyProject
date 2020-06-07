@@ -1,10 +1,39 @@
 package com.yale.test.timer;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DateUtils {
 	public static void main(String[] args) {
+		Date date1 = new Date();
+		System.out.println("直接输出日期对象:" + date1);
+		
+		long dateLong = System.currentTimeMillis();
+		Date dateSec = new Date(dateLong);
+		System.out.println("将long值转换为日期:" + dateSec);
+		
+		System.out.println("将日期值转换为long:" + dateSec.getTime());
+		
+		System.out.println("java.util.Date中的很多方法都被jdk官方标记为过期方法,不建议使用了,jdk官方建议使用Calendar.set(year + 1900, month, date)或者GregorianCalendar(year + 1900, month, date)");
+		System.out.println("建议使用什么方法代替,自己看源码注释就行了");
+		
+		
+		System.out.println("日期格式化在java.text包中,日期格式化要用到几个日期标记,日期标记在java.text.SimpleDateFormat的api上面都有,自己去看官方API就行");
+		String dateStr = "yyyy-MM-dd HH:mm:ss.SSS";
+		SimpleDateFormat sdf = new SimpleDateFormat(dateStr);
+		String val = sdf.format(date1);
+		System.out.println("将日期格式化为字符串:" + val);
+		
+		String dateString = "2020-06-07 10:25:00.987";
+		SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		try {
+			Date strDate = sdfDate.parse(dateString);
+			System.out.println("parse方法将字符串的日期转换为日期类型的对象:" +   strDate);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
 		Date date = new Date();
 		/**
 		 * 如果指定周年'Y' Week year 并且日历不支持任何周年，则改用日历年（'y'）。 可以通过调用getCalendar（）。isWeekDateSupported（）测试星期的支持。

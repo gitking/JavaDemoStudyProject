@@ -1,5 +1,14 @@
 package com.yale.test.java.fanxing;
 
+/**
+ * 泛型自从 JDK1.5 引进之后，真的非常提高生产力。一个简单的泛型 T，寥寥几行代码， 就可以让我们在使用过程中动态替换成任何想要的类型，
+ * 再也不用实现繁琐的类型转换方法。
+ * Java 采用类型擦除（Type erasure generics）的方式实现泛型。用大白话讲就是这个泛型只存在源码(.java文件中)中，编译器将源码编译成字节码之时，就会把泛型『擦除』，所以字节码中并不存在泛型。
+ * 编译之后，我们使用 javap -s class 查看字节码。观察 部分的字节码，从 descriptor 可以看到，泛型 T 已被擦除，最终替换成了 Object。
+ * 并不是每一个泛型参数被擦除类型后都会变成 Object 类，如果泛型类型为  T extends String 这种方式，最终泛型擦除之后将会变成 String。
+ * https://mp.weixin.qq.com/s/1cK5sWFyugGAtg3Be285Qg
+ * @author dell
+ */
 public class Test {
 	public static void main(String[] args) {
 		Point<String> per = new Point<String>();
