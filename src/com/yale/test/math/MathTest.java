@@ -17,6 +17,8 @@ public class MathTest {
 		
 		System.out.println("Math.pow计算某个数的平方:" + Math.pow(10, 3));//10的3次方是1000
 		
+		System.out.println("max方法返回俩个数字最大的那一个:" + Math.max(18.44, 55));
+
 		System.out.println(Math.round(18.44));
 		System.out.println(Math.round(18.49));
 		System.out.println(Math.round(18.51));

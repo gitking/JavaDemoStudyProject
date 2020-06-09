@@ -2,6 +2,7 @@ package com.yale.test.math.array;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
 
@@ -47,6 +48,15 @@ public class CollectionDemo {
 		System.out.println("List中Vector的remove和contains方法必须需要类中的equals支持,否则list不知道俩个对象一样不一样");
 		System.out.println("Vector这里删不掉,因为这个俩个不同的张三对象" + vector.remove(new Person("张三", 10)));
 		System.out.println("Vector这里会判断为不存在,因为这个俩个不同的张三对象" + vector.contains(new Person("张三", 10)));
+		
+		List<Person> linkedList = new LinkedList<Person>();
+		linkedList.add(new Person("张三", 10));
+		linkedList.add(new Person("李四", 10));
+		linkedList.add(new Person("王五", 10));
+		System.out.println("linkedList跟ArrrayList几乎是一摸一样的,LinkedList是一个链表");
+		System.out.println("List中linkedList的remove和contains方法必须需要类中的equals支持,否则list不知道俩个对象一样不一样");
+		System.out.println("linkedList这里删不掉,因为这个俩个不同的张三对象" + linkedList.remove(new Person("张三", 10)));
+		System.out.println("linkedList这里会判断为不存在,因为这个俩个不同的张三对象" + linkedList.contains(new Person("张三", 10)));
 	}
 }
 
