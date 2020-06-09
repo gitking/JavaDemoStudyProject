@@ -89,21 +89,29 @@ class Data {//负责数据保存
 		//Thread.currentThread().interrupt();//中断线程,将线程设置为中断状态,仅仅是设置一个中断标志,线程实际上还在运行,可以打断sleep
 
 		/**
-		 * isInterrupted()这个线程的对象方法就是判断线程是否被标记为中断状态,返回结果为true代表 线程已被中断
+		 * isInterrupted(true),参数传true的意思是：先返回线程当前是否处于中断状态后再清除中断状态。这样描述比较正确。
+		 * 终于搞明白了, isInterrupted(true) 这个方法实际上干了俩件事情, 第一件事情是先获取线程的状态, 第二件事情是清除线程的中断状态。
+		 * isInterrupted(false),参数传false的意思是：不清除线程状态,并返回线程状态。
+		 * isInterrupted()这个线程的对象方法就是判断线程是否被标记为中断状态,返回结果为true代表 线程已被中断.作用是只测试此线程是否被中断 ，不清除中断状态。
 		 * isInterrupted()方法的功能是:测试此线程是否已被中断。注意是测试此线程(不是当前线程),isInterrupted()这个方法会调用自己的重载方法isInterrupted(false)
 		 * 并且参数传的是false.而isInterrupted(boolean ClearInterrupted)方法的意思是：测试线程是否被中断,判断标准是ClearInterrupted的值是否被重置.
 		 * 线程的中断状态不受此方法(isInterrupted(false))的影响,由于此方法(isInterrupted(false))返回false,
 		 * 因此将反映出由于中断时某个线程未处于活动状态而忽略的线程中断。
-		 * 总结isInterrupted()或者isInterrupted(false)这俩个方法其实就是中断线程的意思,如果中断成功,返回true,如果返回false说明线程已经处于中断状态了
+		 * 总结isInterrupted()或者isInterrupted(false)这俩个方法其实就是测试此线程是否被中断 ，不清除中断状态。
+		 * https://blog.csdn.net/qq_39682377/article/details/81449451
 		 */
 		System.out.println("isInterrupted()是对象方法,线程是否中断状态:" + Thread.currentThread().isInterrupted());
 		
 		/**
+		 * isInterrupted(true),参数传true的意思是：先返回线程当前是否处于中断状态后再清除中断状态。这样描述比较正确。
+		 * 终于搞明白了, isInterrupted(true) 这个方法实际上干了俩件事情, 第一件事情是先获取线程的状态, 第二件事情是清除线程的中断状态。
+		 * isInterrupted(false),参数传false的意思是：不清除线程状态,并返回线程状态。
 		 * interrupted()方法的功能是:测试当前线程是否已被中断。注意是测试当前线程(不是此线程)
+		 * interrupted()是测试当前线程是否被中断（检查中断标志），返回一个boolean并清除中断状态，第二次再调用时中断状态已经被清除，将返回一个false。
 		 * interrupted()注意这个方法有坑,这个方法必须放在你自己线程的代码里面,interrupted()这个方法获取的是当前线程
 		 * interrupted()方法的功能是:测试当前线程是否已被中断.注意看源码，interrupted()这个方法会调用isInterrupted(true)这个方法,并将参数设置为true
 		 * isInterrupted(true)的意思是清除线程的中断状态,如果清除成功返回true,当你第二次调用isInterrupted(true)方法时,线程不是中断状态,就会清除失败
-		 * isInterrupted这个方法的意思实际上,再你调用这个方法的这一刻,线程是否是中断状态,如果返回true说明,你调用的那一刻是中断状态,这个方法运行完就线程就不是中断状态了
+		 * https://blog.csdn.net/qq_39682377/article/details/81449451
 		 */
 		System.out.println("interrupted()是静态方法,测试线程是否中断状态:" + Thread.interrupted());
 		
