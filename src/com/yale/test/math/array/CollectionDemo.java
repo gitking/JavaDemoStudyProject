@@ -10,6 +10,7 @@ import java.util.Vector;
  * public interface Collection<E> extends Iterable<E> 
  * List(允许重复),Set(不允许重复)
  * List有三个非常重要的子类：ArrayList,Vector,LinkedList
+ * Set有俩个常用子类:HashSet(不允许重复,无序存储),TreeSet(不允许重复,有序存储)
  * @author dell
  */
 public class CollectionDemo {

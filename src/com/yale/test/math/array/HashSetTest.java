@@ -1,4 +1,4 @@
-package com.yale.test.thread.heima.zhangxiaoxiang;
+package com.yale.test.math.array;
 
 import java.util.Collections;
 import java.util.HashMap;

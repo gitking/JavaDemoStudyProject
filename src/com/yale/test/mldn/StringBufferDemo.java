@@ -6,6 +6,11 @@ package com.yale.test.mldn;
  */
 public class StringBufferDemo {
 	public static void main(String[] args) {
+		String str01 = "abc";
+		String str02 = "abc";
+		System.out.println("这俩个String对象实际上同一个:" + (str01 == str02));
+		
+		
 		/**
 		 * String,StringBuffer,StringBuilder这三个类都实现了CharSequence接口
 		 * StringBuffer是从jdk1.0出现的,StringBuffer的每个方法都有synchronized修饰,所以速度慢

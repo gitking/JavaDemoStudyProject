@@ -108,7 +108,7 @@ public class Message<T> implements IMessage<T> {
 		 * 
 		 * Java所强调的兼容性是"二进制向后兼容性(binary backwards compatibility)"二进制兼容性并不等于源码兼容性,class文件就是java程序的二进制表现
 		 * 这句话的意思是说,你用jdk1编译出来的class文件,放在jdk8的JVM里面一样可以运行.但是你基于jdk1写的java代码并不一定可以在jdk8的上面一定编译通过,不是源码兼容的.
-		 * 
+		 * 比如说,你最早的源码里面使用了enum这个关键字作为变量,之前编译成class文件了,这个class文件是可以在JVM里面运行的,但你java代码在jdk8上编译不通过了
 		 * raw type 这个概念怎么来的？
 		 * 还有用java.util.List为例,在原地泛型化后,现在这个类型变成了java.util.ArrayList<E>。但是以前的代码直接用ArrayList,在新版本里必须还能继续用,
 		 * 所以就引出了“raw type”的概念,—— 一个类型虽然被泛型化了,但还可以把它当作非泛型化的类型用。

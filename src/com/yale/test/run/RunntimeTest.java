@@ -58,7 +58,7 @@ public class RunntimeTest {
 			run.exec("notepad");//这里可以执行CMD命令,notepad打开记事本
 			run.exec("CMD");//这里可以执行CMD命令,cmd打开cmd命令窗口
 			run.exec("mspaint");//这里可以执行CMD命令,mspaint打开windows的画图程序
-			testGetSysInfo();
+			//testGetSysInfo();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -69,6 +69,7 @@ public class RunntimeTest {
 		/**
 		 * 但是从JDK1.9开始,这一操作已经不建议使用了,而对于对象回收释放.从JDK 
 		 * 或者使用java.lang.ref.Cleaner类进行回收(Cleaner也支持有AutoCloseable处理).
+		 * 1、GC之前被调用 。2、只会被调用一次。3、不可靠，不能保证被执行，不建议使用。
 		 */
 		System.out.println("finalize方法会在JAVA进行垃圾回收前,被自动调用,这个方法抛出的异常类型为Throwable,但是这个类即使抛出异常了,也不影响后面代码的执行" );
 		throw new Exception("我不影响后面代码的继续运行,因为我这个类马上就死了");
