@@ -13,6 +13,14 @@ public class CyclicBarrierTest {
 	public static void main(String[] args) {
 		ExecutorService service = Executors.newCachedThreadPool();
 		final CyclicBarrier cb = new CyclicBarrier(3);
+		
+		final CyclicBarrier cbThread = new CyclicBarrier(3, new Runnable(){
+			@Override
+			public void run() {
+				System.out.println("当线程到达指定数量的时候,自动执行该线程.");
+			}
+		});
+
 		for (int i=0;i<3;i++) {
 			Runnable runnable = new Runnable(){
 				@Override

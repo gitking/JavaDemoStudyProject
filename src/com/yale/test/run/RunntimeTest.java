@@ -64,6 +64,10 @@ public class RunntimeTest {
 		}
 	}
 	
+	/**
+	 * finailize方法是Object类中定义的方法，意味着任何一个对象都有这个方法。但这个方法只会调用一次，如果把这个对象复活后再次让这个对象死亡，.
+	 * 那第2次回收该对象的时候是不会调用finailize方法的，而且优先级比较低，并不能保证一定会被执行，因此不建议使用finalize方法
+	 */
 	@Override
 	protected void finalize() throws Throwable {
 		/**

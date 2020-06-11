@@ -48,6 +48,12 @@ import java.util.Map;
     java堆区按生命周期不同，分为新生代和老年代。新生代又可以细分为Eden和Survivor区，而Survivor又可以细分为Survivor1和Survivor2，这两者通常只使用其中一块，
             另一块用来GC时保留存活的对象。大部分的new出来的对象都是存放在Eden区，如果是大对象，比如一个很大的数组或者List对象，可以通过JVM参数-XX:PretenureSizeThreshold将超过指定大小的对象直接存入到老年代，需要注意的是，写程序时应该尽量避免朝生夕死的大对象进入老年代，因为相比年轻代的GC，老年代GC的成本更大。Eden和Survivor的默认大小比值的8:1:1，新生代默认的GC算法是复制算法。老年代的默认GC算法是标记整理法。关于这2种GC算法，会在下篇博客讲解。
 	当堆中没有足够内存时，会抛出OutOfMemoryError异常。关于堆区的内存模型，可以参考下面的图片：
+	Java的堆是一个运行时数据区，类的对象从堆中分配空间。这些对象通过new等指令建立，通过垃圾回收器来销毁。
+	堆的优势是可以动态地分配内存空间，需要多少内存空间不必事先告诉编译器，因为它是在运行时动态分配的。但缺点是，由于需要在运行时动态分配内存，所以存取速度较慢。
+      栈
+  	栈中主要存放一些基本数据类型的变量（byte，short，int，long，float，double，boolean，char）和对象的引用。
+  	栈的优势是，存取速度比堆快，栈数据可以共享。但缺点是，存放在栈中的数据占用多少内存空间需要在编译时确定下来，缺乏灵活性
+  https://mp.weixin.qq.com/s?__biz=MzUxOTc4NjEyMw==&mid=2247488429&idx=2&sn=46ce9d9d650d9466fd128ac0a9a537ab&chksm=f9f50849ce82815f9906d7e6d15eda86df07135143ec2dc940b8eecbaee793d045920a63b60b&mpshare=1&scene=24&srcid=0607ywjCHOxmekZn2nAgZGKm&sharer_sharetime=1591542531977&sharer_shareid=06213cdd7bc440805a60c37708775b3b#rd
  * @author dell
  */
 public class JVMInfoTest {
