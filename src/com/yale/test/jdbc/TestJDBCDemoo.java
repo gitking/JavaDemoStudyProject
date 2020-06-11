@@ -20,7 +20,10 @@ public class TestJDBCDemoo {
 		/**
 		 * Class.forName(DBDRIVER);这行代码其实就是为了加载OracleDriver这个类,
 		 * 那能不能换成这种写法呢,Class cls = OracleDriver.class;
+		 * public static Connection getConnection(String url, Properties info) throws SQLException
+		 * 这里对参数Properties的要求有固定格式,
 		 */
+		System.out.println("在JDBC中的java.sql.DriverManager类中有一个方法getConnection的参数可以接收Properties");
 		Connection conn = DriverManager.getConnection(DBURL, DBUSER, DBPASSWORD);
 		/**
 		 * oralce的主要安装目录:product\11.2.0\dbhome_1\NETWORK\ADMIN;这个目录有俩个文件
