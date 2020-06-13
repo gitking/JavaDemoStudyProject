@@ -1,5 +1,6 @@
 package com.yale.test.jdbc;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -7,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLSyntaxErrorException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -198,6 +200,19 @@ public class TestJDBCDemoo {
 		int[] resultState = state.executeBatch();//执行批处理操作
 		state.close();
 		System.out.println(Arrays.toString(resultState));
+		
+		/**
+		 * 调用存储过程
+		 */
+		CallableStatement callableStatement = conn.prepareCall("{call ANT_MIGRATE_PKG.ANT_TO_V7(?,?)}");    
+		callableStatement.setString(1, ""); 
+		callableStatement.registerOutParameter(2,Types.VARCHAR);
+		callableStatement.execute();
+	    String errolog = callableStatement.getString(2);
+	    if(!"OK".equals(errolog)){
+	    	System.out.println("存储过程返回错误信息为:" + errolog);
+	    }
+	    callableStatement.close();
 	}
 	
 	/**

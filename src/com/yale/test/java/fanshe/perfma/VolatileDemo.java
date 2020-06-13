@@ -10,6 +10,10 @@ package com.yale.test.java.fanshe.perfma;
  * volatile只是恰巧阻止了JIT的激进编译，所以这里主要的问题不是可见性。因为哪怕变量不是volatile修饰，只要加上-Xint、-XX:-UseOnStackReplacement参数，问题一样不会出现。
  * 和jit也是有一定关系的，-Xint设定解释执行，也可以只关闭OSR看看，-XX:-UseOnStackReplacement
  * 大空翼 加-Xint、-XX:-UseOnStackReplacement都能解决问题。
+ * 
+ * volatile解决多线程内存不可见问题。对于一写多读，是可以解决变量同步问题，但是如果多写，同样无法解决线程安全问题。
+	说明：如果是count++操作，使用如下类实现：AtomicInteger count = new AtomicInteger(); count.addAndGet(1); 
+	如果是JDK8，推荐使用LongAdder对象，比AtomicLong性能更好（减少乐观锁的重试次数）。《阿里巴巴Java开发手册（泰山版）.
  * @author dell
  */
 public class VolatileDemo {

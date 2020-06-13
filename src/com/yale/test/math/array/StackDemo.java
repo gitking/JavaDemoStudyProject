@@ -22,8 +22,11 @@ public class StackDemo {
 		stack.push("B");
 		stack.push("C");
 		stack.push("D");
-		//stack.peek();
 		//stack.add();调用的是List接口的方法,不要这样用
+		/**
+		 * stack.peek();
+		 * pop()内部调用的是peek()方法
+		 */
 		System.out.println("出栈" + stack.pop());
 		System.out.println(stack.pop());
 		System.out.println(stack.pop());

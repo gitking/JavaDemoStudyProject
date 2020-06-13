@@ -7,6 +7,9 @@ import java.math.BigInteger;
  * 可以存储理论无限大[计算机无理限制]的整数
  * 数值存储是二进制补码,大端模式排序
  * 可以使用不同进制,进行基本运算,进行位运算
+ * volatile解决多线程内存不可见问题。对于一写多读，是可以解决变量同步问题，但是如果多写，同样无法解决线程安全问题。
+	说明：如果是count++操作，使用如下类实现：AtomicInteger count = new AtomicInteger(); count.addAndGet(1); 
+	如果是JDK8，推荐使用LongAdder对象，比AtomicLong性能更好（减少乐观锁的重试次数）。《阿里巴巴Java开发手册（泰山版）.
  * @author dell
  */
 public class BigIntegerTest {

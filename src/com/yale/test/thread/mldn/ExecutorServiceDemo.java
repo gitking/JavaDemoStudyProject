@@ -5,6 +5,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import com.yale.test.thread.heima.zhangxiaoxiang.UserThreadFactory;
+
 /**
  * 从JDK1.5之后追加了一个并发访问程序包java.util.concurrent
  * 普通的执行线程池定义:java.util.concurrent Interface ExecutorService
@@ -23,13 +25,23 @@ import java.util.concurrent.TimeUnit;
  * 创建定时调度池:
  * 	public static ScheduledExecutorService newScheduledThreadPool(int corePoolSize)
  * 	public static ScheduledExecutorService newScheduledThreadPool(int corePoolSize, ThreadFactory threadFactory)
+ * 【强制】线程资源必须通过线程池提供，不允许在应用中自行显式创建线程。 
+ * 说明：线程池的好处是减少在创建和销毁线程上所消耗的时间以及系统资源的开销，解决资源不足的问题。如果不使用线程池，有可能造成系统创建大量同类线程而导致消耗完内存或者“过度切换”的问题。
+ * 【强制】线程池不允许使用Executors去创建，而是通过ThreadPoolExecutor的方式，这样的处理方式让写的同学更加明确线程池的运行规则，规避资源耗尽的风险。
+ *  说明：Executors返回的线程池对象的弊端如下：
+ *  	 1） FixedThreadPool和SingleThreadPool： 允许的请求队列长度为Integer.MAX_VALUE，可能会堆积大量的请求，从而导致OOM。
+ *		 2） CachedThreadPool： 允许的创建线程数量为Integer.MAX_VALUE，可能会创建大量的线程，从而导致OOM。
+ * 《阿里巴巴Java开发手册（泰山版）.pdf》
  * @author dell
  *
  */
 public class ExecutorServiceDemo {
 	public static void main(String[] args) {
 		//newCachedThreadPool创建无大小限制的线程池
-		ExecutorService executorService = Executors.newCachedThreadPool();
+		/**
+		 * Executors.newCachedThreadPool的源码实际上是通过new ThreadPoolExecutor创建的线程池
+		 */
+		ExecutorService executorService = Executors.newCachedThreadPool(new UserThreadFactory("创建线程池时,自己设置线程的名字"));
 		for (int i=0; i<10; i++) {
 			int index = i;
 			executorService.submit(()->{

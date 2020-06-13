@@ -8,6 +8,8 @@ import java.util.regex.Pattern;
 /**
  * 正则表达式练习
  * https://www.cnblogs.com/deerchao/archive/2006/08/24/zhengzhe30fengzhongjiaocheng.html
+ * 【强制】在使用正则表达式时，利用好其预编译功能，可以有效加快正则匹配速度。 
+ * 说明：不要在方法体内定义：Pattern pattern = Pattern.compile(“规则”);《阿里巴巴Java开发手册（泰山版）.
  * @author lenovo
  */
 public class RegexTestEg {

@@ -26,13 +26,14 @@ class DataProvider implements Runnable{
 	
 	@Override
 	public void run() {
-		for (int x=0; x<50; x++) {
+		for (int x=0; x<5000; x++) {
 			if (x % 2 == 0) {
 				this.data.product("老李", "是个好人");
 			} else {
 				this.data.product("民族败类", "老方B");
 			}
 		}
+		System.out.println("数据我生产完了");
 	}
 }
 
@@ -43,7 +44,12 @@ class DataConsumer implements Runnable {
 	}
 	@Override
 	public void run() {
-		for (int x=0; x<50; x++) {
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		for (int x=0; x<500000; x++) {
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
@@ -65,20 +71,10 @@ class DataQueue {
 		
 		public synchronized void set (String title, String note) {
 			this.title = title;
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
 			this.note = note;
 		}
 		
 		public synchronized Data get() {
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
 			return this;
 		}
 	}
@@ -86,6 +82,7 @@ class DataQueue {
 	//flag = true,表示允许生产,但是不允许消费者取走
 	//flag = false, 表示生产完毕,允许消费者取走,但是不允许生产
 	private boolean flag = true;
+	
 	private Queue<Data> queue = new LinkedList<Data>();
 	
 	public synchronized void product(String title, String note) {
@@ -98,11 +95,19 @@ class DataQueue {
 		Data data = this.queue.poll();
 		if (data == null) {
 			try {
-				super.wait(2000);
+				System.out.println("数据没了,我先休息2秒,等生产者生产一会我再来取数据");
+				Thread.sleep(2000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			
+//			try {
+//				super.wait(2000);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+		} else {
+			System.out.println(data.get());
 		}
-		System.out.println(data.get());
 	}
 }

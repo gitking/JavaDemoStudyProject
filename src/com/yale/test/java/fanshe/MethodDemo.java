@@ -14,6 +14,11 @@ class Per {
 		this.name = name;
 	}
 }
+/**
+ * 【强制】避免用Apache Beanutils进行属性的copy。 
+ * 说明：Apache BeanUtils性能较差，可以使用其他方案比如Spring BeanUtils, Cglib BeanCopier，注意均是浅拷贝。《阿里巴巴Java开发手册（泰山版）.
+ * @author dell
+ */
 public class MethodDemo {
 
 	public static void main(String[] args) throws InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException {
