@@ -10,7 +10,16 @@
   如果一个请求没有任何一个servlet处理,这是就会用到conf/web.xml文件里面的default这个servlet,这个servlet会显示404页面。
   这个默认的servlet的url-pattern是/,这个路径是匹配所有任何的路径,所以他的优先级最低。conf/web.xm这个文件里面还有处理jsp的servlet
   这个文件里面还有很多的mime-type类型,自己去看去，session-timeout过期时间也是在这里面配置的-->
-
+  
+  <context-param><!--可以使用ServletContext来获取context-param配置的公共参数  -->
+  	<param-name>context-param</param-name>
+  	<param-value>param-value</param-value>
+  </context-param>
+  <context-param><!--可以使用ServletContext来获取context-param配置的公共参数  -->
+  	<param-name>context-param2</param-name>
+  	<param-value>param-value2</param-value>
+  </context-param>
+  
   <display-name>Tomcat Manager Application</display-name>
   <description>
     A scriptable management web application for the Tomcat Web Server;

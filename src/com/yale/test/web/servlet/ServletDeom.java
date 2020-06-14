@@ -1,7 +1,9 @@
 package com.yale.test.web.servlet;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Enumeration;
+import java.util.Set;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
@@ -21,6 +23,9 @@ import javax.servlet.ServletResponse;
  *  tomat的源码需要自己去https://tomcat.apache.org/download-80.cgi官网下载
  *  apache-tomcat-8.5.56-src.zip
  *  注意由于tomcat是通过反射调用Servlet的,所以Servlet必须有无参构造方法,否则tomcat就会调用失败,非常严重
+ *  域对象就是用来在多个servlet中传递数据的,很显然ServletContext就是域对象
+ *  jsp中包含四个域对象,servlet包含三个域对象
+ *  既然是传递数据,那么域对象就必须要有存数据和取数据的方法
  * @author dell
  */
 public class ServletDeom implements Servlet {
@@ -81,7 +86,33 @@ public class ServletDeom implements Servlet {
 		System.out.println("一个项目只有一个ServletContext对象,所以我们可以在N多个Servlet中来获取这个唯一的对象,使用他可以给多个");
 		System.out.println("servlet传递数据,所以大多数项目中都给ServletContext对象起名叫applicationContext");
 		System.out.println("ServletContext这个对象在tomcat启动时就创建,在tomcat关闭时才会死去");
-
+		
+		/**
+		 * 域对象就是用来在多个servlet中传递数据的,很显然ServletContext就是域对象
+		 *  jsp中包含四个域对象,servlet包含三个域对象
+		 *  既然是传递数据,那么域对象就必须要有存数据和取数据的方法
+		 */
+		sc.setAttribute("name", "张三");
+		String str = (String)sc.getAttribute("name");
+		System.out.println("利用ServletContext对象可以在多个servlet之间传递数据" + str);
+		Enumeration<String> enumer = sc.getAttributeNames();//取出ServletContext中的所有key值
+		while (enumer.hasMoreElements()) {
+			String key = enumer.nextElement();
+			System.out.println("ServletContext对象中存储的所有数据" + key);
+			System.out.println("ServletContext对象中存储的所有数据" + (String)sc.getAttribute(name));
+		}
+		String initContextParam = sc.getInitParameter("context-param");
+		System.out.println("getInitParameter获取的是在Web.xml里面配置的context-param参数");
+		//getRealPath得到请求路径,得到的是有盘符的路径,F:/XX/11/FSS
+		String path = sc.getRealPath("/index.jsp");
+		//通过这个真实路径可以创建一个file对象,也可以获取一个InputStream
+		
+		//获取资源的路径后,在创建出输入流对象,/index.jsp这个的意思就是项目跟目录下面的index.jsp文件
+		InputStream is = sc.getResourceAsStream("/index.jsp");
+		
+		//getResourcePaths("/WEB-INF")的意思是得到项目跟目录下面WEB-INF的的所有文件,但是只是WEB-INF下面的一层而已
+		//getResourcePaths和getResourceAsStream必须以/开头
+		Set<String> setStr = sc.getResourcePaths("/WEB-INF");
 	}
 
 	/**
@@ -89,6 +120,6 @@ public class ServletDeom implements Servlet {
 	 */
 	@Override
 	public void service(ServletRequest servletRequest, ServletResponse servletResponse) throws ServletException, IOException {
-		
+		System.out.println("service方法被调用了");
 	}
 }
