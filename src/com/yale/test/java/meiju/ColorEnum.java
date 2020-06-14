@@ -12,6 +12,7 @@ enum ColorDemo {
  * 枚举最大的特点是只有指定的几个对象可以使用
  * 另外需要注意的是,枚举本身还支持switch判断,也就是说switch按照时间进度来讲,最初只支持int和char,到了JDK1.5的时候支持了枚举,到了
  * jdk1.7的时候支持了String
+ * switch这种开关语句有个重要的特点:如果你在编写case的时候没有加上break;则会在满足的case语句之后一直执行,直到遇见break;或全部结束
  * @author dell
  */
 public class ColorEnum {

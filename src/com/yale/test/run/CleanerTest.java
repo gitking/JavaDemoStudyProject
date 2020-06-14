@@ -10,6 +10,6 @@ package com.yale.test.run;
  */
 public class CleanerTest {
 	public static void main(String[] args) {
-		Cleaner cleaner =  Cleaner.create();
+		//Cleaner cleaner =  Cleaner.create();
 	}
 }

@@ -60,5 +60,9 @@ public class CharTest {
 		
 		String res = Integer.toHexString(15);
 		System.out.println("15转换成十六进制:" + res);
+		
+		int num = 68;
+		char c = (char)num;
+		System.out.println("char可以将数字转换为英文字母" + c);
 	}
 }

@@ -47,6 +47,99 @@ public class MathTest {
 		 * 《阿里巴巴Java开发手册（泰山版）.pdf》
 		 */
 		System.out.print(Math.random() + ",");//100是上限,输出的随机最大值是99
+		
+		System.out.println();
+		
+		/**
+		 * 下面是阿里云魔乐科技的练习题
+		 * https://edu.aliyun.com/clouder/exam/new/15
+		 */
+		int num = 50;
+		num = num ++ * 2;
+		System.out.println("num 的值为:" + num);
+		
+		int numb = 50;
+		numb = numb ++;
+		System.out.println("numb 的值为:" + numb);
+		
+		int maxNum = 2147483647;
+		maxNum +=2;
+		System.out.println("maxNum的值是多少?" + maxNum);
+		System.out.println("int的最小值是多少?" + Integer.MIN_VALUE);
+		System.out.println("int的最大值是多少?" + Integer.MAX_VALUE);
+		
+		int maxNumSec = 2147483640;
+		maxNumSec +=9L;
+		System.out.println("maxNumSec的值是多少?" + maxNumSec);
+
+		int maxInt = Integer.MAX_VALUE;
+		long temp = maxInt + 2L;
+		System.out.println("temp 的值为:" + temp);
+		System.out.println("maxInt 的值为:" + maxInt);
+
+		
+		boolean flag = 10%2 == 1 && 10/3==0 && 1/0==0;
+		System.out.println(flag ? "mldn":"yootk");
+		float sd = 1.0f;//float变量后面必须带f
+		double dou = 1.0;//java中小数默认为double类型的
+		
+		int i = 1;
+		int j = i++;
+		if ((i == (++j)) && ((i++)==j)) {
+			i+=j;
+		}
+		System.out.println("i的值是多少?" + i);
+		
+		int ii = 1;
+		int jj = ii++;
+		if ((ii ==++jj) && (ii++==jj)) {
+			ii+=jj;
+		}
+		System.out.println("ii的值是多少?" + ii);
+		
+		int x =10;
+		double y = 20.2;
+		long z = 10L;
+		
+		long tempL = (long)(y * z);
+		System.out.println("tempL的值是多少?" + tempL);
+		
+		double tempDD = y * z;//long * double 结果是double
+		System.out.println("tempDD的值是多少?" + tempDD);
+		
+		String tempSt = "" + y * z;
+		System.out.println("tempSt的值是多少? 这里先算乘法:" + tempSt);
+		
+		String str = "" + x + (y * z);// "" + 10 这个变成字符串10了,然后先算乘法202.0
+		System.out.println("str的值是多少?" + str);
+		
+		//另外需要注意的是,枚举本身还支持switch判断,也就是说switch按照时间进度来讲,最初只支持int和char,到了JDK1.5的时候支持了枚举,到了
+		//jdk1.7的时候支持了String
+		//switch这种开关语句有个重要的特点:如果你在编写case的时候没有加上break;则会在满足的case语句之后一直执行,直到遇见break;或全部结束.所以要求case必须加上break;
+		char c = 'A';
+		int charNum = 10;
+		switch (c) {
+			case 'B':
+				charNum++;
+				System.out.println("11");
+			case 'A':
+				charNum++;
+				System.out.println("12");//这里会执行
+			case 'Y':
+				charNum++;
+				System.out.println("13");//这里也会执行
+				break;
+			default:
+				System.out.println("14");
+				charNum--;
+		}
+		System.out.println("charNum的值是多少?:" + charNum);
+		
+		long lm = 100;
+		//int lin = lm + 2;//程序错误
+		
+		String _na = "";
+		//String 100Book = "";
 	}
 	
 	/**

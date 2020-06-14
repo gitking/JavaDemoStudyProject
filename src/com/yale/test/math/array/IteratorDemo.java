@@ -29,11 +29,6 @@ public class IteratorDemo {
 			System.out.println(it.next());
 		}
 		
-		/**
-		 * list这个forEach怎么用?
-		 */
-		list.forEach(action);
-		
 		ListIterator<String> listIt = list.listIterator();
 		/**
 		 * 如果要想实现由后向前的输出,那么应该首先由前向后输出,否则无法实现双向,
