@@ -1,0 +1,3 @@
+ClassLoader默认读取的是src目录下的文件,src的意思是classes目录下面的文件,
+因为你src目录下的东西编译之后都会跑到classes目录下面,代码真正运行的也是classes目录下面的代码在运行
+如果要读取别的路径需要带完整的包路径比如com/test/a.txt

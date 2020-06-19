@@ -10,8 +10,10 @@ import java.io.InputStream;
 /**
  * ClassLoader是一个抽象类,但是却没有一个抽象方法需要子类实现,
  * 这样的目的不想让别人直接实例化ClassLoader类
+ * ClassLoader获取类路径资源,资源其实就是文件的意思。类路径对一个Javaweb项目来说,就是/WEB-INF/classes和/WEB-INF/lib下面的每个jar包
+ * 对于一个javaweb项目来说,src下面的源码包括(你的创建的别的文件xml,txt,png文件等),编译之后都会跑到WebContent\WEB-INF\classes下面
+ * 有的项目WebContent叫WebRoot,我感觉叫WebRoot跟合适,WebRoot的意思就是web跟路径
  * @author dell
- *
  */
 class MyClassLoader extends ClassLoader {
 	public Class<?> loadData(String className ) throws IOException{

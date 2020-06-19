@@ -103,6 +103,7 @@ public class ServletDeom implements Servlet {
 		}
 		String initContextParam = sc.getInitParameter("context-param");
 		System.out.println("getInitParameter获取的是在Web.xml里面配置的context-param参数");
+		
 		//getRealPath得到请求路径,得到的是有盘符的路径,F:/XX/11/FSS
 		String path = sc.getRealPath("/index.jsp");
 		//通过这个真实路径可以创建一个file对象,也可以获取一个InputStream
@@ -120,6 +121,7 @@ public class ServletDeom implements Servlet {
 	 */
 	@Override
 	public void service(ServletRequest servletRequest, ServletResponse servletResponse) throws ServletException, IOException {
-		System.out.println("service方法被调用了");
+		System.out.println("service方法被调用了,我现在拦截的是/*,/*的意思就是当前servlet是一个默认的servlet,当请求没人处理时我就处理");
+		System.out.println("/*的相当于tomcat的conf/web.xm里面配置的DefaultServlet,DefaultServlet配置的url-pattern是一个斜杠/,拦截所有请求,但是匹配优先级最低");
 	}
 }

@@ -49,6 +49,42 @@
 		<url-pattern>/servletTest</url-pattern>
 		<url-pattern>/servlet/*</url-pattern>
 		<url-pattern>*.do</url-pattern><!-- 注意*只能出现在俩端,不能出现在中间-->
-		<url-pattern>/*</url-pattern><!-- 匹配所有的url,匹配的越多优先级越低,先精准匹配,再模糊匹配。 -->
+		<!-- <url-pattern>/*</url-pattern>匹配所有的url,匹配的越多优先级越低,先精准匹配,再模糊匹配。 -->
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>pageview</servlet-name>
+		<servlet-class>com.yale.test.web.servlet.PageViewServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>pageview</servlet-name>
+		<url-pattern>/pageview</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>classloader</servlet-name>
+		<servlet-class>com.yale.test.web.servlet.ClassLoaderServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>classloader</servlet-name>
+		<url-pattern>/classloader</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>userServlet</servlet-name>
+		<servlet-class>com.yale.test.web.servlet.UserServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>userServlet</servlet-name>
+		<url-pattern>/userServlet</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>subBaseServlet</servlet-name>
+		<servlet-class>com.yale.test.web.servlet.SubBaseServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>subBaseServlet</servlet-name>
+		<url-pattern>/subBaseServlet</url-pattern>
 	</servlet-mapping>
 </web-app>

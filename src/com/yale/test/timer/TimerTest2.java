@@ -12,6 +12,7 @@ class MyTimerTask extends TimerTask {
 		System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
 		UUID uuid = UUID.randomUUID();
 		System.out.println("UUID类是根据你当前的地址和时间戳自动生成一个几乎不会重复的字符串,重复的几率大概是千万分之一");
+		System.out.println("用雪花ID不会重复,自己百度");
 		System.out.println("随机生成唯一ID:" + uuid.toString());
 	}
 }

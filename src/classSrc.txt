@@ -1,0 +1,2 @@
+Class文件读取时,是读取当前class类所在的目录,
+前面加斜杠/classSrc.txt的意思是相对于src(classes)目录
