@@ -26,6 +26,8 @@ import javax.servlet.ServletResponse;
  *  域对象就是用来在多个servlet中传递数据的,很显然ServletContext就是域对象
  *  jsp中包含四个域对象,servlet包含三个域对象
  *  既然是传递数据,那么域对象就必须要有存数据和取数据的方法
+ *  其实你如果想学习filter和servlet在web.xml里面有什么配置,你就在web.xml的servlet节点下面按alt + / 看提示,
+ * alt + / 会把里面的所有key配置的信息都提示出来,这个是xml schema的特性,xml和.xsd我之前好像在哪里学过?好像是慕课网把
  * @author dell
  */
 public class ServletDeom implements Servlet {

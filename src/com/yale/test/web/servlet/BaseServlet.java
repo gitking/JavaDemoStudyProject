@@ -13,6 +13,17 @@ import javax.servlet.http.HttpServletResponse;
  * 我们希望在一个servlet中可以有多个请求处理方法,要怎么做呢?
  * 思路跟HttpServlet一样,重写service方法,然后再service里面调用别的方法
  * http://localhost:8080/pcis/userServlet?method=addUser
+ * 阿里云  Servlet学习 课程 传智播客 itcast 东北老师讲的
+ * https://edu.aliyun.com/course/1700?spm=5176.11400004.0.0.729c476808gSCa
+ * JavaWeb三大组件:
+ * 1、都需要在web.xml中进行配置
+ * 	Servlet,
+ * 	Listener(2个感知监听器不需要配置),
+ * 	Filter
+ * 2、过滤器
+ * 	他会在一组资源(jsp,servlet,.css,.html等等)的前面执行,它可以让请求达到目标资源,也可以不让请求达到目标资源。
+ * 	过滤器有拦截请求的能力.
+ * 3、监听器
  * @author dell
  */
 public abstract class BaseServlet extends HttpServlet {

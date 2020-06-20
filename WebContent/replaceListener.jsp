@@ -4,10 +4,11 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Insert title here</title>
+		<title>替换属性</title>
 	</head>
 	<body>
-		<span>首页</span>
-		<%application.setAttribute("xxx", "jsp"); %>
+		<span>我在演示用ServletContextAttributeListener监控ServletContext里面的属性</span>
+		<%application.setAttribute("xxx", "html");
+			application.removeAttribute("xxx");%>
 	</body>
 </html>

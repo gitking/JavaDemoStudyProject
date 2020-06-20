@@ -9,7 +9,8 @@
   <!--web.xml文件的继承,每个完整的JavaWeb应用中都需要有web.xml,但我们不知道所有的web.xml文件都有一个共同的父文件,它在tomcat的conf/web.xml路径。
   如果一个请求没有任何一个servlet处理,这是就会用到conf/web.xml文件里面的default这个servlet,这个servlet会显示404页面。
   这个默认的servlet的url-pattern是/,这个路径是匹配所有任何的路径,所以他的优先级最低。conf/web.xm这个文件里面还有处理jsp的servlet
-  这个文件里面还有很多的mime-type类型,自己去看去，session-timeout过期时间也是在这里面配置的-->
+  这个文件里面还有很多的mime-type类型,自己去看去，session-timeout过期时间也是在这里面配置的，
+  阿里云  Servlet学习 课程 传智播客 itcast  东北老师讲的 https://edu.aliyun.com/course/1700?spm=5176.11400004.0.0.729c476808gSCa -->
   
   <context-param><!--可以使用ServletContext来获取context-param配置的公共参数  -->
   	<param-name>context-param</param-name>
@@ -49,7 +50,7 @@
 		<url-pattern>/servletTest</url-pattern>
 		<url-pattern>/servlet/*</url-pattern>
 		<url-pattern>*.do</url-pattern><!-- 注意*只能出现在俩端,不能出现在中间-->
-		<!-- <url-pattern>/*</url-pattern>匹配所有的url,匹配的越多优先级越低,先精准匹配,再模糊匹配。 -->
+		<!-- <url-pattern>/*</url-pattern>匹配所有的url,/*会把正常index.jsp这种请求也拦截调,匹配的越多优先级越低,先精准匹配,再模糊匹配。 -->
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>pageview</servlet-name>
@@ -87,4 +88,36 @@
 		<servlet-name>subBaseServlet</servlet-name>
 		<url-pattern>/subBaseServlet</url-pattern>
 	</servlet-mapping>
+	
+	<filter>
+		<filter-name>filterDemo</filter-name>
+		<filter-class>com.yale.test.web.filter.FilterDemo</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>filterDemo</filter-name>
+		<url-pattern>/subBaseServlet</url-pattern><!--/subBaseServlet的意思是只拦截/subBaseServlet这个请求, filter一般都会过滤所有请求,配置的一般都是/*-->
+		<dispatcher>FORWARD</dispatcher><!-- 只拦转发 -->
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>filterAll</filter-name>
+		<filter-class>com.yale.test.web.filter.FilterAll</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>filterAll</filter-name><!-- 这里没有配置dispatcher,默认是拦截请求REQUEST -->
+		<url-pattern>/*</url-pattern><!--filter一般都会过滤所有请求,配置的一般都是/*或者*.jsp,拦截的越多优先级越低-->
+		<!-- <servlet-name>subBaseServlet</servlet-name> filter-mapping 里面还可以配置servlet-name 指定要拦截的servlet,可以有多个servlet-name -->
+	</filter-mapping>
+	
+	<listener>
+		<listener-class>com.yale.test.web.listener.ListenerDemo</listener-class>
+	</listener>
+	<listener>
+		<listener-class>com.yale.test.web.listener.AttributeListener</listener-class>
+	</listener>
+	
+	<error-page><!-- 当发生500错误的时候,跳转到500.jsp页面,如果filter配置了<dispatcher>ERROR</dispatcher>,那么filter会过滤这个请求 -->
+		<error-code>500</error-code>
+		<location>/error/500.jsp</location>
+	</error-page>
 </web-app>
