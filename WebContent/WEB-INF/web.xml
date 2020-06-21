@@ -89,6 +89,61 @@
 		<url-pattern>/subBaseServlet</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>loginServlet</servlet-name>
+		<servlet-class>com.yale.test.web.servlet.login.LoginServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>loginServlet</servlet-name>
+		<url-pattern>/loginServlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>bookServlet</servlet-name>
+		<servlet-class>com.yale.test.web.servlet.book.BookServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>bookServlet</servlet-name>
+		<url-pattern>/bookServlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>encodeServlet</servlet-name>
+		<servlet-class>com.yale.test.web.servlet.login.EncodeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>encodeServlet</servlet-name>
+		<url-pattern>/encodeServlet</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 多个过滤器的执行顺序:	按照<filter-mapping>在Web.xml里面的配置顺序 -->
+	<filter>
+		<filter-name>loginFilter</filter-name>
+		<filter-class>com.yale.test.web.filter.UserFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>loginFilter</filter-name>
+		<url-pattern>/users/*</url-pattern>
+	</filter-mapping>
+	
+	
+	<filter>
+		<filter-name>staticFilter</filter-name>
+		<filter-class>com.yale.test.web.filter.book.StaticFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>staticFilter</filter-name>
+		<servlet-name>bookServlet</servlet-name>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>adminFilter</filter-name>
+		<filter-class>com.yale.test.web.filter.AdminFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>adminFilter</filter-name>
+		<url-pattern>/admin/*</url-pattern>
+	</filter-mapping>
 	<filter>
 		<filter-name>filterDemo</filter-name>
 		<filter-class>com.yale.test.web.filter.FilterDemo</filter-class>

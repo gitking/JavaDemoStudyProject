@@ -12,6 +12,8 @@ public class ThreadJoin {
 			 * join()等待该线程死亡。线程死亡的时候notifyAll方法会被调用,会通知join
 			 * join()方法调用的是join(0)方法.join(0)方法调用的是wait(0)方法,0意味着永远等待.
 			 * join()方法的逻辑是先调用线程的isAlive()方法判断线程是否存活,如果存活就调用wait(time)方法
+			 * https://yq.aliyun.com/articles/610881?spm=a2c4e.11155435.0.0.24d67229e5YHHF
+			 * https://blog.csdn.net/zhutulang/article/details/48504487?spm=a2c4e.10696291.0.0.365519a4fCLA2E
 			 */
 			System.out.println(thA.getName() + "此时线程一定是存活状态:" + thA.isAlive());
 			thA.join();//等同于调wait方法,自己看源码一清二楚

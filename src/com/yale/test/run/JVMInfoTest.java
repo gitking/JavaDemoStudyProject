@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * https://lucfzy.com/2020/04/jvm-zhiling/#load%E5%92%8Cstore
  * http://blog.sina.com.cn/s/blog_c42004c90102w5ya.html
  * JVM 信息获取 之 ManagementFactory
  * https://yq.aliyun.com/articles/617782?spm=a2c4e.11153940.0.0.5a0f5491IqPiKQ&type=2

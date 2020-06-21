@@ -8,11 +8,11 @@
 		<title>Insert title here</title>
 	</head>
 	<body>
-		<span>首页</span>
-		<%application.setAttribute("xxx", "jsp"); %>
-		<h1>你就是个游客而已</h1>
-		<a href="<c:url value='/index.jsp'/>">游客入口</a><br/>
-		<a href="<c:url value='/users/u.jsp'/>">会员入口</a><br/>
-		<a href="<c:url value='/admin/a.jsp'/>">管理员入口</a><br/>
+		<h1>登录</h1>
+		错误信息: ${msg}
+		<form action="<c:url value='/loginServlet'/>" method="post">
+			用户名:<input type="text" name="username"/>
+			<input type="submit" value="登录"/>
+		</form>
 	</body>
 </html>
