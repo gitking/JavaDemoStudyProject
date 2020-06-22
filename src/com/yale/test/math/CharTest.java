@@ -64,5 +64,19 @@ public class CharTest {
 		int num = 68;
 		char c = (char)num;
 		System.out.println("char可以将数字转换为英文字母" + c);
+		
+		//字符类型char表示一个字符。Java的char类型除了可表示标准的ASCII外，还可以表示一个Unicode字符：
+		char a = 'A';
+        char zh = '中';
+        System.out.println(a);
+        System.out.println(zh);
+        //字符类型char是基本数据类型，它是character的缩写。一个char保存一个Unicode字符：
+        //因为Java在内存中总是使用Unicode表示字符，所以，一个英文字符和一个中文字符都用一个char类型表示，它们都占用两个字节。要显示一个字符的Unicode编码，只需将char类型直接赋值给int类型即可：
+        int n1 = 'A'; // 字母“A”的Unicodde编码是65
+        int n2 = '中'; // 汉字“中”的Unicode编码是20013
+        //还可以直接用转义字符\\u+Unicode编码来表示一个字符：
+        // 注意是十六进制:
+        char c3 = '\u0041'; // 'A'，因为十六进制0041 = 十进制65
+        char c4 = '\u4e2d'; // '中'，因为十六进制4e2d = 十进制20013
 	}
 }
