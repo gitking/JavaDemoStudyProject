@@ -1,5 +1,7 @@
 package com.yale.test.math;
 
+import java.util.Scanner;
+
 public class FloatDemo {
 
 	public static void main(String[] args) {
@@ -27,7 +29,8 @@ public class FloatDemo {
         //比较x和y是否相等，先计算其差的绝对值:
         double r = Math.abs(x - y);
         // 再判断绝对值是否足够小:
-        if (r < 0.00001) {
+        if (r < 0.00001) {//前面讲过了浮点数在计算机中常常无法精确表示，并且计算可能出现误差，因此，判断浮点数相等用==判断不靠谱：
+        	//https://www.liaoxuefeng.com/wiki/1252599548343744/1259539352677728
             // 可以认为相等
         	System.out.println("相等");
         } else {
@@ -72,7 +75,7 @@ public class FloatDemo {
         int n2 = (int) 12.7; // 12
         int n22 = (int) -12.7; // -12
         int n3 = (int) (12.7 + 0.5); // 13
-        int n4 = (int) 1.2e20; // 2147483647
+        int n4 = (int) 1.2e20; //2147483647,科学计数法
         
         //如果要进行四舍五入，可以对浮点数加上0.5再强制转型：
         double ddd = 2.6;
@@ -95,5 +98,38 @@ public class FloatDemo {
         int nx = -100;
         int xb = nx >= 0 ? nx : -nx;//上述语句的意思是，判断n >= 0是否成立，如果为true，则返回n，否则返回-n。这实际上是一个求绝对值的表达式。
         System.out.println(xb);
+        
+        double dformat = 12900000;
+        System.out.println("格式化输出:" + dformat); // 1.29E7
+        
+        //如果要把数据显示成我们期望的格式，就需要使用格式化输出的功能。格式化输出使用System.out.printf()，通过使用占位符%?，printf()可以把后面的参数格式化成指定格式：
+        //Java的格式化功能提供了多种占位符，可以把各种数据类型“格式化”成指定的字符串：
+        /*
+         * %d	格式化输出整数
+		   %x	格式化输出十六进制整数
+		   %f	格式化输出浮点数
+		   %e	格式化输出科学计数法表示的浮点数
+		   %s	格式化字符串
+		   注意，由于%表示占位符，因此，连续两个%%表示一个%字符本身。
+		   占位符本身还可以有更详细的格式化参数。下面的例子把一个整数格式化成十六进制，并用0补足8位：
+         */
+        double dfor = 3.1415926;
+        System.out.printf("%.2f\n", dfor); // 显示两位小数3.14
+        System.out.printf("%.4f\n", dfor); // 显示4位小数3.1416
+        
+        int nfo = 12345000;
+        System.out.printf("将正数转换为十六进制:n=%d, hex=%x\n", nfo, nfo); // 注意，两个%占位符必须传入两个数
+        System.out.printf("将正数转换为十六进制,并用0补足8位:n=%d, hex=%08x", nfo, nfo); // 注意，两个%占位符必须传入两个数
+        /*
+         * 详细的格式化参数请参考JDK文档java.util.Formatter
+         * https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Formatter.html#syntax
+         */
+        
+        Scanner scanner = new Scanner(System.in); // 创建Scanner对象,接收从用户从控制台的输入
+        System.out.println("Input your name: "); // 打印提示
+        String name = scanner.nextLine(); // 读取一行输入并获取字符串
+        System.out.print("Input your age: "); // 打印提示
+        int age = scanner.nextInt(); // 读取一行输入并获取整数
+        System.out.printf("Hi, %s, you are %d\n", name, age); // 格式化输
 	}
 }

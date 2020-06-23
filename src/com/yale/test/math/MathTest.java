@@ -135,6 +135,110 @@ public class MathTest {
 		}
 		System.out.println("charNum的值是多少?:" + charNum);
 		
+		int option = 2;
+        switch (option) {
+	        case 1:
+	            System.out.println("Selected 1");
+	            break;
+	        case 2://如果有几个case语句执行的是同一组语句块，可以这么写：
+	        case 3:
+	            System.out.println("Selected 2, 3");
+	            break;
+	        default:
+	            System.out.println("Not selected");
+	            break;
+        }
+        //使用switch语句时，只要保证有break，case的顺序不影响程序逻辑：但是仍然建议按照自然顺序排列，便于阅读。
+        switch (option) {
+	        case 3:
+	            System.out.println("Selected 3");
+	            break;
+	        case 2:
+	            System.out.println("Selected 2");
+	            break;
+	        case 1:
+	            System.out.println("Selected 1");
+	            break;
+        }
+        
+        /*
+		 * 表面上看，上面的while循环是一个死循环，但是，Java的int类型有最大值，达到最大值后，再加1会变成负数，结果，意外退出了while循环。
+		 */
+		int sum = 0;
+        int n = 1;
+        while (n > 0) {
+            sum = sum + n;
+            n ++;
+        }
+        System.out.println(n); // -2147483648
+        System.out.println(sum);
+        // 不设置结束条件:
+        for (int ie=0; ; ie++) {
+        	System.out.println("需要自己");
+            break;
+        }
+        // 不设置结束条件和更新语句:
+        for (int ie=0; ;) {
+            System.out.println("需要自己");
+            break;
+        }
+        // 什么都不设置:
+        for (;;) {
+            System.out.println("需要自己");
+            break;
+        }
+        
+        /*
+         * 使用switch时，如果遗漏了break，就会造成严重的逻辑错误，而且不易在源代码中发现错误。
+         * 从Java 12开始，switch语句升级为更简洁的表达式语法，使用类似模式匹配（Pattern Matching）的方法，保证只有一种路径会被执行，并且不需要break语句：
+         * String fruit = "apple";
+        switch (fruit) {
+        case "apple" -> System.out.println("Selected apple");
+        case "pear" -> System.out.println("Selected pear");
+        case "mango" -> {
+            System.out.println("Selected mango");
+            System.out.println("Good choice!");
+        }
+        default -> System.out.println("No fruit selected");
+        }
+        注意新语法使用->，如果有多条语句，需要用{}括起来。不要写break语句，因为新语法只会执行匹配的语句，没有穿透效应。
+        很多时候，我们还可能用switch语句给某个变量赋值。例如：
+        int opt;
+		switch (fruit) {
+		case "apple":
+		    opt = 1;
+		    break;
+		case "pear":
+		case "mango":
+		    opt = 2;
+		    break;
+		default:
+		    opt = 0;
+		    break;
+		}
+		使用新的switch语法，不但不需要break，还可以直接返回值。把上面的代码改写如下：
+		String fruit = "apple";
+        int opt = switch (fruit) {
+            case "apple" -> 1;
+            case "pear", "mango" -> 2;
+            default -> 0;
+        }; // 注意赋值语句要以;结束
+        System.out.println("opt = " + opt);//这样可以获得更简洁的代码。
+        大多数时候，在switch表达式内部，我们会返回简单的值。
+但是，如果需要复杂的语句，我们也可以写很多语句，放到{...}里，然后，用yield返回一个值作为switch语句的返回值：
+String fruit = "orange";
+        int opt = switch (fruit) {
+            case "apple" -> 1;
+            case "pear", "mango" -> 2;
+            default -> {
+                int code = fruit.hashCode();
+                yield code; // switch语句返回值
+            }
+        };
+        System.out.println("opt = " + opt);
+        https://www.liaoxuefeng.com/wiki/1252599548343744/1259541030848864
+         */
+		
 		long lm = 100;
 		//int lin = lm + 2;//程序错误
 		

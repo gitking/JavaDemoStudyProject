@@ -99,5 +99,43 @@ public class ArraysTest {
 		String []paramNames = new String[paramMap.size()];
 		paramMap.keySet().toArray(paramNames);//软通框架JAR包里面看到的
 		System.out.println("数组转成String" + Arrays.toString(paramNames));
+		
+		/*
+		 * 对数组进行排序是程序中非常基本的需求。常用的排序算法有冒泡排序、插入排序和快速排序等。
+		 * 我们来看一下如何使用冒泡排序算法对一个整型数组从小到大进行排序：
+		 * 冒泡排序的特点是，每一轮循环后，最大的一个数被交换到末尾，因此，下一轮循环就可以“刨除”最后的数，每一轮循环都比上一轮循环的结束位置靠前一位。
+		 */
+		int[] nsSort = { 28, 12, 89, 73, 65, 18, 96, 50, 8, 36 };
+        // 排序前:
+        System.out.println("冒泡排序前:" + Arrays.toString(nsSort));
+        for (int i = 0; i < nsSort.length - 1; i++) {
+            for (int j = 0; j < nsSort.length - i - 1; j++) {
+                if (nsSort[j] > nsSort[j+1]) {
+                    // 交换ns[j]和ns[j+1]:
+                    int tmp = nsSort[j];
+                    nsSort[j] = nsSort[j+1];
+                    nsSort[j+1] = tmp;
+                }
+            }
+        }
+        // 排序后:
+        System.out.println("冒泡排序前:" + Arrays.toString(nsSort));
+        //二维数组,二维数组的每个数组元素的长度并不要求相同
+        int[][] arrayEr = new int[][]{{1, 2, 3}, {4, 5, 6, 7}};
+        System.out.println("二维数组:" + arrayEr[0][1]);
+        for (int[] arr : arrayEr) {
+            for (int n : arr) {
+                System.out.print(n);
+                System.out.print(',');
+            }
+            System.out.println();
+        }
+        
+        System.out.println("要打印一个二维数组:" + Arrays.deepToString(arrayEr));
+        
+        //理论上，我们可以定义任意的N维数组。但在实际应用中，除了二维数组在某些时候还能用得上，更高维度的数组很少使用。
+        int[][][] arraySec = new int[][][]{{{1,2,3}, {4, 5, 6}}, {{7,8,9}, {10, 11, 12}}};
+        System.out.println("要打印一个三维数组:" + Arrays.deepToString(arraySec));
+        //java Main -version 命令行传参数,后面的-version可以传多个参数,以空格隔开
 	}
 }

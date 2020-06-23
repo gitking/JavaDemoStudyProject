@@ -8,8 +8,9 @@ public class Dept {
 	public String getDname() {
 		return dname;
 	}
+	//但是，如果有局部变量和字段重名，那么局部变量优先级更高，就必须加上this： 
 	public void setDname(String dname) {
-		this.dname = dname;
+		this.dname = dname;// 前面的this不可少，少了就变成局部变量name了
 	}
 	public String getLoc() {
 		return loc;

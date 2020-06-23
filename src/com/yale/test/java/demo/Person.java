@@ -28,8 +28,34 @@ public class Person {
 		
 		Student stuTemp = (Student)tempP;//这行代码不会报错,因为tempP实际上就是一个Student对象,所以这里将父类强制转换为子类不会报错
 		stuTemp.test();
+		/**
+		 * 向下转型不安全,可以使用instanceof判断一个实例究竟是不是某种类型
+		 * 如果一个引用变量为null，那么对任何instanceof的判断都为false。
+		 */
+		if (ps instanceof Student) {
+			System.out.println("ps这个对象实际上是一个Student的实例");
+		} else {
+			System.out.println("ps这个对象不是Student的实例,不能向下转型,代码会报错");
+		}
 		
-		Student temp = (Student)ps;//这行代码会报错,因为ps这个对象实际上一个父类对象,所以不能将一个实际的父类对象强制转换为子类对象
+		
+		Object obj = "字符串对象";
+		if (obj instanceof String) {
+		    String s = (String) obj;
+		    System.out.println(s.toUpperCase());
+		}
+		/*
+		 * 上面的代码
+		 * 从Java 14开始，判断instanceof后，可以直接转型为指定变量，避免再次强制转型。例如，对于以下代码：
+		 * Object obj = "hello";
+        if (obj instanceof String s) {//用变量s接收
+            // 可以直接使用变量s:
+            System.out.println(s.toUpperCase());
+        }
+        使用instanceof variable这种判断并转型为指定类型变量的语法时，必须打开编译器开关--source 14和--enable-preview。
+		 */
+		
+		Student temp = (Student)ps;//向下转型,这行代码会报错,因为ps这个对象实际上一个父类对象,所以不能将一个实际的父类对象强制转换为子类对象
 		ps.testParam01(temp);//这里不强制会报错,但是强制调用testParam01方法有风险,如果testParam01方法内部调用了,子类特有的方法,代码运行就会报错
 	}
 	
