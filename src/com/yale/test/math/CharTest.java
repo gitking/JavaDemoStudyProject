@@ -22,6 +22,8 @@ public class CharTest {
 	 * 如果将boolean定义在数组当中,虚拟机就将它编译成byte类型也就是1个字节8位.
 	 * 既然要节省空间那么为什么单独定义要用int类型来代替呢?这是因为当时的计算机大多是32位,一次处理数据的长度是32,所以在使用int时会更加的高效.
 	 * 这也是为什么int,byte,short运算过后结果默认为int的原因之一,这是在存储空间和执行效率上做的取舍
+	 * 关于字符编码 ：https://cjting.me/2014/04/24/about-string-encoding/
+	 * 不论微信钉钉，我写了个通用消息监控处理机器人https://www.howie6879.cn/post/2019/10_monitor_os_notifications/
 	 * @param args
 	 */
 	public static void main(String[] args) {

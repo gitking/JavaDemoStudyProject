@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+<!-- 这个xml的配置文件可以在Spring的文档上面找到,在Core那个文档里面找到 
+在beans这个文件里面管理java的对象,由Spring来管理.还是那句老话,你要学习这个xml里面都可以配置什么东西,你直接按alt+/ 就可以看到xml有哪些属性可以使用 了-->
+<!-- scope=singleton 的意思是创建单例模式的意思,spring默认就是single,prototype是每次get就创建一个新的对象,request,session -->
+	
+	
+	<bean id="helloDynamicFactory" class="com.yale.test.spring.factory.HelloDynamicFactory"/>
+	<bean id="mySqlDao" class="com.yale.test.spring.dao.impl.UserDaoMySqlImpl"/>
+	<bean id="oracleDao" class="com.yale.test.spring.dao.impl.UserDaoOracleImpl"/>
+	<bean id="service" class="com.yale.test.spring.services.impl.UserServiceImpl">
+		<!-- 在spring配置文件里面配置property属性时,属性的name一定等于setSsserDao这个set方法后面的SsserDao,
+		并且把首字母变成小写 .但是你不要这样搞,命名规范很重要-->
+		<property name="ssserDao" ref="mySqlDao"></property>
+	</bean>
+	
+	
+	<bean id="autDao" class="com.yale.test.spring.dao.impl.UserDaoAutoImpl"/>
+	<!-- 自动装配主要为了简化Spring的配置文件, 不推荐使用自动装配,而是使用Annoation代替,
+	autowire自动注入(自动装配),自己根据属性名字,去Spring的配置文件里面去找对象的类, 
+	byName这里还是要注意,这里是根据名称是根据set方法的名称
+	byType根据类型自动装配-->
+	<bean id="simService" class="com.yale.test.spring.services.impl.SimpleUserServiceImpl" autowire="byName"/>
+	
+	<bean class="com.yale.test.spring.dao.impl.UserDaoTypeImpl"/>
+	<!-- 注意byType更厉害,直接根据类的class自动匹配的,并且UserDaoTypeImpl这个bean连id和name都不需要配置,省了不少代码
+	不过 SpecUserServiceImpl这个类里面的属性就不能配置接口或者父类了,需要是一个具体的子类-->
+	<bean id="susi" class="com.yale.test.spring.services.impl.SpecUserServiceImpl" autowire="byType"/>
+	
+	<!-- constructor通过构造方法自动注入-->
+	<bean id="susi1" class="com.yale.test.spring.services.impl.SpecUserServiceImpl" autowire="constructor"/>
+	
+</beans>

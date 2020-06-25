@@ -32,6 +32,8 @@ import com.yale.test.thread.heima.zhangxiaoxiang.UserThreadFactory;
  *  	 1） FixedThreadPool和SingleThreadPool： 允许的请求队列长度为Integer.MAX_VALUE，可能会堆积大量的请求，从而导致OOM。
  *		 2） CachedThreadPool： 允许的创建线程数量为Integer.MAX_VALUE，可能会创建大量的线程，从而导致OOM。
  * 《阿里巴巴Java开发手册（泰山版）.pdf》
+ * 如果优雅的使用线程池:https://crossoverjie.top/2018/07/29/java-senior/ThreadPool/
+ * 一个公平的洗牌算法 :https://imoegirl.com/2019/12/30/algo-knuth-shuffle/
  * @author dell
  *
  */

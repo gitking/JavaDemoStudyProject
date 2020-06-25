@@ -26,6 +26,13 @@
     A scriptable management web application for the Tomcat Web Server;
     Manager lets you view, load/unload/etc particular web applications.
   </description>
+  <welcome-file-list>
+  	<!-- 这个配置是当你访问http://localhost:8080/pcis/,项目的跟目录时就显示这个jsp
+  		按顺序找,找到第一个就显示第一个文件,找不到就继续往下找
+  	 -->
+  	<welcome-file>login1111.jsp</welcome-file>
+  	<welcome-file>login.jsp</welcome-file>
+  </welcome-file-list>
 	<servlet>
 		<servlet-name>servletDeom</servlet-name>
 		<servlet-class>com.yale.test.web.servlet.ServletDeom</servlet-class>

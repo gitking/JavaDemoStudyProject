@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+     xmlns:c="http://www.springframework.org/schema/c"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+<!-- 这个xml的配置文件可以在Spring的文档上面找到,在Core那个文档里面找到 
+在beans这个文件里面管理java的对象,由Spring来管理.还是那句老话,你要学习这个xml里面都可以配置什么东西,你直接按alt+/ 就可以看到xml有哪些属性可以使用 了-->
+<!-- scope=singleton 的意思是创建单例模式的意思,spring默认就是single,prototype是每次get就创建一个新的对象,request,session
+Spring这里的单例是通过计数器去记录的,想想就知道了,因为类是我们自己的,构造方法又没有私有化, 
+bean 的scope作用域:
+	singleton：单例,Spring自己通过计数器记录
+	prototype：原型,就是跟java你自己写java代码一样,每次getbean都是新对象
+	request:在请求范围内,这个你自己去看官方文档
+	session：在httpsession会话中只创建一个对象,这个你自己去看官方文档
+	application:Scopes a single bean definition to the lifecycle of a ServletContext. Only valid in the context of a web-aware Spring ApplicationContext.
+	websocket：Scopes a single bean definition to the lifecycle of a WebSocket. Only valid in the context of a web-aware Spring ApplicationContext.
+-->
+	<bean name="hello" class="com.yale.test.spring.vo.Hello" scope="singleton">
+		<property name="name" value="张三"></property>
+	</bean>
+	
+	<bean name="hello1" class="com.yale.test.spring.vo.Hello" scope="singleton">
+		<!--<constructor-arg index="0" value="index是根据下标设置构造方法的参数"></constructor-arg>
+		<constructor-arg index="1" value="22"></constructor-arg>-->
+		<!--<constructor-arg name="name" value="name就不用说了,就是根据名字设置参数"></constructor-arg>
+		<constructor-arg name="age" value="99"></constructor-arg>-->
+		<constructor-arg type="java.lang.String" value="type根据参数的数据类型类来设置参数"></constructor-arg>
+		<constructor-arg type="int" value="99"></constructor-arg>
+	</bean>
+	
+	<bean name="helloFactory" class="com.yale.test.spring.factory.HelloFactory" factory-method="newInstance">
+		<constructor-arg name="name" value="factory-method通过指定的静态工厂类创建对象"></constructor-arg>
+		<constructor-arg name="age" value="99"></constructor-arg>
+	</bean>
+	<!-- id不能重复, name可以设置多个,可以用,号; 分号 和 空格隔开,Spring都能识别 -->
+	<bean id="helloDynamic" name="h1,h2 h3" factory-bean="helloDynamicFactory" factory-method="newInstance">
+		<constructor-arg name="name" value="factory-bean通过指定的动态工厂类创建对象"></constructor-arg>
+		<constructor-arg name="age" value="99"></constructor-arg>
+	</bean>
+	<!-- alias设置别名,设置完你就可以通过hd获取对象了 -->
+	<alias name="helloDynamic" alias="hd"/>
+	<!-- 导入指定位置的配置文件,如果所有的配置都写在一个配置文件里面,那就太多了,分开配置然后导入配置文件 -->
+	<import resource="entity.xml"/>
+	<!-- 如果配置文件不在一个目录,可以这样配置:<import resource="config/spring/entity.xml"/> -->
+	
+	<bean id="stu" class="com.yale.test.spring.vo.Student">
+		<property name="name" value="常量注入"></property>
+		<property name="age" value="12"></property>
+		<property name="books">
+			<array>
+				<value>澳门与偏见</value>
+				<value>仲夏夜之梦</value>
+				<value>无毒鼓励而</value>
+				<value>上发大水</value>
+			</array>
+		</property>
+		<property name="hobbies">
+			<list>
+				<value>篮球</value>
+				<value>游泳</value>
+			</list>
+		</property>
+		<property name="cards">
+			<map>
+				<entry key="中国银行" value="6464655465"></entry>
+				<entry key="工商银行" value="1111"></entry>
+				<entry>
+					<key><value>花旗银行</value></key>
+					<value>654556546465</value>
+				</entry>
+			</map>
+		</property>
+		<property name="games">
+			<set>
+				<value>LOL</value>
+				<value>王者荣耀</value>
+			</set>
+		</property>
+		<property name="wifi">
+			<null/>
+		</property>
+		
+		<property name="info">
+			<props>
+				<prop key="学号">001</prop>
+				<prop key="性别">男</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- p-name注入,其实就是properties属性注入,这个需要当前配置文件引入一个schema -->
+	<bean id="teac" class="com.yale.test.spring.vo.Teacher" p:name="风清扬" p:age="230"/>
+	
+	<!-- c-name注入,其实就是构造方法注入,要求有对应参数的构造方法,这个需要当前配置文件引入一个schema -->
+	<bean id="teac2" class="com.yale.test.spring.vo.Teacher" c:name="何老师" c:age="30"/>
+	
+	<!-- c-name注入,其实就是构造方法注入,要求有对应参数的构造方法,这个需要当前配置文件引入一个schema -->
+	<bean id="teac3" class="com.yale.test.spring.vo.Teacher" c:name="谢娜老师" c:age="30" c:stu-ref="stu"/>
+	
+	<bean id="teac4" class="com.yale.test.spring.vo.Teacher">
+		<constructor-arg name="name" value="汪缓老师"/>
+		<constructor-arg name="age"  value="60"/>
+		<constructor-arg ref="stu"/>
+	</bean>
+</beans>

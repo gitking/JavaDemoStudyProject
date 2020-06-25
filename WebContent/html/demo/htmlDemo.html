@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>html标签学习</title>、
+	<style type="text/css">
+		blockquote {
+		    margin: 0;
+		}
+		blockquote p {
+		    padding: 15px;
+		    background: #eee;
+		    border-radius: 5px;
+		}
+		
+		blockquote p::before {
+		    content: '\201C';
+		}
+		
+		blockquote p::after {
+		    content: '\201D';
+		}
+		
+		label,
+		textarea {
+		    font-size: .8rem;
+		    letter-spacing: 1px;
+		    width:800px;
+		}
+		textarea {
+		    padding: 10px;
+		    line-height: 1.5;
+		    border-radius: 5px;
+		    border: 1px solid #ccc;
+		    box-shadow: 1px 1px 1px #999;
+		}
+		
+		label {
+		    display: block;
+		    margin-bottom: 10px;
+		}
+	</style>
+	</head>
+	<body>
+	<strong>学习HTML标签元素来这里(mozilla火狐开发者中心):https://developer.mozilla.org/en-US/docs/Web/HTML/Element</strong>
+		<pre><strong>HTML &lt;pre&gt;</strong> 元素表示预格式化的文本，该文本将完全按照HTML文件中的格式显示。 通常使用非比例（“等宽字体”）字体呈现文本。 此元素内的空白显示为书面形式。</pre>
+		<img alt="" src="images/pre.png" witdh="420" height="300"/><br/>
+		<main role="main">
+		    <p><strong>HTML &lt;main&gt;</strong>元素表示文档&lt;body&gt;的主要内容。 主要内容区域由与文档的中心主题或应用程序的中心功能直接相关或扩展的内容组成。</p>
+		</main>
+		
+		<strong>HTML &lt;textarea&gt;元素表示多行纯文本编辑控件，在您希望允许用户输入大量自由格式文本（例如，对评论或反馈表单的评论）时很有用。textarea的高度由rows来决定</strong>
+		<label for="story">Tell us your story:</label>
+		<textarea id="story" name="story" rows="16" cols="33" width="100%">
+			HTML 行标签
+        	文本标签
+        		<i> 标签显示斜体文本效果。<i> 标签一定要和结束标签 </i> 结合起来使用。 <i> 标签和基于内容的样式标签 <em> 类似
+        		<em> 标签告诉浏览器把其中的文本表示为强调的内容。对于所有浏览器来说，这意味着要把这段文字用斜体来显示。
+        		<p align="center"></p>段落标签
+        		
+        		<span> 用于对文档中的行内元素进行组合。
+        		span> 标签没有固定的格式表现。当对它应用样式时，它才会产生视觉上的变化。如果不对 <span> 应用样式，那么 <span> 元素中的文本与其他文本不会任何视觉上的差异。
+        		<p>我的母亲有 <span style="color:blue">蓝色</span> 的眼睛。</p>
+						&lt;textarea&gt; rows="10" cols="30">我是一个文本框。&lt;/textarea&gt;
+						使用 <u> 标签为文本添加下划线：
+						<p>This is a <u>parragraph</u>.</p>
+						<b>这是粗体文本</b>
+						<strong> 标签和 <em> 标签一样，用于强调文本，但它强调的程度更强一些。
+						<s> 标签 标记不再正确的文本:加删除线文本定义。
+						<h1> - <h6> 标签可定义标题。<h1> 定义最大的标题。<h6> 定义最小的标题。
+						
+						https://www.w3school.com.cn/tags/tag_hn.asp
+						如果您希望了解更多有关 HTML 标签选择和使用的信息，请阅读《Web 品质》。
+						Web 品质》 https://www.w3school.com.cn/quality/quality_elements.asp
+						项目中这俩天关于PDF的东西
+        块标签
+        
+        
+        功能标签
+        	<br /> 换行
+        	<hr> 标签在 HTML 页面中创建一条水平线。
+        	<label> 标签为 input 元素定义标注（标记）。<label>标签的 for 属性应当与相关元素的 id 属性相同。
+        	</fieldset>
+        	legend 元素为 fieldset 元素定义标题
+        	<mark> 标签定义带有记号的文本。请在需要突出显示文本时使用 <m> 标签。Internet Explorer 8 以及更早的版本不支持 <mark> 标签。
+
+        表格
+        table tr td dl dt dd  col colgroup
+		</textarea>
+	</body>
+</html>
