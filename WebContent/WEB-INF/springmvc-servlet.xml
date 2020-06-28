@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:c="http://www.springframework.org/schema/c"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop 
+        https://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+    <!-- 配置handlerMapping -->
+	<!--<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>-->
+	<!-- 配置handlerAdapter, 配置了handlerAdapter的话,HelloController里面的name可以这样配置/hello,不需要配置请求的后缀
+	handlerAdapter这个也可以不配置,不配置的话HelloController里面的name必须这样配置/hello.springmvc
+	-->
+	<!--适配器<bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>-->
+	<!-- 配置渲染器 -->
+	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
+		<!-- 结果视图前缀 -->
+		<property name="prefix" value="/springmvc/"></property>
+		<!-- 结果视图后缀 -->
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	
+	<!--<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/helloAnno.springmvc">helloController</prop>
+			</props>
+		</property>
+	</bean>-->
+	<!--<bean id="helloController" class="com.yale.test.springmvc.controller.HelloController"/>-->
+	
+	<!-- 配置请求和处理 -->
+	<!--<bean name="/hello.springmvc" class="com.yale.test.springmvc.controller.HelloController"/>-->
+	
+	<!-- 使用Annotation注解的方式,需要配置context:component-scan,让SpringMVC自己去扫描我们指定包下面的Controllers
+	然后上面的BeanNameUrlHandlerMapping和SimpleControllerHandlerAdapter还有你自己定义的HelloController 就不需要配置了
+	 -->
+	<context:component-scan base-package="com.yale.test.springmvc.controller"/>
+</beans>

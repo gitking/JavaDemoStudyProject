@@ -21,8 +21,11 @@ class RealSubjectSec implements ISubjectSec {
  * InvocationHandler类里面只有一个方法invoke,
  * invoke方法表示的是调用执行方法,但是所有的代理类返回给用户的接口对象都属于代理对象,当用户执行接口方法的时候
  * 所调用的实例化对象就是改代理主题动态创建的一个接口对象
+ * 动态代理分为俩类:基于接口的动态代理(jdk的InvocationHandler)和基于类的动态代理(cglib)
+ * 发展到现在用的比较多的是javasist来实现动态代理类,cglib用的也不太多了,主要用javasist
+ * 静态代理只能代理一个接口下面的所有实现类,动态代理能代理所有接口的所有实现类
+ * 代理的好处:使真实的类更纯净了(减轻了真实类的业务),不再关注一些公共的事情
  * @author dell
- *
  */
 class ProxySubjectSec implements InvocationHandler {//是一个动态代理类
 	
@@ -86,6 +89,7 @@ public class ProxyInvocationHandler {
 		 * 上面这俩篇文章是讲,如果将JVM动态生成的class文件保存下来的
 		 */
 		ISubjectSec subject = (ISubjectSec)new ProxySubjectSec().bind(new RealSubjectSec());
+		System.out.println("代理类的真实样子:" + subject.getClass());
 		subject.eat("鱼香肉丝", 20);
 	}
 }

@@ -3,9 +3,11 @@ package com.yale.test.spring.test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.yale.test.spring.services.StuServices;
 import com.yale.test.spring.services.UserService;
 import com.yale.test.spring.services.impl.SimpleUserServiceImpl;
 import com.yale.test.spring.services.impl.SpecUserServiceImpl;
+import com.yale.test.spring.services.impl.StuServiceImpl;
 import com.yale.test.spring.services.impl.UserServiceImpl;
 import com.yale.test.spring.vo.Hello;
 import com.yale.test.spring.vo.Student;
@@ -17,6 +19,7 @@ shiro 比spring security要好一点
 Spring的理念是:使现有技术更加实用,Spring本身是大杂烩整合现有的框架技术。
 Spring的优点:1、轻量级框架2、IOC容器(控制翻转)3、AOP（面向切面编程）4、对事务的支持5、对别的框架的支持
 Spring-桥梁,Spring可以和hibernate和Struts整合到一起
+aop面向切面编程在Spring中的作用：1、提供声明式服务(声明式事务)2、允许用户实现自定义框架
  * @author dell
  *
  */
@@ -98,5 +101,28 @@ public class SpringTest {
 		
 		SpecUserServiceImpl susi1 = (SpecUserServiceImpl)springContext.getBean("susi1");
 		susi1.getUser();
+		
+		
+		System.out.println("***********aop来了******************");
+		
+		/**
+		 * org/aspectj/weaver/reflect/ReflectionWorld$ReflectionWorldException
+		 * org/aspectj/weaver/reflect/ReflectionWorld$ReflectionWorldException
+		 * 报这个异常是因为没有引入aspectjweaver.jar jar包
+		 */
+		/**
+		 * 这里只能用StuServices接口接收,不能用StuServiceImpl类接收,因为Spring在这里给你返回的是一个代理类,
+		 * 等于Spring自己创建了一个类并且实现了StuServices接口,所以你用StuServiceImpl接收是有问题的
+		 */
+		StuServices stuSer = (StuServices)springContext.getBean("stuSer");
+		stuSer.add();
+		stuSer.delete(12);
+
+		System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+		System.out.println();
+		StuServices collgeSer = (StuServices)springContext.getBean("collgeSer");
+		collgeSer.add();
+		collgeSer.delete(12);
+		
 	}
 }

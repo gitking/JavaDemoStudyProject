@@ -1,5 +1,7 @@
 package com.yale.test.web.listener;
 
+import java.util.Map;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextAttributeEvent;
 import javax.servlet.ServletContextAttributeListener;
@@ -36,7 +38,8 @@ public class AttributeListener implements ServletContextAttributeListener {
 			System.out.println("那怎么获取最新的值呢？");
 			String newVal = (String)scae.getServletContext().getAttribute(key);
 			System.out.println("获取新值:" + newVal);
+		} else if (obj instanceof Map) {
+			System.out.println("servletContext中替换了Map的值:");
 		}
-		
 	}
 }

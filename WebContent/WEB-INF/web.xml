@@ -123,6 +123,19 @@
 		<url-pattern>/encodeServlet</url-pattern>
 	</servlet-mapping>
 	
+    
+	<servlet>
+		<servlet-name>springmvc</servlet-name>
+		<!-- springmvc的DispatcherServlet默认在WEB-INF下面查找springmvc-serlvet.xml文件,不配置会报错.
+		如果真不想配置,就需要通过配置监听器 ContextLoaderListener来指定你的文件路径-->
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- 配置SpringMvc的核心Servlet,服务器启动这个Servlet就要实例化 -->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>springmvc</servlet-name>
+		<url-pattern>*.springmvc</url-pattern>
+	</servlet-mapping>
 	<!-- 多个过滤器的执行顺序:	按照<filter-mapping>在Web.xml里面的配置顺序 -->
 	<filter>
 		<filter-name>loginFilter</filter-name>
