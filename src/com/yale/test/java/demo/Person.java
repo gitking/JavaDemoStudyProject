@@ -69,4 +69,13 @@ public class Person {
 		System.out.println("但是可以把父类强制转为子类后,再传进来.");
 		//stu.test();
 	}
+	
+	public void superDemo() {
+		System.out.println("Person类:顶层的父类,");
+	}
+	
+	//静态方法也经常用于辅助方法
+    public static void testStatic() {
+    	System.out.println("静态方法也经常用于辅助方法");
+    }
 }

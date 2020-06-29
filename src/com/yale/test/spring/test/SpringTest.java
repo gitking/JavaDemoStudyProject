@@ -2,12 +2,12 @@ package com.yale.test.spring.test;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.yale.test.spring.services.StuServices;
 import com.yale.test.spring.services.UserService;
 import com.yale.test.spring.services.impl.SimpleUserServiceImpl;
 import com.yale.test.spring.services.impl.SpecUserServiceImpl;
-import com.yale.test.spring.services.impl.StuServiceImpl;
 import com.yale.test.spring.services.impl.UserServiceImpl;
 import com.yale.test.spring.vo.Hello;
 import com.yale.test.spring.vo.Student;
@@ -36,6 +36,15 @@ public class SpringTest {
 
 		//让ClassPathXmlApplicationContext去我指定的目录寻找beans.xml配置文件
 		ApplicationContext springContext = new ClassPathXmlApplicationContext("com/yale/test/spring/vo/beans.xml");
+		
+		/*
+		 * Web项目也可以通过 WebApplicationContextUtils获取ApplicationContext,WebApplicationContext继承了ApplicationContext接口
+		 * 使用WebApplicationContext需要在web.xml中配置<context-param>
+				<param-name>contextConfigLocation</param-name>
+				<param-value>/WEB-INF/applicationContext.xml</param-value>
+			</context-param> 这个参数
+		 * WebApplicationContext webApp = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+		 */
 		System.out.println("#############Spring配置文件记载完毕,你注意观察打印顺序###########");
 		Hello hello = (Hello)springContext.getBean("hello");
 		hello.show();

@@ -116,6 +116,7 @@ public class SetDemo {
 		/**
 		 * HashSet是利用equals和hashCode这俩个方法来判断重复的
 		 * 俩个方法都返回true才认为是同一个对象
+		 * equals()：判断两个instance是否逻辑相等；equals就是Object用来比较俩个对象逻辑上是否相等的方法
 		 */
 		Set<PersonSec> hashSetPerson = new HashSet<PersonSec>();
 		hashSetPerson.add(new PersonSec("张三", 20));

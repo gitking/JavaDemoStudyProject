@@ -12,12 +12,15 @@ import java.sql.Types;
 import java.util.Arrays;
 import java.util.Date;
 
-public class TestJDBCDemoo {
+public class TestJDBCDemo {
 	public static final String DBDRIVER = "oracle.jdbc.driver.OracleDriver";
 	public static final String DBURL = "jdbc:oracle:thin:@localhost:1521:mldn";
 	public static final String DBUSER = "scott";
 	public static final String DBPASSWORD = "tiger";
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		//这行代码现在其实不写也可以,因为有SPI,好像是JDK1.6之前才需要这么写
+		//https://www.jianshu.com/p/3a3edbcd8f24
+		//https://zhuanlan.zhihu.com/p/28909673
 		Class.forName(DBDRIVER);//数据库驱动加载
 		/**
 		 * Class.forName(DBDRIVER);这行代码其实就是为了加载OracleDriver这个类,

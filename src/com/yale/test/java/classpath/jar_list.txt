@@ -1,0 +1,8 @@
+policy/billing/billingCustomerUpdate.jsp
+WEB-INF/classes/com/isoftstone/pcis/webservice/interfaces/PriceGB/NewPriceServiceClient.class
+WEB-INF/classes/com/isoftstone/pcis/policy/app/payseemoney/service/EleAppPolicyService.class
+WEB-INF/classes/com/isoftstone/pcis/policy/app/quickapp/action/QuickAppBaseBizAction.class
+WEB-INF/classes/com/isoftstone/pcis/policy/prod/base/action/PolicyAppBizAction.class
+WEB-INF/classes/com/isoftstone/pcis/policy/prod/vhl/service/PolicyAppVhlService.class
+WEB-INF/classes/com/isoftstone/pcis/scoket/newbusiness/servlet/EleAppStatusQueryOuterService.class
+policy/universal/quickapp/js/customer_quick.js
