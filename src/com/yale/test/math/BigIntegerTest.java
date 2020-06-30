@@ -57,6 +57,8 @@ public class BigIntegerTest {
 
 		System.out.println("BigInteger的<<左移运算:" + big01.shiftLeft(1));
 		System.out.println("BigInteger的>>右移运算:" + big01.shiftRight(1));
+		//要特别注意，Integer有个getInteger(String)方法，它不是将字符串转换为int，而是把该字符串对应的系统变量转换为Integer：
+		System.out.println("获取java系统版本号:" + Integer.getInteger("java.version")); // 版本号，11
 		
 	}
 }

@@ -24,10 +24,15 @@ public class ClassForNameDemo {
 		 * https://juejin.im/post/5e47b8bd6fb9a07c7c2d56cd
 		 * 你项目如果没引入  Driver 的 lib。你写不了  Driver.class ，你import不到。  
 		 * 但是有可能这个lib 是外部，容器已经加载了，那么是有这个类的。比如tomcat  共用的一个 lib
+		 * 想啥呢兄弟，你如果想动态加载类的话要么classloader.loadClass要么Class.forName，但是你还要执行static代码块，
+		 * 所以你只加载是不够的，你得初始化才能执行static块。classloader.loadClass和Class.forName用的都是native方法forName0，
+		 * 具体到forName0其实有这样一段代码
+		 * classloader.loadClass传的jboolean init是false，Class.forName是true，简单的说classloader.loadClass只有生命周期里的加载阶段，
+		 * 而Class.forName完成了加载、验证、准备、解析和初始化
 		 */
-		Class.forName("com.yale.test.java.fanshe.ForName");
+		Class.forName("com.yale.test.java.fanshe.ForName");//所以那个地方要用Class.forName，至于不用也行大家也说了SPI
 		ForName fn = new ForName();//Class.forName和new对象的时候JVM才会加载这个类,并且执行类中的static块代码
-		Class<?> cls = ForName.class;//把上面那个代码注释执行这个发现,上面的静态代码块没有被执行
-		Class test = ForName.class.getClass();//这行代码也不能让JVM记载类,上面的静态代码块也不会被执行
+		Class<?> cls = ForName.class;//这种叫静态加载类,静态加载类不会初始化类,把上面那个代码注释执行这个发现,上面的静态代码块没有被执行
+		Class test = ForName.class.getClass();//这种叫静态加载类,静态加载类不会初始化类,这行代码也不能让JVM记载类,上面的静态代码块也不会被执行
 	}
 }
