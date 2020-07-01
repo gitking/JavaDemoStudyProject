@@ -1,4 +1,4 @@
-package com.yale.test.mldn;
+package com.yale.test.java.demo.string;
 
 /**
  * String特点:任何的字符串常量都是String对象,而且String的常量一旦声明则不可改变, 如果改变对象的内容改变的是其引用的指向而已
@@ -16,6 +16,10 @@ public class StringBufferDemo {
 		 * StringBuffer是从jdk1.0出现的,StringBuffer的每个方法都有synchronized修饰,所以速度慢
 		 * StringBuilder是从jdk1..5出现的,StringBuilder的方法没有synchronized,速度快
 		 * 推荐使用StringBuilder
+		 * 注意：对于普通的字符串+操作，并不需要我们将其改写为StringBuilder，因为Java编译器在编译时就自动把多个连续的+操作编码为StringConcatFactory的操作。在运行期，StringConcatFactory会自动把字符串连接操作优化为数组复制或者StringBuilder操作。
+		     你可能还听说过StringBuffer，这是Java早期的一个StringBuilder的线程安全版本，它通过同步来保证多个线程操作StringBuffer也是安全的，但是同步会带来执行速度的下降。
+			StringBuilder和StringBuffer接口完全相同，现在完全没有必要使用StringBuffer。
+			要高效拼接字符串，应该使用StringBuilder。
 		 */
 		CharSequence charSeq = "Hello";//字符串,子类对象为父类接口实例化
 		

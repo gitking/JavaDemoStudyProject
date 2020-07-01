@@ -1,4 +1,4 @@
-package com.yale.test.math;
+package com.yale.test.java.demo.string;
 
 import java.io.UnsupportedEncodingException;
 

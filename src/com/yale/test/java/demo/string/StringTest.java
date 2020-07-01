@@ -1,4 +1,4 @@
-package com.yale.test.math;
+package com.yale.test.java.demo.string;
 
 /*
  * 在Java中，String是一个引用类型，它本身也是一个class

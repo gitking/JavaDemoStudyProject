@@ -2,13 +2,13 @@ package com.yale.test.spring.test;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.yale.test.spring.services.StuServices;
 import com.yale.test.spring.services.UserService;
 import com.yale.test.spring.services.impl.SimpleUserServiceImpl;
 import com.yale.test.spring.services.impl.SpecUserServiceImpl;
 import com.yale.test.spring.services.impl.UserServiceImpl;
+import com.yale.test.spring.vo.Cat;
 import com.yale.test.spring.vo.Hello;
 import com.yale.test.spring.vo.Student;
 import com.yale.test.spring.vo.Teacher;
@@ -61,6 +61,15 @@ public class SpringTest {
 		Hello hello2 = (Hello)springContext.getBean("hello1");
 		System.out.println("让Spring通过构造方法类创建对象：" + hello2.getName() + "," +  hello2.getAge());
 		
+		/*
+		 * helloFactory,在Spring配置文件里面配置的是HelloFactory这个类
+		 * 但是获取出来的是Hello这个类,这是工厂模式,
+		 * org.springframework.jndi.JndiObjectFactoryBean就是一个工厂模式,
+		 * 通过获取JndiObjectFactoryBean能获取到一个javax.sql.DataSource(数据源)的实现类
+		 * JndiObjectFactoryBean实现了FactoryBean接口,所有实现FactoryBean接口的类都被当作工厂来使用，而不是简单的直接当作bean来使用，FactoryBean实现类里定义了要生产的对象，
+		 * 并且由FactoryBean实现类来造该对象的实例，看到这里聪明的你大概已经能猜出个八九不离十了吧 
+		 * https://blog.csdn.net/caolaosanahnu/article/details/8619385
+		 */
 		Hello helloFactory = (Hello)springContext.getBean("helloFactory");
 		System.out.println("让Spring通过指定的静态工厂类来创建对象：" + helloFactory.getName() + "," +  helloFactory.getAge());
 		
@@ -133,5 +142,11 @@ public class SpringTest {
 		collgeSer.add();
 		collgeSer.delete(12);
 		
+		Cat cat = (Cat)springContext.getBean("cat");
+		System.out.println("Cat的真实类型:" +cat.getClass());
+		System.out.println("猫的名称:" + cat.getName());
+		System.out.println("通过BodyTemplate获取猫的名称:" + cat.getBt().getName());
+		cat = null;
+		System.out.println("Spring有调用cat的注销方法吗?");
 	}
 }

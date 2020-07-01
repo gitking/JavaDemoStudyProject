@@ -13,6 +13,7 @@ public class Color {
 		this.title = title;
 	}
 	
+	
 	public static Color getInstance(int ch) {
 		switch(ch) {
 			case 0: return RED;
