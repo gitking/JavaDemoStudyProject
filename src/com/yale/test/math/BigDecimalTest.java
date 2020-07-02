@@ -44,7 +44,9 @@ import java.math.RoundingMode;
  * 就是127,如果在double11位的阶码中偏移值就是1023,在计算时要注意这一点.
  * 阶码:用移码(标准移码-1)记录指数,实际偏移值为(2e-1 - 1).
  * 
- * 使用BigDecimal进行浮点精确计算
+ * 使用BigDecimal进行浮点精确计算，BigDecimal用于表示精确的小数，常用于财务计算；
+ * 和BigInteger类似，BigDecimal可以表示一个任意大小且精度完全准确的浮点数。
+ * 如果查看BigDecimal的源码，可以发现，实际上一个BigDecimal是通过一个BigInteger和一个scale来表示的，即BigInteger表示一个完整的整数，而scale表示小数位数：
  * @author dell
  */
 public class BigDecimalTest {
@@ -88,5 +90,38 @@ public class BigDecimalTest {
 		System.out.println("有些人可能会有疑问既然BigDecimal可以精确表示小数,那为啥要用Double这种不精确的类型呢？实际上现实生活中很多数值本来就不是很精确的");
 		System.out.println("就像一部电影的时长你可以精确到分秒,但是你没必要精确到毫秒或者纳秒了,大部分情况下我们只需要有限范围内的精确就可以了,");
 		System.out.println("而且基本类型的存储和计算效率会高很多,使用他是一个取舍的结果");
+		
+		BigDecimal d1 = new BigDecimal("123.45");
+		System.out.println("BigDecimal用scale()表示小数位数，例如：" + d1.scale());
+		//通过BigDecimal的stripTrailingZeros()方法，可以将一个BigDecimal格式化为一个相等的，但去掉了末尾0的BigDecimal：
+		BigDecimal d11 = new BigDecimal("123.4500");
+		BigDecimal d2 = d1.stripTrailingZeros();
+		System.out.println(d11.scale()); // 4
+		System.out.println(d2.scale()); // 2,因为去掉了00
+		
+		
+		BigDecimal d3 = new BigDecimal("1234500");
+		BigDecimal d4 = d3.stripTrailingZeros();
+		System.out.println(d3.scale()); // 0
+		System.out.println(d4.scale()); // -2
+		System.out.println("如果一个BigDecimal的scale()返回负数，例如，-2，表示这个数是个整数，并且末尾有2个0。");
+		
+		//调用divideAndRemainder()方法时，返回的数组包含两个BigDecimal，分别是商和余数，其中商总是整数，余数不会大于除数。我们可以利用这个方法判断两个BigDecimal是否是整数倍数：
+		BigDecimal n = new BigDecimal("12.75");
+		BigDecimal m = new BigDecimal("0.15");
+		BigDecimal[] dr = n.divideAndRemainder(m);
+		if (dr[1].signum() == 0) {
+		    // n是m的整数倍
+			System.out.println("n是m的整数倍");
+		} else {
+			System.out.println("n不是m的整数倍");
+		}
+		
+		//在比较两个BigDecimal的值是否相等时，要特别注意，使用equals()方法不但要求两个BigDecimal的值相等，还要求它们的scale()相等：
+		BigDecimal d111 = new BigDecimal("123.456");
+		BigDecimal d22 = new BigDecimal("123.45600");
+		System.out.println(d111.equals(d22)); // false,因为scale不同
+		System.out.println(d111.equals(d22.stripTrailingZeros())); // true,因为d2去除尾部0后scale变为2
+		System.out.println("推荐 总是使用compareTo()比较两个BigDecimal的值，不要使用equals()！ " + d111.compareTo(d22)); // 0
 	}
 }

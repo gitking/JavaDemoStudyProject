@@ -10,6 +10,8 @@ import java.math.BigInteger;
  * volatile解决多线程内存不可见问题。对于一写多读，是可以解决变量同步问题，但是如果多写，同样无法解决线程安全问题。
 	说明：如果是count++操作，使用如下类实现：AtomicInteger count = new AtomicInteger(); count.addAndGet(1); 
 	如果是JDK8，推荐使用LongAdder对象，比AtomicLong性能更好（减少乐观锁的重试次数）。《阿里巴巴Java开发手册（泰山版）.
+	在Java中，由CPU原生提供的整型最大范围是64位long型整数。使用long型整数可以直接通过CPU指令进行计算，速度非常快。
+	和long型整数运算比，BigInteger不会有范围限制，但缺点是速度比较慢。
  * @author dell
  */
 public class BigIntegerTest {
@@ -47,6 +49,29 @@ public class BigIntegerTest {
 		
 		int res = b1.compareTo(b2);
 		System.out.println("b1和b2比较,返回-1(小于) 0(等于) 1(大于):" + res);
+		
+		BigInteger bi = new BigInteger("1234567890");
+		System.out.println("pow:" + bi.pow(5)); // 2867971860299718107233761438093672048294900000
+		System.out.println("也可以把BigInteger转换成long型：" + bi.longValue());
+		//使用longValueExact()方法时，如果超出了long型的范围，会抛出ArithmeticException。
+		System.out.println("也可以把BigInteger转换成long型：" + bi.longValueExact());
+		/*
+		 * BigInteger和Integer、Long一样，也是不可变类，并且也继承自Number类。因为Number定义了转换为基本类型的几个方法：
+			    转换为byte：byteValue()
+			    转换为short：shortValue()
+			    转换为int：intValue()
+			    转换为long：longValue()
+			    转换为float：floatValue()
+			    转换为double：doubleValue()
+			    因此，通过上述方法，可以把BigInteger转换成基本类型。如果BigInteger表示的范围超过了基本类型的范围，转换时将丢失高位信息，即结果不一定是准确的。
+			    如果需要准确地转换成基本类型，可以使用intValueExact()、longValueExact()等方法，在转换时如果超出范围，将直接抛出ArithmeticException异常。
+		 */
+		
+		BigInteger n = new BigInteger("999999").pow(99);
+        float f = n.floatValue();
+        System.out.println("如果BigInteger的值甚至超过了float的最大范围（3.4x1038），那么返回的float是什么呢？" + f);
+        System.out.println("如果BigInteger的值甚至超过了float的最大范围（3.4x1038），那么返回的float是什么呢？" + Float.isInfinite(f));
+
 		
 		BigInteger big01 = new BigInteger("100");
 		System.out.println("BigInteger的&按位与运算:" + big01.and(new BigInteger("1")));

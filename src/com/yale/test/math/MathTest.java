@@ -1,6 +1,9 @@
 package com.yale.test.math;
 
 import java.math.BigDecimal;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Arrays;
 import java.util.Random;
 /**
  * java.lang.Math(jdk1.0开始有的)类是整个JDK里面唯一一个与数学计算有关的程序类。这里面提供有一些基础的数学函数。
@@ -20,6 +23,22 @@ public class MathTest {
 		System.out.println("Math.pow计算某个数的平方:" + Math.pow(10, 3));//10的3次方是1000
 		
 		System.out.println("max方法返回俩个数字最大的那一个:" + Math.max(18.44, 55));
+		System.out.println("min方法返回俩个数字最小的那一个:" + Math.min(18.44, 55));
+		
+		System.out.println("求绝对值:" + Math.abs(-7.8));
+		System.out.println("计算√x：" + Math.sqrt(2));
+		System.out.println("计算ex次方：" + Math.exp(2));
+		System.out.println("计算以e为底的对数：" + Math.log(2));
+		System.out.println("计算以10为底的对数：" + Math.log10(2));
+		/*
+		 * 三角函数：
+		 * Math.sin(3.14); // 0.00159...
+			Math.cos(3.14); // -0.9999...
+			Math.tan(3.14); // -0.0015...
+			Math.asin(1.0); // 1.57079...
+			Math.acos(1.0); // 0.0
+
+		 */
 
 		System.out.println(Math.round(18.44));
 		System.out.println(Math.round(18.49));
@@ -34,19 +53,61 @@ public class MathTest {
 		System.out.println(MathTest.myRoundSec(-18.555, 2));//这个方法负数依然不能正确得到四舍五入的值,这行代码的结果为-18.55
 		System.out.println(MathTest.myRoundThi(-18.555, 2));//这个方法负数依然不能正确得到四舍五入的值,这行代码的结果为-18.55
 		
-		System.out.println("Random是随机数类");
+		System.out.println("Random是随机数类,Random用来创建伪随机数。所谓伪随机数，是指只要给定一个初始的种子，产生的随机数序列是完全一样的。");
+		System.out.println("有童鞋问，每次运行程序，生成的随机数都是不同的，没看出伪随机数的特性来。");
+		System.out.println("这是因为我们创建Random实例时，如果不给定种子，就使用系统当前时间戳作为种子，因此每次运行时，种子不同，得到的伪随机数序列就不同。");
 		Random dom = new Random();
 		for (int x=0;x<10; x++) {
 			System.out.print(dom.nextInt(100) + ",");//100是上限,输出的随机最大值是99
 		}
+		
+		//如果我们在创建Random实例时指定一个种子，就会得到完全确定的随机数序列：
+		Random rd = new Random(12345);
+        for (int i = 0; i < 10; i++) {
+            System.out.println("Main方法每次运行随机序列是完全一样的:" + rd.nextInt(100));
+        }
+        /*
+         * 有伪随机数，就有真随机数。实际上真正的真随机数只能通过量子力学原理来获取，而我们想要的是一个不可预测的安全的随机数，SecureRandom就是用来创建安全的随机数的：
+         * SecureRandom无法指定种子，它使用RNG（random number generator）算法。JDK的SecureRandom实际上有多种不同的底层实现，
+         * 有的使用安全随机种子加上伪随机数算法来产生安全的随机数，
+         * 有的使用真正的随机数生成器。实际使用的时候，可以优先获取高强度的安全随机数生成器，如果没有提供，再使用普通等级的安全随机数生成器：
+         * SecureRandom的安全性是通过操作系统提供的安全的随机种子来生成随机数。这个种子是通过CPU的热噪声、读写磁盘的字节、网络流量等各种随机事件产生的“熵”。
+		 * 在密码学中，安全的随机数非常重要。如果使用不安全的伪随机数，所有加密体系都将被攻破。因此，时刻牢记必须使用SecureRandom来产生安全的随机数。
+		 * 需要使用安全随机数的时候，必须使用SecureRandom，绝不能使用Random！ 
+         */
+        SecureRandom sr = null;
+        try {
+            sr = SecureRandom.getInstanceStrong(); // 获取高强度安全随机数生成器
+        } catch (NoSuchAlgorithmException e) {
+            sr = new SecureRandom(); // 获取普通的安全随机数生成器
+        }
+        byte[] buffer = new byte[16];
+        sr.nextBytes(buffer); //用安全随机数填充buffer
+        System.out.println("真随机数:" + Arrays.toString(buffer));
+        System.out.println("真随机数:" + sr.nextInt(100));
 		
 		/**
 		 * Math.random()方法用的也是random生成随机数的,值范围是0-1,随机最大小数位0.9999999999
 		 * 【强制】注意 Math.random() 这个方法返回是double类型，注意取值的范围 0≤x<1（能够取到零值，注意除零异常），
 		 * 如果想获取整数类型的随机数，不要将x放大10的若干倍然后取整，直接使用Random对象的nextInt或者nextLong方法。
 		 * 《阿里巴巴Java开发手册（泰山版）.pdf》
+		 * 前面我们使用的Math.random()实际上内部调用了Random类，所以它也是伪随机数，只是我们无法指定种子。
 		 */
-		System.out.print(Math.random() + ",");//100是上限,输出的随机最大值是99
+		System.out.print("x的范围是0 <= x < 1：" + Math.random() + ",");//100是上限,输出的随机最大值是99
+		//如果我们要生成一个区间在[MIN, MAX)的随机数，可以借助Math.random()实现，计算如下：
+		double xrd = Math.random(); // x的范围是[0,1)
+        double min = 10;
+        double max = 50;
+        double yd = xrd * (max - min) + min; // y的范围是[10,50)
+        long nl = (long) yd; // n的范围是[10,50)的整数
+        System.out.println(yd);
+        System.out.println(nl);
+        
+        /*
+         * 有些童鞋可能注意到Java标准库还提供了一个StrictMath，它提供了和Math几乎一模一样的方法。这两个类的区别在于，由于浮点数计算存在误差，不同的平台（例如x86和ARM）计算的结果可能不一致（指误差不同），
+         * 因此，StrictMath保证所有平台计算结果都是完全相同的，而Math会尽量针对平台优化计算速度，所以，绝大多数情况下，使用Math就足够了。
+         */
+        double sm = StrictMath.random();
 		
 		System.out.println();
 		
