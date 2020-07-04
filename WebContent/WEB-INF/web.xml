@@ -184,6 +184,19 @@
 		<!-- <servlet-name>subBaseServlet</servlet-name> filter-mapping 里面还可以配置servlet-name 指定要拦截的servlet,可以有多个servlet-name -->
 	</filter-mapping>
 	
+	<filter>
+		<filter-name>springMvcEncode</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<description>SpringMVC解决post请求中文乱码的问题CharacterEncodingFilter,encoding是CharacterEncodingFilter类的一个属性</description>
+			<param-name>encoding</param-name>
+			<param-value>utf-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>springMvcEncode</filter-name>
+		<url-pattern>*.springmvc</url-pattern>
+	</filter-mapping>
 	<listener>
 		<listener-class>com.yale.test.web.listener.ListenerDemo</listener-class>
 	</listener>

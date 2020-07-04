@@ -5,13 +5,12 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Insert title here</title>
+		<title>SpringMVC获取传参</title>
 	</head>
 	<body>
-		${msg }
-		<%
-			String val = request.getAttribute("msg");
-			System.out.println("使用request一样可以得到数据" + val);
-		%>
+		<form action="/pcis/helloResDataEncode.springmvc" method="post">
+			姓名:<input type="text" name="name" />
+			<input type="submit" value="提交Post请求">
+		</form>
 	</body>
 </html>

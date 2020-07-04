@@ -5,13 +5,10 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Insert title here</title>
+		<title>SpringMVC获取传参</title>
 	</head>
 	<body>
+		使用SpringMVC获取URL的get请求传参<br/>
 		${msg }
-		<%
-			String val = request.getAttribute("msg");
-			System.out.println("使用request一样可以得到数据" + val);
-		%>
 	</body>
 </html>

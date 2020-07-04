@@ -19,7 +19,6 @@ import java.lang.invoke.MethodType;
 public class TestMethodHandle1 {
 
 	public static void main(String[] args) {
-		MethodType type = MethodType.methodType(void.class);//指明方法的返回类型为void
 		try {
 			/**
 			 * 调用MethodHandle的速度接近调用接口方法的速度。
@@ -50,6 +49,7 @@ public class TestMethodHandle1 {
 			 * 用户可以自行继承java.dyn.JavaMethodHandle(http://download.java.net/jdk7/docs/api/java/dyn/JavaMethodHandle.html)来创建自定义的MethodHandle子类，可以添加域或方法等，并可以指定该类型看作MethodHandle时的“入口点”——实际指向的方法。
 			 * 许多JVM实现在JIT编译的时候会做激进的优化，包括常量传播、内联、逃逸分析、无用代码削除等许多。JDK 7的MethodHandle的一个好处是它就像它所指向的目标方法的替身一样，JVM原本可以做的优化对MethodHandle也一样支持，特别是有需要的时候可以把目标方法内联到调用处。相比之下，通过反射去调用方法则无法被JVM有效的优化。
 			 */
+			MethodType type = MethodType.methodType(void.class);//指明方法的返回类型为void
 			Lookup lookUp = MethodHandles.lookup();
 			MethodHandle methodHandle = lookUp.findStatic(TestMethodHandle1.class, "hello", type);
 			methodHandle.invoke();//第3步调用的MethodHandle.invoke()看似是一个虚方法，实际上并不是MethodHandle上真的存在的方法，而只是标记用的虚构出来的方法。上例中第13行对应的Java字节码是：

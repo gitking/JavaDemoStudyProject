@@ -21,7 +21,12 @@ public class SystemTest {
 		 * 2020年4月19日16:37:33
 		 */
 		System.out.println("java文件编码：" + System.getProperty("file.encoding"));
+		System.out.println("" + System.getProperty("sun.reflect.noInflation"));
+		System.out.println("" + System.getProperty("sun.reflect.inflationThreshold"));
+		
+		System.out.println("System.getProperty获取的是JVM启动时通过-D指定的属性:" + System.getProperty("fuckoff"));
 
+		
 		
 		System.out.println("打印JAVA所有的配置信息,打印JVM所有的配置信息,打印JVM所有的环境变量信息");
 		System.getProperties().list(System.out);

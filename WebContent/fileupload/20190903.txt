@@ -1,0 +1,853 @@
+2019-09-03 09:13:44
+Full thread dump Java HotSpot(TM) 64-Bit Server VM (20.111-b01 mixed mode):
+
+"pool-2-thread-169" prio=10 tid=0x00007f0aac00c000 nid=0x50a8 waiting on condition [0x00007f0aa62e1000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000703a0f9e8> (a java.util.concurrent.SynchronousQueue$TransferStack)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:196)
+	at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:424)
+	at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:323)
+	at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:874)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:955)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:917)
+	at java.lang.Thread.run(Thread.java:682)
+
+"Attach Listener" daemon prio=10 tid=0x00007f0b00002800 nid=0x5041 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"pool-5-thread-1605" prio=10 tid=0x00007f0b1400e800 nid=0x4c3c waiting on condition [0x00007f0aa30af000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000703a20ba0> (a java.util.concurrent.SynchronousQueue$TransferStack)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:196)
+	at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:424)
+	at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:323)
+	at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:874)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:955)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:917)
+	at java.lang.Thread.run(Thread.java:682)
+
+"pool-4-thread-218" prio=10 tid=0x00007f0b317bb000 nid=0x5800 runnable [0x00007f0aa40be000]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.HashMap.get(HashMap.java:303)
+	at com.isoftstone.pcis.policy.app.platform.dm.PlatformBaseDao.getAccurateData(PlatformBaseDao.java:502)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.getAppQueryRequestPacket(VhlPlatformHandlerGXImpl.java:12608)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.appQuery(VhlPlatformHandlerGXImpl.java:613)
+	at com.isoftstone.pcis.policy.app.platform.service.impl.PlatformServiceImpl.callPlatformOnCalcPremium(PlatformServiceImpl.java:254)
+	at com.isoftstone.pcis.policy.proxy.ref.platform.PlatformProxy.callPlatformOnCalcPremium(PlatformProxy.java:41)
+	at com.isoftstone.pcis.policy.prod.vhl.bm.PolicyAppVhlBM.calcPremium(PolicyAppVhlBM.java:249)
+	at com.isoftstone.pcis.webservice.interfaces.zsbx.impl.ZSBXOuterServiceImpl$1.run(ZSBXOuterServiceImpl.java:865)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
+	at java.lang.Thread.run(Thread.java:682)
+
+"pool-4-thread-213" prio=10 tid=0x00007f0b0c00c000 nid=0x5193 runnable [0x00007f0aa61df000]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.HashMap.get(HashMap.java:303)
+	at com.isoftstone.pcis.policy.app.platform.dm.PlatformBaseDao.getAccurateData(PlatformBaseDao.java:502)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.utils.gongxiang.GXCommonValidate.validateCommonBase(GXCommonValidate.java:1438)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.utils.gongxiang.GXCommonValidate.validateAppQueryBusinessBase(GXCommonValidate.java:254)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.getAppQueryBizRequestPacket(VhlPlatformHandlerGXImpl.java:12823)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.appQueryBusiness(VhlPlatformHandlerGXImpl.java:1075)
+	at com.isoftstone.pcis.policy.app.platform.service.impl.PlatformServiceImpl.callPlatformOnCalcPremium(PlatformServiceImpl.java:268)
+	at com.isoftstone.pcis.policy.proxy.ref.platform.PlatformProxy.callPlatformOnCalcPremium(PlatformProxy.java:41)
+	at com.isoftstone.pcis.policy.prod.vhl.bm.PolicyAppVhlBM.calcPremium(PolicyAppVhlBM.java:249)
+	at com.isoftstone.pcis.webservice.interfaces.zsbx.impl.ZSBXOuterServiceImpl$2.run(ZSBXOuterServiceImpl.java:1001)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
+	at java.lang.Thread.run(Thread.java:682)
+
+"pool-4-thread-192" prio=10 tid=0x00007f0b10010000 nid=0x7e72 runnable [0x00007f0aa4bc9000]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.HashMap.get(HashMap.java:303)
+	at com.isoftstone.pcis.policy.app.platform.dm.PlatformBaseDao.getAccurateData(PlatformBaseDao.java:502)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.getAppQueryRequestPacket(VhlPlatformHandlerGXImpl.java:12608)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.appQuery(VhlPlatformHandlerGXImpl.java:613)
+	at com.isoftstone.pcis.policy.app.platform.service.impl.PlatformServiceImpl.callPlatformOnCalcPremium(PlatformServiceImpl.java:254)
+	at com.isoftstone.pcis.policy.proxy.ref.platform.PlatformProxy.callPlatformOnCalcPremium(PlatformProxy.java:41)
+	at com.isoftstone.pcis.policy.prod.vhl.bm.PolicyAppVhlBM.calcPremium(PolicyAppVhlBM.java:249)
+	at com.isoftstone.pcis.webservice.interfaces.zsbx.impl.ZSBXOuterServiceImpl$1.run(ZSBXOuterServiceImpl.java:865)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
+	at java.lang.Thread.run(Thread.java:682)
+
+"pool-4-thread-191" prio=10 tid=0x00007f0aa8010800 nid=0x7d13 runnable [0x00007f0aa49c7000]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.HashMap.get(HashMap.java:303)
+	at com.isoftstone.pcis.policy.app.platform.dm.PlatformBaseDao.getAccurateData(PlatformBaseDao.java:502)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.utils.gongxiang.GXCommonValidate.validateCommonBase(GXCommonValidate.java:1438)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.utils.gongxiang.GXCommonValidate.validateAppQueryBusinessBase(GXCommonValidate.java:254)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.getAppQueryBizRequestPacket(VhlPlatformHandlerGXImpl.java:12823)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.appQueryBusiness(VhlPlatformHandlerGXImpl.java:1075)
+	at com.isoftstone.pcis.policy.app.platform.service.impl.PlatformServiceImpl.callPlatformOnCalcPremium(PlatformServiceImpl.java:268)
+	at com.isoftstone.pcis.policy.proxy.ref.platform.PlatformProxy.callPlatformOnCalcPremium(PlatformProxy.java:41)
+	at com.isoftstone.pcis.policy.prod.vhl.bm.PolicyAppVhlBM.calcPremium(PolicyAppVhlBM.java:249)
+	at com.isoftstone.pcis.webservice.interfaces.zsbx.impl.ZSBXOuterServiceImpl$2.run(ZSBXOuterServiceImpl.java:1001)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
+	at java.lang.Thread.run(Thread.java:682)
+
+"pool-4-thread-189" prio=10 tid=0x00007f0b0c003000 nid=0x7a9b runnable [0x00007f0aa4cca000]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.HashMap.get(HashMap.java:303)
+	at com.isoftstone.pcis.policy.app.platform.dm.PlatformBaseDao.getAccurateData(PlatformBaseDao.java:502)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.getAppQueryRequestPacket(VhlPlatformHandlerGXImpl.java:12608)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.appQuery(VhlPlatformHandlerGXImpl.java:613)
+	at com.isoftstone.pcis.policy.app.platform.service.impl.PlatformServiceImpl.callPlatformOnCalcPremium(PlatformServiceImpl.java:254)
+	at com.isoftstone.pcis.policy.proxy.ref.platform.PlatformProxy.callPlatformOnCalcPremium(PlatformProxy.java:41)
+	at com.isoftstone.pcis.policy.prod.vhl.bm.PolicyAppVhlBM.calcPremium(PolicyAppVhlBM.java:249)
+	at com.isoftstone.pcis.webservice.interfaces.zsbx.impl.ZSBXOuterServiceImpl$1.run(ZSBXOuterServiceImpl.java:865)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
+	at java.lang.Thread.run(Thread.java:682)
+
+"pool-4-thread-187" prio=10 tid=0x00007f0b28016800 nid=0x7795 runnable [0x00007f0aa52d0000]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.HashMap.get(HashMap.java:303)
+	at com.isoftstone.pcis.policy.app.platform.dm.PlatformBaseDao.getAccurateData(PlatformBaseDao.java:502)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.utils.gongxiang.GXCommonValidate.validateCommonBase(GXCommonValidate.java:1438)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.utils.gongxiang.GXCommonValidate.validateAppQueryBusinessBase(GXCommonValidate.java:254)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.getAppQueryBizRequestPacket(VhlPlatformHandlerGXImpl.java:12823)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.appQueryBusiness(VhlPlatformHandlerGXImpl.java:1075)
+	at com.isoftstone.pcis.policy.app.platform.service.impl.PlatformServiceImpl.callPlatformOnCalcPremium(PlatformServiceImpl.java:268)
+	at com.isoftstone.pcis.policy.proxy.ref.platform.PlatformProxy.callPlatformOnCalcPremium(PlatformProxy.java:41)
+	at com.isoftstone.pcis.policy.prod.vhl.bm.PolicyAppVhlBM.calcPremium(PolicyAppVhlBM.java:249)
+	at com.isoftstone.pcis.webservice.interfaces.zsbx.impl.ZSBXOuterServiceImpl$2.run(ZSBXOuterServiceImpl.java:1001)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
+	at java.lang.Thread.run(Thread.java:682)
+
+"pool-4-thread-183" prio=10 tid=0x00007f0b1000f000 nid=0x721a runnable [0x00007f0aa5fdd000]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.HashMap.get(HashMap.java:303)
+	at com.isoftstone.pcis.policy.app.platform.dm.PlatformBaseDao.getAccurateData(PlatformBaseDao.java:502)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.utils.gongxiang.GXCommonValidate.validateCommonBase(GXCommonValidate.java:1438)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.utils.gongxiang.GXCommonValidate.validateAppQueryBusinessBase(GXCommonValidate.java:254)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.getAppQueryBizRequestPacket(VhlPlatformHandlerGXImpl.java:12823)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.appQueryBusiness(VhlPlatformHandlerGXImpl.java:1075)
+	at com.isoftstone.pcis.policy.app.platform.service.impl.PlatformServiceImpl.callPlatformOnCalcPremium(PlatformServiceImpl.java:268)
+	at com.isoftstone.pcis.policy.proxy.ref.platform.PlatformProxy.callPlatformOnCalcPremium(PlatformProxy.java:41)
+	at com.isoftstone.pcis.policy.prod.vhl.bm.PolicyAppVhlBM.calcPremium(PolicyAppVhlBM.java:249)
+	at com.isoftstone.pcis.webservice.interfaces.zsbx.impl.ZSBXOuterServiceImpl$2.run(ZSBXOuterServiceImpl.java:1001)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
+	at java.lang.Thread.run(Thread.java:682)
+
+"pool-4-thread-179" prio=10 tid=0x00007f0ad800b800 nid=0x6c10 runnable [0x00007f0aa65e3000]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.HashMap.get(HashMap.java:303)
+	at com.isoftstone.pcis.policy.app.platform.dm.PlatformBaseDao.getAccurateData(PlatformBaseDao.java:502)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.utils.gongxiang.GXCommonValidate.validateCommonBase(GXCommonValidate.java:1438)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.utils.gongxiang.GXCommonValidate.validateAppQueryBusinessBase(GXCommonValidate.java:254)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.getAppQueryBizRequestPacket(VhlPlatformHandlerGXImpl.java:12823)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.appQueryBusiness(VhlPlatformHandlerGXImpl.java:1075)
+	at com.isoftstone.pcis.policy.app.platform.service.impl.PlatformServiceImpl.callPlatformOnCalcPremium(PlatformServiceImpl.java:268)
+	at com.isoftstone.pcis.policy.proxy.ref.platform.PlatformProxy.callPlatformOnCalcPremium(PlatformProxy.java:41)
+	at com.isoftstone.pcis.policy.prod.vhl.bm.PolicyAppVhlBM.calcPremium(PolicyAppVhlBM.java:249)
+	at com.isoftstone.pcis.webservice.interfaces.zsbx.impl.ZSBXOuterServiceImpl$2.run(ZSBXOuterServiceImpl.java:1001)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
+	at java.lang.Thread.run(Thread.java:682)
+
+"pool-4-thread-127" prio=10 tid=0x00007f0b2402a800 nid=0x6c47 runnable [0x00007f0aa4ecc000]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.HashMap.get(HashMap.java:303)
+	at com.isoftstone.pcis.policy.app.platform.dm.PlatformBaseDao.getAccurateData(PlatformBaseDao.java:502)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.utils.gongxiang.GXCommonValidate.validateCommonBase(GXCommonValidate.java:1438)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.utils.gongxiang.GXCommonValidate.validateAppQueryBusinessBase(GXCommonValidate.java:254)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.getAppQueryBizRequestPacket(VhlPlatformHandlerGXImpl.java:12823)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.appQueryBusiness(VhlPlatformHandlerGXImpl.java:1075)
+	at com.isoftstone.pcis.policy.app.platform.service.impl.PlatformServiceImpl.callPlatformOnCalcPremium(PlatformServiceImpl.java:268)
+	at com.isoftstone.pcis.policy.proxy.ref.platform.PlatformProxy.callPlatformOnCalcPremium(PlatformProxy.java:41)
+	at com.isoftstone.pcis.policy.prod.vhl.bm.PolicyAppVhlBM.calcPremium(PolicyAppVhlBM.java:249)
+	at com.isoftstone.pcis.webservice.interfaces.zsbx.impl.ZSBXOuterServiceImpl$2.run(ZSBXOuterServiceImpl.java:1001)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
+	at java.lang.Thread.run(Thread.java:682)
+
+"pool-4-thread-121" prio=10 tid=0x00007f0ad009b800 nid=0x58e4 runnable [0x00007f0aa53d1000]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.HashMap.get(HashMap.java:303)
+	at com.isoftstone.pcis.policy.app.platform.dm.PlatformBaseDao.getAccurateData(PlatformBaseDao.java:502)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.getAppQueryRequestPacket(VhlPlatformHandlerGXImpl.java:12608)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.appQuery(VhlPlatformHandlerGXImpl.java:613)
+	at com.isoftstone.pcis.policy.app.platform.service.impl.PlatformServiceImpl.callPlatformOnCalcPremium(PlatformServiceImpl.java:254)
+	at com.isoftstone.pcis.policy.proxy.ref.platform.PlatformProxy.callPlatformOnCalcPremium(PlatformProxy.java:41)
+	at com.isoftstone.pcis.policy.prod.vhl.bm.PolicyAppVhlBM.calcPremium(PolicyAppVhlBM.java:249)
+	at com.isoftstone.pcis.webservice.interfaces.zsbx.impl.ZSBXOuterServiceImpl$1.run(ZSBXOuterServiceImpl.java:865)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
+	at java.lang.Thread.run(Thread.java:682)
+
+"pool-4-thread-119" prio=10 tid=0x00007f0b0c00a000 nid=0x5781 runnable [0x00007f0aa55d3000]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.HashMap.get(HashMap.java:303)
+	at com.isoftstone.pcis.policy.app.platform.dm.PlatformBaseDao.getAccurateData(PlatformBaseDao.java:502)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.utils.gongxiang.GXCommonValidate.validateCommonBase(GXCommonValidate.java:1438)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.utils.gongxiang.GXCommonValidate.validateAppQueryBusinessBase(GXCommonValidate.java:254)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.getAppQueryBizRequestPacket(VhlPlatformHandlerGXImpl.java:12823)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.appQueryBusiness(VhlPlatformHandlerGXImpl.java:1075)
+	at com.isoftstone.pcis.policy.app.platform.service.impl.PlatformServiceImpl.callPlatformOnCalcPremium(PlatformServiceImpl.java:268)
+	at com.isoftstone.pcis.policy.proxy.ref.platform.PlatformProxy.callPlatformOnCalcPremium(PlatformProxy.java:41)
+	at com.isoftstone.pcis.policy.prod.vhl.bm.PolicyAppVhlBM.calcPremium(PolicyAppVhlBM.java:249)
+	at com.isoftstone.pcis.webservice.interfaces.zsbx.impl.ZSBXOuterServiceImpl$2.run(ZSBXOuterServiceImpl.java:1001)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
+	at java.lang.Thread.run(Thread.java:682)
+
+"pool-4-thread-118" prio=10 tid=0x00007f0b2401d800 nid=0x56a1 runnable [0x00007f0aa58d6000]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.HashMap.get(HashMap.java:303)
+	at com.isoftstone.pcis.policy.app.platform.dm.PlatformBaseDao.getAccurateData(PlatformBaseDao.java:502)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.getAppQueryRequestPacket(VhlPlatformHandlerGXImpl.java:12608)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.appQuery(VhlPlatformHandlerGXImpl.java:613)
+	at com.isoftstone.pcis.policy.app.platform.service.impl.PlatformServiceImpl.callPlatformOnCalcPremium(PlatformServiceImpl.java:254)
+	at com.isoftstone.pcis.policy.proxy.ref.platform.PlatformProxy.callPlatformOnCalcPremium(PlatformProxy.java:41)
+	at com.isoftstone.pcis.policy.prod.vhl.bm.PolicyAppVhlBM.calcPremium(PolicyAppVhlBM.java:249)
+	at com.isoftstone.pcis.webservice.interfaces.zsbx.impl.ZSBXOuterServiceImpl$1.run(ZSBXOuterServiceImpl.java:865)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
+	at java.lang.Thread.run(Thread.java:682)
+
+"pool-4-thread-115" prio=10 tid=0x00007f0ad8004800 nid=0x4d3c runnable [0x00007f0aa5bd9000]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.HashMap.get(HashMap.java:303)
+	at com.isoftstone.pcis.policy.app.platform.dm.PlatformBaseDao.getAccurateData(PlatformBaseDao.java:502)
+	at com.isoftstone.pcis.webservice.interfaces.IlogZS.IlogServiceClient.sendAutoUnderReqILog(IlogServiceClient.java:3774)
+	at com.isoftstone.pcis.policy.proxy.ref.underwrite.UnderwriteProxy.submitUnderwrite(UnderwriteProxy.java:87)
+	at com.isoftstone.pcis.webservice.interfaces.zsbx.impl.ZSBXOuterServiceImpl$6.run(ZSBXOuterServiceImpl.java:3617)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
+	at java.lang.Thread.run(Thread.java:682)
+
+"pool-4-thread-114" prio=10 tid=0x00007f0ad8008800 nid=0x4d3b runnable [0x00007f0aa5cda000]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.HashMap.get(HashMap.java:303)
+	at com.isoftstone.pcis.policy.app.platform.dm.PlatformBaseDao.getAccurateData(PlatformBaseDao.java:502)
+	at com.isoftstone.pcis.webservice.interfaces.IlogZS.IlogServiceClient.sendAutoUnderReqILog(IlogServiceClient.java:3774)
+	at com.isoftstone.pcis.policy.proxy.ref.underwrite.UnderwriteProxy.submitUnderwrite(UnderwriteProxy.java:81)
+	at com.isoftstone.pcis.webservice.interfaces.zsbx.impl.ZSBXOuterServiceImpl$5.run(ZSBXOuterServiceImpl.java:3526)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
+	at java.lang.Thread.run(Thread.java:682)
+
+"pool-4-thread-105" prio=10 tid=0x00007f0ad009a800 nid=0x38fc runnable [0x00007f0aa63e1000]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.HashMap.get(HashMap.java:303)
+	at com.isoftstone.pcis.policy.app.platform.dm.PlatformBaseDao.getAccurateData(PlatformBaseDao.java:502)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.utils.gongxiang.GXCommonValidate.validateCommonBase(GXCommonValidate.java:1438)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.utils.gongxiang.GXCommonValidate.validateAppPreConfirmBusinessBase(GXCommonValidate.java:304)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.appPreConfirmBusiness(VhlPlatformHandlerGXImpl.java:477)
+	at com.isoftstone.pcis.policy.app.platform.service.impl.PlatformServiceImpl.callPlatformOnUndrPass(PlatformServiceImpl.java:459)
+	at com.isoftstone.pcis.policy.proxy.ref.platform.PlatformProxy.callPlatformOnUndrPass(PlatformProxy.java:71)
+	at com.isoftstone.pcis.webservice.interfaces.zsbx.impl.ZSBXOuterServiceImpl$4.run(ZSBXOuterServiceImpl.java:2112)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
+	at java.lang.Thread.run(Thread.java:682)
+
+"pool-4-thread-104" prio=10 tid=0x00007f0ad00f3000 nid=0x38fb runnable [0x00007f0aa6ae8000]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.HashMap.get(HashMap.java:303)
+	at com.isoftstone.pcis.policy.app.platform.dm.PlatformBaseDao.getAccurateData(PlatformBaseDao.java:502)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.utils.gongxiang.GXCommonValidate.validateCommonBase(GXCommonValidate.java:1438)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.utils.gongxiang.GXCommonValidate.validateAppPreConfirmBase(GXCommonValidate.java:2253)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.getJQConfirmSendXML(VhlPlatformHandlerGXImpl.java:15272)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.appPreConfirm(VhlPlatformHandlerGXImpl.java:381)
+	at com.isoftstone.pcis.policy.app.platform.service.impl.PlatformServiceImpl.callPlatformOnUndrPass(PlatformServiceImpl.java:455)
+	at com.isoftstone.pcis.policy.proxy.ref.platform.PlatformProxy.callPlatformOnUndrPass(PlatformProxy.java:71)
+	at com.isoftstone.pcis.webservice.interfaces.zsbx.impl.ZSBXOuterServiceImpl$3.run(ZSBXOuterServiceImpl.java:1986)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
+	at java.lang.Thread.run(Thread.java:682)
+
+"pool-4-thread-97" prio=10 tid=0x00007f0aac017000 nid=0x275f runnable [0x00007f0aa6be9000]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.HashMap.get(HashMap.java:303)
+	at com.isoftstone.pcis.policy.app.platform.dm.PlatformBaseDao.getAccurateData(PlatformBaseDao.java:502)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.utils.gongxiang.GXCommonValidate.validateCommonBase(GXCommonValidate.java:1438)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.utils.gongxiang.GXCommonValidate.validateAppQueryBusinessBase(GXCommonValidate.java:254)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.getAppQueryBizRequestPacket(VhlPlatformHandlerGXImpl.java:12823)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.appQueryBusiness(VhlPlatformHandlerGXImpl.java:1075)
+	at com.isoftstone.pcis.policy.app.platform.service.impl.PlatformServiceImpl.callPlatformOnCalcPremium(PlatformServiceImpl.java:268)
+	at com.isoftstone.pcis.policy.proxy.ref.platform.PlatformProxy.callPlatformOnCalcPremium(PlatformProxy.java:41)
+	at com.isoftstone.pcis.policy.prod.vhl.bm.PolicyAppVhlBM.calcPremium(PolicyAppVhlBM.java:249)
+	at com.isoftstone.pcis.webservice.interfaces.zsbx.impl.ZSBXOuterServiceImpl$2.run(ZSBXOuterServiceImpl.java:1001)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
+	at java.lang.Thread.run(Thread.java:682)
+
+"pool-4-thread-95" prio=10 tid=0x00007f0b0c009800 nid=0x26a2 runnable [0x00007f0b04240000]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.HashMap.get(HashMap.java:303)
+	at com.isoftstone.pcis.policy.app.platform.dm.PlatformBaseDao.getAccurateData(PlatformBaseDao.java:502)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.utils.gongxiang.GXCommonValidate.validateCommonBase(GXCommonValidate.java:1438)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.utils.gongxiang.GXCommonValidate.validateAppQueryBusinessBase(GXCommonValidate.java:254)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.getAppQueryBizRequestPacket(VhlPlatformHandlerGXImpl.java:12823)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.appQueryBusiness(VhlPlatformHandlerGXImpl.java:1075)
+	at com.isoftstone.pcis.policy.app.platform.service.impl.PlatformServiceImpl.callPlatformOnCalcPremium(PlatformServiceImpl.java:268)
+	at com.isoftstone.pcis.policy.proxy.ref.platform.PlatformProxy.callPlatformOnCalcPremium(PlatformProxy.java:41)
+	at com.isoftstone.pcis.policy.prod.vhl.bm.PolicyAppVhlBM.calcPremium(PolicyAppVhlBM.java:249)
+	at com.isoftstone.pcis.webservice.interfaces.zsbx.impl.ZSBXOuterServiceImpl$2.run(ZSBXOuterServiceImpl.java:1001)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
+	at java.lang.Thread.run(Thread.java:682)
+
+"pool-4-thread-93" prio=10 tid=0x00007f0ad412f800 nid=0x2310 runnable [0x00007f0b04644000]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.HashMap.get(HashMap.java:303)
+	at com.isoftstone.pcis.policy.app.platform.dm.PlatformBaseDao.getAccurateData(PlatformBaseDao.java:502)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.utils.gongxiang.GXCommonValidate.validateCommonBase(GXCommonValidate.java:1438)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.utils.gongxiang.GXCommonValidate.validateAppQueryBusinessBase(GXCommonValidate.java:254)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.getAppQueryBizRequestPacket(VhlPlatformHandlerGXImpl.java:12823)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.appQueryBusiness(VhlPlatformHandlerGXImpl.java:1075)
+	at com.isoftstone.pcis.policy.app.platform.service.impl.PlatformServiceImpl.callPlatformOnCalcPremium(PlatformServiceImpl.java:268)
+	at com.isoftstone.pcis.policy.proxy.ref.platform.PlatformProxy.callPlatformOnCalcPremium(PlatformProxy.java:41)
+	at com.isoftstone.pcis.policy.prod.vhl.bm.PolicyAppVhlBM.calcPremium(PolicyAppVhlBM.java:249)
+	at com.isoftstone.pcis.webservice.interfaces.zsbx.impl.ZSBXOuterServiceImpl$2.run(ZSBXOuterServiceImpl.java:1001)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
+	at java.lang.Thread.run(Thread.java:682)
+
+"pool-4-thread-91" prio=10 tid=0x00007f0b0c008000 nid=0x21f3 runnable [0x00007f0b04543000]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.HashMap.get(HashMap.java:303)
+	at com.isoftstone.pcis.policy.app.platform.dm.PlatformBaseDao.getAccurateData(PlatformBaseDao.java:502)
+	at com.isoftstone.pcis.webservice.interfaces.IlogZS.IlogServiceClient.sendAutoUnderReqILog(IlogServiceClient.java:3774)
+	at com.isoftstone.pcis.policy.proxy.ref.underwrite.UnderwriteProxy.submitUnderwrite(UnderwriteProxy.java:87)
+	at com.isoftstone.pcis.webservice.interfaces.zsbx.impl.ZSBXOuterServiceImpl$6.run(ZSBXOuterServiceImpl.java:3617)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
+	at java.lang.Thread.run(Thread.java:682)
+
+"pool-4-thread-90" prio=10 tid=0x00007f0b0c004800 nid=0x21f2 runnable [0x00007f0aa6fed000]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.HashMap.get(HashMap.java:303)
+	at com.isoftstone.pcis.policy.app.platform.dm.PlatformBaseDao.getAccurateData(PlatformBaseDao.java:502)
+	at com.isoftstone.pcis.webservice.interfaces.IlogZS.IlogServiceClient.sendAutoUnderReqILog(IlogServiceClient.java:3774)
+	at com.isoftstone.pcis.policy.proxy.ref.underwrite.UnderwriteProxy.submitUnderwrite(UnderwriteProxy.java:81)
+	at com.isoftstone.pcis.webservice.interfaces.zsbx.impl.ZSBXOuterServiceImpl$5.run(ZSBXOuterServiceImpl.java:3526)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
+	at java.lang.Thread.run(Thread.java:682)
+
+"pool-4-thread-74" prio=10 tid=0x00007f0ab4007000 nid=0x47dd runnable [0x00007f0b04a62000]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.HashMap.get(HashMap.java:303)
+	at com.isoftstone.pcis.policy.app.platform.dm.PlatformBaseDao.getAccurateData(PlatformBaseDao.java:502)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.getAppQueryRequestPacket(VhlPlatformHandlerGXImpl.java:12608)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.appQuery(VhlPlatformHandlerGXImpl.java:613)
+	at com.isoftstone.pcis.policy.app.platform.service.impl.PlatformServiceImpl.callPlatformOnCalcPremium(PlatformServiceImpl.java:254)
+	at com.isoftstone.pcis.policy.proxy.ref.platform.PlatformProxy.callPlatformOnCalcPremium(PlatformProxy.java:41)
+	at com.isoftstone.pcis.policy.prod.vhl.bm.PolicyAppVhlBM.calcPremium(PolicyAppVhlBM.java:249)
+	at com.isoftstone.pcis.webservice.interfaces.zsbx.impl.ZSBXOuterServiceImpl$1.run(ZSBXOuterServiceImpl.java:865)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
+	at java.lang.Thread.run(Thread.java:682)
+
+"pool-4-thread-72" prio=10 tid=0x00007f0b18017800 nid=0x399c runnable [0x00007f0b04442000]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.HashMap.get(HashMap.java:303)
+	at com.isoftstone.pcis.policy.app.platform.dm.PlatformBaseDao.getAccurateData(PlatformBaseDao.java:502)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.utils.gongxiang.GXCommonValidate.validateCommonBase(GXCommonValidate.java:1438)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.utils.gongxiang.GXCommonValidate.validateAppQueryBusinessBase(GXCommonValidate.java:254)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.getAppQueryBizRequestPacket(VhlPlatformHandlerGXImpl.java:12823)
+	at com.isoftstone.pcis.policy.app.newest.platform.car.service.gongxiang.VhlPlatformHandlerGXImpl.appQueryBusiness(VhlPlatformHandlerGXImpl.java:1075)
+	at com.isoftstone.pcis.policy.app.platform.service.impl.PlatformServiceImpl.callPlatformOnCalcPremium(PlatformServiceImpl.java:268)
+	at com.isoftstone.pcis.policy.proxy.ref.platform.PlatformProxy.callPlatformOnCalcPremium(PlatformProxy.java:41)
+	at com.isoftstone.pcis.policy.prod.vhl.bm.PolicyAppVhlBM.calcPremium(PolicyAppVhlBM.java:249)
+	at com.isoftstone.pcis.webservice.interfaces.zsbx.impl.ZSBXOuterServiceImpl$2.run(ZSBXOuterServiceImpl.java:1001)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
+	at java.lang.Thread.run(Thread.java:682)
+
+"[ACTIVE] ExecuteThread: '18' for queue: 'weblogic.kernel.Default (self-tuning)'" daemon prio=10 tid=0x00007f0aec01b000 nid=0x3fff in Object.wait() [0x00007f0aa72f1000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at weblogic.work.ExecuteThread.waitForRequest(ExecuteThread.java:205)
+	- locked <0x0000000707328838> (a weblogic.work.ExecuteThread)
+	at weblogic.work.ExecuteThread.run(ExecuteThread.java:233)
+
+"[ACTIVE] ExecuteThread: '17' for queue: 'weblogic.kernel.Default (self-tuning)'" daemon prio=10 tid=0x00007f0aec019000 nid=0x3ffe in Object.wait() [0x00007f0aa73f2000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at weblogic.work.ExecuteThread.waitForRequest(ExecuteThread.java:205)
+	- locked <0x0000000707326e50> (a weblogic.work.ExecuteThread)
+	at weblogic.work.ExecuteThread.run(ExecuteThread.java:233)
+
+"[ACTIVE] ExecuteThread: '16' for queue: 'weblogic.kernel.Default (self-tuning)'" daemon prio=10 tid=0x00007f0aec017000 nid=0x3ffd in Object.wait() [0x00007f0aa74f3000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at weblogic.work.ExecuteThread.waitForRequest(ExecuteThread.java:205)
+	- locked <0x0000000707324178> (a weblogic.work.ExecuteThread)
+	at weblogic.work.ExecuteThread.run(ExecuteThread.java:233)
+
+"[ACTIVE] ExecuteThread: '15' for queue: 'weblogic.kernel.Default (self-tuning)'" daemon prio=10 tid=0x00007f0aec015000 nid=0x3ffc in Object.wait() [0x00007f0aa75f4000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at weblogic.work.ExecuteThread.waitForRequest(ExecuteThread.java:205)
+	- locked <0x0000000707331838> (a weblogic.work.ExecuteThread)
+	at weblogic.work.ExecuteThread.run(ExecuteThread.java:233)
+
+"[ACTIVE] ExecuteThread: '14' for queue: 'weblogic.kernel.Default (self-tuning)'" daemon prio=10 tid=0x00007f0aec013000 nid=0x3ffb in Object.wait() [0x00007f0aa76f5000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at weblogic.work.ExecuteThread.waitForRequest(ExecuteThread.java:205)
+	- locked <0x0000000707322d58> (a weblogic.work.ExecuteThread)
+	at weblogic.work.ExecuteThread.run(ExecuteThread.java:233)
+
+"[ACTIVE] ExecuteThread: '13' for queue: 'weblogic.kernel.Default (self-tuning)'" daemon prio=10 tid=0x00007f0aec011000 nid=0x3ffa in Object.wait() [0x00007f0aa77f6000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at weblogic.work.ExecuteThread.waitForRequest(ExecuteThread.java:205)
+	- locked <0x0000000707325598> (a weblogic.work.ExecuteThread)
+	at weblogic.work.ExecuteThread.run(ExecuteThread.java:233)
+
+"[ACTIVE] ExecuteThread: '12' for queue: 'weblogic.kernel.Default (self-tuning)'" daemon prio=10 tid=0x00007f0aec00f000 nid=0x3ff9 in Object.wait() [0x00007f0aa78f7000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at weblogic.work.ExecuteThread.waitForRequest(ExecuteThread.java:205)
+	- locked <0x0000000707329d10> (a weblogic.work.ExecuteThread)
+	at weblogic.work.ExecuteThread.run(ExecuteThread.java:233)
+
+"[ACTIVE] ExecuteThread: '11' for queue: 'weblogic.kernel.Default (self-tuning)'" daemon prio=10 tid=0x00007f0aec00d000 nid=0x3ff8 in Object.wait() [0x00007f0aa79f8000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at weblogic.work.ExecuteThread.waitForRequest(ExecuteThread.java:205)
+	- locked <0x000000070732c6e0> (a weblogic.work.ExecuteThread)
+	at weblogic.work.ExecuteThread.run(ExecuteThread.java:233)
+
+"[ACTIVE] ExecuteThread: '10' for queue: 'weblogic.kernel.Default (self-tuning)'" daemon prio=10 tid=0x00007f0aec00b000 nid=0x3ff7 in Object.wait() [0x00007f0aa7af9000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at weblogic.work.ExecuteThread.waitForRequest(ExecuteThread.java:205)
+	- locked <0x000000070732efd8> (a weblogic.work.ExecuteThread)
+	at weblogic.work.ExecuteThread.run(ExecuteThread.java:233)
+
+"[ACTIVE] ExecuteThread: '9' for queue: 'weblogic.kernel.Default (self-tuning)'" daemon prio=10 tid=0x00007f0aec009000 nid=0x3ff6 in Object.wait() [0x00007f0aa7bfa000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at weblogic.work.ExecuteThread.waitForRequest(ExecuteThread.java:205)
+	- locked <0x000000070732b270> (a weblogic.work.ExecuteThread)
+	at weblogic.work.ExecuteThread.run(ExecuteThread.java:233)
+
+"[ACTIVE] ExecuteThread: '8' for queue: 'weblogic.kernel.Default (self-tuning)'" daemon prio=10 tid=0x00007f0aec007000 nid=0x3ff5 in Object.wait() [0x00007f0aa7cfb000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at weblogic.work.ExecuteThread.waitForRequest(ExecuteThread.java:205)
+	- locked <0x00000007073204b0> (a weblogic.work.ExecuteThread)
+	at weblogic.work.ExecuteThread.run(ExecuteThread.java:233)
+
+"[ACTIVE] ExecuteThread: '7' for queue: 'weblogic.kernel.Default (self-tuning)'" daemon prio=10 tid=0x00007f0aec005800 nid=0x3ff4 in Object.wait() [0x00007f0aa7dfc000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at weblogic.work.ExecuteThread.waitForRequest(ExecuteThread.java:205)
+	- locked <0x000000070732db00> (a weblogic.work.ExecuteThread)
+	at weblogic.work.ExecuteThread.run(ExecuteThread.java:233)
+
+"[ACTIVE] ExecuteThread: '6' for queue: 'weblogic.kernel.Default (self-tuning)'" daemon prio=10 tid=0x00007f0aec003800 nid=0x3ff3 in Object.wait() [0x00007f0aa7efd000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at weblogic.work.ExecuteThread.waitForRequest(ExecuteThread.java:205)
+	- locked <0x0000000707321938> (a weblogic.work.ExecuteThread)
+	at weblogic.work.ExecuteThread.run(ExecuteThread.java:233)
+
+"[ACTIVE] ExecuteThread: '5' for queue: 'weblogic.kernel.Default (self-tuning)'" daemon prio=10 tid=0x00007f0aec002800 nid=0x3ff2 in Object.wait() [0x00007f0aa7ffe000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at weblogic.work.ExecuteThread.waitForRequest(ExecuteThread.java:205)
+	- locked <0x0000000707330418> (a weblogic.work.ExecuteThread)
+	at weblogic.work.ExecuteThread.run(ExecuteThread.java:233)
+
+"commons-pool-EvictionTimer" daemon prio=10 tid=0x00007f0ae402d800 nid=0x7f2 in Object.wait() [0x00007f0b04746000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.util.TimerThread.mainLoop(Timer.java:509)
+	- locked <0x0000000706d0bbf0> (a java.util.TaskQueue)
+	at java.util.TimerThread.run(Timer.java:462)
+
+"MultiThreadedHttpConnectionManager cleanup" daemon prio=10 tid=0x00007f0ae1299000 nid=0x2307 in Object.wait() [0x00007f0b0516a000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x00000007037061c0> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:118)
+	- locked <0x00000007037061c0> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:134)
+	at org.apache.commons.httpclient.MultiThreadedHttpConnectionManager$ReferenceQueueThread.run(MultiThreadedHttpConnectionManager.java:1122)
+
+"[ACTIVE] ExecuteThread: '4' for queue: 'weblogic.kernel.Default (self-tuning)'" daemon prio=10 tid=0x00007f0ad4029000 nid=0x1e5a in Object.wait() [0x00007f0b04c65000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at weblogic.work.ExecuteThread.waitForRequest(ExecuteThread.java:205)
+	- locked <0x00000007019978d0> (a weblogic.work.ExecuteThread)
+	at weblogic.work.ExecuteThread.run(ExecuteThread.java:233)
+
+"[ACTIVE] ExecuteThread: '3' for queue: 'weblogic.kernel.Default (self-tuning)'" daemon prio=10 tid=0x00007f0ad401b000 nid=0x1e59 in Object.wait() [0x00007f0b04d66000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at weblogic.work.ExecuteThread.waitForRequest(ExecuteThread.java:205)
+	- locked <0x00000007019a8198> (a weblogic.work.ExecuteThread)
+	at weblogic.work.ExecuteThread.run(ExecuteThread.java:233)
+
+"[ACTIVE] ExecuteThread: '2' for queue: 'weblogic.kernel.Default (self-tuning)'" daemon prio=10 tid=0x00007f0ac4007000 nid=0x1e58 in Object.wait() [0x00007f0b04e67000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at weblogic.work.ExecuteThread.waitForRequest(ExecuteThread.java:205)
+	- locked <0x00000007019a8d50> (a weblogic.work.ExecuteThread)
+	at weblogic.work.ExecuteThread.run(ExecuteThread.java:233)
+
+"DynamicListenThread[Default]" daemon prio=10 tid=0x00007f0ad401a000 nid=0x1e57 runnable [0x00007f0b04f68000]
+   java.lang.Thread.State: RUNNABLE
+	at java.net.PlainSocketImpl.socketAccept(Native Method)
+	at java.net.PlainSocketImpl.accept(PlainSocketImpl.java:439)
+	- locked <0x00000007018d91a8> (a java.net.SocksSocketImpl)
+	at java.net.ServerSocket.implAccept(ServerSocket.java:468)
+	at java.net.ServerSocket.accept(ServerSocket.java:436)
+	at weblogic.socket.WeblogicServerSocket.accept(WeblogicServerSocket.java:38)
+	at weblogic.server.channels.DynamicListenThread$SocketAccepter.accept(DynamicListenThread.java:535)
+	at weblogic.server.channels.DynamicListenThread$SocketAccepter.access$200(DynamicListenThread.java:417)
+	at weblogic.server.channels.DynamicListenThread.run(DynamicListenThread.java:173)
+	at java.lang.Thread.run(Thread.java:682)
+
+"weblogic.GCMonitor" daemon prio=10 tid=0x00007f0ae11c6000 nid=0x1e56 in Object.wait() [0x00007f0b05069000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:118)
+	- locked <0x00000007019aa130> (a java.lang.ref.ReferenceQueue$Lock)
+	at weblogic.platform.GCMonitorThread.waitForNotification(GCMonitorThread.java:88)
+	at weblogic.platform.GCMonitorThread.run(GCMonitorThread.java:64)
+
+"FileWatchdog" daemon prio=10 tid=0x00007f0ae11fc000 nid=0x1e0e waiting on condition [0x00007f0b0527a000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at org.apache.log4j.helpers.FileWatchdog.run(FileWatchdog.java:104)
+
+"schedulerFactory_QuartzSchedulerThread" prio=10 tid=0x00007f0ae14c1800 nid=0x1e0c in Object.wait() [0x00007f0b0537b000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at org.quartz.core.QuartzSchedulerThread.run(QuartzSchedulerThread.java:216)
+	- locked <0x0000000701996508> (a java.lang.Object)
+
+"schedulerFactory_Worker-10" prio=10 tid=0x00007f0ae0f2e800 nid=0x1e0b in Object.wait() [0x00007f0b0547c000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:523)
+	- locked <0x000000070190dac0> (a org.quartz.simpl.SimpleThreadPool$WorkerThread)
+
+"schedulerFactory_Worker-9" prio=10 tid=0x00007f0ae1035000 nid=0x1e0a in Object.wait() [0x00007f0b0557d000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:523)
+	- locked <0x000000070190d288> (a org.quartz.simpl.SimpleThreadPool$WorkerThread)
+
+"schedulerFactory_Worker-8" prio=10 tid=0x00007f0ae15e1800 nid=0x1e09 in Object.wait() [0x00007f0b0567e000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:523)
+	- locked <0x000000070190ca50> (a org.quartz.simpl.SimpleThreadPool$WorkerThread)
+
+"schedulerFactory_Worker-7" prio=10 tid=0x00007f0ae1796000 nid=0x1e08 in Object.wait() [0x00007f0b0577f000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:523)
+	- locked <0x000000070190c218> (a org.quartz.simpl.SimpleThreadPool$WorkerThread)
+
+"schedulerFactory_Worker-6" prio=10 tid=0x00007f0ae145c000 nid=0x1e07 in Object.wait() [0x00007f0b05880000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:523)
+	- locked <0x000000070190b9e0> (a org.quartz.simpl.SimpleThreadPool$WorkerThread)
+
+"schedulerFactory_Worker-5" prio=10 tid=0x00007f0ae1205800 nid=0x1e06 in Object.wait() [0x00007f0b05981000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:523)
+	- locked <0x000000070190b1a8> (a org.quartz.simpl.SimpleThreadPool$WorkerThread)
+
+"schedulerFactory_Worker-4" prio=10 tid=0x00007f0ae1459000 nid=0x1e05 in Object.wait() [0x00007f0b05a82000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:523)
+	- locked <0x000000070190a970> (a org.quartz.simpl.SimpleThreadPool$WorkerThread)
+
+"schedulerFactory_Worker-3" prio=10 tid=0x00007f0ae12d2000 nid=0x1e04 in Object.wait() [0x00007f0b05b83000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:523)
+	- locked <0x000000070190a138> (a org.quartz.simpl.SimpleThreadPool$WorkerThread)
+
+"schedulerFactory_Worker-2" prio=10 tid=0x00007f0ae1369000 nid=0x1e03 in Object.wait() [0x00007f0b05c84000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:523)
+	- locked <0x0000000701909900> (a org.quartz.simpl.SimpleThreadPool$WorkerThread)
+
+"schedulerFactory_Worker-1" prio=10 tid=0x00007f0ae137f800 nid=0x1e02 in Object.wait() [0x00007f0b1e14a000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:523)
+	- locked <0x00000007018da9e8> (a org.quartz.simpl.SimpleThreadPool$WorkerThread)
+
+"GC Daemon" daemon prio=10 tid=0x00007f0ae13cd000 nid=0x1d75 in Object.wait() [0x00007f0b05d85000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at sun.misc.GC$Daemon.run(GC.java:100)
+	- locked <0x0000000700000120> (a sun.misc.GC$LatencyLock)
+
+"Thread-11" prio=10 tid=0x00007f0ae042a000 nid=0x1d24 waiting on condition [0x00007f0b1ce2a000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000007000001b0> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:156)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1987)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:399)
+	at weblogic.utils.concurrent.JDK15ConcurrentBlockingQueue.take(JDK15ConcurrentBlockingQueue.java:89)
+	at weblogic.store.internal.PersistentStoreImpl.getOutstandingWork(PersistentStoreImpl.java:676)
+	at weblogic.store.internal.PersistentStoreImpl.run(PersistentStoreImpl.java:751)
+	at java.lang.Thread.run(Thread.java:682)
+
+"DoSManager" daemon prio=10 tid=0x00007f0abc001800 nid=0x1cdd waiting on condition [0x00007f0b1cd29000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at com.octetstring.vde.DoSManager.run(DoSManager.java:433)
+
+"VDE Transaction Processor Thread" daemon prio=10 tid=0x00007f0ae0241000 nid=0x1cdb in Object.wait() [0x00007f0b1cf2b000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at com.octetstring.vde.backend.standard.TransactionProcessor.waitChange(TransactionProcessor.java:367)
+	- locked <0x0000000700000280> (a com.octetstring.vde.backend.standard.TransactionProcessor)
+	at com.octetstring.vde.backend.standard.TransactionProcessor.run(TransactionProcessor.java:212)
+
+"ExecuteThread: '3' for queue: 'weblogic.socket.Muxer'" daemon prio=10 tid=0x00007f0ae00a1000 nid=0x1cda waiting for monitor entry [0x00007f0b1d02c000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at weblogic.socket.PosixSocketMuxer.processSockets(PosixSocketMuxer.java:93)
+	- waiting to lock <0x00000007000003c8> (a weblogic.socket.PosixSocketMuxer$1)
+	at weblogic.socket.SocketReaderRequest.run(SocketReaderRequest.java:29)
+	at weblogic.socket.SocketReaderRequest.execute(SocketReaderRequest.java:42)
+	at weblogic.kernel.ExecuteThread.execute(ExecuteThread.java:145)
+	at weblogic.kernel.ExecuteThread.run(ExecuteThread.java:117)
+
+"ExecuteThread: '2' for queue: 'weblogic.socket.Muxer'" daemon prio=10 tid=0x00007f0ae00a0800 nid=0x1cd9 waiting for monitor entry [0x00007f0b1d12d000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at weblogic.socket.PosixSocketMuxer.processSockets(PosixSocketMuxer.java:93)
+	- waiting to lock <0x00000007000003c8> (a weblogic.socket.PosixSocketMuxer$1)
+	at weblogic.socket.SocketReaderRequest.run(SocketReaderRequest.java:29)
+	at weblogic.socket.SocketReaderRequest.execute(SocketReaderRequest.java:42)
+	at weblogic.kernel.ExecuteThread.execute(ExecuteThread.java:145)
+	at weblogic.kernel.ExecuteThread.run(ExecuteThread.java:117)
+
+"ExecuteThread: '1' for queue: 'weblogic.socket.Muxer'" daemon prio=10 tid=0x00007f0ae007c800 nid=0x1cd8 runnable [0x00007f0b1d22e000]
+   java.lang.Thread.State: RUNNABLE
+	at weblogic.socket.PosixSocketMuxer.poll(Native Method)
+	at weblogic.socket.PosixSocketMuxer.processSockets(PosixSocketMuxer.java:102)
+	- locked <0x00000007000003c8> (a weblogic.socket.PosixSocketMuxer$1)
+	at weblogic.socket.SocketReaderRequest.run(SocketReaderRequest.java:29)
+	at weblogic.socket.SocketReaderRequest.execute(SocketReaderRequest.java:42)
+	at weblogic.kernel.ExecuteThread.execute(ExecuteThread.java:145)
+	at weblogic.kernel.ExecuteThread.run(ExecuteThread.java:117)
+
+"ExecuteThread: '0' for queue: 'weblogic.socket.Muxer'" daemon prio=10 tid=0x00007f0ae007c000 nid=0x1cd7 waiting for monitor entry [0x00007f0b1d32f000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at weblogic.socket.PosixSocketMuxer.processSockets(PosixSocketMuxer.java:93)
+	- waiting to lock <0x00000007000003c8> (a weblogic.socket.PosixSocketMuxer$1)
+	at weblogic.socket.SocketReaderRequest.run(SocketReaderRequest.java:29)
+	at weblogic.socket.SocketReaderRequest.execute(SocketReaderRequest.java:42)
+	at weblogic.kernel.ExecuteThread.execute(ExecuteThread.java:145)
+	at weblogic.kernel.ExecuteThread.run(ExecuteThread.java:117)
+
+"[ACTIVE] ExecuteThread: '1' for queue: 'weblogic.kernel.Default (self-tuning)'" daemon prio=10 tid=0x00007f0ad8001000 nid=0x1cd6 in Object.wait() [0x00007f0b1d533000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at weblogic.work.ExecuteThread.waitForRequest(ExecuteThread.java:205)
+	- locked <0x00000007000081f8> (a weblogic.work.ExecuteThread)
+	at weblogic.work.ExecuteThread.run(ExecuteThread.java:233)
+
+"NM Reaper" daemon prio=10 tid=0x00007f0ae006d800 nid=0x1cd5 in Object.wait() [0x00007f0b1d634000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.util.TimerThread.mainLoop(Timer.java:509)
+	- locked <0x0000000700021850> (a java.util.TaskQueue)
+	at java.util.TimerThread.run(Timer.java:462)
+
+"Thread-6" prio=10 tid=0x00007f0ae0062800 nid=0x1cd4 waiting on condition [0x00007f0b1d838000]
+   java.lang.Thread.State: WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x0000000700008320> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:156)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1987)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:399)
+	at weblogic.utils.concurrent.JDK15ConcurrentBlockingQueue.take(JDK15ConcurrentBlockingQueue.java:89)
+	at weblogic.store.internal.PersistentStoreImpl.getOutstandingWork(PersistentStoreImpl.java:676)
+	at weblogic.store.internal.PersistentStoreImpl.run(PersistentStoreImpl.java:751)
+	at java.lang.Thread.run(Thread.java:682)
+
+"weblogic.timers.TimerThread" daemon prio=10 tid=0x00007f0b317a8800 nid=0x1cd3 in Object.wait() [0x00007f0b1db3e000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at weblogic.timers.internal.TimerThread.doWait(TimerThread.java:114)
+	- locked <0x0000000700021918> (a java.lang.Object)
+	at weblogic.timers.internal.TimerThread.access$000(TimerThread.java:22)
+	at weblogic.timers.internal.TimerThread$Thread.run(TimerThread.java:290)
+
+"weblogic.time.TimeEventGenerator" daemon prio=10 tid=0x00007f0b3146b000 nid=0x1cd2 in Object.wait() [0x00007f0b1dd40000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at weblogic.time.common.internal.TimeTable.snooze(TimeTable.java:286)
+	- locked <0x00000007000219d8> (a weblogic.time.common.internal.TimeTable)
+	at weblogic.time.common.internal.TimeEventGenerator.run(TimeEventGenerator.java:117)
+	at java.lang.Thread.run(Thread.java:682)
+
+"[ACTIVE] ExecuteThread: '0' for queue: 'weblogic.kernel.Default (self-tuning)'" daemon prio=10 tid=0x00007f0b31734000 nid=0x1cd1 in Object.wait() [0x00007f0b1df48000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at weblogic.work.ExecuteThread.waitForRequest(ExecuteThread.java:205)
+	- locked <0x0000000700021b00> (a weblogic.work.ExecuteThread)
+	at weblogic.work.ExecuteThread.run(ExecuteThread.java:233)
+
+"Timer-0" daemon prio=10 tid=0x00007f0b317d7000 nid=0x1cd0 in Object.wait() [0x00007f0b1e049000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.util.TimerThread.mainLoop(Timer.java:509)
+	- locked <0x00000007011aad88> (a java.util.TaskQueue)
+	at java.util.TimerThread.run(Timer.java:462)
+
+"Low Memory Detector" daemon prio=10 tid=0x00007f0b30094000 nid=0x1c9f runnable [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread1" daemon prio=10 tid=0x00007f0b30091800 nid=0x1c9e waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread0" daemon prio=10 tid=0x00007f0b3008f000 nid=0x1c9d waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Signal Dispatcher" daemon prio=10 tid=0x00007f0b3008c800 nid=0x1c9c runnable [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Finalizer" daemon prio=10 tid=0x00007f0b3006e800 nid=0x1c9b in Object.wait() [0x00007f0b1f9f8000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:118)
+	- locked <0x00000007011ab6b0> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:134)
+	at java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:171)
+
+"Reference Handler" daemon prio=10 tid=0x00007f0b3006c800 nid=0x1c9a in Object.wait() [0x00007f0b1faf9000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:485)
+	at java.lang.ref.Reference$ReferenceHandler.run(Reference.java:116)
+	- locked <0x0000000700000100> (a java.lang.ref.Reference$Lock)
+
+"main" prio=10 tid=0x00007f0b30008000 nid=0x1c93 in Object.wait() [0x00007f0b34e56000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x0000000701022ae0> (a weblogic.t3.srvr.T3Srvr)
+	at java.lang.Object.wait(Object.java:485)
+	at weblogic.t3.srvr.T3Srvr.waitForDeath(T3Srvr.java:994)
+	- locked <0x0000000701022ae0> (a weblogic.t3.srvr.T3Srvr)
+	at weblogic.t3.srvr.T3Srvr.run(T3Srvr.java:494)
+	at weblogic.Server.main(Server.java:71)
+
+"VM Thread" prio=10 tid=0x00007f0b30066000 nid=0x1c98 runnable 
+
+"GC task thread#0 (ParallelGC)" prio=10 tid=0x00007f0b3001b000 nid=0x1c94 runnable 
+
+"GC task thread#1 (ParallelGC)" prio=10 tid=0x00007f0b3001d000 nid=0x1c95 runnable 
+
+"GC task thread#2 (ParallelGC)" prio=10 tid=0x00007f0b3001e800 nid=0x1c96 runnable 
+
+"GC task thread#3 (ParallelGC)" prio=10 tid=0x00007f0b30020800 nid=0x1c97 runnable 
+
+"VM Periodic Task Thread" prio=10 tid=0x00007f0b300a6800 nid=0x1ca0 waiting on condition 
+
+JNI global references: 1557
+

@@ -5,13 +5,12 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Insert title here</title>
+		<title>SpringMVC文件上传</title>
 	</head>
 	<body>
-		${msg }
-		<%
-			String val = request.getAttribute("msg");
-			System.out.println("使用request一样可以得到数据" + val);
-		%>
+		<form action="/pcis/upload.springmvc" method="post" enctype="multipart/form-data">
+			请选择文件:<input type="file" name="file" />
+			<input type="submit" value="上传">
+		</form>
 	</body>
 </html>

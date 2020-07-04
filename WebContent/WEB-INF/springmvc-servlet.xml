@@ -42,4 +42,11 @@
 	然后上面的BeanNameUrlHandlerMapping和SimpleControllerHandlerAdapter还有你自己定义的HelloController 就不需要配置了
 	 -->
 	<context:component-scan base-package="com.yale.test.springmvc.controller"/>
+	
+	<!-- SpringMVC文件上传依赖commons-fileupload-1.2.1.jar包 commons-io-2.5.jar 包 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="utf-8"></property>
+		<property name="maxUploadSize" value="10485760000"></property>
+		<property name="maxInMemorySize" value="40960"></property>
+	</bean>
 </beans>
