@@ -49,4 +49,26 @@
 		<property name="maxUploadSize" value="10485760000"></property>
 		<property name="maxInMemorySize" value="40960"></property>
 	</bean>
+	
+	<!-- SpringMVC处理JSON依赖Jackson的jar包 -->
+	<bean id="stringConverter" class="org.springframework.http.converter.StringHttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/plain;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+	</bean>
+	<!-- AnnotationMethodHandlerAdapter已经被废弃了,spring 3.1 开始我们应该用
+	RequestMappingHandlerMapping 来替换 DefaultAnnotationHandlerMapping，
+	用 RequestMappingHandlerAdapter 来替换 AnnotationMethodHandlerAdapter。 -->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="stringConverter"/>
+				<ref bean="jsonConverter"/>
+			</list>
+		</property>
+	</bean>
 </beans>

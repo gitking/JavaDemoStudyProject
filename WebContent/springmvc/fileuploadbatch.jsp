@@ -11,6 +11,7 @@
 		<form action="/pcis/uploadbatch.springmvc" method="post" enctype="multipart/form-data">
 			请选择文件:<input type="file" name="file" /><br/>
 			请选择文件2:<input type="file" name="file" /><br/>
+			备注:<input type="text" name="desc" /><br/>
 			<input type="submit" value="上传">
 		</form>
 	</body>

@@ -47,8 +47,9 @@ public class FileUploadController {
 	}
 	
 	@RequestMapping("/uploadbatch")
-	public String fileUploadBatch(@RequestParam("file")CommonsMultipartFile file[], HttpServletRequest req){
+	public String fileUploadBatch(@RequestParam("file")CommonsMultipartFile file[], HttpServletRequest req, String desc){
 		System.out.println("SpringMVC文件批量上传:");
+		System.out.println("上传文件的同时还传其他数据:" + desc);
 		//通过HttpServletRequest获取文件的保存路径,
 		//String path = req.getRealPath("/fileupload");这个方法不建议使用了
 		String path = req.getServletContext().getRealPath("/fileupload");

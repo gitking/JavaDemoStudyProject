@@ -4,6 +4,17 @@ public class User {
 	private int id;
 	private String name;
 	private String pwd;
+	public User() {
+		
+	}
+	
+	public User(int id, String name, String pwd) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.pwd = pwd;
+	}
+
 	public int getId() {
 		return id;
 	}
