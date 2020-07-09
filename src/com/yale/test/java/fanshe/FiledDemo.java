@@ -28,6 +28,7 @@ public class FiledDemo {
 		
 		System.out.println("--------------------------------------------");
 		Field scField = cls.getDeclaredField("school");//得到指定name的属性
+		System.out.println("得到属性的类型:" + scField.getType());
 		System.out.println("得到属性的类型:" + scField.getType().getName());
 		System.out.println("得到属性的类型:" + scField.getType().getSimpleName());
 
@@ -38,6 +39,8 @@ public class FiledDemo {
 		 * Class com.yale.test.java.fanshe.FiledDemo can not access a member of class 
 		 * com.yale.test.java.fanshe.FieldTe with modifiers "private"
 		 * 但是使用scField.setAccessible(true);
+		 * 此外，setAccessible(true)可能会失败。如果JVM运行期存在SecurityManager，那么它会根据规则进行检查，有可能阻止setAccessible(true)。
+		 * 例如，某个SecurityManager可能不允许对java和javax开头的package的类调用setAccessible(true)，这样可以保证JVM核心库的安全。
 		 */
 		scField.setAccessible(true);//设置为true就可以访问private属性
 		scField.set(obj, "四中");//通过反射给FieldTe对象的属性设置值

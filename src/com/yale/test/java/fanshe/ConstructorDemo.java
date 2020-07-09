@@ -31,6 +31,12 @@ public class ConstructorDemo {
 			System.out.println("获取类的所有构造方法:" + conts[i]);
 			System.out.println("获取类的所有构造方法(注意构造方法的getName方法):" + conts[i].getName());
 			System.out.println("得到构造方法的修饰符public还是别的什么,返回的是数字:" + conts[i].getModifiers());
+			int m = conts[i].getModifiers();
+			System.out.println(Modifier.isFinal(m));
+			System.out.println(Modifier.isPublic(m));
+			System.out.println(Modifier.isProtected(m));
+			System.out.println(Modifier.isPrivate(m));
+			System.out.println(Modifier.isStatic(m));
 			System.out.println("得到构造方法的修饰符public还是别的什么,Modifier类里面定义了数字对应的中文:" + Modifier.toString(conts[i].getModifiers()));
 			Class<?>[] params = conts[i].getParameterTypes();
 			for (int y=0;y<params.length; y++) {
@@ -45,6 +51,16 @@ public class ConstructorDemo {
 
 		}
 		
+		
+		/*
+		 * 
+		    getConstructor(Class...)：获取某个public的Constructor；
+		    getDeclaredConstructor(Class...)：获取某个Constructor；
+		    getConstructors()：获取所有public的Constructor；
+		    getDeclaredConstructors()：获取所有Constructor。
+		 * 注意Constructor总是当前类定义的构造方法，和父类无关，因此不存在多态的问题。
+		 * 调用非public的Constructor时，必须首先通过setAccessible(true)设置允许访问。setAccessible(true)可能会失败。
+		 */
 		Class<?> per = PersonThir.class;
 		//现在明确表示取的指定参数类型的构造方法
 		Constructor<?> cont = per.getConstructor(String.class, int.class);

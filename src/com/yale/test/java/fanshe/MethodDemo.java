@@ -24,6 +24,16 @@ public class MethodDemo {
 	public static void main(String[] args) throws InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException {
 		//Class<?> cls = Per.class;这个更下面这个是一样的
 		Class<?> cls = Class.forName("com.yale.test.java.fanshe.Per");
+		/*
+		 * Method getMethod(name, Class...)：获取某个public的Method（包括父类）
+		 * Method getDeclaredMethod(name, Class...)：获取当前类的某个Method（不包括父类）
+		 * Method[] getMethods()：获取所有public的Method（包括父类）
+		 * Method[] getDeclaredMethods()：获取当前类的所有Method（不包括父类）
+	     * getName()：返回方法名称，例如："getScore"；
+	     * getReturnType()：返回方法返回值类型，也是一个Class实例，例如：String.class；
+	     * getParameterTypes()：返回方法的参数类型，是一个Class数组，例如：{String.class, int.class}；
+	     * getModifiers()：返回方法的修饰符，它是一个int，不同的bit表示不同的含义。
+		 */
 		Method[] met = cls.getMethods();
 		for (int i=0;i<met.length;i++) {
 			System.out.println("这里会把Object父类的方法也打印出来:" + met[i]);
@@ -43,6 +53,19 @@ public class MethodDemo {
 		Method getMethod = cls.getMethod("get" + initcap(attribute));
 		Object ret = getMethod.invoke(obj);//相当于Person对象.getName()
 		System.out.println("通过反射调用对象的方法得到的返回值" + ret);
+		
+		/*
+		 * 如果获取到的Method表示一个静态方法，调用静态方法时，由于无需指定实例对象，所以invoke方法传入的第一个参数永远为null。我们以Integer.parseInt(String)为例：
+		 */
+		Method m= Integer.class.getMethod("parseIne", String.class);
+		Integer res = (Integer)m.invoke(null, "99");
+		System.out.println(res);
+		
+		/*
+		 * 和Field类似，对于非public方法，我们虽然可以通过Class.getDeclaredMethod()获取该方法实例，但直接对其调用将得到一个IllegalAccessException。
+		 * 为了调用非public方法，我们通过Method.setAccessible(true)允许其调用：
+		 * 使用反射调用方法时，仍然遵循多态原则：即总是调用实际类型的覆写方法（如果存在）。
+		 */
 	}
 	public static String initcap(String str) {
 		return str.substring(0, 1).toUpperCase() + str.substring(1);
