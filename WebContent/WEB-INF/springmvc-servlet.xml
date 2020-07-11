@@ -5,12 +5,15 @@
     xmlns:c="http://www.springframework.org/schema/c"
     xmlns:context="http://www.springframework.org/schema/context"
     xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/aop 
         https://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/context
-        https://www.springframework.org/schema/context/spring-context.xsd">
+        https://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        https://www.springframework.org/schema/mvc/spring-mvc.xsd">
     <!-- 配置handlerMapping -->
 	<!--<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>-->
 	<!-- 配置handlerAdapter, 配置了handlerAdapter的话,HelloController里面的name可以这样配置/hello,不需要配置请求的后缀
@@ -71,4 +74,29 @@
 			</list>
 		</property>
 	</bean>
+	<!-- 拦截器的配置, mvc:interceptors下面可以配置多个拦截器-->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<!-- /**是拦截根路径及其子路径都拦截
+			/admin/*拦截的是/admin/add这种路径,/admin/add/stu这种就拦截不了
+			/admin/** 这个就是/admin/add和/admin/add/stu都能拦截 -->
+			<mvc:mapping path="/**"/>
+			<!--  mvc:exclude-mapping 可以排除拦截,指定一些URL不进行拦截-->
+			<bean class="com.yale.test.springmvc.interceptor.MyInterceptor"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<!-- /**是拦截根路径及其子路径都拦截
+			/admin/*拦截的是/admin/add这种路径,/admin/add/stu这种就拦截不了
+			/admin/** 这个就是/admin/add和/admin/add/stu都能拦截 -->
+			<mvc:mapping path="/**"/>
+			<!--  mvc:exclude-mapping 可以排除拦截,指定一些URL不进行拦截-->
+			<bean class="com.yale.test.springmvc.interceptor.LoginInterceptor">
+				<property name="allowList">
+					<list>
+						<value>login.springmvc</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 </beans>

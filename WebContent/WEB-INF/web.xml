@@ -123,7 +123,26 @@
 		<url-pattern>/encodeServlet</url-pattern>
 	</servlet-mapping>
 	
+	<!-- Spring的配置文件 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>  
+		<!--这种配置会默认去WebContent目录下找<param-value>/WEB-INF/applicationContext.xml</param-value>-->
+	</context-param>
+    <!--<listener>
+    	<description>Spring的ServletContextListener监听器,启动的时候直接加载Spring自己的配置文件ContextLoaderListener</description>
+    	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener> -->
     
+    <listener>
+    	<listener-class>com.yale.test.web.listener.MyHttpSessionListener</listener-class>
+    </listener>
+    <session-config>
+    	<!-- 0代表session没有超时的限制, 1代表超时时间为1分钟,超时之后session会自动销毁 -->
+    	<session-timeout>1</session-timeout>
+    </session-config>
+    
+    <!-- SpringMVC的配置文件 -->
 	<servlet>
 		<servlet-name>springmvc</servlet-name>
 		<!-- springmvc的DispatcherServlet默认在WEB-INF下面查找springmvc-serlvet.xml文件,不配置会报错.

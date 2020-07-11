@@ -64,14 +64,14 @@ public class HelloDataController {
 		return "springdata";
 	}
 	
-	@RequestMapping("/delete/{id}")//这个就是Restful风口
+	@RequestMapping("/delete/{id}")//这个就是Restful风格
 	public String getRestfulType(@PathVariable int id){
 		//http://localhost:8080/pcis/delete/100.springmvc
 		System.out.println("restful风格获取数据" + id);
 		return "springdata";
 	}
 	
-	@RequestMapping("/{id}/{uid}/delete/{num}")//这个就是Restful风口
+	@RequestMapping("/{id}/{uid}/delete/{num}")//这个就是Restful风格
 	public String getRestfulTypeHigh(@PathVariable("num") int seq, @PathVariable int uid, @PathVariable int id){
 		//http://localhost:8080/pcis/99/101/delete/888.springmvc
 		System.out.println("restful风格获取数据uid:" + uid);

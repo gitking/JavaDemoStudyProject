@@ -23,6 +23,7 @@ public class HelloAnnotationController {
 		ModelAndView mv = new ModelAndView();//封装要显示到视图中的数据
 		mv.addObject("msg", "hello annotation(注解) springmvc");
 		mv.setViewName("helloAnno");//视图名,根据配置文件里面的配置InternalResourceViewResolver找web-inf/jsp下面的hello.jsp
+		System.out.println("我会被MyInterceptor拦截器拦截,如果拦截器的方法preHandle返回true,我这里就会继续往下走,返回false我这里就不会走了");
 		return mv;
 	}
 	
