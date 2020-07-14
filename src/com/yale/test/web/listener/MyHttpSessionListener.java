@@ -17,7 +17,8 @@ public class MyHttpSessionListener implements HttpSessionListener {
 
 	@Override
 	public void sessionDestroyed(HttpSessionEvent se) {
-		System.out.println("sessionCreated,httpSession被销毁了");
+		System.out.println("sessionId:" + se.getSession().getId() + "被销毁了,sessionCreated,httpSession被销毁了");
 		System.out.println("注销session有俩种情况,第一:tomcat被关闭的时候,第二：用户关闭浏览器一段时间后session过期后就会自动销毁，即使你不关闭浏览器但是长时间不活动，session也会自动过期销毁");
+		System.out.println("注意这里会把你钝化的session.ser文件给删了");
 	}
 }

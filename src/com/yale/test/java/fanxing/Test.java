@@ -46,6 +46,7 @@ public class Test {
 	
 	/**
 	 * ? extends 这个可以用在方法类型上,也可以用在参数上,设置参数上限,参数比较是Number或者Number子类
+	 * 编写泛型类时，要特别注意，泛型类型<T>不能用于静态方法。
 	 * @param numPoint
 	 */
 	public static void testMethod3(Point<? extends Number> numPoint){
@@ -58,5 +59,19 @@ public class Test {
 	 */
 	public static void testMethod4(Point<? super String> strPoint) {
 		System.out.println(strPoint);
+	}
+	
+	
+	/*
+	 * 如果我们考察对i<? extends Number>类型调用getFirst()方法，实际的方法签名变成了：
+	 * <? extends Number> testMethod5();
+	 */
+	public static void testMethod5(Point<? extends Number> numPoint){
+		/*
+		 * 即返回值是Number或Number的子类，因此，可以安全赋值给Number类型的变量：
+		 * 然后，我们不可预测实际类型就是Integer，例如，下面的代码是无法通过编译的：
+		 * int ss = numPoint.getX();
+		 * 这是因为实际的返回类型可能是Integer，也可能是Double或者其他类型，编译器只能确定类型一定是Number的子类（包括Number类型本身），但具体类型无法确定。
+		 */
 	}
 }

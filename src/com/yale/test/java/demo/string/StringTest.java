@@ -22,6 +22,11 @@ public class StringTest {
 		String sp = "A,B,C,D";
 		String[] ss = sp.split("\\,"); // {"A", "B", "C", "D"}
 		System.out.println("使用split()方法，并且传入的也是正则表达式" + ss);
+		//使用索引访问用String的split方法得到的数组时，需做最后一个分隔符后有无内容的检查，否则会有抛IndexOutOfBoundsException的风险。
+		String str = "a,b,c,,";
+		String[] ary = str.split(",");
+		//预期大于3，结果是3
+		System.out.println(ary.length);
 		
 		String[] arr = {"A", "B", "C"};
 		String sar = String.join("***", arr); // "A***B***C"

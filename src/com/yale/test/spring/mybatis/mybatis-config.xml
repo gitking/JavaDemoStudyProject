@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <typeAliases>
+  		<package name="com.yale.test.spring.mybatis.vo"/>
+  </typeAliases>
+  <!--  Spring整合mybatis,这个environments就不需要了
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@10.15.22.17:1521:V7DBtest1"/>
+        <property name="username" value="PCIS_DEV"/>
+        <property name="password" value="PCIS_DEV"/>
+      </dataSource>
+    </environment>
+  </environments>-->
+  <mappers>
+  	<!-- 所有mapper文件填写位置 -->
+    <mapper resource="com/yale/test/spring/mybatis/vo/user.mapper.xml"/>
+  </mappers>
+</configuration>

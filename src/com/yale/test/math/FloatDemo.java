@@ -1,5 +1,6 @@
 package com.yale.test.math;
 
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class FloatDemo {
@@ -36,6 +37,46 @@ public class FloatDemo {
         } else {
             // 不相等
         	System.out.println("不相等");
+        }
+        
+        /*
+         * 浮点数之间的等值判断，注意是等值判断,基本数据类型不能用==来比较，包装数据类型不能用equals来判断。 
+         * 说明：浮点数采用“尾数+阶码”的编码方式，类似于科学计数法的“有效数字+指数”的表示方式。二进制无法精确表示大部分的十进制小数，具体原理参考《码出高效》。
+         * 《阿里巴巴Java开发手册（泰山版）.pd》
+         */
+        float af = 1.0f - 0.9f;
+        float bf = 0.9f - 0.8f;
+        System.out.println("af：" + af);
+        System.out.println("bf:" + bf);
+        if (af == bf) {
+        	System.out.println("af和bf相等");
+        } else {
+        	System.out.println("af和bf不相等");
+        }
+        Float xf = new Float(af);
+        Float yf = new Float(bf);
+        if (xf.equals(yf)) {//这里走的是不相等:包装数据类型不能用equals来判断:不相等0.100000024,0.099999964
+        	System.out.println("包装数据类型不能用equals来判断:相等" + xf.toString() + "," + yf.toString());
+        } else {
+        	System.out.println("包装数据类型不能用equals来判断:不相等"  + xf.toString() + "," + yf.toString());
+        }
+        
+        //解决办法：指定一个误差范围，两个浮点数的差值在此范围之内，则认为是相等的。
+        float a = 1.0f - 0.9f;
+        float b = 0.9f - 0.8f;
+        float diff = 1e-6f;
+        if (Math.abs(a - b) < diff) {
+        	System.out.println("a 和 b 相等:true");
+        }
+        //解决办法:使用BigDecimal来定义值，再进行浮点数的运算操作。
+        BigDecimal aBig = new BigDecimal("1.0");
+        BigDecimal bBig = new BigDecimal("0.9");
+        BigDecimal cBig = new BigDecimal("0.8");
+        BigDecimal xBig = aBig.subtract(bBig);
+        BigDecimal yBig = bBig.subtract(cBig);
+        
+        if (xBig.equals(yBig)) {
+        	System.out.println("yBig和yBig是相等的:true");
         }
         
         //如果参与运算的两个数其中一个是整型，那么整型可以自动提升到浮点型：

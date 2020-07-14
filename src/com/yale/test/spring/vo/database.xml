@@ -20,19 +20,27 @@
 	<!-- 读取指定的properties文件,供Spring容器用,也可以用org.springframework.beans.factory.config.PropertyPlaceholderConfigurer
 	不过PropertyPlaceholderConfigurer被Spring标记过期了,不建议用了。Srping官方建议使用 PropertySourcesPlaceholderConfigurer类 -->
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="location" value="classpath:db.properties"></property>
+		<!--classpath:的意思是db.properties文件在src跟目录下  <property name="location" value="classpath:db.properties"></property>-->
+		<property name="location" value="com/yale/test/spring/vo/db.properties"></property>
 	</bean>
 	<!--  
 	<context:propery-placeholder location="db.properties"/>-->
 	
-	<!-- 配置SessionFactory, -->
+	<!-- 配置SessionFactory, SessionFactory交给Spring来管理,Spring可以保证他是单例的-->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
-		<property name="configLocation" value="classpath:mybatis.cfg.xml"/>
+		<!-- 其实mybatis.cfg.xml完全可以不要,使用 mapperLocations属性就行了,classpath:mybatis.cfg.xml,mybatis.cfg.xml配置文件必须在src目录下面-->
+		<!--<property name="configLocation" value="classpath:mybatis.cfg.xml"/>-->
+		<property name="configLocation" value="com/yale/test/spring/mybatis/mybatis-config.xml"/>
+		
+		<!-- <property name="mapperLocations"></property> -->
 	</bean>
-	
+	<!--sqlSessionTemplate这个是有办法去掉的 -->
 	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="userDao" class="com.yale.test.spring.mybatis.dao.impl.UserDaoImpl">
+		<property name="sqlSession" ref="sqlSessionTemplate"></property>
 	</bean>
 	<!-- 声明式事务配置, DataSourceTransactionManager配置事务管理器-->
 	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -44,16 +52,17 @@
 			<!-- 配置哪些方法使用什么样的事务,配置事务的传播特性，REQUIRED:检查当前是否有事务开启,有事务就用当前事务,没事务就开启一个新事务 -->
 			<tx:method name="add" propagation="REQUIRED"/>
 			
-			<!-- read-only只读事务,如果你往数据库里面写事务,spring就会报错 -->
-			<tx:method name="get" read-only="true"/>
+			<!-- get*以get开头的方法, read-only只读事务,如果你往数据库里面写事务,spring就会报错 -->
+			<!--<tx:method name="get" read-only="true"/>-->
+			<tx:method name="get*" read-only="true"/>
 			<!-- remove*,以remove开头的方法 -->
 			<tx:method name="remove*" propagation="REQUIRED"/>
-			
+			<!-- 其他方法默认使用这个*的配置 -->
 			<tx:method name="*" propagation="REQUIRED"/>
 		</tx:attributes>
 	</tx:advice>
 	<aop:config>
-		<aop:pointcut expression="executiono(* com.sxt.dao.impl.*.*(..))" id="txPointuct"/>
+		<aop:pointcut expression="execution(* com.yale.test.spring.mybatis.dao.impl.*.*(..))" id="txPointuct"/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointuct"/>
 	</aop:config>
 </beans>

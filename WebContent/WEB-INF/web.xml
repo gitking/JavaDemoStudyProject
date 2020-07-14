@@ -4,7 +4,8 @@
   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
                       http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
   version="3.1"
-  metadata-complete="true">
+  metadata-complete="false">
+  <!-- version="3.1" 这里可以看servlet的版本,servlet3.0必须使用JDK1.6以上版本，tomcat必须是7.0及以上,tomcat6.0不支持 -->
 
   <!--web.xml文件的继承,每个完整的JavaWeb应用中都需要有web.xml,但我们不知道所有的web.xml文件都有一个共同的父文件,它在tomcat的conf/web.xml路径。
   如果一个请求没有任何一个servlet处理,这是就会用到conf/web.xml文件里面的default这个servlet,这个servlet会显示404页面。

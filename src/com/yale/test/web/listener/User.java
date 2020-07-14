@@ -32,6 +32,7 @@ public class User implements HttpSessionBindingListener{
 
 	/**
 	 * HttpSessionBindingEvent继承HttpSessionEvent类
+	 * http://localhost:8080/pcis/session/sessionAddUser.jsp
 	 */
 	@Override
 	public void valueBound(HttpSessionBindingEvent event) {
@@ -40,6 +41,7 @@ public class User implements HttpSessionBindingListener{
 
 	@Override
 	public void valueUnbound(HttpSessionBindingEvent event) {
+		//http://localhost:8080/pcis/session/sessionRemoveUser.jsp
 		System.out.println("session删除我了,");
 	}
 }

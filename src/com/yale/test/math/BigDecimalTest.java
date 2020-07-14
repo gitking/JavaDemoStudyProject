@@ -56,6 +56,14 @@ public class BigDecimalTest {
 		float num2 = 0.8f;
 		System.out.println("注意结果并不是0.9:->" + (num1 + num2));
 		
+		/*
+		 * 禁止使用构造方法BigDecimal(double)的方式把double值转化为BigDecimal对象。 说明：BigDecimal(double)存在精度损失风险，
+		 * 在精确计算或值比较的场景中可能会导致业务逻辑异常。
+		 * 如：BigDecimal g = new BigDecimal(0.1f); 实际的存储值为：0.10000000149 正例：优先推荐入参为String的构造方法，
+		 * 或使用BigDecimal的valueOf方法，此方法内部其实执行了Double的toString，而Double的toString按double的实际能表达的精度对尾数进行了截断。
+		 *  BigDecimal recommend1 = new BigDecimal("0.1"); 
+		 *  BigDecimal recommend2 = BigDecimal.valueOf(0.1);
+		 */
 		BigDecimal b1 = new BigDecimal("0.1");//推荐使用这种方式
 		System.out.println("推荐使用这种方式:" + b1.toString());
 		BigDecimal b2 = new BigDecimal(0.1);//严重不推荐使用这种方式

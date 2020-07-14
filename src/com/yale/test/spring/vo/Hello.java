@@ -27,7 +27,7 @@ public class Hello {
 	}
 
 	public void setName(String name) {
-		System.out.println("注意Spring调我这个setName方法了......");
+		System.out.println("注意Spring调我这个setName方法了......,Spring传进来的参数为:" + name);
 		this.name = name;
 	}
 	

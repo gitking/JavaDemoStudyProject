@@ -115,4 +115,5 @@ bean 的scope作用域:
 	<!-- 导入指定位置的配置文件,如果所有的配置都写在一个配置文件里面,那就太多了,分开配置然后导入配置文件 -->
 	<import resource="entity.xml"/>
 	<import resource="aop.xml"/>
+	<import resource="database.xml"/>
 </beans>

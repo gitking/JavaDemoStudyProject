@@ -74,15 +74,20 @@ public class Message<T> implements IMessage<T> {
 		
 		ArrayList<String> al = new ArrayList<String>();
 		ArrayList<Float> alf = new ArrayList<Float>();
-		if (al.getClass() == alf.getClass()) {
+		if (al.getClass() == alf.getClass()) {//局限二：无法取得带泛型的Class。观察以下代码：
 			/**
 			 * 运行期间无法获取泛型实际类型
 			 * 由于编译之后，泛型就被擦除，所以在代码运行期间，Java 虚拟机无法获取泛型的实际类型。
 			 * 上面这段代码，从源码上两个 List 看起来是不同类型的集合，但是经过泛型擦除之后，集合都变为 ArrayList。所以 if语句中代码将会被执行。
+			 * 换句话说，所有泛型实例，无论T的类型是什么，getClass()返回同一个Class实例，因为编译后它们全部都是Pair<Object>。
 			 */
 			System.out.println("运行期间无法获取泛型实际类型");
 		}
 		
+		//局限三：无法判断带泛型的类型：
+		//if (al instanceof ArryList<String>) {//编译报错,原因和前面一样，并不存在ArryList<String>.class，而是只有唯一的ArryList.class。
+		//}
+	
 		
 		System.out.println("泛型总结:泛型的缺点:1,由于需要向后兼容,导致泛型会在编译后将泛型擦除。2,运行效率低,由于不支持");
 		System.out.println("泛型总结:泛型的缺点:2,由于泛型擦除后,原来的泛型就变成Object类了,所以泛型没办法支持基本类型,因为基本类型int,long不能向上转型为Object类型。");
