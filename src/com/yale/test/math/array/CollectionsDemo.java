@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.DoubleSummaryStatistics;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -47,8 +48,13 @@ public class CollectionsDemo {
 		List<String> strList = new ArrayList<String>();
 		Collections.addAll(strList, "A", "B", "C");//相当于调用了3次add方法
 		System.out.println(strList);
+		
 		Collections.reverse(strList);//翻转集合
 		System.out.println("翻转集合:" + strList);
+		
+		//洗牌算法shuffle可以随机交换List中的元素位置:
+        Collections.shuffle(strList);
+        
 		
 		/**
 		 * MapReduce属于数据的俩个操作阶段
@@ -153,6 +159,25 @@ public class CollectionsDemo {
 		listTwo.add("4");
 		listTwo.add("5");
 		listTwo.add("1");
+		//遍历List
+		for (int i=0; i<listTwo.size(); i++) {
+			String s = listTwo.get(i);
+			System.out.println("for循环这种方式并不推荐：" + s);
+		}
+		/*
+		 * for循环这种方式并不推荐，一是代码复杂，二是因为get(int)方法只有ArrayList的实现是高效的，换成LinkedList后，索引越大，访问速度越慢。
+		 * 所以我们要始终坚持使用迭代器Iterator来访问List。Iterator本身也是一个对象，但它是由List的实例调用iterator()方法的时候创建的。
+		 * Iterator对象知道如何遍历一个List，并且不同的List类型，返回的Iterator对象实现也是不同的，但总是具有最高的访问效率。
+		 * Iterator对象有两个方法：boolean hasNext()判断是否有下一个元素，E next()返回下一个元素。因此，使用Iterator遍历List代码如下：
+		 * 有童鞋可能觉得使用Iterator访问List的代码比使用索引更复杂。但是，要记住，通过Iterator遍历List永远是最高效的方式。并且，由于Iterator遍历是如此常用，
+		 * 所以，Java的for each循环本身就可以帮我们使用Iterator遍历。
+		 * 实际上，只要实现了Iterable接口的集合类都可以直接用for each循环来遍历，Java编译器本身并不知道如何遍历集合对象，
+		 * 但它会自动把for each循环变成Iterator的调用，原因就在于Iterable接口定义了一个Iterator<E> iterator()方法，强迫集合类必须返回一个Iterator实例。
+		 */
+		for (Iterator<String> it = listTwo.iterator();it.hasNext();) {
+			String s = it.next();
+			System.out.println("遍历集合必须使用Iterator:" + s);
+		}
 		
 		Collection<String> resultList = CollectionUtils.subtract(listOne, listTwo);
 		System.out.println("结果是listOne减去listTwo的结果:" + resultList);

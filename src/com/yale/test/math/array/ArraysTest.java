@@ -1,7 +1,10 @@
 package com.yale.test.math.array;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 /*
  * Java的数组有几个特点：
     数组所有元素初始化为默认值，整型都是0，浮点型是0.0，布尔型是false；
@@ -137,5 +140,35 @@ public class ArraysTest {
         int[][][] arraySec = new int[][][]{{{1,2,3}, {4, 5, 6}}, {{7,8,9}, {10, 11, 12}}};
         System.out.println("要打印一个三维数组:" + Arrays.deepToString(arraySec));
         //java Main -version 命令行传参数,后面的-version可以传多个参数,以空格隔开
+        
+        // 把List变为Array有三种方法，第一种是调用toArray()方法直接返回一个Object[]数组：
+        
+        List<Integer> listStr = new ArrayList<Integer>();
+        Collections.addAll(listStr, 1, 2, 3);
+        Object[] objArr = listStr.toArray();//第一种
+        
+        /*
+         * 注意到这个toArray(T[])方法的泛型参数<T>并不是List接口定义的泛型参数<E>，所以，我们实际上可以传入其他类型的数组，例如我们传入Number类型的数组，返回的仍然是Number类型：
+         * 如果我们传入的数组大小和List实际的元素个数不一致怎么办？根据List接口的文档(https://docs.oracle.com/en/java/javase/14/docs/api/java.base/java/util/List.html#toArray%28T%5B%5D%29)，我们可以知道：
+         * 如果传入的数组不够大，那么List内部会创建一个新的刚好够大的数组，填充后返回；如果传入的数组比List元素还要多，那么填充完元素后，剩下的数组元素一律填充null。
+         */
+        Integer[] intArr = listStr.toArray(new Integer[2]);
+        //实际上，最常用的是传入一个“恰好”大小的数组：
+        Number[] numArr = listStr.toArray(new Number[listStr.size()]);
+        
+        //但是，如果我们传入类型不匹配的数组，例如，String[]类型的数组，由于List的元素是Integer，所以无法放入String数组，这个方法会抛出ArrayStoreException。
+        String[] strArr = listStr.toArray(new String[3]);
+        
+        //最后一种更简洁的写法是通过List接口定义的T[] toArray(IntFunction<T[]> generator)方法：
+        //Integer[] intArrEasy = listStr.toArray(Integer[]::new);
+        
+        //把Array变为List就简单多了，通过List.of(T...)方法最简单：
+        Integer[] intArrList = new Integer[]{1,2,2,2,2};
+        //List<Integer> listIntArr = List.of(intArrList);
+        
+        //对于JDK 11之前的版本，可以使用Arrays.asList(T...)方法把数组转换成List。
+        //要注意的是，返回的List不一定就是ArrayList或者LinkedList，因为List只是一个接口，如果我们调用List.of()，它返回的是一个只读List：
+        //对只读List调用add()、remove()方法会抛出UnsupportedOperationException。
+        List<Integer> listIntArr = Arrays.asList(intArrList);
 	}
 }

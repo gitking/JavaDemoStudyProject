@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx 
+        https://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop 
+        https://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!--Spring整合MyBatis,课程来自 阿里云  课时17 17_spring整合mybatis https://edu.aliyun.com/lesson_1202_10405#_10405 -->
+    <!-- dataSource配置数据源, -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${driver}"/>
+		<property name="url" value="${url}"/>
+		<property name="username" value="${username}"/>
+		<property name="password" value="${password}"/>
+	</bean>
+	<!-- 读取指定的properties文件,供Spring容器用,也可以用org.springframework.beans.factory.config.PropertyPlaceholderConfigurer
+	不过PropertyPlaceholderConfigurer被Spring标记过期了,不建议用了。Srping官方建议使用 PropertySourcesPlaceholderConfigurer类 -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<!--classpath:的意思是db.properties文件在src跟目录下  <property name="location" value="classpath:db.properties"></property>-->
+		<property name="location" value="com/yale/test/spring/vo/db.properties"></property>
+	</bean>
+	<!--  
+	<context:propery-placeholder location="db.properties"/>-->
+	
+	<!-- 配置SessionFactory, SessionFactory交给Spring来管理,Spring可以保证他是单例的-->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<!-- 其实mybatis.cfg.xml完全可以不要,使用 mapperLocations属性就行了,classpath:mybatis.cfg.xml,mybatis.cfg.xml配置文件必须在src目录下面-->
+		<!--<property name="configLocation" value="classpath:mybatis.cfg.xml"/>-->
+		<property name="configLocation" value="com/yale/test/spring/mybatis/mybatis-config.xml"/>
+		
+		<!-- <property name="mapperLocations"></property> -->
+	</bean>
+	<!--sqlSessionTemplate这个是有办法去掉的 ,Spirng整合Mybatis的第二种方式就是干掉SqlSessionTemplate
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory"/>
+	</bean>-->
+	<!-- UserDaoImpl这类里面直接注入sqlSessionFactory -->
+	<bean id="userDao" class="com.yale.test.spring.mybatis.dao.impl.UserDaoImpl2">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	<!-- 声明式事务配置, DataSourceTransactionManager配置事务管理器，
+	Spring还支持编程式事务,就是说你可以在代码里面自己去管理事务-->
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	<!-- 配置事务通知 -->
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<!-- 配置哪些方法使用什么样的事务,配置事务的传播特性，REQUIRED:检查当前是否有事务开启,有事务就用当前事务,没事务就开启一个新事务 -->
+			<tx:method name="add" propagation="REQUIRED"/>
+			
+			<!-- get*以get开头的方法, read-only只读事务,如果你往数据库里面写事务,spring就会报错 -->
+			<!--<tx:method name="get" read-only="true",有此可见，Spring 设置的readOnly事务属性对oracle来说是无效的。
+			https://blog.csdn.net/msy_xingfu1314/article/details/50562991 当我们查看 oracle 驱动官方文档时会发现有，
+			其实 Oracle 数据库本身也是支持只读事务的，也就是只读模式，但是文档很明确的说明了只读模式只能通过oracle数据库本身进行设置：/>-->
+			<tx:method name="get*" read-only="true"/>
+			<!-- remove*,以remove开头的方法 -->
+			<tx:method name="remove*" propagation="REQUIRED"/>
+			<!-- 其他方法默认使用这个*的配置 -->
+			<tx:method name="*" propagation="REQUIRED"/>
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<aop:pointcut expression="execution(* com.yale.test.spring.mybatis.dao.impl.*.*(..))" id="txPointuct"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointuct"/>
+	</aop:config>
+</beans>

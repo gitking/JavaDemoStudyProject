@@ -20,6 +20,7 @@ public class IntegerDemo {
         Integer y = 127;
         Integer m = 99999;
         Integer n = 99999;
+        System.out.println("比较俩个数字是否相等:" + Integer.compare(y,m));
         System.out.println("x == y: " + (x==y)); // true
         System.out.println("m == n: " + (m==n)); // false
         System.out.println("x.equals(y): " + x.equals(y)); // true

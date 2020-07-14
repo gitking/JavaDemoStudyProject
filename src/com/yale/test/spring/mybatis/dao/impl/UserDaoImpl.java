@@ -16,6 +16,7 @@ public class UserDaoImpl implements UserDao{
 	 * 一起SqlSession是我们自己创建的,现在交给Spring管理了
 	 */
 	private SqlSessionTemplate sqlSession;
+	
 	@Override
 	public List<User> selectUser() {
 		User user = new User();
@@ -28,9 +29,33 @@ public class UserDaoImpl implements UserDao{
 		 * delete会报错,因为我配置文件里面的SQL语法故意写错了,但是你会发现上面的insert into 的事务提交了
 		 * 如果你想实现事务的管理,需要在Spring里面配置声明式事务管理.
 		 */
+		//sqlSession.rollback();手工回滚事务
+		//sqlSession.commit();手工提交事务
+		//sqlSession.getConnection();获取JDBC的connection连接
 		sqlSession.delete("com.yale.test.spring.mybatis.vo.user.mapper.remove", 20);
 		return sqlSession.selectList("com.yale.test.spring.mybatis.vo.user.mapper.selectAll");
 	}
+	
+	@Override
+	public List<User> getUser() {
+		System.out.println("pring 设置的readOnly事务属性对oracle来说是无效的。");
+		User user = new User();
+		user.setName("大侠1");
+		System.out.println("只读事务会提交吗:" + user.getName());
+		user.setPwd("9989");
+		sqlSession.insert("com.yale.test.spring.mybatis.vo.user.mapper.add", user);
+		
+		/*
+		 * delete会报错,因为我配置文件里面的SQL语法故意写错了,但是你会发现上面的insert into 的事务提交了
+		 * 如果你想实现事务的管理,需要在Spring里面配置声明式事务管理.
+		 */
+		//sqlSession.rollback();手工回滚事务
+		//sqlSession.commit();手工提交事务
+		//sqlSession.getConnection();获取JDBC的connection连接
+		return sqlSession.selectList("com.yale.test.spring.mybatis.vo.user.mapper.selectAll");
+	}
+	
+	
 	public void setSqlSession(SqlSessionTemplate sqlSession) {
 		this.sqlSession = sqlSession;
 	}

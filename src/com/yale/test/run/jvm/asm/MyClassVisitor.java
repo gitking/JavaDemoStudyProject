@@ -33,7 +33,7 @@ public class MyClassVisitor extends ClassVisitor implements Opcodes {
 		public void visitCode() {
 			super.visitCode();
 			mv.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
-			mv.visitLdcInsn("start");
+			mv.visitLdcInsn(" 通过ASM修改的 start ");
 			mv.visitMethodInsn(INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V", false);
 		}
 		
@@ -42,7 +42,7 @@ public class MyClassVisitor extends ClassVisitor implements Opcodes {
 			if ((opcode >= Opcodes.IRETURN && opcode <= Opcodes.RETURN) || opcode == Opcodes.ATHROW) {
 				//方法在返回之前,打印"end"
 				mv.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
-				mv.visitLdcInsn("end");
+				mv.visitLdcInsn(" 通过ASM修改的 end ");
 				mv.visitMethodInsn(INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V", false);
 			}
 			mv.visitInsn(opcode);

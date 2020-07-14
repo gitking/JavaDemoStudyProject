@@ -2,6 +2,8 @@ package com.yale.test.run.jvm;
 
 /*
  * https://mp.weixin.qq.com/s/CH9D-E7fxuu462Q2S3t0AA
+ * https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-4.html
+ * https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html
  * 编译后生成.class文件，打开后是一堆十六进制数，JVM对于字节码是有规范要求的，那么看似杂乱的十六进制符合什么结构呢？
  * JVM规范要求每一个字节码文件都要由十部分按照固定的顺序组成，整体结构如图 class字节码结构.png 所示。
  * 1、魔数（Magic Number）所有的.class文件的前四个字节都是魔数，魔数的固定值为：0xCAFEBABE。

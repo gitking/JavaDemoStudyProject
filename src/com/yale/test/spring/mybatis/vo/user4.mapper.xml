@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yale.test.spring.mybatis.vo.user.mapper">
+<!-- namespace是 com.yale.test.spring.mybatis.vo.user.mapper 是user.mapper.xml的路径 -->
+	<select id="selectAll" resultType="com.yale.test.spring.mybatis.vo.User">
+		select * from userinfo
+	</select>
+	<insert id="add" parameterType="com.yale.test.spring.mybatis.vo.User" useGeneratedKeys="true">
+		insert into userinfo(name, pwd) values (#{name}, #{pwd})
+	</insert>
+	<delete id="remove">
+		deletes from userinfo where id = #{id}
+	</delete>
+</mapper>
