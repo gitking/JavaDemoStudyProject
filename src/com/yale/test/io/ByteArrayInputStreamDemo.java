@@ -24,5 +24,14 @@ public class ByteArrayInputStreamDemo {
 		System.out.println(output);//直接输出对象,调用toString()方法
 		input.close();
 		output.close();
+		
+		//ByteArrayInputStream实际上是把一个byte[]数组在内存中变成一个InputStream
+		byte[] data = {72, 101, 108, 108, 111, 33};
+		try(InputStream inpub = new ByteArrayInputStream(data)) {
+			int n;
+			while ((n = inpub.read()) != -1) {
+				System.out.println("一次读一个字节byte:" + (char)n);
+			}
+		}
 	}
 }

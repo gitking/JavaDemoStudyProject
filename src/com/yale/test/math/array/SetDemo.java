@@ -90,7 +90,15 @@ public class SetDemo {
 		set.add("D");//无序存储
 		set.add("B");//无序存储
 
-		System.out.println(set);
+		/*
+		 * 在聊天软件中，发送方发送消息时，遇到网络超时后就会自动重发，因此，接收方可能会收到重复的消息，在显示给用户看的时候，需要首先去重。请练习使用Set去除重复的消息：
+    	 * HashSet是无序的，因为它实现了Set接口，并没有实现SortedSet接口；
+    	 * TreeSet是有序的，因为它实现了SortedSet接口。
+		 */
+		System.out.println("注意输出的顺序既不是添加的顺序，也不是String排序的顺序，在不同版本的JDK中，这个顺序也可能是不同的。:");
+		for (String s : set) {
+            System.out.println(s);
+        }
 		
 		Set<String> treeSet = new TreeSet<String>();
 		treeSet.add("C");
@@ -100,11 +108,16 @@ public class SetDemo {
 		treeSet.add("B");//无序存储
 		System.out.println(treeSet);
 		
+		System.out.println("把HashSet换成TreeSet，在遍历TreeSet时，输出就是有序的，这个顺序是元素的排序顺序：:");
+		for (String s : treeSet) {
+            System.out.println(s);
+        }
 		
 		/**
 		 * TreeSet要求PersonSec类里面是所有属性都参与比较,否则比较会不准确
 		 * 否则TreeSet就会认为name名字一样的就是同一个类了,就会去重.换句话说TreeSet判断重复元素是依靠Comparable接口来完成的
 		 * TreeSet内部是一个TreeMap,HashSet是部是一个HashMap
+		 * 使用TreeSet和使用TreeMap的要求一样，添加的元素必须正确实现Comparable接口，如果没有实现Comparable接口，那么创建TreeSet时必须传入一个Comparator对象。
 		 */
 		Set<PersonSec> treePerson = new TreeSet<PersonSec>();
 		treePerson.add(new PersonSec("张三", 20));

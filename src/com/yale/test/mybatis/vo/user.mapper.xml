@@ -1,8 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yale.test.mybatis.vo.Mapper">
-	<select id="list" resultType="User">
-		select * from user
+<mapper namespace="com.yale.test.mybatis.vo.UserMapper">
+
+	<select id="selectAll" resultType="com.yale.test.mybatis.vo.User">
+		select * from userinfo
 	</select>
+	
+	<select id="selectUser" resultType="com.yale.test.mybatis.vo.User">
+		select * from userinfo where id = #{id}
+	</select>
+	<!-- useGeneratedKeys,自增主键,如果你要用自增主键,这个要设置为true，useGeneratedKeys=true -->
+	<insert id="addUser" parameterType="com.yale.test.mybatis.vo.User">
+	<!-- #{name},要跟User类的属性保持一样 -->
+		insert into userinfo(id,name,pwd) values (#{id}, #{name}, #{pwd})
+	</insert>
+	
+	<update id="updateUser" parameterType="com.yale.test.mybatis.vo.User">
+		update userinfo set name = #{name}, pwd=#{pwd} where id = #{id}
+	</update>
+	<delete id="deleteUser">
+		delete from userinfo where id=#{id}
+	</delete>
 </mapper>

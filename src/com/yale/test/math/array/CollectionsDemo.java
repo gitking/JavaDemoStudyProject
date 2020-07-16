@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.DoubleSummaryStatistics;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -43,12 +45,51 @@ public class CollectionsDemo {
 	public static void main(String[] args) {
 		//创建一个空集合,空集合不能操作
 		List<String> emptyList = Collections.EMPTY_LIST;
+		//List<String> list1 = List.of();这俩个方法是等价的
 		//emptyList.add("a");//这行代码会报错:java.lang.UnsupportedOperationException
+		
+		//创建一个空Map
+		Map<String,String> emptyMap = Collections.EMPTY_MAP;
+		
+		//创建一个空Set
+		Set<String> emptySet = Collections.EMPTY_SET;
+		
+		//Collections提供了一系列方法来创建一个单元素集合：
+		List<String> singleList = Collections.singletonList("");
+		//List<String> list1 = List.of("apple");这俩个方法是等价的
+		/*
+		 * 实际上，使用List.of(T...)更方便，因为它既可以创建空集合，也可以创建单元素集合，还可以创建任意个元素的集合：
+		 * List<String> list1 = List.of(); // empty list
+		 *	List<String> list2 = List.of("apple"); // 1 element
+		 *	List<String> list3 = List.of("apple", "pear"); // 2 elements
+		 *	List<String> list4 = List.of("apple", "pear", "orange"); // 3 elements
+		 */
+		Map<String, String> singleMap = Collections.singletonMap("", "");
+		Set<String> singleSet = Collections.singleton("");
+		
+		List<String> listTest = new ArrayList<String>();
+		listTest.add("不变结合");
+		//Collections还提供了一组方法把可变集合封装成不可变集合：
+		List<String> listFinal = Collections.unmodifiableList(listTest);
+		listFinal.add("添加补进去");//报错java.lang.UnsupportedOperationException
+		//因此，如果我们希望把一个可变List封装成不可变List，那么，返回不可变List后，最好立刻扔掉可变List的引用，
+		//这样可以保证后续操作不会意外改变原始对象，从而造成“不可变”List变化了：
+		listFinal = null;
+		System.out.println(listFinal);
+		
+		
+		//Collections还提供了一组方法，可以把线程不安全的集合变为线程安全的集合：
+		//因为从Java 5开始，引入了更高效的并发集合类，所以上述这几个同步方法已经没有什么用了。
+		List<String> listSafe = Collections.synchronizedList(listTest);
+		Set<String> setSafe = Collections.synchronizedSet(singleSet);
+		Map<String,String> mapSafe = Collections.synchronizedMap(singleMap);
 		
 		List<String> strList = new ArrayList<String>();
 		Collections.addAll(strList, "A", "B", "C");//相当于调用了3次add方法
 		System.out.println(strList);
 		
+        Collections.sort(strList);//对一个结合排序
+        
 		Collections.reverse(strList);//翻转集合
 		System.out.println("翻转集合:" + strList);
 		

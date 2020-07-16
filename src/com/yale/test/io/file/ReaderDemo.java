@@ -6,6 +6,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 
+/*
+ * 如果数据源不是文本，就只能使用InputStream，如果数据源是文本，使用Reader更方便一些。Writer和OutputStream是类似的。
+ */
 public class ReaderDemo {
 	public static void main(String[] args) throws IOException {
 		File file = new File("d:" + File.separator + "JavaDemo" + File.separator + "Writer.txt");

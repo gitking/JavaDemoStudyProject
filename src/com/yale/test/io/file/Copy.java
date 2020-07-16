@@ -57,6 +57,8 @@ class CopyUtil {
 		int temp = 0;//读取到的数据长度
 		do {
 			temp = in.read();//一次读一个字节,效率极低,工作中绝对不用
+			
+			//这个方法会写入一个字节到输出流。要注意的是，虽然传入的是int参数，但只会写入一个字节，即只写入int最低8位表示字节的部分（相当于b & 0xff）。
 			output.write(temp);
 		} while(temp != -1);
 		long end = System.currentTimeMillis();
