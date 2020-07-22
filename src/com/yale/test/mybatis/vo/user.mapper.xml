@@ -2,25 +2,128 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <!-- namespace命名空间,防止SQL语句的id重名, namespace的值一般是 包名 + 类名 或者包名 + mapper文件名-->
 <mapper namespace="com.yale.test.mybatis.vo.UserMapper">
-
-	<select id="selectAll" resultType="com.yale.test.mybatis.vo.User">
-		select * from userinfo
+	<!-- 注意我这里的resultType用的是typeAliases里面配置的别名 -->
+	<select id="selectAll" resultType="User">
+		select  NAME, pwd password, id  from userinfo
+	</select>
+	
+	<select id="selectAllByPage" parameterType="Map" resultType="User">
+		select b.NAME, b.pwd password, b.id
+  			from (select a.*, rownum rn from userinfo a where rownum <![CDATA[ <= ]]>  #{startIndex}) b
+  			 where b.rn &gt;  #{pageSize}
+	</select>
+	
+	<!-- 通过RowBounds实现分页查询 -->
+	<select id="getAllByPageRowBounds" resultType="User">
+		select  NAME, pwd password, id  from userinfo
 	</select>
 	
 	<select id="selectUser" resultType="com.yale.test.mybatis.vo.User">
-		select * from userinfo where id = #{id}
+	<!-- 类的属性名和数据的列名不一致(注意数据库的列名是不区分大小 的,查出来全是小写的)有俩种解决办法,
+		1数据查询的时候给列名起别名 2用resultMap-->
+		select NAME, pwd password, id from userinfo where id = #{id}
 	</select>
-	<!-- useGeneratedKeys,自增主键,如果你要用自增主键,这个要设置为true，useGeneratedKeys=true -->
+	
+	<select id="selectUserMap" resultMap="UserMap">
+		select NAME, pwd, id from userinfo where id = #{id}
+	</select>
+	
+	<resultMap type="User" id="UserMap">
+		<!-- id是主键 -->
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="pwd" property="password"/>
+	</resultMap>
+	<!-- useGeneratedKeys,自增主键,如果你要用自增主键,这个要设置为true，useGeneratedKeys=true，
+		parameterType是SQL语句参数类型
+		resultType SQL语句返回结果类型
+	 -->
 	<insert id="addUser" parameterType="com.yale.test.mybatis.vo.User">
 	<!-- #{name},要跟User类的属性保持一样 -->
-		insert into userinfo(id,name,pwd) values (#{id}, #{name}, #{pwd})
+		insert into userinfo(id,name,pwd) values (#{id}, #{name}, #{password})
 	</insert>
 	
 	<update id="updateUser" parameterType="com.yale.test.mybatis.vo.User">
-		update userinfo set name = #{name}, pwd=#{pwd} where id = #{id}
+		update userinfo set name = #{name}, pwd=#{password} where id = #{id}
 	</update>
 	<delete id="deleteUser">
 		delete from userinfo where id=#{id}
 	</delete>
+	
+	<!-- mybait的动态SQL非常强大 -->
+	<select id="getUserByCondition" parameterType="Map" resultType="User">
+		select name,pwd password, id from userinfo
+		<!-- where元素知道插入"where"如果它包的标签中有内容返回的话,此外,如果返回的内容以 and 或者 or 开头,他会把and 或者or去掉 -->
+		<where>
+			<!-- 等于空字符就查空字符串 -->
+			<if test="name != null">
+			<!-- 注意like参数需要你自己传值时设置%这个字符,mySQL可以使用 like CONCAT('%',#{NAME},'%') 拼接字符串函数 -->
+				name like #{name}
+			</if>
+			<if test=" id != null">
+				and id = #{id}
+			</if>
+			<!-- 还可以传对象过来,调用对象的属性 
+			<if test=" author != null and author.name != null ">
+				AND name like #{author.name}
+			</if>-->
+		</where>
+		<!-- 如果where元素的行为并没有完全按你想象的那样,你可以使用trim元素来定义,下面的trim与where元素实现相同的行为 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			
+		</trim>-->
+		
+		<!-- choose, when, orhterwise元素,有时候我们不想应用所有的条件,而是想从多个条件中选择一个。与java中的switch语句
+		相似,MyBatis提供了一个choose元素.下面只搜索名字或者id,如果俩者都没有提供,那就返回默认的数据 
+		<choose>
+			<when test=" name != null ">
+				and name like #{name}
+			</when>
+			<when test=" id != null">
+				and id = #{id}
+			</when>
+			<otherwise>
+				and pwd = '2222'
+			</otherwise>
+		</choose>-->
+		<!-- 还有foreach标签 
+		<foreach collection=""></foreach>-->
+	</select>
+	
+	
+	<!-- mybait的动态SQL非常强大 -->
+	<select id="getUserByConditionSec" parameterType="Map" resultType="User">
+		select name,pwd password, id from userinfo where 1=1
+		<!-- 如果where元素的行为并没有完全按你想象的那样,你可以使用trim元素来定义,下面的trim与where元素实现相同的行为 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			
+		</trim>-->
+		<!-- choose, when, orhterwise元素,有时候我们不想应用所有的条件,而是想从多个条件中选择一个。与java中的switch语句
+		相似,MyBatis提供了一个choose元素.下面只搜索名字或者id,如果俩者都没有提供,那就返回默认的数据 -->
+		<choose>
+			<when test=" name != null ">
+				and name like #{name}
+			</when>
+			<when test=" id != null"><!-- 上面的when满足了,就不会执行这个when了 -->
+				and id = #{id}
+			</when>
+			<otherwise>
+			<!-- otherwise可以使用传参数的形式,也可以使用写死的形式  and pwd = '2222' -->
+				and pwd = #{pwd}
+			</otherwise>
+		</choose>
+		<!-- 还有foreach标签 
+		<foreach collection=""></foreach>-->
+	</select>
+	<!-- 动态updatesql语句,不需要使用parameterType 使用传值过来就行 -->	
+	<update id="updateAuthorIfNecessary">
+	  update userinfo
+	    <set>
+	      <if test="name != null">name=#{name},</if>
+	      <if test="pwd != null">pwd=#{pwd}</if>
+	    </set>
+	  where id=#{id}
+	</update>
 </mapper>

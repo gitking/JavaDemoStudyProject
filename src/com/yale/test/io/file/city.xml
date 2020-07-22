@@ -4,5 +4,5 @@
 	<shenzhen>深圳</shenzhen>
 	<shanghai>上海</shanghai>
 	<beijing>北京</beijing>
-	<classpath>读取</classpath>
+	<classpath>当前类路径</classpath>
 </china>

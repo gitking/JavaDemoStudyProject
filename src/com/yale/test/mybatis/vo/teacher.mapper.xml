@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <!-- namespace命名空间,防止SQL语句的id重名, namespace的值一般是 包名 + 类名 或者包名 + mapper文件名-->
+<mapper namespace="com.yale.test.mybatis.vo.teacher.mapper">
+	<select id="getTeacher" resultType="Teacher">
+		SELECT tno id, tname name FROM teacher where tno = #{id}
+	</select>
+	
+	<!-- 一对多也有俩种方式: -->
+	<select id="getTeacherOneToMany" resultMap="TeacherToStudent">
+		SELECT * FROM teacher t, student st where t.tno = st.tid and t.tno= #{id}
+	</select>
+	<resultMap type="Teacher2" id="TeacherToStudent">
+		<id column="TNO" property="id"></id>
+		<result column="TNAME" property="name"/>
+		<!--  Teacher2的对象属性stuList类型是ListStudent2,这里不能使用javaType,必须使用ofType-->
+		<collection property="stuList" ofType="Student2">
+			<id column="SNO" property="id"></id>
+			<result column="SNAME" property="name"/>
+			<result column="SSEX" property="sex"/>
+			<result column="SAGE" property="age"/>
+		</collection>
+	</resultMap>
+	<!-- 第二种一对多的方式 -->
+	
+	<select id="getTeacherOneToManySec" resultMap="TeacherToStudentSec">
+		SELECT * FROM teacher t where t.tno= #{id}
+	</select>
+	<resultMap type="Teacher2" id="TeacherToStudentSec">
+		<id column="tno" property="id"></id>
+		<result column="tname" property="name"></result>
+		<!-- 一对多, collection里面的select回去student.mapper.xml文件里面找SQL语句
+			column 这里要配置Teache的id
+		-->
+		<collection property="stuList" javaType="ArrayList" ofType="Student2" column="tno" 
+			select="com.yale.test.mybatis.vo.student.mapper.getStudentByTeacherId">
+		</collection>
+	</resultMap>
+</mapper>

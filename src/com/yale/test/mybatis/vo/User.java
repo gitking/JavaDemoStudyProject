@@ -3,7 +3,7 @@ package com.yale.test.mybatis.vo;
 public class User {
 	private int id;
 	private String name;
-	private String pwd;
+	private String password;
 	
 	public int getId() {
 		return id;
@@ -17,10 +17,10 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getPwd() {
-		return pwd;
+	public String getPassword() {
+		return password;
 	}
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

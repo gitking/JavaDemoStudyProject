@@ -5,6 +5,11 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 
+/*
+ * PrintWriter
+ * PrintStream最终输出的总是byte数据，而PrintWriter则是扩展了Writer接口，它的print()/println()方法最终输出的是char数据。
+ * 两者的使用方法几乎是一模一样的：
+ */
 public class PrintWriterDemo {
 
 	public static void main(String[] args) throws FileNotFoundException {

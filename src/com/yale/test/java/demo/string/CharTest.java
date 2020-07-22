@@ -80,5 +80,10 @@ public class CharTest {
         // 注意是十六进制:
         char c3 = '\u0041'; // 'A'，因为十六进制0041 = 十进制65
         char c4 = '\u4e2d'; // '中'，因为十六进制4e2d = 十进制20013
+        String word = "\u4DAE";//䶮 Unicode编码为4DAE
+        String wordSpe = "胡䶮这个䶮是一个生僻字,MyEclipse控制台都显示不出来,eclipse能显示出来";
+        System.out.println(word);
+        
+		System.out.println("乱码吗胡 䶮 :胡䶮 胡䶮   ss胡 s䶮" );
 	}
 }

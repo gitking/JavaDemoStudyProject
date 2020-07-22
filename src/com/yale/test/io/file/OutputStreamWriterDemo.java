@@ -9,6 +9,11 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 
+/*
+ * OutputStreamWriter
+ * 除了CharArrayWriter和StringWriter外，普通的Writer实际上是基于OutputStream构造的，它接收char，然后在内部自动转换成一个或多个byte，并写入OutputStream。
+ * 因此，OutputStreamWriter就是一个将任意的OutputStream转换为Writer的转换器：
+ */
 public class OutputStreamWriterDemo {
 
 	public static void main(String[] args) throws IOException {

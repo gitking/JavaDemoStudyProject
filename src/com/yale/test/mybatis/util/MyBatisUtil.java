@@ -13,6 +13,9 @@ public class MyBatisUtil {
 		
 	}
 	
+	/*
+	 * 通过配置文件创建SqlSessionFactory,SqlSessionFactory是一个SqlSession的工厂
+	 */
 	public static SqlSessionFactory getSqlSessionFactory() throws IOException {
 		String resource = "com/yale/test/mybatis/mybatis-config.xml";
 		InputStream inputStream = Resources.getResourceAsStream(resource);
@@ -20,6 +23,9 @@ public class MyBatisUtil {
 		return sqlSessionFactory;
 	}
 	
+	/*
+	 * SqlSession通过id找到对应的SQL语句,然后执行SQL语句
+	 */
 	public static SqlSession getSession() throws IOException {
 		SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
 		return sqlSessionFactory.openSession();

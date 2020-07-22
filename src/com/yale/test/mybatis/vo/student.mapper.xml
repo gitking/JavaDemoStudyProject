@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <!-- namespace命名空间,防止SQL语句的id重名, namespace的值一般是 包名 + 类名 或者包名 + mapper文件名-->
+<mapper namespace="com.yale.test.mybatis.vo.student.mapper">
+	<!-- 
+		多对一有俩种处理方式：1、按结果嵌套处理2、按查询嵌套处理
+	 -->
+	<select id="getStudents" resultMap="StudentTeacher"><!-- 这个是按结果嵌套处理 -->
+		SELECT * FROM teacher t, student st where t.tno = st.tid
+	</select>
+	
+	<resultMap type="Student" id="StudentTeacher">
+		<id column="sno" property="id"></id>
+		<result column="sname" property="name"/>
+		<!-- association关联对象,property是Student类中的属性, -->
+		<association property="teacher" javaType="Teacher">
+			<id column="tno" property="id"></id>
+			<result column="tname" property="name"/>
+		</association>
+	</resultMap>
+	
+	
+	<!-- 这个是按查询嵌套处理 -->
+	<select id="getStudentList" resultMap="StudentTeacherList">
+		SELECT * FROM student
+	</select>
+	
+	<resultMap type="Student" id="StudentTeacherList">
+		<id column="sno" property="id"/>
+		<result column="sname" property="name" />
+		<result column="sage" property="age" />
+		<result column="ssex" property="sex" />
+		<!-- association关联对象,property teacher是Student类中的属性, -->
+		<association property="teacher" column="TID" javaType="Teacher" select="com.yale.test.mybatis.vo.teacher.mapper.getTeacher">
+		</association>
+	</resultMap>
+	
+	<!-- 一对多的写法 -->
+	<select id="getStudentByTeacherId" resultMap="StudentCol">
+		SELECT * FROM student where tid = #{id}
+	</select>
+	<resultMap type="Student2" id="StudentCol">
+		<id column="sno" property="id"/>
+		<result column="sname" property="name" />
+		<result column="sage" property="age" />
+		<result column="ssex" property="sex" />
+		<result column="tid" property="tid" />
+	</resultMap>
+</mapper>

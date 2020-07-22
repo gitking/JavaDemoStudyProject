@@ -3,14 +3,36 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+
+	<properties resource="com/yale/test/mybatis/db.properties"/>
+	
+	<typeAliases>
+		<!-- 为指定的类型指定别名,使得在mapper映射文件中可以简化引用 
+		<typeAlias type="com.yale.test.mybatis.vo.User" alias="User"/>-->
+		<!-- 为某个包下的所有类型指定别名,默认别名是对应的类名 ,然后你就可以在mapper文件里面直接用类名了-->
+		<package name="com.yale.test.mybatis.vo"/>
+	</typeAliases>
+	<!-- environments是环境的意思,environments下面可以有多个environment(mybatis可以配置多个环境),通过ID引用指定的环境。
+	每个SqlSessionFactory对应一个环境 -->
   <environments default="development">
     <environment id="development">
+    <!-- transactionManager这个事务管理的type有俩种一个是JDBC,一个是MANAGED,可以在org.apache.ibatis.session.Configuration源码里面看到.
+     MANAGED这个配置基本上什么都不做,它从不提交或者回滚一个事务,而是让容器(Spring或者J2EE应用)来管理事务的声明周期-->
       <transactionManager type="JDBC"/>
+     <!-- <transactionManager type="MANAGED">
+     	如果你需要关闭连接来停止事务,将属性closeConnection设置为false
+      	<property name="closeConnection" value="false"/>
+      </transactionManager>-->
+      <!-- dataSource的type： POOLED，
+      UNPOOLED这个类型的数据源实现只是在每次需要的时候简单地打开和关闭连接，不推荐使用这种方式。
+      POOLED这个数据源的实现缓存了JDBC连接对象,用于避免每次创建新的数据库连接时都初始化和进行认证,加快程序响应。并发WEB应用通常通过这种做法来获得快速响应。
+      JNDI这个数据源的配置是为了准备与想Spring或应用服务器能够在外部或者内部配置数据源源的容器一起使用，然后再JNDI上下文中引用它。
+      -->
       <dataSource type="POOLED">
-        <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
-        <property name="url" value="jdbc:oracle:thin:@10.15.22.17:1521:V7DBtest1"/>
-        <property name="username" value="PCIS_DEV"/>
-        <property name="password" value="PCIS_DEV"/>
+        <property name="driver" value="${driver}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${username}"/>
+        <property name="password" value="${password}"/>
       </dataSource>
     </environment>
   </environments>
@@ -18,6 +40,10 @@
   		<package name="com.yale.test.mybatis.vo"/>
   </typeAliases> -->
   <mappers>
+  	<!-- sql语句的映射文件 -->
     <mapper resource="com/yale/test/mybatis/vo/user.mapper.xml"/>
+    <mapper resource="com/yale/test/mybatis/vo/student.mapper.xml"/>
+    <mapper resource="com/yale/test/mybatis/vo/teacher.mapper.xml"/>
+    <mapper class="com.yale.test.mybatis.dao.SqlDao"/>
   </mappers>
 </configuration>
