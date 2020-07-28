@@ -9,7 +9,6 @@ package com.yale.test.java.demo.string;
 public class StringTest {
 
 	public static void main(String[] args) {
-		
 		String s1 = "hello";
 		String s2 = "hello";
 		//从表面上看，两个字符串用==和equals()比较都为true，但实际上那只是Java编译器在编译期，会自动把所有相同的字符串当作一个对象放入常量池，自然s1和s2的引用就是相同的
@@ -210,5 +209,25 @@ public final class String {
 对于使用者来说，String内部的优化不影响任何已有代码，因为它的public方法签名是不变的。
 https://www.liaoxuefeng.com/wiki/1252599548343744/1260469698963456
          */
+        
+        /*
+         * 这里String对象ai的值"a"是一个常量,JVM在编译时会把他放到一个常量池里面.在HotSpotVM7及之前的版本,常量池都是
+         * 存在在PermGen(永久代)这个版块中的,但是当你new String的时候会通过变量再+常量的方式来生成String对象的时候这时String对象是
+         * 放在堆上面的,intern这个方法的作用：当调用intern方法时intern会去常量池里面用equals方法查找是否有内容一样的字符串,如果有直接
+         * 把常量池里面的这个字符串地址返回出去,如果没有则会在常量池里面创建一个然后将常量池的这个地址返回出去.调用intern方法时,都会得到常量池中对应String的引用
+         * 所以当你new 了一个字符串,然后又调用了intern这个方法,那么你的这个字符串会在堆和常量池里面都有一个相同的字符串.
+         * 常量池里面没有重复的字符串,JVM会保证全局唯一
+         * 注意:jdk1.7字符串常量池不是存放在PermGen(永久代)中,而是存在堆当中.JDK1.6字符串常量池是存放在PermGen(永久代)中的。
+         * 永久代会注销吗？会的,在发生FULLGC的时候,如果没有任何引用指向它就会被注销掉.
+         */
+        String ai = "a";
+        String bi = ai + "b";
+        String ci = "ab";//
+        String di = new String(bi);
+        
+        System.out.println("结果是false:" + (bi == ci));
+        System.out.println("结果是false:" + (di == ci));
+        System.out.println("结果是true:" + (ci == di.intern()));
+        System.out.println("结果是true:" + (bi.intern() == di.intern()));
 	}
 }

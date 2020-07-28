@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 
 /*
  * PrintWriter
@@ -22,5 +23,13 @@ public class PrintWriterDemo {
 		
 		String str = String.format("姓名:%s, 年龄:%d, 工资 :%7.2f", name, age, salart);
 		System.out.println("String也可以实现格式化输出:" + str);
+		
+		StringWriter buffer = new StringWriter();
+		try(PrintWriter pw = new PrintWriter(buffer)) {
+			pw.println("Hello");
+			pw.println(12345);
+			pw.println(true);
+		}
+		System.out.println(buffer.toString());
 	}
 }

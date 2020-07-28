@@ -10,6 +10,8 @@ package com.yale.test.math;
  */
 public class IntegerDemo {
 	public static void main(String[] args) {
+		int iy = 3 *4 + 120;
+		System.out.println("注意iy的值是在编译成class文件时候就直接变成132了,并不是在实际运行时再计算i的值,这叫JVM编译优化:" + iy);
 		/*
 		 * 所有的包装类型都是不变类。我们查看Integer的源码可知，它的核心代码如下：
 		 * public final class Integer extends Number implements Comparable<Integer> {

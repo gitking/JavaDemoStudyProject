@@ -139,6 +139,11 @@ class Person {
 		equals()用到的用于比较的每一个字段，都必须在hashCode()中用于计算；equals()中没有使用到的字段，绝不可放在hashCode()中计算。
 		另外注意，对于放入HashMap的value对象，没有任何要求。
 		hashCode()方法编写得越好，HashMap工作的效率就越高。
+	 * hashCode是什么东西,其实就是对一个对象进行hash计算返回一个数字来代表这个对象,你比如我们可以对一个对一个文件进行计算返回一个hash值来代表这个文件
+	 * 但是hash是有一定的几率重复的,所以说俩个对象的hashCode一样的话并不能代码这俩个对象就是一样的,判断俩个对象一不一样还是得用equals.
+	 * Object类中有hashCode方法,Object类中的hashCode方法默认跟System.identityHashCode(20);的返回值是一致的.
+	 * 所有类都可以自己重现Object类中的hashCode方法.
+	 * 在JDK1.7中,Hash相关的集合类对使用String作为Key的情况,不再使用hashCode方式,而是有了一个hash32的属性,其余类型保持不变
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override

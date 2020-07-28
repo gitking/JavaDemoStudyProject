@@ -2,6 +2,8 @@ package com.yale.test.io.print;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 /*
  * PrintStream是一种FilterOutputStream，它在OutputStream的接口上，额外提供了一些写入各种数据类型的方法：
@@ -29,5 +31,13 @@ public class PrintStreamDemo {
 		}
 		OutputStream out = System.out; 
 		out.write("世界和平".getBytes());
+		
+		StringWriter buffer = new StringWriter();
+		try(PrintWriter pw = new PrintWriter(buffer)) {
+			pw.println("Hello");
+			pw.println(12345);
+			pw.println(true);
+		}
+		System.out.println(buffer.toString());
 	}
 }

@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 
 public class PrinterWriterDemo {
 
@@ -24,5 +25,13 @@ public class PrinterWriterDemo {
 		}
 		br.close();
 		pw.close();
+		
+		StringWriter buffer = new StringWriter();
+		try(PrintWriter pw1 = new PrintWriter(buffer)) {
+			pw1.println("Hello");
+			pw1.println(12345);
+			pw1.println(true);
+		}
+		System.out.println(buffer.toString());
 	}
 }
