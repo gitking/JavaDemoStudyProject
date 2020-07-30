@@ -156,7 +156,10 @@
 		<servlet-name>springmvc</servlet-name>
 		<url-pattern>*.springmvc</url-pattern>
 	</servlet-mapping>
-	<!-- 多个过滤器的执行顺序:	按照<filter-mapping>在Web.xml里面的配置顺序 -->
+	<!-- 多个过滤器的执行顺序:	按照<filter-mapping>在Web.xml里面的配置顺序
+		web.xml中各个元素的执行顺序是这样的,context-param-listener--filter-servlet.
+		拦截器是在Struts和SpringMVC框架里面的,不是tomcatweb容器的
+	 -->
 	<filter>
 		<filter-name>loginFilter</filter-name>
 		<filter-class>com.yale.test.web.filter.UserFilter</filter-class>

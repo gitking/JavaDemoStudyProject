@@ -6,6 +6,17 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+/*
+ * 过滤器和拦截器是的底层实现方式不大相同,过滤器是基于函数回调的,拦截器是基于Java的反射机制(动态代理)实现的.
+ * 拦截器有点面向切面编程(AOP)的感觉.
+ * 过滤器的使用要依赖于Tomcat等容器,导致他只能在web程序中使用.
+ * 而拦截器是Struts,Spring的一个组件,并不依赖Tomcat等容器,是可以单独使用的。不仅能应用在web程序中,也可以用在
+ * Application,Swing等程序中.
+ * 过滤器和拦截器的触发时机也不同：
+ * 1、过滤器Filter是在请求进入容器之后,但在进入servlet之前进行预处理,请求结束是在servlet处理完以后
+ * 2、拦截器Interceptor是在请求进入servlet之后,在进入Controller之前进行预处理,Controller中渲染了对应的视图之后请求结束.
+ * 
+ */
 public class MyInterceptor implements HandlerInterceptor {
 	/*
 	 * 在请求处理的方法之前执行

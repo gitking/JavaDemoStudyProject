@@ -11,6 +11,8 @@ import org.apache.commons.httpclient.params.HttpMethodParams;
  * http://hc.apache.org/status.html
  * The 3.1 branch of Commons HttpClient is at the end of life. No more public releases are expected.
  * Commons HttpClient的3.1分支即将结束。 预计不会有更多的公开发布。
+ * commons-httpclient-3.1.jar跟httpclient-4.5.9.jar是什么关系？
+ * 取而代之的是httpclient-4.5.9.jar
  * @author dell
  */
 public class HttpClientUtil {
