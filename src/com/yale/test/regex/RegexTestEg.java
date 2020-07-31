@@ -10,6 +10,11 @@ import java.util.regex.Pattern;
  * https://www.cnblogs.com/deerchao/archive/2006/08/24/zhengzhe30fengzhongjiaocheng.html
  * 【强制】在使用正则表达式时，利用好其预编译功能，可以有效加快正则匹配速度。 
  * 说明：不要在方法体内定义：Pattern pattern = Pattern.compile(“规则”);《阿里巴巴Java开发手册（泰山版）.
+ * 正则表达式的匹配规则是从左到右按规则匹配。我们首先来看如何使用正则表达式来做精确匹配。
+ * 如果正则表达式有特殊字符，那就需要用\转义。例如，正则表达式a\&c，其中\&是用来匹配特殊字符&的，它能精确匹配字符串"a&c"，但不能匹配"ac"、"a-c"、"a&&c"等。
+ * 要注意正则表达式在Java代码中也是一个字符串，所以，对于正则表达式a\&c来说，对应的Java字符串是"a\\&c"，因为\也是Java字符串的转义字符，两个\\实际上表示的是一个\：
+ * 如果想匹配非ASCII字符，例如中文，那就用\\u####的十六进制表示，例如：a\u548cc匹配字符串"a和c"，中文字符和的Unicode编码是548c。
+ * 精确匹配实际上用处不大，因为我们直接用String.equals()就可以做到。大多数情况下，我们想要的匹配规则更多的是模糊匹配。我们可以用.匹配一个任意字符。
  * @author lenovo
  */
 public class RegexTestEg {
@@ -112,6 +117,12 @@ public class RegexTestEg {
 		}
 		System.out.println("对开发者而言,正则的重大意义在于字符串的组成验证处理上");
 		
+		/*
+		 * 我们在前面的代码中用到的正则表达式代码是String.matches()方法，而我们在分组提取的代码中用的是java.util.regex包里面的Pattern类和Matcher类。
+		 * 实际上这两种代码本质上是一样的，因为String.matches()方法内部调用的就是Pattern和Matcher类的方法。
+		 * 但是反复使用String.matches()对同一个正则表达式进行多次匹配效率较低，因为每次都会创建出一样的Pattern对象。
+		 * 完全可以先创建出一个Pattern对象，然后反复使用，就可以实现编译一次，多次匹配：
+		 */
 		System.out.println("JDK1.4里面增加了一个开发包java.uti.regex,但是在这个包里面只有俩个类:Pattern类,Matcher类.Pattern类负责编译正则,"
 				+ "而Matcher负责进行正则匹配.如果要做一般的处理,使用String类即可.");
 		
@@ -138,5 +149,8 @@ public class RegexTestEg {
 		while (matcher.find()) {
 			System.out.println(matcher.group(0));
 		}
+		
+		System.out.println("正则表达式匹配中文:");
+		System.out.println("a\u548cc".equals("a和c"));
 	}
 }

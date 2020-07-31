@@ -14,6 +14,9 @@ public class Factorial {
 	}
 	
 	public static long factorial(long number) {
+		if (number < 0) {//为了junit测试才加的这行代码
+            throw new IllegalArgumentException();
+        }
 		if (number<=1) {
 			return 1;
 		} else {
