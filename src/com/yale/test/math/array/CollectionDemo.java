@@ -69,6 +69,8 @@ public class CollectionDemo {
 		System.out.println("Vector这里会判断为不存在,因为这个俩个不同的张三对象" + vector.contains(new Person("张三", 10)));
 		
 		/*
+		 * LinkedList在Java中是一个标准的双向链表,链表其实分:单向链表只有一个指针,双向链表有俩个指针,循环链表.
+		 * LinkedList是特殊化的Tree(树),因为LinkedList有俩个指针.Tree是特殊化的Graph(图)
 		 * 但是，实现List接口并非只能通过数组（即ArrayList的实现方式）来实现，另一种LinkedList通过“链表”也实现了List接口。在LinkedList中，它的内部每个元素都指向下一个元素：
 			        ┌───┬───┐   ┌───┬───┐   ┌───┬───┐   ┌───┬───┐
 			HEAD ──>│ A │ ●─┼──>│ B │ ●─┼──>│ C │ ●─┼──>│ D │   │
@@ -79,6 +81,9 @@ public class CollectionDemo {
 				添加元素到末尾		速度很快		速度很快
 				在指定位置添加/删除	需要移动元素	不需要移动元素
 				内存占用			少			较大
+			LinkedList源码:http://developer.classpath.org/doc/java/util/LinkedList-source.html
+			https://www.geeksforgeeks.org/implementing-a-linked-list-in-java-using-class/
+			ArrayList源码:http://developer.classpath.org/doc/java/util/ArrayList-source.html
 		 */
 		List<Person> linkedList = new LinkedList<Person>();
 		linkedList.add(new Person("张三", 10));
