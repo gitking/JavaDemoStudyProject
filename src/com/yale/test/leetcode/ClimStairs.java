@@ -2,6 +2,7 @@ package com.yale.test.leetcode;
 
 /*
  * 各种排序算法一定要会，一定要会，一定要会，重要的问题说三遍,但是让你写个归并排序，写个快排你如果吭哧半天也写不出来，那说不过去了
+ * 图解：什么是快速排序？ https://mp.weixin.qq.com/s/xEmtuRnAPoEHGrOBO__b0w
  * https://visualgo.net/zh/bst?slide=1
  * https://visualgo.net/zh/bst?slide=1
  * Redis 设计与实现 »:https://redisbook.readthedocs.io/en/latest/internal-datastruct/skiplist.html
