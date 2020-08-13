@@ -16,6 +16,7 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 /*
+ * 对称加密算法
  * 对称加密算法就是传统的用一个密码进行加密和解密。例如，我们常用的WinZIP和WinRAR对压缩包的加密和解密，就是使用对称加密算法：
  * 从程序的角度看，所谓加密，就是这样一个函数，它接收密码和明文，然后输出密文：
  * secret = encrypt(key, message);
@@ -35,6 +36,11 @@ public class AESDemo {
 			/*
 			 * 使用AES加密:AES算法是目前应用最广泛的加密算法。我们先用ECB模式加密并解密：
 			 * AES加密有多种工作模式:ECB模式,CBC模式,PCBC模式,CTR模式
+			 * 注意AES加密相当于是WinZIP和WinRAR对你要打包的文件进行加密,跟你在用WinZIP和WinRAR时输入的密码没有任何关系.
+			 * 下面的message = "Hello,world!"这个就相当于文件,AES要对这些文件进行加密
+			 * "1234567890abcdef".getBytes("UTF-8") 注意这行代码,这行代码是AES自己指定的16bytes的密钥,不是你输入的那个密码
+			 * 你在用WinZIP和WinRAR时输入的密码在AES加密这里都没有用到,懂了吧,你这个密码只是为了打开压缩包时验证一下是你本人打开的
+			 * 跟加密文件没有任何关系
 			 */
 			String message = "Hello,world!";
 			System.out.println("Message明文:" + message);
