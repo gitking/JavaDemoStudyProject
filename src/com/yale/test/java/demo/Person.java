@@ -18,7 +18,7 @@ package com.yale.test.java.demo;
 public class Person {
 	public static void main(String[] args) {
 		Person ps = new Person();
-		Student stu = new Student();
+		Student stu = new Student("Person类");
 		
 		ps.testParam(stu);//传子类
 		
@@ -29,6 +29,19 @@ public class Person {
 		Student stuTemp = (Student)tempP;//这行代码不会报错,因为tempP实际上就是一个Student对象,所以这里将父类强制转换为子类不会报错
 		stuTemp.test();
 		/**
+		 * 向下转型
+		 * 和向上转型相反，如果把一个父类类型强制转型为子类类型，就是向下转型（downcasting）。例如：
+		 * Person p1 = new Student(); // upcasting, ok
+		 * Person p2 = new Person();
+		 * Student s1 = (Student) p1; // ok
+		 * Student s2 = (Student) p2; // runtime error! ClassCastException!
+		 * 如果测试上面的代码，可以发现：
+		 * Person类型p1实际指向Student实例，Person类型变量p2实际指向Person实例。在向下转型的时候，把p1转型为Student会成功，因为p1确实指向Student实例，
+		 * 把p2转型为Student会失败，因为p2的实际类型是Person，不能把父类变为子类，因为子类功能比父类多，多的功能无法凭空变出来。
+		 * 因此，向下转型很可能会失败。失败的时候，Java虚拟机会报ClassCastException。
+		 * 为了避免向下转型出错，Java提供了instanceof操作符，可以先判断一个实例究竟是不是某种类型：
+		 * instanceof实际上判断一个变量所指向的实例是否是指定类型，或者这个类型的子类。如果一个引用变量为null，那么对任何instanceof的判断都为false。
+		 * 
 		 * 向下转型不安全,可以使用instanceof判断一个实例究竟是不是某种类型
 		 * 如果一个引用变量为null，那么对任何instanceof的判断都为false。
 		 */
@@ -57,6 +70,8 @@ public class Person {
 		
 		Student temp = (Student)ps;//向下转型,这行代码会报错,因为ps这个对象实际上一个父类对象,所以不能将一个实际的父类对象强制转换为子类对象
 		ps.testParam01(temp);//这里不强制会报错,但是强制调用testParam01方法有风险,如果testParam01方法内部调用了,子类特有的方法,代码运行就会报错
+		
+		//继承是is关系，组合是has关系。
 	}
 	
 	

@@ -60,6 +60,7 @@ public class ConstructorDemo {
 		    getDeclaredConstructors()：获取所有Constructor。
 		 * 注意Constructor总是当前类定义的构造方法，和父类无关，因此不存在多态的问题。
 		 * 调用非public的Constructor时，必须首先通过setAccessible(true)设置允许访问。setAccessible(true)可能会失败。
+		 * https://www.liaoxuefeng.com/wiki/1252599548343744/1264803033837024
 		 */
 		Class<?> per = PersonThir.class;
 		//现在明确表示取的指定参数类型的构造方法

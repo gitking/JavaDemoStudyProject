@@ -1,5 +1,6 @@
 package com.yale.test.regex;
 
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -82,10 +83,12 @@ public class RegexTest {
          * 分割字符串
          * 使用正则表达式分割字符串可以实现更加灵活的功能。String.split()方法传入的正是正则表达式。我们来看下面的代码：
          */
-        
-        System.out.println("a b c".split("\\s").toString()); // { "a", "b", "c" });
-        System.out.println("a b  c".split("\\s").toString()); // { "a", "b", "", "c" }
-        System.out.println("a, b ;; c".split("[\\,\\;\\s]+").toString()); // { "a", "b", "c" }
+        System.out.println("&&&&&&&&&&&&&&&&&&&&&空格替换&&&&&&&&&&&&&&&&&&&&&");
+        System.out.println(Arrays.toString("a b c".split("\\s"))); // { "a", "b", "c" });
+        System.out.println(Arrays.toString("a b  c".split("\\s"))); // { "a", "b", "", "c" }
+        System.out.println("替换多个空格:" + Arrays.toString("a b  c".split("\\s+"))); // { "a", "b", "", "c" }
+
+        System.out.println(Arrays.toString("a, b ;; c".split("[\\,\\;\\s]+"))); // { "a", "b", "c" }
         
         
         /**
@@ -102,6 +105,7 @@ public class RegexTest {
             String sub = s.substring(mf.start(), mf.end());
             System.out.println(sub);
         }
+        
         
         /*
          * 替换字符串
@@ -120,6 +124,35 @@ public class RegexTest {
         String ssr = "the quick brown fox jumps over the lazy dog.";
         String rss = ssr.replaceAll("\\s([a-z]{4})\\s", " <b>$1</b> ");
         System.out.println(rss);
+        
+        /*
+         * "-?[0-9]+.?[0-9]*"这个正则表达式有漏洞,.点这个字符在正则表达式里面代表任意一个字符,
+		 * 上面的.?意思是:任意一个字符可以出现0次或者一次,所以200 80或者200s80这种字符串都是可以校验通过的
+		 * 解决办法是对.点这个字符进行转义"-?[0-9]+\\.?[0-9]*"
+         */
+        String douStr = "200 80";
+        Pattern pst = Pattern.compile("\\s+");
+        Matcher mst = pst.matcher(douStr);
+        while (mst.find()) {
+        	douStr = douStr.substring(0, mst.start());
+        	System.out.println("indexof不支持正则表达式:" + douStr);
+        }
+        
+        /*
+         * indexOf里面要传的是字符串 ,不支持正则表达式 
+         * indexOf 不支持正则
+         * 可以先把中文取出来,再判断
+         */
+        String chinese= "a中s";
+        String regexChinese = "\\/([^\\w\\u4E00-\\u9FA5])\\/g";
+        String c = chinese.replaceAll(regexChinese, "$1");
+        System.out.println("中文:[" + c + "]下标:" + chinese.indexOf(c));
+        
+        boolean isNum = douStr.matches("-?[0-9]+.?[0-9]*");
+        System.out.println("这里有什么漏洞:" + isNum);
+        if (isNum) {
+            double doub = Double.valueOf(douStr);
+        }
 	}
 	
 	public static boolean isNumber (String str) {

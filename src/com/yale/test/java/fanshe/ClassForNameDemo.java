@@ -1,6 +1,11 @@
 package com.yale.test.java.fanshe;
 
 class ForName {
+	public ForName() {
+		System.out.println("构造方法先执行还是,static块先执行");
+	}
+	//static属性和static代码块是按照代码的先后顺序执行的
+	private static ForName forNam = new ForName();
 	static {
 		System.out.println("Class.forName相当于JVM加载类,加载类的时候会执行类的静态代码块");
 		System.out.println("不过JDBC那个,把类加载到JVM里面有什么用呢?又不用他,jdbc为啥必须用Class.forname???");
@@ -12,8 +17,12 @@ class ForName {
 		}
 		System.out.println("OracleDriver有啥用呢,又不用OracleDriver类上面的方法和属性");
 	}
+	private static ClassForNameDemo classForNameDemo = new ClassForNameDemo();
 }
 public class ClassForNameDemo {
+	public ClassForNameDemo() {
+		System.out.println("ClassForNameDemo构造方法先执行还是,static块先执行");
+	}
 	public static void main(String[] args) throws ClassNotFoundException {
 		/**
 		 * Class类描述的是整个类的信息,在Class类中提供的forName()方法它所能处理的只是通过CLASSPATH配置的路径进行类的
@@ -31,6 +40,7 @@ public class ClassForNameDemo {
 		 * 而Class.forName完成了加载、验证、准备、解析和初始化
 		 */
 		Class.forName("com.yale.test.java.fanshe.ForName");//所以那个地方要用Class.forName，至于不用也行大家也说了SPI
+		System.out.println();
 		ForName fn = new ForName();//Class.forName和new对象的时候JVM才会加载这个类,并且执行类中的static块代码
 		Class<?> cls = ForName.class;//这种叫静态加载类,静态加载类不会初始化类,把上面那个代码注释执行这个发现,上面的静态代码块没有被执行
 		Class test = ForName.class.getClass();//这种叫静态加载类,静态加载类不会初始化类,这行代码也不能让JVM记载类,上面的静态代码块也不会被执行

@@ -72,6 +72,63 @@ package com.yale.test.thread.lxf;
  * 多线程模型是Java程序最基本的并发模型；
  * 后续读写网络、数据库、Web开发等都依赖Java多线程模型。
  * 因此，必须掌握Java多线程编程才能继续深入学习其他内容。
+ * Java语言内置了多线程支持。当Java程序启动的时候，实际上是启动了一个JVM进程，然后，JVM启动主线程来执行main()方法。在main()方法中，我们又可以启动其他线程。
+ * 要创建一个新线程非常容易，我们需要实例化一个Thread实例，然后调用它的start()方法：
+ * 必须调用Thread实例的start()方法才能启动新线程，如果我们查看Thread类的源代码，会看到start()方法内部调用了一个private native void start0()方法，
+ * native修饰符表示这个方法是由JVM虚拟机内部的C代码实现的，不是由Java代码实现的。
+ * 线程的优先级,可以对线程设定优先级，设定优先级的方法是：Thread.setPriority(int n) // 1~10, 默认值5
+ * 优先级高的线程被操作系统调度的优先级较高，操作系统对高优先级线程可能调度更频繁，但我们决不能通过设置优先级来确保高优先级的线程一定会先执行。
+ * 一个线程对象只能调用一次start()方法；
+ * 线程调度由操作系统决定，程序本身无法决定调度顺序；
+ * Thread.sleep()可以把当前线程暂停一段时间。
+ * 问:线程创建可以实现Callable接口并返回结果，廖老师没有讲这个，是由什么原因吗
+ * 廖雪峰反问:你在哪听说可以用Callable创建线程的？
+ * 答:菜鸟教程
+ * 廖雪峰答:截止到JDK14，Thread一共提供了9个构造方法，没有一个是Callable：
+ * https://docs.oracle.com/en/java/javase/14/docs/api/java.base/java/lang/Thread.html
+ * 如果你说的是Callable变成Runnable，那个是Adaptor模式，往后看：
+ * https://www.liaoxuefeng.com/wiki/1252599548343744/1281319245971489
+ * 跟Thread本身的构造方法无关
+ * 懂了，谢谢廖老师。
+ * 实现了Runnable接口的FutureTask作为转换器，在run()方法中调用Callable的call()方法，本质上仍然是实现了Runnable接口。
+ * 线程的状态
+ * 在Java程序中，一个线程对象只能调用一次start()方法启动新线程，并在新线程中执行run()方法。一旦run()方法执行完毕，线程就结束了。因此，Java线程的状态有以下几种：
+ *   New：新创建的线程，尚未执行；
+ *   Runnable：运行中的线程，正在执行run()方法的Java代码；
+ *   Blocked：运行中的线程，因为某些操作被阻塞而挂起；
+ *   Waiting：运行中的线程，因为某些操作在等待中；
+ *   Timed Waiting：运行中的线程，因为执行sleep()方法正在计时等待；
+ *   Terminated：线程已终止，因为run()方法执行完毕。
+ *   用一个状态转移图表示如下：
+ *           ┌─────────────┐
+	         │     New     │
+	         └─────────────┘
+	                │
+	                ▼
+	┌ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┐
+	 ┌─────────────┐ ┌─────────────┐
+	││  Runnable   │ │   Blocked   ││
+	 └─────────────┘ └─────────────┘
+	│┌─────────────┐ ┌─────────────┐│
+	 │   Waiting   │ │Timed Waiting│
+	│└─────────────┘ └─────────────┘│
+	 ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─
+	                │
+	                ▼
+	         ┌─────────────┐
+	         │ Terminated  │
+	         └─────────────┘
+ * 当线程启动后，它可以在Runnable、Blocked、Waiting和Timed Waiting这几个状态之间切换，直到最后变成Terminated状态，线程终止。
+ * 线程终止的原因有：
+ * 线程正常终止：run()方法执行到return语句返回；
+ * 线程意外终止：run()方法因为未捕获的异常导致线程终止；
+ * 对某个线程的Thread实例调用stop()方法强制终止（强烈不推荐使用）。
+ * 一个线程还可以等待另一个线程直到其运行结束。例如，main线程在启动t线程后，可以通过t.join()等待t线程结束后再继续运行：
+ * 线程的状态只有这几种，并且被定义在State中：如果还有其他状态，那就是JDK升级了
+ * https://docs.oracle.com/en/java/javase/14/docs/api/java.base/java/lang/Thread.State.html
+ * 
+ * 一个CPU任意时刻当然只能运行一个线程，其他可以运行的线程都在等待操作系统分配CPU
+ * 你把这种状态的线程和等待锁的状态区分清楚就可以了，判断一个RUNNABLE状态的线程是不是正在被CPU执行其实没啥意义，因为高级应用程序并不能控制底层。
  */
 public class BaseThread {
 	public static void main(String[] args) {

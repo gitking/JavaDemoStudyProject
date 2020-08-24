@@ -30,6 +30,7 @@ public class XmlDom4j {
 		SAXReader saxreader = new SAXReader();
 		InputStream is = XmlDom4j.class.getClassLoader().getResourceAsStream("city.xml");
 		Document document = saxreader.read(is);
+		
 		/**
 		 * 创建Document的三种方式
 		 */

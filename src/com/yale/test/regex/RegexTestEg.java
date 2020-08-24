@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 /**
  * 正则表达式练习
  * https://www.cnblogs.com/deerchao/archive/2006/08/24/zhengzhe30fengzhongjiaocheng.html
@@ -31,7 +32,11 @@ public class RegexTestEg {
 
 		System.out.println("\\d表示任意一个数字,等价于[0-9]:" + "9".matches("\\d"));
 		System.out.println("\\D表示任意一个不是数字的字符,等价取反的[^0-9]:" + ",".matches("\\D"));
-		System.out.println("\\s表示是一位空格,可能是空格,\\t,\\n:" + "\n".matches("\\s"));
+		
+		System.out.println("\\s表示是一位空格,可能是空格或者是制表符\\t或者换行\\n:" + "\n".matches("\\s"));
+		System.out.println("\\s表示是一位空格,可能是空格或者是制表符\\t或者换行\\n:" + "\t".matches("\\s"));
+		System.out.println("\\s表示是一位空格,可能是空格或者是制表符\\t或者换行\\n:" + " ".matches("\\s"));
+		
 		System.out.println("\\S表示不是一位空格:" + "\t".matches("\\S"));
 		System.out.println("\\w等价于[a-zA-Z0-9_]表示字母、数字、下划线:" + "_".matches("\\w"));
 		System.out.println("\\W等价于[^a-zA-Z0-9_]就是\\w的取反操作:" + "_".matches("\\W"));
@@ -142,6 +147,7 @@ public class RegexTestEg {
 		System.out.println("但是这么写还不如直接用String自带的方法:" + mat.matches());
 		System.out.println("在进行一些复杂的正则操作里面,String类是完成不了的,必须通过Matcher类处理,因为这里面有一个分组的概念.");
 		System.out.println("比如下面这个,String类就处理不了");
+		
 		String strMat  = "insert into table values (#{table.name},#{table.age},#{table.sex})";
 		String regexMat = "#\\{[a-zA-Z\\._\\-]+\\}";
 		Pattern patMat = Pattern.compile(regexMat);
@@ -152,5 +158,21 @@ public class RegexTestEg {
 		
 		System.out.println("正则表达式匹配中文:");
 		System.out.println("a\u548cc".equals("a和c"));
+		
+		
+		/*
+		 * http://cn.voidcc.com/question/p-wzcdkrft-eu.html
+		 * www.javaregex.com
+		 * Regex regexObj = new Regex("YOURREGEX"); 
+		// search for a match within a string 
+		regexObj.search("YOUR STRING YOUR STRING"); 
+		if(regexObj.didMatch()){ 
+			// Prints "true" -- r.didMatch() is a boolean function 
+			// that tells us whether the last search was successful 
+			// in finding a pattern. 
+			// r.left() returns left String , string before the matched pattern 
+			int index = regexObj.left().length(); 
+		} 
+		 */
 	}
 }

@@ -10,6 +10,7 @@ package com.yale.test.leetcode;
  * 极客时间:算法训练营资料
  * 爬楼梯:https://leetcode-cn.com/problems/climbing-stairs/solution/pa-lou-ti-by-leetcode-solution/
  * 589. N叉树的前序遍历:https://leetcode-cn.com/problems/n-ary-tree-preorder-traversal/solution/yi-tao-quan-fa-shua-diao-nge-bian-li-shu-de-wen--3/
+ * 这个人很厉害写了很多关于二叉树的解法,一定要看完，链接：https://leetcode-cn.com/problems/n-ary-tree-preorder-traversal/solution/yi-tao-quan-fa-shua-diao-nge-bian-li-shu-de-wen--3/
  * 22. 括号生成: https://leetcode-cn.com/problems/generate-parentheses/
  * 17. 电话号码的字母组合:https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/
  * 11. 盛最多水的容器:https://leetcode-cn.com/problems/container-with-most-water/
@@ -44,6 +45,7 @@ package com.yale.test.leetcode;
  * 为啥 redis 使用跳表(skiplist)而不是使用 red-black？:https://www.zhihu.com/question/20202931
  * 平衡二叉树、B树、B+树、B*树 理解其中一种你就都明白了:https://zhuanlan.zhihu.com/p/27700617
  * 如何理解算法时间复杂度的表示法，例如 O(n²)、O(n)、O(1)、O(nlogn) 等？：https://www.zhihu.com/question/21387264
+ * https://zhuanlan.zhihu.com/p/29310917
  * 主定理:https://zh.wikipedia.org/wiki/%E4%B8%BB%E5%AE%9A%E7%90%86
  * 主定理:https://en.wikipedia.org/wiki/Master_theorem_(analysis_of_algorithms)
  * https://shimo.im/sheets/JxFgd6m6NWgry5Ci/MODOC
