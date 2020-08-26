@@ -8,6 +8,11 @@ package com.yale.test.thread.mldn;
  * 我们举个栗子：假设从网络下载一个100M的文件，如果网速很慢，用户等得不耐烦，就可能在下载过程中点“取消”，这时，程序就需要中断下载线程的执行。
  * 中断一个线程非常简单，只需要在其他线程中对目标线程调用interrupt()方法，目标线程需要反复检测自身状态是否是interrupted状态，如果是，就立刻结束运行。
  * 我们还是看示例代码：
+ * 小结
+ * 对目标线程调用interrupt()方法可以请求中断一个线程，目标线程通过检测isInterrupted()标志获取自身是否已中断。如果目标线程处于等待状态，该线程会捕获到InterruptedException；
+ * 目标线程检测到isInterrupted()为true或者捕获了InterruptedException都应该立刻结束自身线程；
+ * 通过标志位判断需要正确使用volatile关键字；
+ * volatile关键字解决了共享变量在线程间的可见性问题。
  */
 public class ThreadInterruptedDemo {
 

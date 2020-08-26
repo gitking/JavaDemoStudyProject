@@ -14,35 +14,30 @@ package com.yale.test.thread.mldn;
  * 通过标志位判断需要正确使用volatile关键字；
  * volatile关键字解决了共享变量在线程间的可见性问题。
  */
-public class ThreadInterruptedDemo2 {
-
+public class ThreadInterruptedMarkDemo {
 	public static void main(String[] args) throws InterruptedException {
 		/*
-		 * 下面代码来自廖雪峰JAVA教程
-		 * https://www.liaoxuefeng.com/wiki/1252599548343744/1306580767211554
-		 * 仔细看下述代码，main线程通过调用t.interrupt()方法中断t线程，但是要注意，interrupt()方法仅仅向t线程发出了“中断请求”，
-		 * 至于t线程是否能立刻响应，要看具体代码。而t线程的while循环会检测isInterrupted()，所以上述代码能正确响应interrupt()请求，使得自身立刻结束运行run()方法。
+		 * 另一个常用的中断线程的方法是设置标志位。我们通常会用一个running标志位来标识线程是否应该继续运行，在外部线程中，
+		 * 通过把HelloThread.running置为false，就可以让线程结束：
+		 * 注意到HelloThread的标志位boolean running是一个线程间共享的变量。
+		 * 线程间共享变量需要使用volatile关键字标记，确保每个线程都能读取到更新后的变量值。
 		 */
-		try {
-			MyThreadIsInterrupted mtii = new MyThreadIsInterrupted();
-			mtii.start();
-			Thread.sleep(1);//main线程休息1毫秒
-			mtii.interrupt();//中断mtii线程
-			mtii.join();//等待mtii线程结束
-			System.out.println("mtii线程被中断了");
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		HelloMarkThread hmt = new HelloMarkThread();
+		hmt.start();
+		Thread.sleep(1);
+		hmt.running = false;//标志位设置为false,告诉线程要结束了
 	}
 }
 
-class MyThreadIsInterrupted extends Thread {
-	int n = 0;
+class HelloMarkThread extends Thread {
+	public volatile boolean running = true;
 	@Override
 	public void run() {
-		while(!isInterrupted()) {
-			n ++;
-			System.out.println(n + "我总是在检查我自己是否被中断了");
+		int n =0;
+		while (running) {
+			n++;
+			System.out.println(n + "hello!");
 		}
+		System.out.println("线程结束了end!");
 	}
 }
