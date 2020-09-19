@@ -1,10 +1,14 @@
 package com.yale.test.ps;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.Base64;
+
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
 
 /*
  * 在计算机系统中，什么是加密与安全呢？
@@ -29,6 +33,10 @@ import java.util.Base64;
  *  如果字符是A~Z，a~z，0~9以及-、_、.、*，则保持不变；
  *  如果是其他字符，先转换为UTF-8编码，然后对每个字节以%XX表示。
  *  例如：字符中的UTF-8编码是0xe4b8ad，因此，它的URL编码是%E4%B8%AD。URL编码总是大写。
+ *  ①BASE64 严格地说，属于编码格式，而非加密算法
+ *  Base64是网络上最常见的用于传输8Bit字节代码的编码方式之一，大家可以查看RFC2045～RFC2049，上面有MIME的详细规范。Base64编码可用于在HTTP环境下传递较长的标识信息。
+ *  例如，在Java Persistence系统Hibernate中，就采用了Base64来将一个较长的唯一标识符（一般为128-bit的UUID）编码为一个字符串，用作HTTP表单和HTTP GET URL中的参数。
+ *  在其他应用程序中，也常常需要把二进制数据编码为适合放在URL（包括隐藏表单域）中的形式。此时，采用Base64编码具有不可读性，即所编码的数据不会被人用肉眼所直接看到
  */
 public class Base64Test {
 	public static void main(String[] args) {
@@ -123,5 +131,54 @@ public class Base64Test {
 		
 		byte [] pwArr = Base64.getDecoder().decode(pwStr);
 		System.out.println("解密后的字符串:" + new String(pwArr));
+		
+		/*
+		 * BASE64的加密解密是双向的，可以求反解.
+		 * BASE64Encoder和BASE64Decoder是非官方JDK实现类。虽然可以在JDK里能找到并使用，但是在API里查不到。
+		 * JRE 中 sun 和 com.sun 开头包的类都是未被文档化的，他们属于 java, javax 类库的基础，其中的实现大多数与底层平台有关，
+		 * 一般来说是不推荐使用的。 BASE64 严格地说，属于编码格式，而非加密算法 .主要就是BASE64Encoder、BASE64Decoder两个类，我们只需要知道使用对应的方法即可。
+		 * 另，BASE加密后产生的字节位数是8的倍数，如果不够位数以=符号填充
+		 * BASE64 
+		 * 按照RFC2045的定义，Base64被定义为：Base64内容传送编码被设计用来把任意序列的8位字节描述为一种不易被人直接识别的形式。
+		 * （The Base64 Content-Transfer-Encoding is designed to represent arbitrary sequences of octets in a form that need not be humanly readable.） 
+		 * 常见于邮件、http加密，截取http信息，你就会发现登录操作的用户名、密码字段通过BASE64加密的。
+		 * http://www.jfh.com/jfperiodical/article/818
+		 */
+		String str = "12345678";
+		//加密
+		String stsPs = new BASE64Encoder().encodeBuffer(str.getBytes());
+		System.out.println("sun.misc.BASE64Encoder加密后的数据:" + stsPs);
+		String stsPs2 = Base64Test.encryptBASE64(str.getBytes());
+		System.out.println("sun.misc.BASE64Encoder加密后的数据::静态方法" + stsPs2);
+		try {
+			byte[] res = new BASE64Decoder().decodeBuffer(stsPs);
+			String originStr = new String(res);
+			System.out.println("sun.misc.BASE64Decoder解密后的数据:" + originStr);
+			
+			byte[] res2 = Base64Test.decryptBASE64(stsPs2);
+			String originSt2r = new String(res2);
+			System.out.println("sun.misc.BASE64Decoder解密后的数据:静态方法" + originSt2r);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Base64加密
+	 * @param key
+	 * @return
+	 */
+	public static String encryptBASE64(byte[] key) {
+		return new BASE64Encoder().encodeBuffer(key);
+	}
+	
+	/**
+	 * Base64解密
+	 * @param key
+	 * @return
+	 * @throws IOException 
+	 */
+	public static byte[] decryptBASE64(String key) throws IOException {
+		return new BASE64Decoder().decodeBuffer(key);
 	}
 }

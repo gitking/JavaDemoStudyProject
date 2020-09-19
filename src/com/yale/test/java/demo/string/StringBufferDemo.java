@@ -2,6 +2,11 @@ package com.yale.test.java.demo.string;
 
 /**
  * String特点:任何的字符串常量都是String对象,而且String的常量一旦声明则不可改变, 如果改变对象的内容改变的是其引用的指向而已
+ * 如果一个类被设计为允许多线程正确访问，我们就说这个类就是“线程安全”的（thread-safe），上面的Counter类就是线程安全的。Java标准库的java.lang.StringBuffer也是线程安全的。
+ * 还有一些不变类，例如String，Integer，LocalDate，它们的所有成员变量都是final，多线程同时访问时只能读不能写，这些不变类也是线程安全的。
+ * 最后，类似Math这些只提供静态方法，没有成员变量的类，也是线程安全的。
+ * 除了上述几种少数情况，大部分类，例如ArrayList，都是非线程安全的类，我们不能在多线程中修改它们。但是，如果所有线程都只读取，不写入，那么ArrayList是可以安全地在线程间共享的。
+ * 没有特殊说明时，一个类默认是非线程安全的。
  * @author dell
  */
 public class StringBufferDemo {

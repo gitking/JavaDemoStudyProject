@@ -15,6 +15,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 /*
  * Hmac算法
+ * HMAC(Hash Message Authentication Code，散列消息鉴别码)
  * 在前面讲到哈希算法时，我们说，存储用户的哈希口令时，要加盐存储，目的就在于抵御彩虹表攻击。
  * 我们回顾一下哈希算法：digest = hash(input),正是因为相同的输入会产生相同的输出，我们加盐的目的就在于，使得输入有所变化：digest = hash(salt + input)
  * 这个salt可以看作是一个额外的“认证码”，同样的输入，不同的认证码，会产生不同的输出。因此，要验证输出的哈希，必须同时提供“认证码”。
@@ -27,6 +28,10 @@ import javax.crypto.spec.SecretKeySpec;
  * 	Hmac输出和原有的哈希算法长度一致。
  * 可见，Hmac本质上就是把key混入摘要的算法。验证此哈希时，除了原始的输入数据，还要提供key。
  * 为了保证安全，我们不会自己指定key，而是通过Java标准库的KeyGenerator生成一个安全的随机的key。下面是使用HmacMD5的代码：
+ * 
+ * HMAC(Hash Message Authentication Code，散列消息鉴别码，基于密钥的Hash算法的认证协议。消息鉴别码实现鉴别的原理是，用公开函数和密钥产生一个固定长度的值作为认证标识，
+ * 用这个标识鉴别消息的完整性。使用一个密钥生成一个固定大小的小数据块，即MAC，并将其加入到消息中，然后传输。接收方利用与发送方共享的密钥进行鉴别认证等。
+ * http://www.jfh.com/jfperiodical/article/818
  */
 public class Hmac {
 	public static void main(String[] args) {

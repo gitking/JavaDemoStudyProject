@@ -40,7 +40,13 @@ package com.yale.test.java.fanshe.perfma;
  * 	每次修改变量后，立刻回写到主内存。
  * volatile关键字解决的是可见性问题：当一个线程修改了某个共享变量的值，其他线程能够立刻看到修改后的值。
  * 如果我们去掉volatile关键字，运行上述程序，发现效果和带volatile差不多，这是因为在x86的架构下，JVM回写主内存的速度非常快，但是，换成ARM的架构，就会有显著的延迟。
+ * x86架构加不加volatile其实区别不大，其他架构要注意，很可能一个线程改了值几秒内另一个线程读的还是旧的
  * https://www.liaoxuefeng.com/wiki/1252599548343744/1306580767211554
+ * volatile只保证：
+ * 读主内存到本地副本；
+ * 操作本地副本；
+ * 回写主内存。
+ * 这3步多个线程可以同时进行。
  * @author dell
  */
 public class VolatileDemo {

@@ -25,6 +25,7 @@ class RealSubjectSec implements ISubjectSec {
  * 发展到现在用的比较多的是javasist来实现动态代理类,cglib用的也不太多了,主要用javasist
  * 静态代理只能代理一个接口下面的所有实现类,动态代理能代理所有接口的所有实现类
  * 代理的好处:使真实的类更纯净了(减轻了真实类的业务),不再关注一些公共的事情
+ * 终于有人把 java 代理 讲清楚了，万字详解！https://xie.infoq.cn/article/9a9387805a496e1485dc8430f
  * @author dell
  */
 class ProxySubjectSec implements InvocationHandler {//是一个动态代理类

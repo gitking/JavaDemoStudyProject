@@ -12,6 +12,14 @@ import java.math.BigInteger;
 	如果是JDK8，推荐使用LongAdder对象，比AtomicLong性能更好（减少乐观锁的重试次数）。《阿里巴巴Java开发手册（泰山版）.
 	在Java中，由CPU原生提供的整型最大范围是64位long型整数。使用long型整数可以直接通过CPU指令进行计算，速度非常快。
 	和long型整数运算比，BigInteger不会有范围限制，但缺点是速度比较慢。
+ * 大端小端可以参考阮一峰写的文章[字符编码笔记：ASCII，Unicode 和 UTF-8]:http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html
+ * 七、Little endian 和 Big endian
+ * 上一节已经提到，UCS-2 格式可以存储 Unicode 码（码点不超过0xFFFF）。以汉字严为例，Unicode 码是4E25，需要用两个字节存储，一个字节是4E，另一个字节是25。存储的时候，4E在前，25在后，这就是 Big endian 方式；25在前，4E在后，这是 Little endian 方式。
+ * 这两个古怪的名称来自英国作家斯威夫特的《格列佛游记》。在该书中，小人国里爆发了内战，战争起因是人们争论，吃鸡蛋时究竟是从大头(Big-endian)敲开还是从小头(Little-endian)敲开。为了这件事情，前后爆发了六次战争，一个皇帝送了命，另一个皇帝丢了王位。
+ * 第一个字节在前，就是"大头方式"（Big endian），第二个字节在前就是"小头方式"（Little endian）。
+ * 那么很自然的，就会出现一个问题：计算机怎么知道某一个文件到底采用哪一种方式编码？
+ * Unicode 规范定义，每一个文件的最前面分别加入一个表示编码顺序的字符，这个字符的名字叫做"零宽度非换行空格"（zero width no-break space），用FEFF表示。这正好是两个字节，而且FF比FE大1。
+ * 如果一个文本文件的头两个字节是FE FF，就表示该文件采用大头方式；如果头两个字节是FF FE，就表示该文件采用小头方式。
  * @author dell
  */
 public class BigIntegerTest {
