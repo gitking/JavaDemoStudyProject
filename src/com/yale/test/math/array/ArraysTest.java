@@ -110,6 +110,15 @@ public class ArraysTest {
 		Arrays.sort(dataC);
 		System.out.println("排序后的数组:" + Arrays.toString(dataC));
 		
+        int [] dataCopy = Arrays.copyOf(dataC, dataC.length);
+        System.out.println("复制数组dataC:" + Arrays.toString(dataCopy));
+        
+        /*
+         * Fork/Join线程池在Java标准库中就有应用。Java标准库提供的java.util.Arrays.parallelSort(array)可以进行并行排序，
+         * 它的原理就是内部通过Fork/Join对大数组分拆进行并行排序，在多核CPU上就可以大大提高排序的速度。
+         */
+        Arrays.parallelSort(dataCopy);//1.8之后才有的
+		
 		HashMap<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("a", "A");
 		paramMap.put("b", "B");

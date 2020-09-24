@@ -79,10 +79,12 @@ public class CollectionsDemo {
 		
 		
 		//Collections还提供了一组方法，可以把线程不安全的集合变为线程安全的集合：
-		//因为从Java 5开始，引入了更高效的并发集合类，所以上述这几个同步方法已经没有什么用了。
+		//因为从Java 5开始，引入了更高效的并发集合类，所以下面这几个同步方法已经没有什么用了。
+		//https://www.liaoxuefeng.com/wiki/1252599548343744/1299919855943714
 		List<String> listSafe = Collections.synchronizedList(listTest);
 		Set<String> setSafe = Collections.synchronizedSet(singleSet);
 		Map<String,String> mapSafe = Collections.synchronizedMap(singleMap);
+		//但是它实际上synchronizedMap是用一个包装类包装了非线程安全的Map，然后对所有读写方法都用synchronized加锁，这样获得的线程安全集合的性能比java.util.concurrent集合要低很多，所以不推荐使用。
 		
 		List<String> strList = new ArrayList<String>();
 		Collections.addAll(strList, "A", "B", "C");//相当于调用了3次add方法

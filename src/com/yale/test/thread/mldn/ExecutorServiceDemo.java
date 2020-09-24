@@ -3,24 +3,29 @@ package com.yale.test.thread.mldn;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import com.yale.test.thread.heima.zhangxiaoxiang.UserThreadFactory;
 
 /**
+ * Java语言虽然内置了多线程支持，启动一个新线程非常方便，但是，创建线程需要操作系统资源（线程资源，栈空间等），频繁创建和销毁大量线程需要消耗大量时间
+ * 如果可以复用一组线程：那么我们就可以把很多小任务让一组线程来执行，而不是一个任务对应一个新线程。这种能接收大量小任务并进行分发处理的就是线程池。
+ * 简单地说，线程池内部维护了若干个线程，没有任务的时候，这些线程都处于等待状态。如果有新任务，就分配一个空闲线程执行。如果所有线程都处于忙碌状态，新任务要么放入队列等待，要么增加一个新线程进行处理。
  * 从JDK1.5之后追加了一个并发访问程序包java.util.concurrent
  * 普通的执行线程池定义:java.util.concurrent Interface ExecutorService
  * ExecutorService的JAVA官方文档里面使用例子,最好去看一下java官方的例子:https://docs.oracle.com/javase/8/docs/api/index.html
  * 调度线程池(可以定时执行的线程池):ava.util.concurrent Interface ScheduledExecutorService
  * 那么如果要进行线程池的创建,一般可以使用java.util.concurrent.Executors类完成,有如下几个方法:
  * 创建无大小限制的线程池:
- * 	public static ExecutorService newCachedThreadPool(),
+ * 	public static ExecutorService newCachedThreadPool(),线程数根据任务动态调整的线程池
  * 	public static ExecutorService newCachedThreadPool(ThreadFactory threadFactory)
  * 创建固定大小的线程池:
  * 		public static ExecutorService newFixedThreadPool(int nThreads)
  * 		public static ExecutorService newFixedThreadPool(int nThreads, ThreadFactory threadFactory)
  * 创建单线程池：
- * 	public static ExecutorService newSingleThreadExecutor()
+ * 	public static ExecutorService newSingleThreadExecutor()仅单线程执行的线程池。
  * 	public static ExecutorService newSingleThreadExecutor(ThreadFactory threadFactory)
  * 创建定时调度池:
  * 	public static ScheduledExecutorService newScheduledThreadPool(int corePoolSize)
@@ -42,6 +47,7 @@ public class ExecutorServiceDemo {
 		//newCachedThreadPool创建无大小限制的线程池
 		/**
 		 * Executors.newCachedThreadPool的源码实际上是通过new ThreadPoolExecutor创建的线程池
+		 * newCachedThreadPool线程数根据任务动态调整的线程池
 		 */
 		ExecutorService executorService = Executors.newCachedThreadPool(new UserThreadFactory("创建线程池时,自己设置线程的名字"));
 		for (int i=0; i<10; i++) {
@@ -51,10 +57,16 @@ public class ExecutorServiceDemo {
 			});
 		}
 		executorService.shutdown();//当线程池里面的所有任务都执行完时,线程处于空闲状态时,关闭线程池
+		/*
+		 * 线程池在程序结束的时候要关闭。
+		 * 使用shutdown()方法关闭线程池的时候，它会等待正在执行的任务先完成，然后再关闭。
+		 * shutdownNow()会立刻停止正在执行的任务，
+		 * awaitTermination()则会等待指定的时间让线程池关闭。
+		 */
 		
 		System.out.println("**************");
 		
-		ExecutorService es = Executors.newCachedThreadPool();
+		ExecutorService es = Executors.newCachedThreadPool();//newCachedThreadPool
 		for (int i=0; i<10; i++) {
 			try {
 				/**
@@ -107,6 +119,22 @@ public class ExecutorServiceDemo {
 			});
 		}
 		fixed.shutdown();
+		
+		System.out.println("*===================================================*");
+		
+		/*
+		 * 如果我们想把线程池的大小限制在4～10个之间动态调整怎么办？我们查看Executors.newCachedThreadPool()方法的源码：
+		 * public static ExecutorService newCachedThreadPool() {
+			    return new ThreadPoolExecutor(0, Integer.MAX_VALUE,
+			                                    60L, TimeUnit.SECONDS,
+			                                    new SynchronousQueue<Runnable>());
+			}
+		 * 因此，想创建指定动态范围的线程池，可以这么写：
+		 */
+		int min = 4;
+		int max = 10;
+		ExecutorService esDiy = new ThreadPoolExecutor(min, max, 60L, TimeUnit.SECONDS, new SynchronousQueue<Runnable>());
+		
 		
 		System.out.println("*===================================================*");
 		

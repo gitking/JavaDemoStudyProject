@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 /**
@@ -106,6 +107,21 @@ public class ThreadPoolTest {
 		}, 10, TimeUnit.SECONDS);
 		ss.shutdown();
 		
+		
+		/*
+		 * 如果我们想把线程池的大小限制在4～10个之间动态调整怎么办？我们查看Executors.newCachedThreadPool()方法的源码：
+		 * public static ExecutorService newCachedThreadPool() {
+			    return new ThreadPoolExecutor(0, Integer.MAX_VALUE,
+			                                    60L, TimeUnit.SECONDS,
+			                                    new SynchronousQueue<Runnable>());
+			}
+		 * 因此，想创建指定动态范围的线程池，可以这么写：
+		 */
+		int min = 4;
+		int max = 10;
+		ExecutorService esDiy = new ThreadPoolExecutor(min, max, 60L, TimeUnit.SECONDS, new SynchronousQueue<Runnable>());
+		
+		
 		/**
 		 * scheduleAtFixedRate这个定时器没有指定日期的功能,比如你指定一个date是周二晚上10点,
 		 * 不过java官方提供了一种方法,你可以先指定一个时间,然后用你指定的那个时间减去现在的时间,就是到那个时间炸。
@@ -120,5 +136,26 @@ public class ThreadPoolTest {
 			}	
 		}, 6, 2, TimeUnit.SECONDS);
 		//scheduleSer.shutdown();这里不能调用这个,要不然scheduleSer就不会执行了
+		 
+		//如果任务以固定的3秒为间隔执行，我们可以这样写：
+	   // 2秒后开始执行定时任务，以3秒为间隔执行:
+	   //ses.scheduleWithFixedDelay(new Task("fixed-delay"), 2, 3, TimeUnit.SECONDS);
+		 /*
+		  * 注意FixedRate和FixedDelay的区别。
+		  * FixedRate是指任务总是以固定时间间隔触发，不管任务执行多长时间：
+		  * │░░░░   │░░░░░░ │░░░    │░░░░░  │░░░  
+			├───────┼───────┼───────┼───────┼────>
+			│<─────>│<─────>│<─────>│<─────>│
+		  * 而FixedDelay是指，上一次任务执行完毕后，等待固定的时间间隔，再执行下一次任务：
+		  * │░░░│       │░░░░░│       │░░│       │░
+			└───┼───────┼─────┼───────┼──┼───────┼──>
+			    │<─────>│     │<─────>│  │<─────>│
+		  * 因此，使用ScheduledThreadPool时，我们要根据需要选择执行一次、FixedRate执行还是FixedDelay执行。
+		  * 细心的童鞋还可以思考下面的问题：
+		  * 在FixedRate模式下，假设每秒触发，如果某次任务执行时间超过1秒，后续任务会不会并发执行？答:如果此任务的任何执行时间超过其周期，则后续执行可能会延迟开始，但不会并发执行。
+		  * 如果任务抛出了异常，后续任务是否继续执行？答:如果任务的任何执行遇到异常，则将禁止后续任务的执行。
+		  * Java标准库还提供了一个java.util.Timer类，这个类也可以定期执行任务，但是，一个Timer会对应一个Thread，所以，一个Timer只能定期执行一个任务，
+		  * 多个定时任务必须启动多个Timer，而一个ScheduledThreadPool就可以调度多个定时任务，所以，我们完全可以用ScheduledThreadPool取代旧的Timer。
+		  */
 	}
 }
