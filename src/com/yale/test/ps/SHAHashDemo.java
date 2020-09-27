@@ -1,9 +1,10 @@
 package com.yale.test.ps;
 
-import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import org.apache.commons.codec.digest.Sha2Crypt;
 
 /*
  * SHA
@@ -34,5 +35,14 @@ public class SHAHashDemo {
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
+		
+		/*
+		 * apache的commons-codec-1.10.jar包提供的方法
+		 * commons-codec-1.3.jar没有Sha2Crypt这个类
+		 * https://zhuanlan.zhihu.com/p/93860175
+		 */
+		String string = "我是一句话";
+		String sha256crypt = Sha2Crypt.sha256Crypt(string.getBytes());
+		System.out.println(sha256crypt);
 	}
 }

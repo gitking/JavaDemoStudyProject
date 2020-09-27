@@ -7,6 +7,10 @@ package com.yale.test.thread.mldn;
  * 通过加锁和解锁的操作，就能保证3条指令总是在一个线程执行期间，不会有其他线程会进入此指令区间。即使在执行期线程被操作系统中断执行，
  * 其他线程也会因为无法获得锁导致无法进入此指令区间。只有执行线程将锁释放后，其他线程才有机会获得锁并执行。这种加锁和解锁之间的代码块我们称之为临界区（Critical Section），
  * 任何时候临界区最多只有一个线程能执行。 可见，保证一段代码的原子性就是通过加锁和解锁实现的。Java程序使用synchronized关键字对一个对象进行加锁：
+ * 知乎java synchronized锁对象，但是当对象引用是null的时候，锁的是什么？
+ * 知乎大神RednaxelaFX答:
+ * 这种问题应该先上Java语言规范。请看：Chapter 14. Blocks and Statements(https://docs.oracle.com/javase/specs/jls/se8/html/jls-14.html#jls-14.19)
+ * 就这样。传入synchronized块的锁引用如果是null的话则执行到这个synchronized块时会立即抛出NPE(空指针)。
  * @author dell
  */
 public class SynchronizedDemo2 {

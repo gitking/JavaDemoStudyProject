@@ -12,6 +12,7 @@ import java.io.InputStream;
  * 如果我们把默认的配置放到jar包中，再从外部文件系统读取一个可选的配置文件，就可以做到既有默认的配置文件，又可以让用户自己修改配置：
  * 这样读取配置文件，应用程序启动就更加灵活。
  * Class对象的getResourceAsStream()可以从classpath中读取指定资源；
+ * JVM对一个类只会加载一次，存在多个版本的，classpath在前的先加载，在后的永远加载不了
  * https://www.liaoxuefeng.com/wiki/1252599548343744/1298366384308257
  * @author dell
  */

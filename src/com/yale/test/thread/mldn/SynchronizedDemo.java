@@ -1,5 +1,11 @@
 package com.yale.test.thread.mldn;
 
+/*
+ * 知乎java synchronized锁对象，但是当对象引用是null的时候，锁的是什么？
+ * 知乎大神RednaxelaFX答:
+ * 这种问题应该先上Java语言规范。请看：Chapter 14. Blocks and Statements(https://docs.oracle.com/javase/specs/jls/se8/html/jls-14.html#jls-14.19)
+ * 就这样。传入synchronized块的锁引用如果是null的话则执行到这个synchronized块时会立即抛出NPE(空指针)。
+ */
 class TicketDemo implements Runnable {
 	private int ticket = 10;
 	@Override

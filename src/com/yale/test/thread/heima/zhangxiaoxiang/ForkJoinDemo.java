@@ -33,6 +33,7 @@ import java.util.concurrent.RecursiveTask;
  * 使用Fork/Join模式可以进行并行计算以提高效率。
  * https://www.liaoxuefeng.com/wiki/1252599548343744/1306581226487842
  * https://zhuanlan.zhihu.com/p/26685513 
+ * Java8直接用parallelStream不行吗
  */
 public class ForkJoinDemo {
 	static Random random = new Random(0);
@@ -58,13 +59,18 @@ public class ForkJoinDemo {
 		 */
 		ForkJoinTask<Long> task = new SumTask(array, 0, array.length);
 		long startTime = System.currentTimeMillis();
+		// ForkJoinPool fjp = new ForkJoinPool(4); // 最大并发数4
+	    //fjp.invoke(task);关键代码是fjp.invoke(task)来提交一个Fork/Join任务并发执行，然后获得异步执行的结果。
+		//JDK用来执行Fork/Join任务的工作线程池大小等于CPU核心数。在一个4核CPU上，最多可以同时执行4个子任务。
 		Long result = ForkJoinPool.commonPool().invoke(task);
 		long endTime = System.currentTimeMillis();
 		System.out.println("Fork/join sum: " + result + " in " + (endTime - startTime) + " ms.");
-		
 	}
 }
 
+/*
+ * RecursiveTask实际上是Future实现类
+ */
 class SumTask extends RecursiveTask<Long> {
 	static final int THRESHOLD = 500 ;
 	long [] array;
@@ -96,8 +102,20 @@ class SumTask extends RecursiveTask<Long> {
 		// “分裂”子任务:
 		SumTask subtask1 = new SumTask(this.array, start, middle);
 		SumTask subtask2 = new SumTask(this.array, middle, end);
+		
+		/*
+		 * 分别对子任务调用fork():
+	     * subtask1.fork();
+	     * subtask2.fork();很遗憾，fork()这种写法是错！误！的！这样写没有正确理解Fork/Join模型的任务执行逻辑。
+	     * JDK用来执行Fork/Join任务的工作线程池大小等于CPU核心数。在一个4核CPU上，最多可以同时执行4个子任务。对400个元素的数组求和，执行时间应该为1秒。但是，换成上面的代码，执行时间却是两秒。
+	     * 这是因为执行compute()方法的线程本身也是一个Worker线程，当对两个子任务调用fork()时，这个Worker线程就会把任务分配给另外两个Worker，但是它自己却停下来等待不干活了！这样就白白浪费了Fork/Join线程池中的一个Worker线程，导致了4个子任务至少需要7个线程才能并发执行。
+		 * 其实，我们查看JDK的invokeAll()方法的源码就可以发现，invokeAll的N个任务中，其中N-1个任务会使用fork()交给其它线程执行，
+		 * 但是，它还会留一个任务自己执行，这样，就充分利用了线程池，保证没有空闲的不干活的线程。
+		 * https://zhuanlan.zhihu.com/p/26685513
+		 */
 		invokeAll(subtask1, subtask2); // invokeAll会并行运行两个子任务:
-		Long subresult1 = subtask1.join();// 获得子任务的结果:
+		System.out.println("这里会阻塞,,," + middle + "然后invokeAll递归调用子任务");
+		Long subresult1 = subtask1.join();//等待获取获得子任务的结果:
 		Long subresult2 = subtask2.join();
 		Long result = subresult1 + subresult2;// 汇总结果:
 		System.out.println("result = " + subresult1 + " + " + subresult1 + " ==> " + result);

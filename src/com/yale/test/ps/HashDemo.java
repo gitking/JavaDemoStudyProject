@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 /*
  * MD5(Message Digest algorithm 5，信息摘要算法)
@@ -91,6 +92,7 @@ public class HashDemo {
 			md.update("Hello".getBytes("UTF-8"));// 反复调用update输入数据:
 			md.update("World".getBytes("UTF-8"));// 反复调用update输入数据:
 			byte[] result = md.digest();//16bytes
+			System.out.println(Arrays.toString(result));
 			//new BigInteger(1, result1).toString(16)有个大坑：0开头的，0最终会被省略,使用String.format代替
 			System.out.println("MD5:" + new BigInteger(1, result).toString(16));
 		} catch (NoSuchAlgorithmException e) {
