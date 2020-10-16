@@ -10,6 +10,9 @@ import java.io.InputStream;
  * 调用getResourceAsStream()需要特别注意的一点是，如果资源文件不存在，它将返回null。因此，我们需要检查返回的InputStream是否为null，
  * 如果为null，表示资源文件在classpath中没有找到：
  * 如果我们把默认的配置放到jar包中，再从外部文件系统读取一个可选的配置文件，就可以做到既有默认的配置文件，又可以让用户自己修改配置：
+ * Properties props = new Properties();
+ * props.load(inputStreamFromClassPath("/default.properties"));
+ * props.load(inputStreamFromFile("./conf.properties"));
  * 这样读取配置文件，应用程序启动就更加灵活。
  * Class对象的getResourceAsStream()可以从classpath中读取指定资源；
  * JVM对一个类只会加载一次，存在多个版本的，classpath在前的先加载，在后的永远加载不了

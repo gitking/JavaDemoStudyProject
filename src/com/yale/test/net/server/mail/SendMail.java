@@ -55,6 +55,14 @@ import javax.mail.internet.MimeMessage;
         <version>1.6.2</version>
     </dependency>
  * 然后，我们通过JavaMail API连接到SMTP服务器上：
+ * 以587端口为例，连接SMTP服务器时，需要准备一个Properties对象，填入相关信息。最后获取Session实例时，如果服务器需要认证，还需要传入一个Authenticator对象，并返回指定的用户名和口令。
+ * 当我们获取到Session实例后，打开调试模式可以看到SMTP通信的详细内容，便于调试。
+ * 发送邮件
+ * 发送邮件时，我们需要构造一个Message对象，然后调用Transport.send(Message)即可完成发送：
+ * 绝大多数邮件服务器要求发送方地址和登录用户名必须一致，否则发送将失败。
+ * 填入真实的地址，运行上述代码，我们可以在控制台看到JavaMail打印的调试信息：
+ * 从上面的调试信息可以看出，SMTP协议是一个请求-响应协议，客户端总是发送命令，然后等待服务器响应。服务器响应总是以数字开头，后面的信息才是用于调试的文本。这些响应码已经被定义在SMTP协议中了，查看具体的响应码就可以知道出错原因。
+ * 如果一切顺利，对方将收到一封文本格式的电子邮件：
  */
 public class SendMail {
 	final String smtpHost;
