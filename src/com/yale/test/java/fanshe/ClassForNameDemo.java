@@ -31,6 +31,8 @@ public class ClassForNameDemo {
 		 * https://www.jianshu.com/p/3a3edbcd8f24
 		 * https://zhuanlan.zhihu.com/p/28909673
 		 * https://juejin.im/post/5e47b8bd6fb9a07c7c2d56cd
+		 * Class.forName 不就是让JVM加载类吗？
+		 * Class driver = OracleDriver.class;我这行代码一样可以让JVM主动去加载这个类,只不过我这个driver 变量后面根本不用而已。所以我这种写法不优雅
 		 * 你项目如果没引入  Driver 的 lib。你写不了  Driver.class ，你import不到。  
 		 * 但是有可能这个lib 是外部，容器已经加载了，那么是有这个类的。比如tomcat  共用的一个 lib
 		 * 想啥呢兄弟，你如果想动态加载类的话要么classloader.loadClass要么Class.forName，但是你还要执行static代码块，

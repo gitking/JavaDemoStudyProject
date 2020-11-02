@@ -17,6 +17,7 @@ public class FileInputStreamDeom {
 			InputStream in = new FileInputStream(file);
 			byte[] data = new byte[1024];//定义每次可以读取的最大长度
 			int len = in.read(data);//返回读取到的长度
+			System.out.println("长度是多少:" + len);
 			in.close();
 			System.out.println("读取到的内容为:【" + new String(data, 0, len) + "】");
 		}

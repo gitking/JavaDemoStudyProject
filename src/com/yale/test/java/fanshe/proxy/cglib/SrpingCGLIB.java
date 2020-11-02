@@ -8,9 +8,7 @@ package com.yale.test.java.fanshe.proxy.cglib;
  * https://www.liaoxuefeng.com/wiki/1252599548343744/1281319432618017
  */
 public class SrpingCGLIB {
-
 	public static void main(String[] args) {
 
 	}
-
 }

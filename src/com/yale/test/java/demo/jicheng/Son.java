@@ -1,9 +1,12 @@
 package com.yale.test.java.demo.jicheng;
 
 public class Son extends Father {
+	public Son(String test) {
+		
+	}
 	public static void main(String[] args) {
 		Father fa = new Father();
-		Son son = new Son();
+		Son son = new Son("");
 		System.out.println("子类继承父类的属性name的值:" + son.name);
 		fa.setName("变了");
 		
