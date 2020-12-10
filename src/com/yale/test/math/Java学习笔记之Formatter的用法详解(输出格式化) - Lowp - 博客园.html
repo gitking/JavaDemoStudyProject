@@ -1,0 +1,1955 @@
+<!DOCTYPE html>
+<html lang="zh-cn"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="origin">
+    <meta name="description" content="java.util.Formatter (摘自sun主页)Implements: Closeable, FlushableInner classes: Formatter.BigDecimalLayo">
+    <meta property="og:description" content="java.util.Formatter (摘自sun主页)Implements: Closeable, FlushableInner classes: Formatter.BigDecimalLayo">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Java学习笔记之Formatter的用法详解(输出格式化) - Lowp - 博客园</title>
+    <link id="favicon" rel="shortcut icon" href="https://common.cnblogs.com/favicon.svg" type="image/svg+xml">
+    
+    <link rel="stylesheet" href="Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8BFormatter%E7%9A%84%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3(%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F%E5%8C%96)%20-%20Lowp%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/blog-common.css">
+    <link id="MainCss" rel="stylesheet" href="Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8BFormatter%E7%9A%84%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3(%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F%E5%8C%96)%20-%20Lowp%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/bundle-imetro_hd.css">
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8BFormatter%E7%9A%84%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3(%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F%E5%8C%96)%20-%20Lowp%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/bundle-imetro_hd-mobile.css">
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/Lowp/rss">
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/Lowp/rsd.xml">
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/Lowp/wlwmanifest.xml">
+    <script async="" src="Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8BFormatter%E7%9A%84%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3(%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F%E5%8C%96)%20-%20Lowp%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/analytics.js"></script><script>
+        var currentBlogId = 114145;
+        var currentBlogApp = 'Lowp';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var isBlogOwner = false;
+        var skinName = 'iMetro_HD';
+        var visitorUserId = '';
+    </script>
+        <script>
+            var currentPostDateAdded = '2012-09-16 07:46';
+        </script>
+    <script src="Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8BFormatter%E7%9A%84%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3(%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F%E5%8C%96)%20-%20Lowp%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/jquery-2.js"></script>
+    <script src="Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8BFormatter%E7%9A%84%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3(%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F%E5%8C%96)%20-%20Lowp%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/blog-common.js"></script>
+    
+    
+    
+</head>
+<body class="has-navbar">
+    <a name="top"></a>
+    <div id="bannerbar" class="formobile">
+        <a href="https://brands.cnblogs.com/aws/free?source=mobile-banner" target="_blank" onclick="ga('send', 'event', 'Link', 'click', 'aws-mobile-bannerbar')"><img src="Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8BFormatter%E7%9A%84%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3(%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F%E5%8C%96)%20-%20Lowp%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/35695-20201104135303888-13496776.png" alt=""></a>
+    </div>
+    <div id="top_nav" class="navbar">
+        <nav id="nav_main" class="navbar-main">
+            <ul id="nav_left" class="navbar-list navbar-left">
+                <li class="navbar-branding"><a href="https://www.cnblogs.com/" title="开发者的网上家园"><img src="Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8BFormatter%E7%9A%84%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3(%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F%E5%8C%96)%20-%20Lowp%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/logo.svg" alt="博客园Logo"></a></li>
+                <li><a href="https://www.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-sitehome')">首页</a></li>
+                <li><a href="https://news.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-news')">新闻</a></li>
+                <li><a href="https://q.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-q')">博问</a></li>
+                <li><a id="nav_brandzone" href="https://brands.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-brands')">专区</a></li>
+                <li><a href="https://ing.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-ing')">闪存</a></li>
+                <li><a href="https://brands.cnblogs.com/aws/free" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-aws')">云上钜惠</a></li>
+            </ul>
+            <ul id="nav_right" class="navbar-list navbar-right">
+                <li>
+                    <form id="zzk_search" class="navbar-search" action="https://zzk.cnblogs.com/s" method="get">
+                        <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="text" tabindex="3">
+                        <button type="submit" id="zzk_search_button">
+                            <img src="Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8BFormatter%E7%9A%84%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3(%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F%E5%8C%96)%20-%20Lowp%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/search.svg" alt="搜索">
+                        </button>
+                    </form>
+                </li>
+                <li id="navbar_login_status" class="navbar-list">
+                    <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客" style="display: none;">
+                        <img id="myblog_icon" class="navbar-icon" src="Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8BFormatter%E7%9A%84%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3(%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F%E5%8C%96)%20-%20Lowp%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/myblog.svg" alt="我的博客">
+                    </a>
+                    <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息" style="display: none;">
+                        <img id="msg_icon" class="navbar-icon" src="Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8BFormatter%E7%9A%84%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3(%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F%E5%8C%96)%20-%20Lowp%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/message.svg" alt="短消息">
+                        <span id="msg_count" style="display: none"></span>
+                    </a>
+                    <div id="user_info" class="navbar-user-info dropdown" style="display: none;">
+                        <a class="dropdown-button" href="https://home.cnblogs.com/">
+                            <img id="user_icon" class="navbar-avatar" src="Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8BFormatter%E7%9A%84%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3(%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F%E5%8C%96)%20-%20Lowp%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/avatar-default.svg" alt="用户头像">
+                        </a>
+                        <div class="dropdown-menu">
+                            <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+                            <a href="https://home.cnblogs.com/">我的园子</a>
+                            <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                            <a href="javascript:void(0)" onclick="logout();">退出登录</a>
+                        </div>
+                    </div>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signup/" style="display: inline;">注册</a>
+                    <a class="navbar-anonymous" href="javascript:void(0);" onclick="login()" style="display: inline;">登录</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    
+    <!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/Lowp/"><img id="blogLogo" src="Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8BFormatter%E7%9A%84%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3(%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F%E5%8C%96)%20-%20Lowp%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/logo.gif" alt="返回主页"></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/Lowp/">Lowp</a>
+</h1>
+<h2>
+
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/Lowp/">
+首页</a>
+</li>
+<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/Lowp">
+联系</a></li>
+<li>
+<a id="blog_nav_rss" class="menu" href="javascript:void(0)" data-rss="https://www.cnblogs.com/Lowp/rss/">
+订阅</a>
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			<span id="stats_post_count">随笔 - 
+15&nbsp; </span>
+<span id="stats_article_count">文章 - 
+2&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+6</span>
+
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="post_detail">
+    <!--done-->
+    <div id="topics">
+        <div class="post">
+            <h1 class="postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2 vertical-middle" href="https://www.cnblogs.com/Lowp/archive/2012/09/16/2687745.html">
+    <span>Java学习笔记之Formatter的用法详解(输出格式化)</span>
+    
+
+
+</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                
+<div id="cnblogs_post_body" class="blogpost-body">
+    <p>java.util.Formatter (摘自sun主页)</p>
+
+
+<div class="titledSection"><strong>Implements:</strong> <a href="http://doc.java.sun.com/DocWeb/api/java.io.Closeable">Closeable</a>, <a href="http://doc.java.sun.com/DocWeb/api/java.io.Flushable">Flushable</a></div>
+<div class="titledSection"><strong>Inner classes:</strong> <a href="http://doc.java.sun.com/DocWeb/api/java.util.Formatter.BigDecimalLayoutForm">Formatter.BigDecimalLayoutForm</a></div>
+<p><br>printf 风格的格式字符串的解释程序。此类提供了对布局对齐和排列的支持，以及对数值、字符串和日期/时间数据的常规格式和特定于语言环境的输出的支持。支持诸如 <tt>byte</tt>、<a href="http://doc.java.sun.com/DocWeb/api/java.math.BigDecimal"><code>BigDecimal</code></a> 和 <a href="http://doc.java.sun.com/DocWeb/api/java.util.Calendar"><code>Calendar</code></a> 等常见 Java 类型。任意用户类型的受限格式化定制都是通过 <a href="http://doc.java.sun.com/DocWeb/api/java.util.Formattable"><code>Formattable</code></a>接口提供的。</p>
+<p>Formatter 对于多线程访问而言没必要是安全的。线程安全是可选的，它对此类中的方法用户负责。</p>
+<p>Java 语言的格式化输出在很大程度上受到 C 语言 <tt>printf</tt>的启发。虽然一些格式字符串与 C 
+类似，但已进行了某些定制，以适应 Java 语言，并且利用了其中一些特性。此外，Java 的格式比 C 
+的格式更严格；例如，如果转换与标志不兼容，则会抛出异常。在 C 中，不适用的标志会被忽略。这样，便于 C 程序员识别这些格式字符串，而又不必与 C
+ 中的那些标志完全兼容。</p>
+<p>所期望用法的示例：</p>
+<blockquote>
+<pre> 
+   StringBuilder sb = new StringBuilder();
+   // Send all output to the Appendable object sb
+   Formatter formatter = new Formatter(sb, Locale.US);
+ 
+   // Explicit argument indices may be used to re-order output.
+   formatter.format("%4$2s %3$2s %2$2s %1$2s", "a", "b", "c", "d")
+   // -&gt; " d  c  b  a"
+ 
+   // Optional locale as the first argument can be used to get
+   // locale-specific formatting of numbers.  The precision and width can be
+   // given to round and align the value.
+   formatter.format(Locale.FRANCE, "e = %+10.4f", Math.E);
+   // -&gt; "e =    +2,7183"
+ 
+   // The '(' numeric flag may be used to format negative numbers with
+   // parentheses rather than a minus sign.  Group separators are
+   // automatically inserted.
+   formatter.format("Amount gained or lost since last statement: $ %(,.2f",
+                    balanceDelta);
+   // -&gt; "Amount gained or lost since last statement: $ (6,217.58)"
+ </pre>
+</blockquote>
+<p>常见格式化请求的便捷方法是按照如下调用格式来阐明的：</p>
+<blockquote>
+<pre> 
+   // Writes a formatted string to System.out.
+   System.out.format("Local time: %tT", Calendar.getInstance());
+   // -&gt; "Local time: 13:34:18"
+ 
+   // Writes formatted output to System.err.
+   System.err.printf("Unable to open file '%1$s': %2$s",
+                     fileName, exception.getMessage());
+   // -&gt; "Unable to open file 'food': No such file or directory"
+ </pre>
+</blockquote>
+<p>与 C 语言的 <tt>sprintf(3)</tt> 类似，可以使用静态方法 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.String#format(String,Object...)String.format"><code>String#format(String,Object...)String.format</code></a>来格式化 Strings：</p>
+<blockquote>
+<pre> 
+   // Format a string containing a date.
+   import java.util.Calendar;
+   import java.util.GregorianCalendar;
+   import static java.util.Calendar.*;
+ 
+   Calendar c = new GregorianCalendar(1995, MAY, 23);
+   String s = String.format("Duke's Birthday: %1$tm %1$te,%1$tY", c);
+   // -&gt; s == "Duke's Birthday: May 23, 1995"
+ </pre>
+</blockquote>
+<h3><a name="org"></a>结构</h3>
+<p>此规范分为两部分。第一部分是<a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#summary">摘要</a>，包括基本的格式概念。这一部分是为那些想要快速入门并熟悉其他编程语言的格式化输出的用户准备的。第二部分是<a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#detail">详细信息</a>，包括具体的实现细节。它是为那些需要更精确格式化行为规范的用户准备的。</p>
+<h3><a name="summary"></a>摘要</h3>
+<p>这一部分将提供对格式概念的简单概述。有关精确的行为细节，请参阅<a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#detail">详细信息</a>部分。</p>
+<h4><a name="syntax"></a>格式字符串语法</h4>
+<p>产生格式化输出的每个方法都需要<em>格式字符串</em> 和<em>参数列表</em>。格式字符串是一个 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.String"><code>String</code></a>，它可以包含固定文本以及一个或多个嵌入的<em>格式说明符</em>。请考虑以下示例：</p>
+<blockquote>
+<pre> 
+   Calendar c = ...;
+   String s = String.format("Duke's Birthday: %1$tm %1$te,%1$tY", c);
+ </pre>
+</blockquote>
+<p>此格式字符串是 <tt>format</tt> 方法的第一个参数。它包含三个格式说明符 "<tt>%1$tm</tt>"、"<tt>%1$te</tt>" 和 "<tt>%1$tY</tt>"，它们指出应该如何处理参数以及在文本的什么地方插入它们。格式字符串的其余部分是包括 <tt>"Dukes Birthday: "</tt> 和其他任何空格或标点符号的固定文本。 参数列表由传递给位于格式字符串之后的方法的所有参数组成。在上述示例中，参数列表的大小为 1，由对象 <a href="http://doc.java.sun.com/DocWeb/api/java.util.Calendar"><code>Calendar</code></a> <tt>c</tt>组成。</p>
+<ul>
+<li>常规类型、字符类型和数值类型的格式说明符的语法如下：
+<blockquote>
+<pre> 
+   %[argument_index$][flags][width][.precision]conversion
+ </pre>
+</blockquote>
+<p>可选的 <em>argument_index</em> 是一个十进制整数，用于表明参数在参数列表中的位置。第一个参数由 "<tt>1$</tt>" 引用，第二个参数由 "<tt>2$</tt>" 引用，依此类推。</p>
+<p>可选 <em>flags</em>是修改输出格式的字符集。有效标志集取决于转换类型。</p>
+<p>可选 <em>width</em>是一个非负十进制整数，表明要向输出中写入的最少字符数。</p>
+<p>可选 <em>precision</em>是一个非负十进制整数，通常用来限制字符数。特定行为取决于转换类型。</p>
+<p>所需 <em>conversion</em>是一个表明应该如何格式化参数的字符。给定参数的有效转换集取决于参数的数据类型。</p>
+</li>
+<li>用来表示日期和时间类型的格式说明符的语法如下：
+<blockquote>
+<pre> 
+   %[argument_index$][flags][width]conversion
+ </pre>
+</blockquote>
+<p>可选的 <em>argument_index</em>、<em>flags</em> 和 <em>width</em>的定义同上。</p>
+<p>所需的 <em>conversion</em> 是一个由两字符组成的序列。第一个字符是 <tt>'t'</tt> 或 <tt>'T'</tt>。第二个字符表明所使用的格式。这些字符类似于但不完全等同于那些由 GNU <tt>date</tt> 和 POSIX <tt>strftime(3c)</tt>定义的字符。</p>
+</li>
+<li>与参数不对应的格式说明符的语法如下：
+<blockquote>
+<pre> 
+   %[flags][width]conversion
+ </pre>
+</blockquote>
+<p>可选 <em>flags</em> 和 <em>width</em>的定义同上。</p>
+<p>所需的 <em>conversion</em> 是一个表明要在输出中所插内容的字符。</p>
+</li>
+</ul>
+<h4>转换</h4>
+<p>转换可分为以下几类：</p>
+<ol>
+<li><strong>常规</strong>- 可应用于任何参数类型</li>
+<li><strong>字符</strong> - 可应用于表示 Unicode 字符的基本类型：<tt>char</tt>、<a href="http://doc.java.sun.com/DocWeb/api/java.lang.Character"><code>Character</code></a>、<tt>byte</tt>、<a href="http://doc.java.sun.com/DocWeb/api/java.lang.Byte"><code>Byte</code></a>、<tt>short</tt> 和 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Short"><code>Short</code></a>。当 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Character#isValidCodePoint"><code>Character#isValidCodePoint</code></a> 返回 <tt>true</tt> 时，可将此转换应用于 <tt>int</tt> 和 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Integer"><code>Integer</code></a>类型</li>
+<li><strong>数值</strong><ol>
+<li><strong>整数</strong> - 可应用于 Java 的整数类型：<tt>byte</tt>、<a href="http://doc.java.sun.com/DocWeb/api/java.lang.Byte"><code>Byte</code></a>、<tt>short</tt>、<a href="http://doc.java.sun.com/DocWeb/api/java.lang.Short"><code>Short</code></a>、<tt>int</tt>、<a href="http://doc.java.sun.com/DocWeb/api/java.lang.Integer"><code>Integer</code></a>、<tt>long</tt>、<a href="http://doc.java.sun.com/DocWeb/api/java.lang.Long"><code>Long</code></a> 和 <a href="http://doc.java.sun.com/DocWeb/api/java.math.BigInteger"><code>BigInteger</code></a></li>
+<li><strong>浮点</strong> - 可用于 Java 的浮点类型：<tt>float</tt>、<a href="http://doc.java.sun.com/DocWeb/api/java.lang.Float"><code>Float</code></a>、<tt>double</tt>、<a href="http://doc.java.sun.com/DocWeb/api/java.lang.Double"><code>Double</code></a> 和 <a href="http://doc.java.sun.com/DocWeb/api/java.math.BigDecimal"><code>BigDecimal</code></a></li>
+</ol></li>
+<li><strong>日期/时间</strong> - 可应用于 Java 的、能够对日期或时间进行编码的类型：<tt>long</tt>、<a href="http://doc.java.sun.com/DocWeb/api/java.lang.Long"><code>Long</code></a>、<a href="http://doc.java.sun.com/DocWeb/api/java.util.Calendar"><code>Calendar</code></a> 和 <a href="http://doc.java.sun.com/DocWeb/api/java.util.Date"><code>Date</code></a>。</li>
+<li><strong>百分比</strong> - 产生字面值 <tt>'%'</tt> (<tt>'%'</tt>)</li>
+<li><strong>行分隔符</strong> - 产生特定于平台的行分隔符</li>
+</ol>
+<p>下表总结了受支持的转换。由大写字符（如 <tt>'B'</tt>、<tt>'H'</tt>、<tt>'S'</tt>、<tt>'C'</tt>、<tt>'X'</tt>、<tt>'E'</tt>、<tt>'G'</tt>、<tt>'A'</tt> 和 <tt>'T'</tt>）表示的转换与由相应的小写字符的转换等同，根据流行的 <a href="http://doc.java.sun.com/DocWeb/api/java.util.Locale"><code>Locale</code></a> 规则将结果转换为大写形式除外。后者等同于 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.String#toUpperCase()"><code>String#toUpperCase()</code></a>的以下调用</p>
+<pre> 
+    out.toUpperCase() </pre>
+<table summary="genConv" cellpadding="5">
+<tbody>
+<tr><th valign="bottom">转换参数类别说明<tt>'b'</tt>, <tt>'B'</tt>常规如果参数 <em>arg</em> 为 <tt>null</tt>，则结果为 "<tt>false</tt>"。如果 <em>arg</em> 是一个 <tt>boolean</tt> 值或 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Boolean"><code>Boolean</code></a>，则结果为 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.String#valueOf(boolean)"><code>String.valueOf()</code></a>返回的字符串。否则结果为 "true"。<tt>'h'</tt>, <tt>'H'</tt>常规如果参数 <em>arg</em> 为 <tt>null</tt>，则结果为 "<tt>null</tt>"。否则，结果为调用 <tt>Integer.toHexString(arg.hashCode())</tt>得到的结果。<tt>'s'</tt>, <tt>'S'</tt>常规如果参数 <em>arg</em> 为 <tt>null</tt>，则结果为 "<tt>null</tt>"。如果 <em>arg</em> 实现 <a href="http://doc.java.sun.com/DocWeb/api/java.util.Formattable"><code>Formattable</code></a>，则调用 <a href="http://doc.java.sun.com/DocWeb/api/java.util.Formattable#formatTo"><code>arg.formatTo</code></a>。否则，结果为调用 <tt>arg.toString()</tt>得到的结果。<tt>'c'</tt>, <tt>'C'</tt>字符结果是一个 Unicode 字符<tt>'d'</tt>整数结果被格式化为十进制整数<tt>'o'</tt>整数结果被格式化为八进制整数<tt>'x'</tt>, <tt>'X'</tt>整数结果被格式化为十六进制整数<tt>'e'</tt>, <tt>'E'</tt>浮点结果被格式化为用计算机科学记数法表示的十进制数<tt>'f'</tt>浮点结果被格式化为十进制数<tt>'g'</tt>, <tt>'G'</tt>浮点根据精度和舍入运算后的值，使用计算机科学记数形式或十进制格式对结果进行格式化。<tt>'a'</tt>, <tt>'A'</tt>浮点结果被格式化为带有效位数和指数的十六进制浮点数<tt>'t'</tt>, <tt>'T'</tt>日期/时间日期和时间转换字符的前缀。请参阅<a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#dt">日期/时间转换</a>。<tt>'%'</tt>百分比结果为字面值 <tt>'%'</tt> (<tt>'%'</tt>)<tt>'n'</tt>行分隔符结果为特定于平台的行分隔符</th></tr>
+</tbody>
+</table>
+<p>任何未明确定义为转换的字符都是非法字符，并且都被保留，以供将来扩展使用。</p>
+<h4><a name="dt"></a>日期/时间转换</h4>
+<p>以下日期和时间转换的后缀字符是为 <tt>'t'</tt> 和 <tt>'T'</tt> 转换定义的。这些类型相似于但不完全等同于那些由 GNU <tt>date</tt> 和 POSIX <tt>strftime(3c)</tt> 定义的类型。提供其他转换类型是为了访问特定于 Java 的功能（如将 <tt>'L'</tt>用作秒中的毫秒）。</p>
+<p>以下转换字符用来格式化时间：</p>
+<table summary="time" cellpadding="5">
+<tbody>
+<tr>
+<td valign="top"><tt>'H'</tt>24 小时制的小时，被格式化为必要时带前导零的两位数，即 <tt>00 - 23</tt>。<tt>'I'</tt>12 小时制的小时，被格式化为必要时带前导零的两位数，即 <tt>01 - 12</tt>。<tt>'k'</tt>24 小时制的小时，即 <tt>0 - 23</tt>。<tt>'l'</tt>12 小时制的小时，即 <tt>1 - 12</tt>。<tt>'M'</tt>小时中的分钟，被格式化为必要时带前导零的两位数，即 <tt>00 - 59</tt>。<tt>'S'</tt>分钟中的秒，被格式化为必要时带前导零的两位数，即 <tt>00 - 60</tt> （"<tt>60</tt>" 是支持闰秒所需的一个特殊值）。<tt>'L'</tt>秒中的毫秒，被格式化为必要时带前导零的三位数，即 <tt>000 - 999</tt>。<tt>'N'</tt>秒中的毫微秒，被格式化为必要时带前导零的九位数，即 <tt>000000000 - 999999999</tt>。<tt>'p'</tt>特定于语言环境的 <a href="http://doc.java.sun.com/DocWeb/api/java.text.DateFormatSymbols#getAmPmStrings">上午或下午</a> 标记以小写形式表示，例如 "<tt>am</tt>" 或 "<tt>pm</tt>"。使用转换前缀 <tt>'T'</tt>可以强行将此输出转换为大写形式。<tt>'z'</tt>相对于 GMT 的 <a href="http://www.ietf.org/rfc/rfc0822.txt">RFC&nbsp;822</a> 格式的数字时区偏移量，例如 <tt>-0800</tt>。<tt>'Z'</tt>表示时区缩写形式的字符串。Formatter 的语言环境将取代参数的语言环境（如果有）。<tt>'s'</tt>自协调世界时 (UTC) 1970 年 1 月 1 日 <tt>00:00:00</tt> 至现在所经过的秒数，即 <tt>Long.MIN_VALUE/1000</tt> 与 <tt>Long.MAX_VALUE/1000</tt>之间的差值。<tt>'Q'</tt>自协调世界时 (UTC) 1970 年 1 月 1 日 <tt>00:00:00</tt> 至现在所经过的毫秒数，即 <tt>Long.MIN_VALUE</tt> 与 <tt>Long.MAX_VALUE</tt> 之间的差值。</td>
+</tr>
+</tbody>
+</table>
+<p>以下转换字符用来格式化日期：</p>
+<table summary="date" cellpadding="5">
+<tbody>
+<tr>
+<td valign="top"><tt>'B'</tt>特定于语言环境的<a href="http://doc.java.sun.com/DocWeb/api/java.text.DateFormatSymbols#getMonths">月份全称</a>，例如 <tt>"January"</tt> 和 <tt>"February"</tt>。<tt>'b'</tt>特定于语言环境的<a href="http://doc.java.sun.com/DocWeb/api/java.text.DateFormatSymbols#getShortMonths">月份简称</a>，例如 <tt>"Jan"</tt> 和 <tt>"Feb"</tt>。<tt>'h'</tt>与 <tt>'b'</tt>相同。<tt>'A'</tt>特定于语言环境的<a href="http://doc.java.sun.com/DocWeb/api/java.text.DateFormatSymbols#getWeekdays">星期几</a>全称，例如 <tt>"Sunday"</tt> 和 <tt>"Monday"</tt><tt>'a'</tt>特定于语言环境的<a href="http://doc.java.sun.com/DocWeb/api/java.text.DateFormatSymbols#getShortWeekdays">星期几</a>简称，例如 <tt>"Sun"</tt> 和 <tt>"Mon"</tt><tt>'C'</tt>除以 <tt>100</tt> 的四位数表示的年份，被格式化为必要时带前导零的两位数，即 <tt>00 - 99</tt><tt>'Y'</tt>年份，被格式化为必要时带前导零的四位数（至少），例如，<tt>0092</tt> 等于格里高利历的 <tt>92</tt>CE。<tt>'y'</tt>年份的最后两位数，被格式化为必要时带前导零的两位数，即 <tt>00 - 99</tt>。<tt>'j'</tt>一年中的天数，被格式化为必要时带前导零的三位数，例如，对于格里高利历是 <tt>001 - 366</tt>。<tt>'m'</tt>月份，被格式化为必要时带前导零的两位数，即 <tt>01 - 13</tt>。<tt>'d'</tt>一个月中的天数，被格式化为必要时带前导零两位数，即 <tt>01 - 31</tt><tt>'e'</tt>一个月中的天数，被格式化为两位数，即 <tt>1 - 31</tt>。</td>
+</tr>
+</tbody>
+</table>
+<p>以下转换字符用于格式化常见的日期/时间组合。</p>
+<table summary="composites" cellpadding="5">
+<tbody>
+<tr>
+<td valign="top"><tt>'R'</tt>24 小时制的时间，被格式化为 <tt>"%tH:%tM"</tt><tt>'T'</tt>24 小时制的时间，被格式化为 <tt>"%tH:%tM:%tS"</tt>。<tt>'r'</tt>12 小时制的时间，被格式化为 <tt>"%tI:%tM:%tS %Tp"</tt>。上午或下午标记 (<tt>'%Tp'</tt>) 的位置可能与语言环境有关。<tt>'D'</tt>日期，被格式化为 <tt>"%tm/%td/%ty"</tt>。<tt>'F'</tt><a href="http://www.w3.org/TR/NOTE-datetime">ISO&nbsp;8601</a> 格式的完整日期，被格式化为 <tt>"%tY-%tm-%td"</tt>。<tt>'c'</tt>日期和时间，被格式化为 <tt>"%ta %tb %td %tT %tZ %tY"</tt>，例如 <tt>"Sun Jul 20 16:17:00 EDT 1969"</tt>。</td>
+</tr>
+</tbody>
+</table>
+<p>任何未明确定义为转换的字符都是非法字符，并且都被保留，以供将来扩展使用。</p>
+<h4>标志</h4>
+<p>下表总结了受支持的标志。<em>y</em>表示该标志受指示参数类型支持。</p>
+<table summary="genConv" cellpadding="5">
+<tbody>
+<tr><th valign="bottom">标志常规字符整数浮点日期/时间说明'-'yyyyy结果将是左对齐的。'#'y<sup>1</sup>-y<sup>3</sup>y-结果应该使用依赖于转换类型的替换形式'+'--y<sup>4</sup>y-结果总是包括一个符号'&nbsp;&nbsp;'--y<sup>4</sup>y-对于正值，结果中将包括一个前导空格'0'--yy-结果将用零来填充','--y<sup>2</sup>y<sup>5</sup>-结果将包括特定于语言环境的<a href="http://doc.java.sun.com/DocWeb/api/java.text.DecimalFormatSymbols#getGroupingSeparator">组分隔符</a>'('--y<sup>4</sup>y<sup>5</sup>-结果将是用圆括号括起来的负数</th></tr>
+</tbody>
+</table>
+<p><sup>1</sup> 取决于 <a href="http://doc.java.sun.com/DocWeb/api/java.util.Formattable"><code>Formattable</code></a>的定义。</p>
+<p><sup>2</sup> 只适用于 <tt>'d'</tt>转换。</p>
+<p><sup>3</sup> 只适用于 <tt>'o'</tt>、<tt>'x'</tt> 和 <tt>'X'</tt>转换。</p>
+<p><sup>4</sup> 对 <a href="http://doc.java.sun.com/DocWeb/api/java.math.BigInteger"><code>BigInteger</code></a> 应用 <tt>'d'</tt>、<tt>'o'</tt>、<tt>'x'</tt> 和 <tt>'X'</tt> 转换时，或者对 <tt>byte</tt> 及 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Byte"><code>Byte</code></a>、<tt>short</tt> 及 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Short"><code>Short</code></a>、<tt>int</tt> 及 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Integer"><code>Integer</code></a>、<tt>long</tt> 及 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Long"><code>Long</code></a> 分别应用 <tt>'d'</tt>转换时适用。</p>
+<p><sup>5</sup> 只适用于 <tt>'e'</tt>、<tt>'E'</tt>、<tt>'f'</tt>、<tt>'g'</tt> 和 <tt>'G'</tt>转换。</p>
+<p>任何未显式定义为标志的字符都是非法字符，并且都被保留，以供扩展使用。</p>
+<h4>宽度</h4>
+<p>宽度是将向输出中写入的最少字符数。对于行分隔符转换，不适用宽度，如果提供宽度，则会抛出异常。</p>
+<h4>精度</h4>
+<p>对于常规参数类型，精度是将向输出中写入的最多字符数。</p>
+<p>对于浮点转换 <tt>'e'</tt>、<tt>'E'</tt> 和 <tt>'f'</tt>，精度是小数点分隔符后的位数。如果转换是 <tt>'g'</tt> 或 <tt>'G'</tt>，那么精度是舍入计算后所得数值的所有位数。如果转换是 <tt>'a'</tt> 或 <tt>'A'</tt>，则不必指定精度。</p>
+<p>对于字符、整数和日期/时间参数类型转换，以及百分比和行分隔符转换，精度是不适用的；如果提供精度，则会抛出异常。</p>
+<h4>参数索引</h4>
+<p>参数索引是一个十进制整数，用于表明参数在参数列表中的位置。第一个参数由 "<tt>1$</tt>" 引用，第二个参数由 "<tt>2$</tt>" 引用，依此类推。</p>
+<p>根据位置引用参数的另一种方法是使用 <tt>'&lt;'</tt> (<tt>'&lt;'</tt>) 标志，这将会重用以前格式说明符的参数。例如，以下两条语句产生的字符相同：</p>
+<blockquote>
+<pre> 
+   Calendar c = ...;
+   String s1 = String.format("Duke's Birthday: %1$tm %1$te,%1$tY", c);
+ 
+   String s2 = String.format("Duke's Birthday: %1$tm %&lt;te,%&lt;tY", c);
+ </pre>
+</blockquote>
+<hr>
+<h3><a name="detail"></a>详细信息</h3>
+<p>这一部分将提供格式化行为规范方面的细节，其中包括条件和异常、受支持的数据类型、本地化以及标志、转换和数据类型之间的交互。有关格式化概念的概述，请参阅<a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#summary">摘要</a>。</p>
+<p>任何未明确定义为转换、日期/时间转换前缀或标志的字符都是非法字符，并且这些字符都被保留，以供未来扩展使用。在格式字符串中使用这样的字符会导致抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.UnknownFormatConversionException"><code>UnknownFormatConversionException</code></a> 或 <a href="http://doc.java.sun.com/DocWeb/api/java.util.UnknownFormatFlagsException"><code>UnknownFormatFlagsException</code></a>。</p>
+<p>如果格式说明符包含带有无效值或不受支持的其他值的宽度或精度，则将分别抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.IllegalFormatWidthException"><code>IllegalFormatWidthException</code></a> 或 <a href="http://doc.java.sun.com/DocWeb/api/java.util.IllegalFormatPrecisionException"><code>IllegalFormatPrecisionException</code></a>。</p>
+<p>如果格式说明符包含不适用于对应参数的转换字符，则将抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.IllegalFormatConversionException"><code>IllegalFormatConversionException</code></a>。</p>
+<p>所有指定异常都可能被 <tt>Formatter</tt> 的任何 <tt>format</tt> 方法以及任何 <tt>format</tt> 的便捷方法抛出，比如 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.String#format(String,Object...)String.format"><code>String#format(String,Object...)String.format</code></a> 和 <a href="http://doc.java.sun.com/DocWeb/api/java.io.PrintStream#printf(String,Object...)PrintStream.printf"><code>java.io.PrintStream#printf(String,Object...)PrintStream.printf</code></a>。 String.format} and <a href="http://doc.java.sun.com/DocWeb/api/java.io.PrintStream#printf(String,Object...)"><code>PrintStream.printf</code></a>.</p>
+<p>由大写字符（如 <tt>'B'</tt>、<tt>'H'</tt>、<tt>'S'</tt>、<tt>'C'</tt>、<tt>'X'</tt>、<tt>'E'</tt>、<tt>'G'</tt>、<tt>'A'</tt> 和 <tt>'T'</tt>）表示的转换与那些相应的小写字符表示的转换相同，根据流行的 <a href="http://doc.java.sun.com/DocWeb/api/java.util.Locale"><code>Locale</code></a> 规则将结果转换成大写形式除外。结果等同于 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.String#toUpperCase()"><code>String#toUpperCase()</code></a>的以下调用</p>
+<pre> 
+    out.toUpperCase() </pre>
+<h4><a name="dgen"></a>常规</h4>
+<p>以下常规转换可应用于任何参数类型：</p>
+<table summary="dgConv" cellpadding="5">
+<tbody>
+<tr>
+<td valign="top"><tt>'b'</tt><tt>'b'</tt>将生成 "<tt>true</tt>" 或 "<tt>false</tt>"，由 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Boolean#toString(boolean)"><code>Boolean#toString(boolean)</code></a>返回。
+<p>如果参数为 <tt>null</tt>，则结果为 "<tt>false</tt>"。如果参数是一个 <tt>boolean</tt> 值或 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Boolean"><code>Boolean</code></a>，那么结果是由 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.String#valueOf(boolean)"><code>String.valueOf()</code></a> 返回的字符串。否则结果为 "<tt>true</tt>"。</p>
+<p>如果给出 <tt>'#'</tt> 标志，则将抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.FormatFlagsConversionMismatchException"><code>FormatFlagsConversionMismatchException</code></a>。</p>
+<tt>'B'</tt><tt>'B'</tt><tt>'b'</tt>的大写形式。<tt>'h'</tt><tt>'h'</tt>生成一个表示对象的哈希码值的字符串。
+<p>如果参数 <em>arg</em> 为 <tt>null</tt>，则结果为 "<tt>null</tt>"。否则，结果为调用 <tt>Integer.toHexString(arg.hashCode())</tt>得到的结果。</p>
+<p>如果给出 <tt>'#'</tt> 标志，则将抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.FormatFlagsConversionMismatchException"><code>FormatFlagsConversionMismatchException</code></a>。</p>
+<tt>'H'</tt><tt>'H'</tt><tt>'h'</tt>的大写形式。<tt>'s'</tt><tt>'s'</tt>生成一个字符串。
+<p>如果参数为 <tt>null</tt>，则结果为 "<tt>null</tt>"。如果参数实现了 <a href="http://doc.java.sun.com/DocWeb/api/java.util.Formattable"><code>Formattable</code></a>，则调用其 <a href="http://doc.java.sun.com/DocWeb/api/java.util.Formattable#formatTo"><code>formatTo</code></a> 方法。否则，结果为调用参数的 <tt>toString()</tt>方法得到的结果。</p>
+<p>如果给出 <tt>'#'</tt> 标志，且参数不是 <a href="http://doc.java.sun.com/DocWeb/api/java.util.Formattable"><code>Formattable</code></a>，则将抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.FormatFlagsConversionMismatchException"><code>FormatFlagsConversionMismatchException</code></a>。</p>
+<tt>'S'</tt><tt>'S'</tt><tt>'s'</tt> 的大写形式。</td>
+</tr>
+</tbody>
+</table>
+<p>以下 <a name="dFlags"></a>标志 应用于常规转换：</p>
+<table summary="dFlags" cellpadding="5">
+<tbody>
+<tr>
+<td valign="top"><tt>'-'</tt><tt>'-'</tt>将输出左对齐。根据需要在转换值结尾处添加空格 (<tt>' '</tt>)，以满足字段的最小宽度要求。如果没有提供宽度，则将抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.MissingFormatWidthException"><code>MissingFormatWidthException</code></a>。如果没有给出此标志，则输出将是右对齐的。<tt>'#'</tt><tt>'#'</tt>要求输出使用替换形式。此形式的定义通过转换指定。</td>
+</tr>
+</tbody>
+</table>
+<p><a name="genWidth"></a>宽度 是将向输出中写入的最少字符数。如果转换值的长度小于宽度，则用 <tt>'&nbsp;&nbsp;'</tt> (<tt>\u0020'</tt>) 填充输出，直到字符总数等于宽度为止。默认情况下，是在左边进行填充。如果给出 <tt>'-'</tt>标志，则在右边进行填充。如果没有指定宽度，则没有最小宽度。</p>
+<p>精度是将向输出中写入的最多字符数。精度的应用要先于宽度，因此，即使宽度大于精度，输出也将被截取为 <tt>precision</tt>字符。如果没有指定精度，则对字符数没有明确限制。</p>
+<h4><a name="dchar"></a>字符</h4>
+<p>此转换可应用于 <tt>char</tt> 和 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Character"><code>Character</code></a>。它还可应用于类型 <tt>byte</tt>、<a href="http://doc.java.sun.com/DocWeb/api/java.lang.Byte"><code>Byte</code></a>、<tt>short</tt> 和 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Short"><code>Short</code></a>、 <tt>int</tt> 和 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Integer"><code>Integer</code></a>。当 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Character#isValidCodePoint"><code>Character#isValidCodePoint</code></a> 返回 <tt>true</tt> 时，此转换也可应用于 <tt>int</tt> 和 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Integer"><code>Integer</code></a>。如果返回 <tt>false</tt>，则将抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.IllegalFormatCodePointException"><code>IllegalFormatCodePointException</code></a>。</p>
+<table summary="charConv" cellpadding="5">
+<tbody>
+<tr>
+<td valign="top"><tt>'c'</tt><tt>'c'</tt>将参数格式化为 <a href="http://www.cnblogs.com/DocWeb/img/lang/Character.html#unicode">Unicode Character Representation</a> 中描述的 Unicode 字符。在该参数表示增补字符的情况下，它可能是多个 16 位 <tt>char</tt>。
+<p>如果给出 <tt>'#'</tt> 标志，则将抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.FormatFlagsConversionMismatchException"><code>FormatFlagsConversionMismatchException</code></a>。</p>
+<tt>'C'</tt><tt>'C'</tt><tt>'c'</tt> 的大写形式。</td>
+</tr>
+</tbody>
+</table>
+<p><tt>'-'</tt> 标志是为应用<a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#dFlags">常规转换</a>而定义的。如果给出 <tt>'#'</tt> 标志，则将抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.FormatFlagsConversionMismatchException"><code>FormatFlagsConversionMismatchException</code></a>。</p>
+<p>宽度是为了实现<a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#genWidth">常规转换</a>而定义的。</p>
+<p>精度不适用。如果指定精度，则将抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.IllegalFormatPrecisionException"><code>IllegalFormatPrecisionException</code></a>。</p>
+<h4><a name="dnum"></a>数值</h4>
+<p>数值转换分为以下几类：</p>
+<ol>
+<li><a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#dnint"><strong>Byte、Short、Integer 和 Long</strong></a></li>
+<li><a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#dnbint"><strong>BigInteger</strong></a></li>
+<li><a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#dndec"><strong>Float 和 Double</strong></a></li>
+<li><a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#dndec"><strong>BigDecimal</strong></a></li>
+</ol>
+<p>将根据以下算法对数值类型进行格式化：</p>
+<p><strong><a name="l10n algorithm"></a>数字本地化算法</strong></p>
+<p>在获得数字的整数部分、小数部分和指数（适用于数据类型）之后，将应用以下转换：</p>
+<ol>
+<li>将字符串中的每个数字字符 <em>d</em> 都替换为特定于语言环境的数字，该数字是相对于当前语言环境的<a href="http://doc.java.sun.com/DocWeb/api/java.text.DecimalFormatSymbols#getZeroDigit()">零数字</a> <em>z</em> 来计算的；即 <em>d&nbsp;-&nbsp;</em> <tt>'0'</tt> <em>&nbsp;+&nbsp;z</em>。</li>
+<li>如果存在小数点分隔符，则用特定于语言环境的<a href="http://doc.java.sun.com/DocWeb/api/java.text.DecimalFormatSymbols#getDecimalSeparator">小数点分隔符</a>替换。</li>
+<li>如果给出 <tt>','</tt> (<tt>','</tt>) <a name="l10n group"></a>flag 标志，则插入特定于语言环境的<a href="http://doc.java.sun.com/DocWeb/api/java.text.DecimalFormatSymbols#getGroupingSeparator">组分隔符</a>，这是通过从最低位到最高位浏览字符串的整数部分并不时插入该语言环境<a href="http://doc.java.sun.com/DocWeb/api/java.text.DecimalFormat#getGroupingSize()">组大小</a>定义的分隔符来实现的。</li>
+<li>如果给出 <tt>'0'</tt> 标志，则在符号字符（如果有的话）之后、第一个非零数字前插入特定于语言环境的<a href="http://doc.java.sun.com/DocWeb/api/java.text.DecimalFormatSymbols#getZeroDigit()">零数字</a>，直到字符串长度等于所要求的字段宽度。</li>
+<li>如果该值为负，并且给出了 <tt>'('</tt> 标志，那么预先考虑 <tt>'('</tt> (<tt>'('</tt>)，并追加一个 <tt>')'</tt> (<tt>')'</tt>)。</li>
+<li>如果该值为负（或者为浮点负零），并且没有给出 <tt>'('</tt> 标志，那么预先考虑 <tt>'-'</tt> (<tt>'-'</tt>)。</li>
+<li>如果给出 <tt>'+'</tt> 标志，并且该值为正或零（或者为浮点正零），那么将预先考虑 <tt>'+'</tt> (<tt>'+'</tt>)。</li>
+</ol>
+<p>如果该值为 NaN 或正无穷大，则分别输出文本字符串 "NaN" 或 "Infinity"。如果该值为负无穷大，那么输出将是 "(Infinity)"；否则如果给出 <tt>'('</tt>标志，那么输出将是 "-Infinity"。这些值都没有被本地化。</p>
+<p><a name="dnint"></a><strong>Byte、Short、Integer 和 Long </strong></p>
+<p>以下转换可应用于 <tt>byte</tt>、<a href="http://doc.java.sun.com/DocWeb/api/java.lang.Byte"><code>Byte</code></a>、<tt>short</tt>、<a href="http://doc.java.sun.com/DocWeb/api/java.lang.Short"><code>Short</code></a>、<tt>int</tt>、<a href="http://doc.java.sun.com/DocWeb/api/java.lang.Integer"><code>Integer</code></a>、<tt>long</tt> 和 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Long"><code>Long</code></a>。</p>
+<table summary="IntConv" cellpadding="5">
+<tbody>
+<tr>
+<td valign="top"><tt>'d'</tt><tt>'T'</tt>将参数格式化为十进制整数。应用<a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#l10n%20algorithm">本地化算法</a>。
+<p>如果给出 <tt>'0'</tt>标志，并且值为负，则在符号后填充零。</p>
+<p>如果给出 <tt>'#'</tt> 标志，则将抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.FormatFlagsConversionMismatchException"><code>FormatFlagsConversionMismatchException</code></a>。</p>
+<tt>'o'</tt><tt>'o'</tt>将参数格式化为以 8 为基数的整数。不应用本地化。
+<p>如果 <em>x</em> 为负，那么结果将是通过将 2<sup>n</sup> 添加到值中产生的一个无符号值，其中 <tt>n</tt> 是在适当时候由类 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Byte#SIZE">Byte</a>、<a href="http://doc.java.sun.com/DocWeb/api/java.lang.Short#SIZE">Short</a>、<a href="http://doc.java.sun.com/DocWeb/api/java.lang.Integer#SIZE">Integer</a> 或 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Long#SIZE">Long</a> 中的静态 <tt>SIZE</tt>字段返回的类型中的位数。</p>
+<p>如果给出 <tt>'#'</tt> 标志，则输出将始终以基数指示符 <tt>'0'</tt>开始。</p>
+<p>如果给出 <tt>'0'</tt>标志，则使用前导零填充输出，这些零被填充到以下任意指示符号后面的字段宽度中。</p>
+<p>如果给出 <tt>'('</tt>、<tt>'+'</tt>、'&nbsp;&nbsp;' 或 <tt>'、'</tt> 标志，则将抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.FormatFlagsConversionMismatchException"><code>FormatFlagsConversionMismatchException</code></a>。</p>
+<tt>'x'</tt><tt>'x'</tt>将参数格式化为以 16 为基数的整数。不应用本地化。
+<p>如果 <em>x</em> 为负，那么结果将为把 2<sup>n</sup> 添加到值中产生的一个无符号值，其中 <tt>n</tt> 是在适当时候，由类 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Byte#SIZE">Byte</a>、<a href="http://doc.java.sun.com/DocWeb/api/java.lang.Short#SIZE">Short</a>、<a href="http://doc.java.sun.com/DocWeb/api/java.lang.Integer#SIZE">Integer</a> 或 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Long#SIZE">Long</a> 中的静态 <tt>SIZE</tt>字段返回的类型中的位数。</p>
+<p>如果给出 <tt>'#'</tt> 标志，则输出将始终以基数指示符 <tt>'0x'</tt>开始。</p>
+<p>如果给出 <tt>'0'</tt>标志，则使用前导零填充输出，这些零被填充到基数指示符或符号（如果存在）后面的字段宽度中。</p>
+<p>如果给出 <tt>'('</tt>、<tt>'&nbsp;&nbsp;'</tt>、<tt>'+'</tt> 或 <tt>'、'</tt> 标志，则将抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.FormatFlagsConversionMismatchException"><code>FormatFlagsConversionMismatchException</code></a>。</p>
+<tt>'X'</tt><tt>'X'</tt><tt>'x'</tt> 的大写形式。将表示数字的整个字符串转换为<a href="http://doc.java.sun.com/DocWeb/api/java.lang.String#toUpperCase">大写</a>，其中包括 <tt>'x'</tt> （如果有的话） 和所有十六进制数字 <tt>'a'</tt> - <tt>'f'</tt> (<tt>'a'</tt> - <tt>'f'</tt>)。</td>
+</tr>
+</tbody>
+</table>
+<p>如果该转换是 <tt>'o'</tt>、<tt>'x'</tt> 或 <tt>'X'</tt> 转换，并且给出了 <tt>'#'</tt> 和 <tt>'0'</tt> 标志，那么结果将包含基数指示符（对于八进制是 <tt>'0'</tt>，对于十六进制是 <tt>'0'</tt> 或 <tt>"0x"</tt>）、一定数量的零（基于宽度）和该值。</p>
+<p>如果没有给出 <tt>'-'</tt>标志，则在符号前填充空格。</p>
+<p>以下 <a name="intFlags"></a>标志 应用于数值整数转换：</p>
+<table summary="intFlags" cellpadding="5">
+<tbody>
+<tr>
+<td valign="top"><tt>'+'</tt><tt>'+'</tt>要求所有正数的输出都包含一个正号。如果没有给出此标志，则只有负值包含符号。
+<p>如果同时给出了 <tt>'+'</tt> 和 <tt>'&nbsp;&nbsp;'</tt> 标志，则将抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.IllegalFormatFlagsException"><code>IllegalFormatFlagsException</code></a>。</p>
+<tt>'&nbsp;&nbsp;'</tt><tt>' '</tt>对于非负值的输出，要求包括单个额外空格 (<tt>' '</tt>)。
+<p>如果同时给出了 <tt>'+'</tt> 和 <tt>'&nbsp;&nbsp;'</tt> 标志，则将抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.IllegalFormatFlagsException"><code>IllegalFormatFlagsException</code></a>。</p>
+<tt>'0'</tt><tt>'0'</tt>要求将前导<a href="http://doc.java.sun.com/DocWeb/api/java.text.DecimalFormatSymbols#getZeroDigit">零</a>填充到输出中，这些零被填充到以下任意符号或基数指示符之后，以达到最小字段宽度，转换 NaN 或无穷大时除外。如果没有提供宽度，则将抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.MissingFormatWidthException"><code>MissingFormatWidthException</code></a>。
+<p>如果同时给出 <tt>'-'</tt> 和 <tt>'0'</tt> 标志，则将抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.IllegalFormatFlagsException"><code>IllegalFormatFlagsException</code></a>。</p>
+<tt>','</tt><tt>','</tt>要求输出包括在本地化算法的<a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#l10n%20group">“群”一节</a>中描述的特定于语言环境的<a href="http://doc.java.sun.com/DocWeb/api/java.text.DecimalFormatSymbols#getGroupingSeparator">组分隔符</a>。<tt>'('</tt><tt>'('</tt>要求输出预先考虑 <tt>'('</tt> (<tt>'('</tt>)，并将 <tt>')'</tt> (<tt>')'</tt>) 追加到负值中。</td>
+</tr>
+</tbody>
+</table>
+<p>如果没有给出 <a name="intdFlags"></a>标志 ，则默认格式设置如下：</p>
+<ul>
+<li><tt>width</tt>中的输出是右对齐的</li>
+<li>负数以 <tt>'-'</tt> (<tt>'-'</tt>) 开始</li>
+<li>正数和零不包括符号或额外的前导空格</li>
+<li>不包括组分隔符</li>
+</ul>
+<p>The <a name="intWidth"></a>宽度 是将向输出中写入的最少字符数。这包括所有符号、数字、组分隔符、基数指示符和圆括号。如果转换值的长度小于宽度，则用空格(<tt>'\u0020'</tt>) 填充输出，直到字符总数等于宽度。默认情况下，在左边进行填补。如果给出 <tt>'-'</tt>标志，则在右边进行填补。如果没有指定宽度，则没有最小宽度。</p>
+<p>精度不适用。如果指定精度，则将抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.IllegalFormatPrecisionException"><code>IllegalFormatPrecisionException</code></a>。</p>
+<p><a name="dnbint"></a><strong>BigInteger </strong></p>
+<p>以下转换可应用于 <a href="http://doc.java.sun.com/DocWeb/api/java.math.BigInteger"><code>java.math.BigInteger</code></a>。</p>
+<table summary="BIntConv" cellpadding="5">
+<tbody>
+<tr>
+<td valign="top"><tt>'d'</tt><tt>'T'</tt>要求将输出格式化为十进制整数。应用<a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#l10n%20algorithm">本地化算法</a>。
+<p>如果给出 <tt>'#'</tt> 标志，则将抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.FormatFlagsConversionMismatchException"><code>FormatFlagsConversionMismatchException</code></a>。</p>
+<tt>'o'</tt><tt>'o'</tt>要求将输出格式化为以 8 为基数的整数。不应用本地化。
+<p>如果 <em>x</em> 为负，那么结果将是以 <tt>'-'</tt> (<tt>'\u002d'</tt>) 开始的有符号值。允许对这种类型使用有符号输出，因为它不同于基本类型，在没有假定显式数据类型大小的情况下，不可能创建无符号的等效值。</p>
+<p>如果 <em>x</em> 为正数或零，且给出了 <tt>'+'</tt> 标志，那么结果是以 <tt>'+'</tt> (<tt>'+'</tt>) 开始的。</p>
+<p>如果给出 <tt>'#'</tt> 标志，那么输出将始终以 <tt>'0'</tt>前缀开始。</p>
+<p>如果给出 <tt>'0'</tt>标志，那么将使用前导零填充输出，这些零被填充到指示符后的字段宽度中。</p>
+<p>如果给出 <tt>','</tt> 标志，则将抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.FormatFlagsConversionMismatchException"><code>FormatFlagsConversionMismatchException</code></a>。</p>
+<tt>'x'</tt><tt>'x'</tt>要求将输出格式化为以 16 为基数的整数。不应用本地化。
+<p>如果 <em>x</em> 为负，那么结果是以 <tt>'-'</tt> (<tt>'_apos;</tt>) 开始的有符号值。此类型允许使用有符号输出，因为与基本类型不同，如果不假定明确的数据类型大小，则不可能创建无符号的等效数。</p>
+<p>如果 <em>x</em> 为正数或零，且给出了 <tt>'+'</tt> 标志，那么结果以 <tt>'+'</tt> (<tt>'+'</tt>) 开始。</p>
+<p>如果给出 <tt>'#'</tt> 标志，那么输出将始终以基数指示符 <tt>'0x'</tt>开始。</p>
+<p>如果给出 <tt>'0'</tt>标志，那么将使用前导零填充输出，这些零被填充到基数指示符或符号（如果存在）后面的字段宽度中。</p>
+<p>如果给出 <tt>','</tt> 标志，则将抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.FormatFlagsConversionMismatchException"><code>FormatFlagsConversionMismatchException</code></a>。</p>
+<tt>'X'</tt><tt>'X'</tt><tt>'x'</tt> 的大写形式。将表示数字的整个字符串转换为<a href="http://doc.java.sun.com/DocWeb/api/java.lang.String#toUpperCase">大写</a>，其中包括 <tt>'x'</tt>（如果有的话）和所有十六进制数字 <tt>'a'</tt> - <tt>'f'</tt> (<tt>'a'</tt> - <tt>'f'</tt>)。</td>
+</tr>
+</tbody>
+</table>
+<p>如果该转换是 <tt>'o'</tt>、<tt>'x'</tt> 或 <tt>'X'</tt>，并且给出了 <tt>'#'</tt> 和 <tt>'0'</tt> 标志，那么结果将包含基数指示符（对于八进制是 <tt>'0'</tt>，对于十六进制是 <tt>'0'</tt> 或 <tt>"0x"</tt>）、一定数量的零（基于宽度）和该值。</p>
+<p>如果给出 <tt>'0'</tt>标志，并且值为负，则在符号后填充零。</p>
+<p>如果没有给出 <tt>'-'</tt>标志，则在符号前填充空格。</p>
+<p>应用为 Byte、Short、Integer 和 Long 定义的所有<a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#intFlags">标志</a>。没有给出标志时的<a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#intdFlags">默认行为</a>与 Byte、Short、Integer 和 Long 的行为相同。</p>
+<p><a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#intWidth">宽度</a>的规范与为 Byte、Short、Integer 和 Long 定义的规范相同。</p>
+<p>精度不适用。如果指定精度，则将抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.IllegalFormatPrecisionException"><code>IllegalFormatPrecisionException</code></a>。</p>
+<p><a name="dndec"></a><strong>Float 和 Double</strong></p>
+<p>以下转换可应用于 <tt>float</tt>、<a href="http://doc.java.sun.com/DocWeb/api/java.lang.Float"><code>Float</code></a>、<tt>double</tt> 和 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Double"><code>Double</code></a>。</p>
+<table summary="floatConv" cellpadding="5">
+<tbody>
+<tr>
+<td valign="top"><tt>'e'</tt><tt>'e'</tt>要求使用<a name="scientific"></a>科学记数法来格式化输出。应用<a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#l10n%20algorithm">本地化算法</a>。
+<p>数值 <em>m</em>的格式取决它的值。</p>
+<p>如果 <em>m</em>是 NaN 或无穷大，则分别输出文本字符串 "NaN" 或 "Infinity"。这些值都没有被本地化。</p>
+<p>如果 <em>m</em> 是正零或负零，则指数将是 <tt>"+00"</tt>。</p>
+<p>否则，结果是表示变量的符号和大小（绝对值）的字符串。符号的格式在<a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#l10n%20algorithm">本地化算法</a>中已经描述。数值 <em>m</em>的格式取决它的值。</p>
+<p>让 <em>n</em> 成为满足 10<sup><em>n</em></sup> &lt;= <em>m</em> &lt; 10<sup><em>n</em>+1</sup> 的唯一整数；让 <em>a</em> 成为 <em>m</em> 和 10<sup><em>n</em></sup> 的精确算术商数值，且满足 1 &lt;= <em>a</em> &lt; 10。然后将该数值解释为 <em>a</em> 的整数部分，因为是一个小数位数，所以后面跟着小数点分隔符，再后面是表示 <em>a</em> 的小数部分的小数位数，后跟指数符号 <tt>'e'</tt> (<tt>'e'</tt>)，这之后是指数符号，后跟十进制整数形式表示的 <em>n</em>，它由方法 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Long#toString(long,"><code>int)</code></a>产生，并用零填充，使其至少包括两个位数。</p>
+<p>在结果中，<em>m</em> 或 <em>a</em> 的小数部分的位数等于精度。如果没有指定精度，则默认值为 <tt>6</tt>。如果精度小于将出现在分别由 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Float#toString(float)"><code>Float#toString(float)</code></a> 或 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Double#toString(double)"><code>Double#toString(double)</code></a> 返回的字符串中的小数点之后的位数，则使用<a href="http://doc.java.sun.com/DocWeb/api/java.math.BigDecimal#ROUND_HALF_UP">四舍五入算法</a>对该值进行舍入运算。否则，可能通过追加零来达到所需精度。要获得该值的规范表示形式，请在适当时候使用 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Float#toString(float)"><code>Float#toString(float)</code></a> 或 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Double#toString(double)"><code>Double#toString(double)</code></a>。</p>
+<p>如果给出 <tt>','</tt> 标志，则将抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.FormatFlagsConversionMismatchException"><code>FormatFlagsConversionMismatchException</code></a>。</p>
+<tt>'E'</tt><tt>'E'</tt><tt>'e'</tt> 的大写形式。指数符号将是 <tt>'E'</tt> (<tt>'E'</tt>)。<tt>'g'</tt><tt>'g'</tt>要求将输出格式化为下面描述的常规科学记数形式。应用<a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#l10n%20algorithm">本地化算法</a>。
+<p>在对精度进行舍入运算后，所得数值 <em>m</em>的格式取决于它的值。</p>
+<p>如果 <em>m</em> 大于等于 10<sup>-4</sup> 但小于 10<sup>精度</sup>，则以<em><a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#decimal">十进制形式</a></em>表示它。</p>
+<p>如果 <em>m</em> 小于 10<sup>-4</sup> 或者大于等于 10<sup>精度</sup>，则以<em><a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#scientific">计算机科学记数法</a></em>表示它。</p>
+<p><em>m</em> 中的总有效位数等于其精度。如果没有指定精度，则其默认值为 <tt>6</tt>。如果精度为 <tt>0</tt>，则该值将为 <tt>1</tt>。</p>
+<p>如果给出 <tt>'#'</tt> 标志，则将抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.FormatFlagsConversionMismatchException"><code>FormatFlagsConversionMismatchException</code></a>。</p>
+<tt>'G'</tt><tt>'G'</tt><tt>'g'</tt>的大写形式。<tt>'f'</tt><tt>'f'</tt>要求使用<a name="decimal"></a>十进制形式来格式化输出。使用<a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#l10n%20algorithm">本地化算法</a>。
+<p>结果是表示参数的符号和大小（绝对值）的字符串。符号的格式在<a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#l10n%20algorithm">本地化算法</a>中已经描述。数值 <em>m</em>的格式取决它的值。</p>
+<p>如果 <em>m</em>是 NaN 或无穷大，则将分别输出文本字符串 "NaN" 或 "Infinity"。这些值都没有被本地化。</p>
+<p>将数值格式化为 <em>m</em> 的整数部分（不带前导零），后跟小数点分隔符，再后面是表示 <em>m</em>的小数部分的一个或多个十进制数字。</p>
+<p>在结果中，<em>m</em> 或 <em>a</em> 的小数部分的位数等于精度。如果没有指定精度，则默认值为 <tt>6</tt>。如果该精度小于将要出现在分别由 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Float#toString(float)"><code>Float#toString(float)</code></a> 或 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Double#toString(double)"><code>Double#toString(double)</code></a> 返回的字符串中的小数点之后的位数，则使用<a href="http://doc.java.sun.com/DocWeb/api/java.math.BigDecimal#ROUND_HALF_UP">四舍五入算法</a>对该值进行舍入运算。否则，可能通过追加零来达到所需精度。要获得该值的规范表示形式，请在适当时候使用 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Float#toString(float)"><code>Float#toString(float)</code></a> 或 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Double#toString(double)"><code>Double#toString(double)</code></a>。</p>
+<tt>'a'</tt><tt>'a'</tt>要求将输出格式化为十六进制指数形式。不应用本地化。
+<p>结果是表示参数 <em>x</em>的符号和大小（绝对值）的字符串。</p>
+<p>如果 <em>x</em> 为负值或负零值，那么结果将以 <tt>'-'</tt> (<tt>'-'</tt>) 开始。</p>
+<p>如果 <em>x</em> 为正值或正零值，且给出了 <tt>'+'</tt> 标志，那么结果将以 <tt>'+'</tt> (<tt>'+'</tt>) 开始。</p>
+<p>数值 <em>m</em>的格式取决它的值。</p>
+<ul>
+<li>如果该值是 NaN 或无穷大，则将分别输出文本字符串 "NaN" 或 "Infinity"。</li>
+<li>如果 <em>m</em> 等于零，则用字符串 <tt>"0x0.0p0"</tt>表示它。</li>
+<li>如果 <em>m</em> 是具有标准化表现形式的 <tt>double</tt> 值，则用子字符串来表示有效位数和指数字段。有效位数是用字符串 <tt>"0x1."</tt> 表示的，后跟该有效位数小数部分的十六进制表示形式。指数用 <tt>'p'</tt> (<tt>'p'</tt>) 表示，后跟无偏指数的十进制字符串，该值是对指数值调用 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Integer#toString(int)"><code>Integer.toString</code></a>所产生的。</li>
+<li>如果 <em>m</em> 是具有低正常表现形式的 <tt>double</tt> 值，则用字符 <tt>"0x0."</tt> 表示有效位数，后跟该有效位数小数部分的十六进制表示。用 <tt>'p-1022'</tt> 表示指数。注意，在低正常有效位数中，至少必须有一个非零数字。</li>
+</ul>
+<p>如果给出 <tt>'('</tt> 或 <tt>','</tt> 标志，则将抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.FormatFlagsConversionMismatchException"><code>FormatFlagsConversionMismatchException</code></a>。</p>
+<tt>'A'</tt><tt>'A'</tt><tt>'a'</tt> 的大写形式。表示数字的整个字符串将被转换为大写形式，其中包括 <tt>'x'</tt> (<tt>'x'</tt>) 和 <tt>'p'</tt> (<tt>'p'</tt> 以及所有的十六进制数字 <tt>'a'</tt> - <tt>'f'</tt> (<tt>'a'</tt> - <tt>'f'</tt>)。</td>
+</tr>
+</tbody>
+</table>
+<p>应用为 Byte、Short、Integer 和 Long 定义的所有<a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#intFlags">标志</a>。</p>
+<p>如果给出 <tt>'#'</tt>标志，则将始终存在小数点分隔符。</p>
+<p>如果没有给出 <a name="floatdFlags"></a>标志 则默认格式设置如下：</p>
+<ul>
+<li><tt>width</tt>中的输出是右对齐的。</li>
+<li>负数以 <tt>'-'</tt>开头</li>
+<li>正数和正零不包括符号或额外的前导空格</li>
+<li>不包括组分隔符</li>
+<li>小数点分隔符只在后面有数字时才出现</li>
+</ul>
+<p>The <a name="floatDWidth"></a>宽度 是将向输出中写入的最少字符数。这包括可应用的所有符号、数字、组分隔符、小数点分隔符、指数符号、基数指示符、圆括号和表示无穷大和 NaN 的字符串。如果转换值的长度小于宽度，则用空格(<tt>'\u0020'</tt>) 填充输出，直到字符总数等于宽度。默认情况下，在左边进行填充。如果给出 <tt>'-'</tt>标志，则在右边进行填充。如果没有指定宽度，则没有最小宽度。</p>
+<p>如果 <a name="floatDPrec"></a>转换 是 <tt>'e'</tt>、<tt>'E'</tt> 或 <tt>'f'</tt>，则精度是小数点分隔符后的位数。如果没有指定精度，则假定精度为 <tt>6</tt>。</p>
+<p>如果转换是 <tt>'g'</tt> 或 <tt>'G'</tt> 转换，那么精度就是舍入运算后所得数值的总有效位数。如果没有指定精度，则默认值为 <tt>6</tt>。如果精度为 <tt>0</tt>，则该值将为 <tt>1</tt>。</p>
+<p>如果转换是 <tt>'a'</tt> 或 <tt>'A'</tt> 转换，则精度是小数点分隔符后十六进制数字的位数。如果没有提供精度，则将输出 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Double#toHexString(double)"><code>Double#toHexString(double)</code></a>返回的所有数字。</p>
+<p><a name="dndec"></a><strong>BigDecimal </strong></p>
+<p>以下转换可应用于 <a href="http://doc.java.sun.com/DocWeb/api/java.math.BigDecimal"><code>BigDecimal</code></a>。</p>
+<table summary="floatConv" cellpadding="5">
+<tbody>
+<tr>
+<td valign="top"><tt>'e'</tt><tt>'e'</tt>要求使用<a name="scientific"></a>计算机科学记数法对输出进行格式化。应用<a href="#l10n algorithm">本地化算法</a>。
+<p>数值 <em>m</em>的格式取决于它的值。</p>
+<p>如果 <em>m</em> 为正零或负零，则指数将为 <tt>"+00"</tt>。</p>
+<p>否则，结果是表示参数的符号和大小（绝对值）的字符串。符号的格式在<a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#l10n%20algorithm">本地化算法</a>中已经描述。数值 <em>m</em>的格式取决于它的值。</p>
+<p>让 <em>n</em> 成为满足 10<sup><em>n</em></sup> &lt;= <em>m</em> &lt; 10<sup><em>n</em>+1</sup> 的唯一整数；让 <em>a</em> 成为 <em>m</em> 和 10<sup><em>n</em></sup> 的精确算术商数值，且满足 1 &lt;= <em>a</em> &lt; 10。然后将该数值解释为 <em>a</em> 的整数部分，因为是一个小数位数，所以后面跟着小数点分隔符，再后面是表示 <em>a</em> 的小数部分的小数位数，后跟指数符号 <tt>'e'</tt> (<tt>'e'</tt>)，这之后是指数符号，后跟十进制整数形式表示的 <em>n</em>，它由方法 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Long#toString(long,"><code>int)</code></a>产生，并用零填充，使其至少包括两个位数。</p>
+<p>在结果中，<em>m</em> 或 <em>a</em> 的小数部分的位数等于精度。如果没有指定精度，则默认值为 <tt>6</tt>。如果精度小于将出现在分别由 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Float#toString(float)"><code>Float#toString(float)</code></a> 或 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Double#toString(double)"><code>Double#toString(double)</code></a> 返回的字符串中的小数点之后的位数，则使用<a href="http://doc.java.sun.com/DocWeb/api/java.math.BigDecimal#ROUND_HALF_UP">四舍五入算法</a>对该值进行舍入运算。否则，可能通过追加零来达到所需精度。要获得该值的规范表示形式，请使用 <a href="http://doc.java.sun.com/DocWeb/api/java.math.BigDecimal#toString()"><code>BigDecimal#toString()</code></a>。</p>
+<p>如果给出 <tt>','</tt> 标志，则将抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.FormatFlagsConversionMismatchException"><code>FormatFlagsConversionMismatchException</code></a>。</p>
+<tt>'E'</tt><tt>'E'</tt><tt>'e'</tt> 的大写形式。指数符号将是 <tt>'E'</tt> (<tt>'E'</tt>)。<tt>'g'</tt><tt>'g'</tt>要求将输出格式化为下面描述的常规科学记数形式。应用<a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#l10n%20algorithm">本地化算法</a>。
+<p>在对精度进行舍入运算后，所得数值 <em>m</em>的格式取决于它的值。</p>
+<p>如果 <em>m</em> 大于等于 10<sup>-4</sup> 但小于 10<sup>精度</sup>，则以<em><a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#decimal">十进制形式</a></em>表示它。</p>
+<p>如果 <em>m</em> 小于 10<sup>-4</sup> 或者大于等于 10<sup>精度</sup>，则以<em><a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#scientific">计算机科学记数法</a></em>表示它。</p>
+<p><em>m</em> 中的总的有效位数等于精度。如果没有指定精度，则默认值为 <tt>6</tt>。如果精度为 <tt>0</tt>，则该值将为 <tt>1</tt>。</p>
+<p>如果给出 <tt>'#'</tt> 标志，则将抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.FormatFlagsConversionMismatchException"><code>FormatFlagsConversionMismatchException</code></a>。</p>
+<tt>'G'</tt><tt>'G'</tt><tt>'g'</tt>的大写形式。<tt>'f'</tt><tt>'f'</tt>要求使用<a name="decimal"></a>十进制形式来格式化输出。应用<a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#l10n%20algorithm">本地化算法</a>。
+<p>结果是表示参数的符号和大小（绝对值）的字符串。符号的格式在<a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#l10n%20algorithm">本地化算法</a>中已经描述。数值 <em>m</em>的格式取决于它的值。</p>
+<p>将该数值格式化为 <em>m</em> 的整数部分（不带前导零），后跟小数点分隔符，再后面是表示 <em>m</em>的小数部分的一个或多个十进制数字。</p>
+<p>在结果中，<em>m</em> 或 <em>a</em> 的小数部分的位数等于精度。如果没有指定精度，则默认值为 <tt>6</tt>。如果精度小于将出现在分别由 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Float#toString(float)"><code>Float#toString(float)</code></a> 或 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Double#toString(double)"><code>Double#toString(double)</code></a> 返回的字符串中的小数点之后的位数，则使用<a href="http://doc.java.sun.com/DocWeb/api/java.math.BigDecimal#ROUND_HALF_UP">四舍五入算法</a>对该值进行舍入运算。否则，可能通过追加零来达到所需精度。要获得该值的规范表示形式，请使用 <a href="http://doc.java.sun.com/DocWeb/api/java.math.BigDecimal#toString()"><code>BigDecimal#toString()</code></a>。</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>应用为 Byte、Short、Integer 和 Long 定义的所有<a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#intFlags">标志</a>。</p>
+<p>如果给出 <tt>'#'</tt>标志，则将始终存在小数点分隔符。</p>
+<p>没有给出标志时的<a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#floatdFlags">默认行为</a>与 Float 和 Double 的行为相同。</p>
+<p><a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#floatDWidth">宽度</a>和<a href="#floatDPrec">精度</a>的规范与为 Float 和 Double 定义的规范相同。</p>
+<h4><a name="ddt"></a>日期/时间</h4>
+<p>此转换可应用于 <tt>long</tt>、<a href="http://doc.java.sun.com/DocWeb/api/java.lang.Long"><code>Long</code></a>、<a href="http://doc.java.sun.com/DocWeb/api/java.util.Calendar"><code>Calendar</code></a> 和 <a href="http://doc.java.sun.com/DocWeb/api/java.util.Date"><code>Date</code></a>。</p>
+<table summary="DTConv" cellpadding="5">
+<tbody>
+<tr>
+<td valign="top"><tt>'t'</tt><tt>'t'</tt>日期和时间转换字符的前缀。<tt>'T'</tt><tt>'T'</tt><tt>'t'</tt> 的大写形式。</td>
+</tr>
+</tbody>
+</table>
+<p>以下日期和时间转换字符后缀是为 <tt>'t'</tt> 和 <tt>'T'</tt> 转换定义的。这些类型类似于但不完全等同于 GNU <tt>date</tt> 和 POSIX <tt>strftime(3c)</tt> 定义的那些类型。提供其他转换类型是为了访问特定于 Java 的功能（例如，<tt>'L'</tt>用于秒中的毫秒）。</p>
+<p>以下转换字符用来格式化时间：</p>
+<table summary="time" cellpadding="5">
+<tbody>
+<tr>
+<td valign="top"><tt>'H'</tt><tt>'H'</tt>24 小时制的小时，被格式化为必要时带前导零的两位数，即 <tt>00 - 23</tt>。<tt>00</tt>对应午夜。<tt>'I'</tt><tt>'I'</tt>12 小时制的小时，被格式化为必要时带前导零的两位数，即 <tt>01 - 12</tt>。<tt>01</tt>对应于 1 点钟（上午或下午）。<tt>'k'</tt><tt>'k'</tt>24 小时制的小时，即 <tt>0 - 23</tt>。<tt>0</tt>对应于午夜。<tt>'l'</tt><tt>'l'</tt>12 小时制的小时，即 <tt>1 - 12</tt>。<tt>1</tt>对应于上午或下午的一点钟。<tt>'M'</tt><tt>'M'</tt>小时中的分钟，被格式化为必要时带前导零的两位数，即 <tt>00 - 59</tt>。<tt>'S'</tt><tt>'S'</tt>分钟中的秒，被格式化为必要时带前导零的两位数，即 <tt>00 - 60</tt>（"<tt>60</tt>" 是支持闰秒所需的一个特殊值）。<tt>'L'</tt><tt>'L'</tt>秒中的毫秒，被格式化为必要时带前导零的三位数，即 <tt>000 - 999</tt>。<tt>'N'</tt><tt>'N'</tt>秒中的毫微秒，被格式化为必要时带前导零的九位数，即 <tt>000000000 - 999999999</tt>。此值的精度受底层操作系统或硬件解析的限制。<tt>'p'</tt><tt>'p'</tt>特定于语言环境的<a href="http://doc.java.sun.com/DocWeb/api/java.text.DateFormatSymbols#getAmPmStrings">上午或下午</a>标记以小写形式表示，例如 "<tt>am</tt>" 或 "<tt>pm</tt>"。使用转换前缀 <tt>'T'</tt> 可以强行将此输出转换为大写形式。（注意，<tt>'p'</tt> 产生的输出是小写的。而 GNU <tt>date</tt> 和 POSIX <tt>strftime(3c)</tt>产生的输出是大写的。）<tt>'z'</tt><tt>'z'</tt>相对于 GMT 的 <a href="http://www.ietf.org/rfc/rfc0822.txt">RFC&nbsp;822</a> 格式的数字时区偏移量，例如 <tt>-0800</tt>。<tt>'Z'</tt><tt>'Z'</tt>表示时区的缩写形式的字符串。<tt>'s'</tt><tt>'s'</tt>自协调世界时 (UTC) 1970 年 1 月 1 日 <tt>00:00:00</tt> 至现在所经过的秒数，也就是 <tt>Long.MIN_VALUE/1000</tt> 与 <tt>Long.MAX_VALUE/1000</tt>之间的差值。<tt>'Q'</tt><tt>'O'</tt>自协调世界时 (UTC) 1970 年 1 月 1 日 <tt>00:00:00</tt> 至现在所经过的毫秒数，即 <tt>Long.MIN_VALUE</tt> 与 <tt>Long.MAX_VALUE</tt> 之间的差值。此值的精度受底层操作系统或硬件解析的限制。</td>
+</tr>
+</tbody>
+</table>
+<p>以下转换字符用来格式化日期：</p>
+<table summary="date" cellpadding="5">
+<tbody>
+<tr>
+<td valign="top"><tt>'B'</tt><tt>'B'</tt>特定于语言环境的<a href="http://doc.java.sun.com/DocWeb/api/java.text.DateFormatSymbols#getMonths">完整月份名称</a>，例如 <tt>"January"</tt> 和 <tt>"February"</tt>。<tt>'b'</tt><tt>'b'</tt>特定于语言环境的<a href="http://doc.java.sun.com/DocWeb/api/java.text.DateFormatSymbols#getShortMonths">月份简称</a>，例如 <tt>"Jan"</tt> 和 <tt>"Feb"</tt>。<tt>'h'</tt><tt>'h'</tt>与 <tt>'b'</tt>相同。<tt>'A'</tt><tt>'A'</tt>特定于语言环境的<a href="http://doc.java.sun.com/DocWeb/api/java.text.DateFormatSymbols#getWeekdays">星期几</a>的全称，例如 <tt>"Sunday"</tt> 和 <tt>"Monday"</tt><tt>'a'</tt><tt>'a'</tt>特定于语言环境的<a href="http://doc.java.sun.com/DocWeb/api/java.text.DateFormatSymbols#getShortWeekdays">星期几</a>的简称，例如 <tt>"Sun"</tt> 和 <tt>"Mon"</tt><tt>'C'</tt><tt>'C'</tt>除以 <tt>100</tt> 的四位数表示的年份，被格式化为必要时带前导零的两位数，即 <tt>00 - 99</tt><tt>'Y'</tt><tt>'Y'</tt>年份，被格式化为必要时带前导零的四位数（至少），例如 <tt>0092</tt> 等于格里高利历的 <tt>92</tt>CE。<tt>'y'</tt><tt>'y'</tt>年份的最后两位数，被格式化为必要时带前导零的两位数，即 <tt>00 - 99</tt>。<tt>'j'</tt><tt>'j'</tt>一年中的天数，被格式化为必要时带前导零的三位数，例如，对于格里高利历是 <tt>001 - 366</tt>。<tt>001</tt>对应于一年中的第一天。<tt>'m'</tt><tt>'m'</tt>月份，被格式化为必要时带前导零的两位数，即 <tt>01 - 13</tt>，其中 "<tt>01</tt>" 是一年的第一个月，("<tt>13</tt>" 是支持阴历所需的一个特殊值）。<tt>'d'</tt><tt>'d'</tt>一个月中的天数，被格式化为必要时带前导零的两位数，即 <tt>01 - 31</tt>，其中 "<tt>01</tt>" 是一个月的第一天。<tt>'e'</tt><tt>'e'</tt>一个月中的天数，被格式化为两位数，即 <tt>1 - 31</tt>，其中 "<tt>1</tt>" 是一个月中的第一天。</td>
+</tr>
+</tbody>
+</table>
+<p>以下转换字符用于格式化常见的日期/时间组合。</p>
+<table summary="composites" cellpadding="5">
+<tbody>
+<tr>
+<td valign="top"><tt>'R'</tt><tt>'R'</tt>24 小时制的时间，被格式化为 <tt>"%tH:%tM"</tt><tt>'T'</tt><tt>'T'</tt>24 小时制的时间，被格式化为 <tt>"%tH:%tM:%tS"</tt>。<tt>'r'</tt><tt>'r'</tt>12 小时制的时间，被格式化为 <tt>"%tI:%tM:%tS %Tp"</tt>。上午或下午标记 (<tt>'%Tp'</tt>) 的位置可能与地区有关。<tt>'D'</tt><tt>'D'</tt>日期，被格式化为 <tt>"%tm/%td/%ty"</tt>。<tt>'F'</tt><tt>'F'</tt><a href="http://www.w3.org/TR/NOTE-datetime">ISO&nbsp;8601</a> 格式的完整日期，被格式化为 <tt>"%tY-%tm-%td"</tt>。<tt>'c'</tt><tt>'c'</tt>日期和时间，被格式化为 <tt>"%ta %tb %td %tT %tZ %tY"</tt>，例如 <tt>"Sun Jul 20 16:17:00 EDT 1969"</tt>。</td>
+</tr>
+</tbody>
+</table>
+<p>应用为<a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#dFlags">常规转换</a>而定义的 <tt>'-'</tt> 标志。如果给出 <tt>'#'</tt> 标志，则将抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.FormatFlagsConversionMismatchException"><code>FormatFlagsConversionMismatchException</code></a>。</p>
+<p><a name="dtWidth"></a>宽度 是将向输出中写入的最少字符数。如果转换值的长度小于 <tt>width</tt>，则用空格(<tt>' '</tt>) 来填充输出，直到总字符数等于宽度。默认情况下，在左边进行填充。如果给出 <tt>'-'</tt>标志，则在右边进行填充。如果没有指定宽度，则没有最小宽度。</p>
+<p>精度不适用。如果指定了精度，则将抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.IllegalFormatPrecisionException"><code>IllegalFormatPrecisionException</code></a>。</p>
+<h4><a name="dper"></a>百分比</h4>
+<p>该转换不对应于任何参数。</p>
+<table summary="DTConv" cellpadding="5">
+<tbody>
+<tr>
+<td valign="top"><tt>'%'</tt>结果是一个字面值 <tt>'%'</tt> (<tt>'%'</tt>)
+<p><a name="dtWidth"></a>宽度 是将向输出中写入的最少字符数，包括 <tt>'%'</tt>。如果转换值的长度小于 <tt>width</tt>，则用空格 (<tt>' '</tt>) 来填充输出，直到总字符数等于宽度。在左边进行填充。如果没有指定宽度，则只输出 <tt>'%'</tt>。</p>
+<p>应用为<a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#dFlags">常规转换</a>而定义的 <tt>'-'</tt> 标志。如果提供其他任何标志，则将抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.FormatFlagsConversionMismatchException"><code>FormatFlagsConversionMismatchException</code></a>。</p>
+<p>精度不适用。如果指定精度，则将抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.IllegalFormatPrecisionException"><code>IllegalFormatPrecisionException</code></a>。</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h4><a name="dls"></a>行分隔符</h4>
+<p>该转换不对应于任何参数。</p>
+<table summary="DTConv" cellpadding="5">
+<tbody>
+<tr>
+<td valign="top"><tt>'n'</tt>由 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.System#getProperty"><code>System.getProperty("line.separator")</code></a> 返回的特定于平台的行分隔符。</td>
+</tr>
+</tbody>
+</table>
+<p>标志、宽度和精度都不可用。如果提供这三者，则会分别抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.IllegalFormatFlagsException"><code>IllegalFormatFlagsException</code></a>、<a href="http://doc.java.sun.com/DocWeb/api/java.util.IllegalFormatWidthException"><code>IllegalFormatWidthException</code></a> 和 <a href="http://doc.java.sun.com/DocWeb/api/java.util.IllegalFormatPrecisionException"><code>IllegalFormatPrecisionException</code></a>。</p>
+<h4><a name="dpos"></a>参数索引</h4>
+<p>格式说明符可以通过三种方式引用参数：</p>
+<ul>
+<li><em>显式索引</em> 是在格式说明符中包含参数索引时使用。参数索引是一个十进制整数，用于指示参数在参数列表中的位置。第一个参数由 "<tt>1$</tt>" 引用，第二个参数由 "<tt>2$</tt>" 引用，依此类推。可以多次引用任何一个参数。
+<p>例如：</p>
+<blockquote>
+<pre> 
+   formatter.format("%4$s %3$s %2$s %1$s %4$s %3$s %2$s %1$s",
+                    "a", "b", "c", "d")
+   // -&gt; "d c b a d c b a"
+ </pre>
+</blockquote>
+<p>&nbsp;</p>
+</li>
+<li><em>相对索引</em> 是在格式说明符中包含 <tt>'&lt;'</tt> (<tt>'&lt;'</tt>) 标志时使用，该标志将导致重用以前格式说明符的参数。如果不存在以前的参数，则抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.MissingFormatArgumentException"><code>MissingFormatArgumentException</code></a>。
+<blockquote>
+<pre> 
+    formatter.format("%s %s %&lt;s %&lt;s", "a", "b", "c", "d")
+   // -&gt; "b a a b"
+    // "c" and "d" are ignored because they are not referenced
+ </pre>
+</blockquote>
+</li>
+<li><em>普通索引</em> 在格式说明符中既不包含参数索引也不包含 <tt>'&lt;'</tt>标志时使用。每个使用普通索引的格式说明符都分配了一个连续隐式索引，分配在独立于显式索引或相对索引使用的参数列表中。
+<blockquote>
+<pre> 
+   formatter.format("%s %s %s %s", "a", "b", "c", "d")
+   // -&gt; "a b c d"
+ </pre>
+</blockquote>
+</li>
+</ul>
+<p>可能有一个使用所有索引形式的格式字符串，例如：</p>
+<blockquote>
+<pre> 
+   formatter.format("%2$s %s %&lt;s %s", "a", "b", "c", "d")
+   // -&gt; "b a a b"
+   // "c" and "d" are ignored because they are not referenced
+ </pre>
+</blockquote>
+<p>参数的最大数量受到 <a href="http://java.sun.com/docs/books/vmspec/">Java Machine Specification</a> 定义的 Java 数组 的最大维数的限制。如果参数索引与可用参数不对应，则抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.util.MissingFormatArgumentException"><code>MissingFormatArgumentException</code></a>。</p>
+<p>如果参数多于格式说明符，则忽略额外的参数。</p>
+<p>除非另行指定，否则向此类中的任何方法或构造方法传递 <tt>null</tt> 参数都将抛出 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.NullPointerException"><code>NullPointerException</code></a>。</p>
+<table style="width: 90%" align="center">
+<tbody>
+<tr>
+<td valign="top"><strong>version</strong></td>
+<td valign="top">1.26, 06/28/06</td>
+</tr>
+<tr>
+<td valign="top"><strong>since</strong></td>
+<td valign="top">1.5</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<div id="Notes.java.util.Formatter">&nbsp;</div>
+<p></p>
+<table class="doc" style="width: 90%" cellspacing="0" cellpadding="3" border="1" align="center">
+<tbody>
+<tr bgcolor="#ccccff"><th class="tableTitle" colspan="2">Constructors</th></tr>
+<tr>
+<td width="20%" valign="top"><a name="Formatter()"></a>public</td>
+<td valign="top"><strong>Formatter</strong>()<br>构造一个新 formatter。
+<p>格式化输出的目标文件是 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.StringBuilder"><code>StringBuilder</code></a>，可以通过调用 <a href="#out"><code>out()</code></a> 来获取它，还可以调用 <a href="#toString"><code>toString()</code></a> 将其当前内容转换为一个字符串。对于 Java 虚拟机的此实例，所使用的语言环境是<a href="http://doc.java.sun.com/DocWeb/api/java.util.Locale#getDefault()">默认语言环境</a>。 </p>
+<div id="Notes.java.util.Formatter.Formatter()">&nbsp;</div>
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="20%" valign="top"><a name="Formatter(Appendable)"></a>public </td>
+<td valign="top"><strong>Formatter</strong>(<a href="http://doc.java.sun.com/DocWeb/api/java.lang.Appendable">Appendable</a> a)<br>构造一个带指定目标文件的新 formatter。
+<p>对于 Java 虚拟机的此实例，所使用的语言环境是<a href="http://doc.java.sun.com/DocWeb/api/java.util.Locale#getDefault()">默认语言环境</a>。</p>
+<table style="width: 90%" align="center">
+<tbody>
+<tr>
+<td valign="top"><em>a</em></td>
+<td valign="top">格式化输出的 Destination。如果 <tt>a</tt> 为 <tt>null</tt>，则创建一个 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.StringBuilder"><code>StringBuilder</code></a>。</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<div id="Notes.java.util.Formatter.Formatter(Appendable)">&nbsp;</div>
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="20%" valign="top"><a name="Formatter(Locale)"></a>public </td>
+<td valign="top"><strong>Formatter</strong>(<a href="http://doc.java.sun.com/DocWeb/api/java.util.Locale">Locale</a> l)<br>构造一个带指定语言环境的新 formatter。
+<p>格式化输出的目标文件是 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.StringBuilder"><code>StringBuilder</code></a>，可以通过调用 <a href="#out"><code>out()</code></a> 来获取它，还可以调用 <a href="#toString"><code>toString()</code></a>将其内容转换为一个字符串。</p>
+<table style="width: 90%" align="center">
+<tbody>
+<tr>
+<td valign="top"><em>l</em></td>
+<td valign="top">格式化过程中应用的 <a href="http://doc.java.sun.com/DocWeb/api/java.util.Locale">locale</a>。如果 <tt>l</tt> 为 <tt>null</tt>，则不应用本地化。</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<div id="Notes.java.util.Formatter.Formatter(Locale)">&nbsp;</div>
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="20%" valign="top"><a name="Formatter(Appendable, Locale)"></a>public </td>
+<td valign="top"><strong>Formatter</strong>(<a href="http://doc.java.sun.com/DocWeb/api/java.lang.Appendable">Appendable</a> a, <a href="http://doc.java.sun.com/DocWeb/api/java.util.Locale">Locale</a> l)<br>构造一个带指定目标文件和语言环境的新 formatter。
+<table style="width: 90%" align="center">
+<tbody>
+<tr>
+<td valign="top"><em>a</em></td>
+<td valign="top">格式化输出的 Destination。如果 <tt>a</tt> 为 <tt>null</tt>，则创建一个 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.StringBuilder"><code>StringBuilder</code></a>。</td>
+</tr>
+<tr>
+<td valign="top"><em>l</em></td>
+<td valign="top">格式化过程中应用的 <a href="http://doc.java.sun.com/DocWeb/api/java.util.Locale">locale</a>。如果 <tt>l</tt> 为 <tt>null</tt>，则不应用本地化。</td>
+</tr>
+</tbody>
+</table>
+
+<div id="Notes.java.util.Formatter.Formatter(Appendable, Locale)">&nbsp;</div>
+</td>
+</tr>
+<tr>
+<td width="20%" valign="top"><a name="Formatter(String)"></a>public </td>
+<td valign="top"><strong>Formatter</strong>(<a href="http://doc.java.sun.com/DocWeb/api/java.lang.String">String</a> fileName) throws <a href="http://doc.java.sun.com/DocWeb/api/java.io.FileNotFoundException">FileNotFoundException</a><br>构造一个带指定文件名的新 formatter。
+<p>对于 Java 虚拟机的此实例，所使用的字符集是<a href="http://doc.java.sun.com/DocWeb/api/java.nio.charset.Charset#defaultCharse()">默认字符集</a>。</p>
+<p>对于 Java 虚拟机的此实例，所使用的语言环境是<a href="http://doc.java.sun.com/DocWeb/api/java.util.Locale#getDefault()">默认语言环境</a>。</p>
+<table style="width: 90%" align="center">
+<tbody>
+<tr>
+<td valign="top"><em>fileName</em></td>
+<td valign="top">用作此 formatter 的目标文件的文件名称。如果存在该文件，则将其大小截取为零；否则创建一个新文件。将输出写入文件中，并对其进行缓冲处理。</td>
+</tr>
+<tr>
+<td valign="top"><strong>Throws</strong></td>
+<td valign="top"><a href="http://doc.java.sun.com/DocWeb/api/java.lang.SecurityException">SecurityException</a>: 如果存在安全管理器，并且 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.SecurityManager#checkWrite"><code>checkWrite(fileName)</code></a> 拒绝对文件进行写入访问</td>
+</tr>
+<tr>
+<td valign="top"><strong>Throws</strong></td>
+<td valign="top"><a href="http://doc.java.sun.com/DocWeb/api/java.io.FileNotFoundException">FileNotFoundException</a>: 如果给定的文件名称不表示现有的可写常规文件，并且无法创建该名称的新常规文件，或者在打开或创建文件时发生其他一些错误</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<div id="Notes.java.util.Formatter.Formatter(String)">&nbsp;</div>
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="20%" valign="top"><a name="Formatter(String, String)"></a>public </td>
+<td valign="top"><strong>Formatter</strong>(<a href="http://doc.java.sun.com/DocWeb/api/java.lang.String">String</a> fileName, <a href="http://doc.java.sun.com/DocWeb/api/java.lang.String">String</a> csn) throws <a href="http://doc.java.sun.com/DocWeb/api/java.io.FileNotFoundException">FileNotFoundException</a>, <a href="http://doc.java.sun.com/DocWeb/api/java.io.UnsupportedEncodingException">UnsupportedEncodingException</a><br>构造一个带指定文件名和字符集的新 formatter。
+<p>对于 Java 虚拟机的此实例，所使用的语言环境是<a href="http://doc.java.sun.com/DocWeb/api/java.util.Locale#getDefault">默认语言环境</a>。</p>
+<table style="width: 90%" align="center">
+<tbody>
+<tr>
+<td valign="top"><em>fileName</em></td>
+<td valign="top">用作此 formatter 的目标文件的文件名称。如果存在该文件，则将其大小截取为零；否则创建一个新文件。将输出写入文件中，并对其进行缓冲处理。</td>
+</tr>
+<tr>
+<td valign="top"><em>csn</em></td>
+<td valign="top">受支持的<a href="http://doc.java.sun.com/DocWeb/api/java.nio.charset.Charset">字符集</a>的名称</td>
+</tr>
+<tr>
+<td valign="top"><strong>Throws</strong></td>
+<td valign="top"><a href="http://doc.java.sun.com/DocWeb/api/java.io.FileNotFoundException">FileNotFoundException</a>: 如果给定的文件名称不表示现有的可写常规文件，并且无法创建该名称的新常规文件，或者在打开或创建文件时发生其他一些错误</td>
+</tr>
+<tr>
+<td valign="top"><strong>Throws</strong></td>
+<td valign="top"><a href="http://doc.java.sun.com/DocWeb/api/java.lang.SecurityException">SecurityException</a>: 如果存在安全管理器，并且 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.SecurityManager#checkWrite"><code>checkWrite(fileName)</code></a> 拒绝对文件进行写入访问</td>
+</tr>
+<tr>
+<td valign="top"><strong>Throws</strong></td>
+<td valign="top"><a href="http://doc.java.sun.com/DocWeb/api/java.io.UnsupportedEncodingException">UnsupportedEncodingException</a>: 如果不支持指定的字符集</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<div id="Notes.java.util.Formatter.Formatter(String, String)">&nbsp;</div>
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="20%" valign="top"><a name="Formatter(String, String, Locale)"></a>public </td>
+<td valign="top"><strong>Formatter</strong>(<a href="http://doc.java.sun.com/DocWeb/api/java.lang.String">String</a> fileName, <a href="http://doc.java.sun.com/DocWeb/api/java.lang.String">String</a> csn, <a href="http://doc.java.sun.com/DocWeb/api/java.util.Locale">Locale</a> l) throws <a href="http://doc.java.sun.com/DocWeb/api/java.io.FileNotFoundException">FileNotFoundException</a>, <a href="http://doc.java.sun.com/DocWeb/api/java.io.UnsupportedEncodingException">UnsupportedEncodingException</a><br>构造一个带指定文件名、字符集和语言环境的新 formatter。
+<table style="width: 90%" align="center">
+<tbody>
+<tr>
+<td valign="top"><em>fileName</em></td>
+<td valign="top">用作此 formatter 的目标文件的文件名称。如果存在该文件，则将其大小截取为零；否则创建一个新文件。将输出写入文件中，并对其进行缓冲处理。</td>
+</tr>
+<tr>
+<td valign="top"><em>csn</em></td>
+<td valign="top">受支持的<a href="http://doc.java.sun.com/DocWeb/api/java.nio.charset.Charset">字符集</a>的名称</td>
+</tr>
+<tr>
+<td valign="top"><em>l</em></td>
+<td valign="top">格式化过程中应用的 <a href="http://doc.java.sun.com/DocWeb/api/java.util.Locale">locale</a>。如果 <tt>l</tt> 为 <tt>null</tt>，则不应用本地化。</td>
+</tr>
+<tr>
+<td valign="top"><strong>Throws</strong></td>
+<td valign="top"><a href="http://doc.java.sun.com/DocWeb/api/java.io.FileNotFoundException">FileNotFoundException</a>: 如果给定的文件名称不表示现有的可写常规文件，并且无法创建该名称的新常规文件，或者在打开或创建文件时发生其他一些错误</td>
+</tr>
+<tr>
+<td valign="top"><strong>Throws</strong></td>
+<td valign="top"><a href="http://doc.java.sun.com/DocWeb/api/java.lang.SecurityException">SecurityException</a>: 如果存在安全管理器，并且 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.SecurityManager#checkWrite"><code>checkWrite(fileName)</code></a> 拒绝对文件进行写入访问</td>
+</tr>
+<tr>
+<td valign="top"><strong>Throws</strong></td>
+<td valign="top"><a href="http://doc.java.sun.com/DocWeb/api/java.io.UnsupportedEncodingException">UnsupportedEncodingException</a>: 如果不支持指定的字符集</td>
+</tr>
+</tbody>
+</table>
+
+<div id="Notes.java.util.Formatter.Formatter(String, String, Locale)">&nbsp;</div>
+</td>
+</tr>
+<tr>
+<td width="20%" valign="top"><a name="Formatter(File)"></a>public </td>
+<td valign="top"><strong>Formatter</strong>(<a href="http://doc.java.sun.com/DocWeb/api/java.io.File">File</a> file) throws <a href="http://doc.java.sun.com/DocWeb/api/java.io.FileNotFoundException">FileNotFoundException</a><br>构造一个带指定文件的新 formatter。
+<p>对于 Java 虚拟机的此实例，所使用的字符集是<a href="http://doc.java.sun.com/DocWeb/api/java.nio.charset.Charset#defaultCharset()">默认字符集</a>。</p>
+<p>对于 Java 虚拟机的此实例，所使用的语言环境是<a href="http://doc.java.sun.com/DocWeb/api/java.util.Locale#getDefault()">默认语言环境</a>。</p>
+<table style="width: 90%" align="center">
+<tbody>
+<tr>
+<td valign="top"><em>file</em></td>
+<td valign="top">作为此 formatter 的目标文件使用的文件。如果存在该文件，则将其大小截取为零；否则，创建一个新文件。将输出写入文件中，并对其进行缓冲处理。</td>
+</tr>
+<tr>
+<td valign="top"><strong>Throws</strong></td>
+<td valign="top"><a href="http://doc.java.sun.com/DocWeb/api/java.lang.SecurityException">SecurityException</a>: 如果存在安全管理器，并且 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.SecurityManager#checkWrite"><code>checkWrite(file.getPath())</code></a> 拒绝对文件进行写入访问</td>
+</tr>
+<tr>
+<td valign="top"><strong>Throws</strong></td>
+<td valign="top"><a href="http://doc.java.sun.com/DocWeb/api/java.io.FileNotFoundException">FileNotFoundException</a>: 如果给定的文件对象不表示现有的可写常规文件，并且无法创建该名称的新常规文件，或者在打开或创建文件时发生其他一些错误</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<div id="Notes.java.util.Formatter.Formatter(File)">&nbsp;</div>
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="20%" valign="top"><a name="Formatter(File, String)"></a>public </td>
+<td valign="top"><strong>Formatter</strong>(<a href="http://doc.java.sun.com/DocWeb/api/java.io.File">File</a> file, <a href="http://doc.java.sun.com/DocWeb/api/java.lang.String">String</a> csn) throws <a href="http://doc.java.sun.com/DocWeb/api/java.io.FileNotFoundException">FileNotFoundException</a>, <a href="http://doc.java.sun.com/DocWeb/api/java.io.UnsupportedEncodingException">UnsupportedEncodingException</a><br>构造一个带指定文件和字符集的新 formatter。
+<p>对于 Java 虚拟机的此实例，所使用的语言环境是<a href="http://doc.java.sun.com/DocWeb/api/java.util.Locale#getDefault">默认语言环境</a>。</p>
+<table style="width: 90%" align="center">
+<tbody>
+<tr>
+<td valign="top"><em>file</em></td>
+<td valign="top">作为此 formatter 的目标文件使用的文件。如果存在该文件，则将其大小截取为零；否则，创建一个新文件。将输出写入文件中，并对其进行缓冲处理。</td>
+</tr>
+<tr>
+<td valign="top"><em>csn</em></td>
+<td valign="top">受支持的<a href="http://doc.java.sun.com/DocWeb/api/java.nio.charset.Charset">字符集</a>的名称</td>
+</tr>
+<tr>
+<td valign="top"><strong>Throws</strong></td>
+<td valign="top"><a href="http://doc.java.sun.com/DocWeb/api/java.io.FileNotFoundException">FileNotFoundException</a>: 如果给定的文件对象不表示现有的可写常规文件，并且无法创建该名称的新常规文件，或者在打开或创建文件时发生其他一些错误</td>
+</tr>
+<tr>
+<td valign="top"><strong>Throws</strong></td>
+<td valign="top"><a href="http://doc.java.sun.com/DocWeb/api/java.lang.SecurityException">SecurityException</a>: 如果存在安全管理器，并且 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.SecurityManager#checkWrite"><code>checkWrite(file.getPath())</code></a> 拒绝对文件进行写入访问</td>
+</tr>
+<tr>
+<td valign="top"><strong>Throws</strong></td>
+<td valign="top"><a href="http://doc.java.sun.com/DocWeb/api/java.io.UnsupportedEncodingException">UnsupportedEncodingException</a>: 如果不支持指定的字符集</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<div id="Notes.java.util.Formatter.Formatter(File, String)">&nbsp;</div>
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="20%" valign="top"><a name="Formatter(File, String, Locale)"></a>public </td>
+<td valign="top"><strong>Formatter</strong>(<a href="http://doc.java.sun.com/DocWeb/api/java.io.File">File</a> file, <a href="http://doc.java.sun.com/DocWeb/api/java.lang.String">String</a> csn, <a href="http://doc.java.sun.com/DocWeb/api/java.util.Locale">Locale</a> l) throws <a href="http://doc.java.sun.com/DocWeb/api/java.io.FileNotFoundException">FileNotFoundException</a>, <a href="http://doc.java.sun.com/DocWeb/api/java.io.UnsupportedEncodingException">UnsupportedEncodingException</a><br>构造一个带指定文件、字符集和语言环境的新 formatter。
+<table style="width: 90%" align="center">
+<tbody>
+<tr>
+<td valign="top"><em>file</em></td>
+<td valign="top">作为此 formatter 的目标文件使用的文件。如果存在该文件，则将其大小截取为零；否则，创建一个新文件。将输出写入文件中，并对其进行缓冲处理。</td>
+</tr>
+<tr>
+<td valign="top"><em>csn</em></td>
+<td valign="top">受支持的<a href="http://doc.java.sun.com/DocWeb/api/java.nio.charset.Charset">字符集</a>的名称</td>
+</tr>
+<tr>
+<td valign="top"><em>l</em></td>
+<td valign="top">格式化过程中应用的 <a href="http://doc.java.sun.com/DocWeb/api/java.util.Locale">locale</a>。如果 <tt>l</tt> 为 <tt>null</tt>，则不应用本地化。</td>
+</tr>
+<tr>
+<td valign="top"><strong>Throws</strong></td>
+<td valign="top"><a href="http://doc.java.sun.com/DocWeb/api/java.io.FileNotFoundException">FileNotFoundException</a>: 如果给定的文件对象不表示现有的可写常规文件，并且无法创建该名称的新常规文件，或者在打开或创建文件时发生其他一些错误</td>
+</tr>
+<tr>
+<td valign="top"><strong>Throws</strong></td>
+<td valign="top"><a href="http://doc.java.sun.com/DocWeb/api/java.lang.SecurityException">SecurityException</a>: 如果存在安全管理器，并且 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.SecurityManager#checkWrite"><code>checkWrite(file.getPath())</code></a> 拒绝对文件进行写入访问</td>
+</tr>
+<tr>
+<td valign="top"><strong>Throws</strong></td>
+<td valign="top"><a href="http://doc.java.sun.com/DocWeb/api/java.io.UnsupportedEncodingException">UnsupportedEncodingException</a>: 如果不支持指定的字符集</td>
+</tr>
+</tbody>
+</table>
+
+<div id="Notes.java.util.Formatter.Formatter(File, String, Locale)">&nbsp;</div>
+</td>
+</tr>
+<tr>
+<td width="20%" valign="top"><a name="Formatter(PrintStream)"></a>public </td>
+<td valign="top"><strong>Formatter</strong>(<a href="http://doc.java.sun.com/DocWeb/api/java.io.PrintStream">PrintStream</a> ps)<br>构造一个带指定输出流的新 formatter。
+<p>对于 Java 虚拟机的此实例，所使用的语言环境是<a href="http://doc.java.sun.com/DocWeb/api/java.util.Locale#getDefault()">默认语言环境</a>。</p>
+<p>将字符写入给定的 <a href="http://doc.java.sun.com/DocWeb/api/java.io.PrintStream"><code>PrintStream</code></a>对象，并使用该对象的字符集对其进行编码。</p>
+<table style="width: 90%" align="center">
+<tbody>
+<tr>
+<td valign="top"><em>ps</em></td>
+<td valign="top">作为此 formatter 的目标文件使用的流。</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<div id="Notes.java.util.Formatter.Formatter(PrintStream)">&nbsp;</div>
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="20%" valign="top"><a name="Formatter(OutputStream)"></a>public </td>
+<td valign="top"><strong>Formatter</strong>(<a href="http://doc.java.sun.com/DocWeb/api/java.io.OutputStream">OutputStream</a> os)<br>构造一个带指定输出流的新 formatter。
+<p>对于 Java 虚拟机的此实例，所使用的字符集是<a href="http://doc.java.sun.com/DocWeb/api/java.nio.charset.Charset#defaultCharset()">默认字符集</a>。</p>
+<p>对于 Java 虚拟机的此实例，所使用的语言环境是<a href="http://doc.java.sun.com/DocWeb/api/java.util.Locale#getDefault()">默认语言环境</a>。</p>
+<table style="width: 90%" align="center">
+<tbody>
+<tr>
+<td valign="top"><em>os</em></td>
+<td valign="top">作为此 formatter 的目标文件使用的流。将对输出进行缓冲。</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<div id="Notes.java.util.Formatter.Formatter(OutputStream)">&nbsp;</div>
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="20%" valign="top"><a name="Formatter(OutputStream, String)"></a>public </td>
+<td valign="top"><strong>Formatter</strong>(<a href="http://doc.java.sun.com/DocWeb/api/java.io.OutputStream">OutputStream</a> os, <a href="http://doc.java.sun.com/DocWeb/api/java.lang.String">String</a> csn) throws <a href="http://doc.java.sun.com/DocWeb/api/java.io.UnsupportedEncodingException">UnsupportedEncodingException</a><br>构造一个带指定输出流和字符集的新 formatter。
+<p>对于 Java 虚拟机的此实例，所使用的语言环境是<a href="http://doc.java.sun.com/DocWeb/api/java.util.Locale#getDefault">默认语言环境</a>。</p>
+<table style="width: 90%" align="center">
+<tbody>
+<tr>
+<td valign="top"><em>os</em></td>
+<td valign="top">作为此 formatter 的目标文件使用的流。将对输出进行缓冲。</td>
+</tr>
+<tr>
+<td valign="top"><em>csn</em></td>
+<td valign="top">受支持的<a href="http://doc.java.sun.com/DocWeb/api/java.nio.charset.Charset">字符集</a>的名称</td>
+</tr>
+<tr>
+<td valign="top"><strong>Throws</strong></td>
+<td valign="top"><a href="http://doc.java.sun.com/DocWeb/api/java.io.UnsupportedEncodingException">UnsupportedEncodingException</a>: 如果不支持指定的字符集</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<div id="Notes.java.util.Formatter.Formatter(OutputStream, String)">&nbsp;</div>
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="20%" valign="top"><a name="Formatter(OutputStream, String, Locale)"></a>public </td>
+<td valign="top"><strong>Formatter</strong>(<a href="http://doc.java.sun.com/DocWeb/api/java.io.OutputStream">OutputStream</a> os, <a href="http://doc.java.sun.com/DocWeb/api/java.lang.String">String</a> csn, <a href="http://doc.java.sun.com/DocWeb/api/java.util.Locale">Locale</a> l) throws <a href="http://doc.java.sun.com/DocWeb/api/java.io.UnsupportedEncodingException">UnsupportedEncodingException</a><br>构造一个带指定输出流、字符集和语言环境的新 formatter。
+<table style="width: 90%" align="center">
+<tbody>
+<tr>
+<td valign="top"><em>os</em></td>
+<td valign="top">作为此 formatter 的目标文件使用的流。将对输出进行缓冲。</td>
+</tr>
+<tr>
+<td valign="top"><em>csn</em></td>
+<td valign="top">受支持的<a href="http://doc.java.sun.com/DocWeb/api/java.nio.charset.Charset">字符集</a>的名称</td>
+</tr>
+<tr>
+<td valign="top"><em>l</em></td>
+<td valign="top">格式化过程中应用的 <a href="http://doc.java.sun.com/DocWeb/api/java.util.Locale">locale</a>。如果 <tt>l</tt> 为 <tt>null</tt>，则不应用本地化。</td>
+</tr>
+<tr>
+<td valign="top"><strong>Throws</strong></td>
+<td valign="top"><a href="http://doc.java.sun.com/DocWeb/api/java.io.UnsupportedEncodingException">UnsupportedEncodingException</a>: 如果不支持指定的字符集</td>
+</tr>
+</tbody>
+</table>
+
+<div id="Notes.java.util.Formatter.Formatter(OutputStream, String, Locale)">&nbsp;</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<table class="doc" style="width: 90%" cellspacing="0" cellpadding="3" border="1" align="center">
+<tbody>
+<tr bgcolor="#ccccff"><th class="tableTitle" colspan="2">Methods</th></tr>
+<tr>
+<td width="20%" valign="top"><a name="close()"></a>public void</td>
+<td valign="top"><strong>close</strong>()<br>关闭此 formatter。如果目标文件实现 <a href="http://doc.java.sun.com/DocWeb/api/java.io.Closeable"><code>java.io.Closeable</code></a> 接口，则调用其 <tt>close</tt>方法。
+<p>关闭 formatter 允许释放它可能保持（比如打开文件）的资源。如果已经关闭 formatter，则调用此方法无效。</p>
+<p>如果试图在此 formatter 已经关闭之后调用其中除 <a href="#ioException()"><code>#ioException()</code></a> 之外的任何方法，那么都将导致 <a href="http://doc.java.sun.com/DocWeb/api/java.util.FormatterClosedException"><code>FormatterClosedException</code></a>。 </p>
+<div id="Notes.java.util.Formatter.close()">&nbsp;</div>
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="20%" valign="top"><a name="flush()"></a>public void</td>
+<td valign="top"><strong>flush</strong>()<br>刷新此 formatter。如果目标文件实现 <a href="http://doc.java.sun.com/DocWeb/api/java.io.Flushable"><code>java.io.Flushable</code></a> 接口，则调用其 <tt>flush</tt>方法。
+<p>刷新 formatter 会使目标文件中的所有缓冲输出都写入底层流中。</p>
+<table style="width: 90%" align="center">
+<tbody>
+<tr>
+<td valign="top"><strong>Throws</strong></td>
+<td valign="top"><a href="http://doc.java.sun.com/DocWeb/api/java.util.FormatterClosedException">FormatterClosedException</a>: 如果已经通过调用 <a href="#close()"><code>#close()</code></a> 方法关闭此 formatter</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<div id="Notes.java.util.Formatter.flush()">&nbsp;</div>
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="20%" valign="top"><a name="format(String, Object...)"></a>public <a href="http://doc.java.sun.com/DocWeb/api/java.util.Formatter">Formatter</a></td>
+<td valign="top"><strong>format</strong>(<a href="http://doc.java.sun.com/DocWeb/api/java.lang.String">String</a> format, <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Object">Object</a>[] args)<br>使用指定格式字符串和参数将一个格式化字符串写入此对象的目标文件中。使用的语言环境是构造此 formatter 期间定义的语言环境。
+<table style="width: 90%" align="center">
+<tbody>
+<tr>
+<td valign="top"><em>format</em></td>
+<td valign="top">在<a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#syntax">格式字符串的语法</a>中描述的格式字符串。</td>
+</tr>
+<tr>
+<td valign="top"><em>args</em></td>
+<td valign="top">格式字符串中的格式说明符引用的参数。如果参数多于格式说明符，则忽略额外的参数。参数的最大数量受到 <a href="http://java.sun.com/docs/books/vmspec/">Java 虚拟机规范</a>定义的 Java 数组最大维数的限制。</td>
+</tr>
+<tr>
+<td valign="top"><strong>Throws</strong></td>
+<td valign="top"><a href="http://doc.java.sun.com/DocWeb/api/java.util.IllegalFormatException">IllegalFormatException</a>: 如果格式字符串包含非法语法、与给定参数不兼容的格式说明符、对给定格式字符串而言不够充足的参数或其他非法条件。有关所有可能的格式错误的规范，请参阅 formatter 类规范的<a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#detail">详细信息</a>部分。</td>
+</tr>
+<tr>
+<td valign="top"><strong>Throws</strong></td>
+<td valign="top"><a href="http://doc.java.sun.com/DocWeb/api/java.util.FormatterClosedException">FormatterClosedException</a>: 如果已经通过调用 <a href="#close()"><code>#close()</code></a> 方法关闭此 formatter</td>
+</tr>
+<tr>
+<td valign="top"><strong>return</strong></td>
+<td valign="top">此 formatter </td>
+</tr>
+</tbody>
+</table>
+
+<div id="Notes.java.util.Formatter.format(String, Object...)">&nbsp;</div>
+</td>
+</tr>
+<tr>
+<td width="20%" valign="top"><a name="format(Locale, String, Object...)"></a>public <a href="http://doc.java.sun.com/DocWeb/api/java.util.Formatter">Formatter</a></td>
+<td valign="top"><strong>format</strong>(<a href="http://doc.java.sun.com/DocWeb/api/java.util.Locale">Locale</a> l, <a href="http://doc.java.sun.com/DocWeb/api/java.lang.String">String</a> format, <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Object">Object</a>[] args)<br>使用指定的语言环境、格式字符串和参数，将一个格式化字符串写入此对象的目标文件中。
+<table style="width: 90%" align="center">
+<tbody>
+<tr>
+<td valign="top"><em>l</em></td>
+<td valign="top">格式化过程中应用的<a href="http://doc.java.sun.com/DocWeb/api/java.util.Locale">语言环境</a>。如果 <tt>l</tt> 为 <tt>null</tt>，则不应用本地化。这不会改变构造期间设置的对象的语言环境。</td>
+</tr>
+<tr>
+<td valign="top"><em>format</em></td>
+<td valign="top">在<a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#syntax">格式字符串的语法</a>中描述的格式字符串</td>
+</tr>
+<tr>
+<td valign="top"><em>args</em></td>
+<td valign="top">格式字符串中的格式说明符引用的参数。如果参数多于格式说明符，则忽略额外的参数。参数的最大数量受到 <a href="http://java.sun.com/docs/books/vmspec/">Java Virtual Machine Specification</a> 定义的 Java 数组的最大维数的限制</td>
+</tr>
+<tr>
+<td valign="top"><strong>Throws</strong></td>
+<td valign="top"><a href="http://doc.java.sun.com/DocWeb/api/java.util.IllegalFormatException">IllegalFormatException</a>: 如果格式字符串包含非法语法、与给定参数不兼容的格式说明符、对给定格式字符串而言不够充足的参数或其他非法条件。有关所有可能的格式错误的规范，请参阅 formatter 类规范的<a href="http://www.cnblogs.com/DocWeb/img/java.util.Formatter/#detail">详细信息</a>部分。</td>
+</tr>
+<tr>
+<td valign="top"><strong>Throws</strong></td>
+<td valign="top"><a href="http://doc.java.sun.com/DocWeb/api/java.util.FormatterClosedException">FormatterClosedException</a>: 如果已经通过调用 <a href="#close()"><code>#close()</code></a> 方法关闭此 formatter</td>
+</tr>
+<tr>
+<td valign="top"><strong>return</strong></td>
+<td valign="top">此 formatter </td>
+</tr>
+</tbody>
+</table>
+
+<div id="Notes.java.util.Formatter.format(Locale, String, Object...)">&nbsp;</div>
+</td>
+</tr>
+<tr>
+<td width="20%" valign="top"><a name="ioException()"></a>public <a href="http://doc.java.sun.com/DocWeb/api/java.io.IOException">IOException</a></td>
+<td valign="top"><strong>ioException</strong>()<br>返回由此 formatter 的 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Appendable"><code>Appendable</code></a> 方法上次抛出的 <tt>IOException</tt>异常。
+<p>如果目标文件的 <tt>append()</tt> 方法从未抛出 <tt>IOException</tt>，则此方法将始终返回 <tt>null</tt>。</p>
+<table style="width: 90%" align="center">
+<tbody>
+<tr>
+<td valign="top"><strong>return</strong></td>
+<td valign="top">如果不存在这样的异常，则返回由 Appendable 或 <tt>null</tt> 上次抛出的异常。 </td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<div id="Notes.java.util.Formatter.ioException()">&nbsp;</div>
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="20%" valign="top"><a name="locale()"></a>public <a href="http://doc.java.sun.com/DocWeb/api/java.util.Locale">Locale</a></td>
+<td valign="top"><strong>locale</strong>()<br>返回构造此 formatter 时设置的语言环境。
+<p>此对象的带语言环境参数的<a href="#format(java.util.Locale,String,Object...)"><code>格式</code></a>方法不会更改该值。</p>
+<table style="width: 90%" align="center">
+<tbody>
+<tr>
+<td valign="top"><strong>return</strong></td>
+<td valign="top">如果没有应用本地化，则返回 <tt>null</tt>；否则返回一个语言环境 </td>
+</tr>
+<tr>
+<td valign="top"><strong>Throws</strong></td>
+<td valign="top"><a href="http://doc.java.sun.com/DocWeb/api/java.util.FormatterClosedException">FormatterClosedException</a>: 如果已经通过调用 <a href="#close()"><code>#close()</code></a> 方法关闭此 formatter</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<div id="Notes.java.util.Formatter.locale()">&nbsp;</div>
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="20%" valign="top"><a name="out()"></a>public <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Appendable">Appendable</a></td>
+<td valign="top"><strong>out</strong>()<br>返回输出的目标文件。
+<table style="width: 90%" align="center">
+<tbody>
+<tr>
+<td valign="top"><strong>return</strong></td>
+<td valign="top">输出的目标文件 </td>
+</tr>
+<tr>
+<td valign="top"><strong>Throws</strong></td>
+<td valign="top"><a href="http://doc.java.sun.com/DocWeb/api/java.util.FormatterClosedException">FormatterClosedException</a>: 如果已经通过调用 <a href="#close()"><code>#close()</code></a> 方法关闭此 formatter</td>
+</tr>
+</tbody>
+</table>
+
+<div id="Notes.java.util.Formatter.out()">&nbsp;</div>
+</td>
+</tr>
+<tr>
+<td width="20%" valign="top"><a name="toString()"></a>public <a href="http://doc.java.sun.com/DocWeb/api/java.lang.String">String</a></td>
+<td valign="top"><strong>toString</strong>()<br>返回对输出的目标文件调用 <tt>toString()</tt> 的结果。例如，以下代码将文本格式化到 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.StringBuilder"><code>StringBuilder</code></a>中，然后获取得到的字符串：
+<blockquote>
+<pre> 
+   Formatter f = new Formatter();
+   f.format("Last reboot at %tc", lastRebootDate);
+   String s = f.toString();
+   // -&gt; s == "Last reboot at Sat Jan 01 00:00:00 PST 2000"
+ </pre>
+</blockquote>
+<p>调用此方法的方式与调用 out().toString() 的方式完全相同。</p>
+<pre> 
+     out().toString() </pre>
+<p>根据针对 <a href="http://doc.java.sun.com/DocWeb/api/java.lang.Appendable"><code>Appendable</code></a> 的 <tt>toString</tt> 的规范，返回的字符串可能否包含（也可能不包含）写入目标文件的字符。例如，缓冲器通常在 <tt>toString()</tt>中返回其内容，而流不能这样做，因为数据已被丢弃。</p>
+<table style="width: 90%" align="center">
+<tbody>
+<tr>
+<td valign="top"><strong>return</strong></td>
+<td valign="top">对输出目标文件调用 <tt>toString()</tt> 的结果</td>
+</tr>
+<tr>
+<td valign="top"><strong>Throws</strong></td>
+<td valign="top"><a href="http://doc.java.sun.com/DocWeb/api/java.util.FormatterClosedException">FormatterClosedException</a>: 如果已经通过调用 <a href="#close()"><code>#close()</code></a> 方法关闭此 formatter</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<div id="Notes.java.util.Formatter.toString()">&nbsp;</div>
+<p></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="EntryTag">
+    标签: 
+            <a href="https://www.cnblogs.com/Lowp/tag/java/">java</a>,             <a href="https://www.cnblogs.com/Lowp/tag/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></div>
+
+    <div id="blog_post_info">
+<div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(2687745,cb_blogId,1);green_channel_success(this,'谢谢推荐！');">好文要顶</a>
+        <a id="green_channel_follow" onclick="follow('bda8e25e-cc80-e111-aa3f-842b2b196315');" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8BFormatter%E7%9A%84%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3(%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F%E5%8C%96)%20-%20Lowp%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8BFormatter%E7%9A%84%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3(%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F%E5%8C%96)%20-%20Lowp%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="https://home.cnblogs.com/u/Lowp/" target="_blank"><img src="Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8BFormatter%E7%9A%84%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3(%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F%E5%8C%96)%20-%20Lowp%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/u396154.jpg" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="https://home.cnblogs.com/u/Lowp/">Lowp</a><br>
+            <a href="https://home.cnblogs.com/u/Lowp/followees/">关注 - 0</a><br>
+            <a href="https://home.cnblogs.com/u/Lowp/followers/">粉丝 - 3</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow('bda8e25e-cc80-e111-aa3f-842b2b196315');return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(2687745,'Digg')">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+    <div class="buryit" onclick="votePost(2687745,'Bury')">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+
+<script type="text/javascript">
+    currentDiggType = 0;
+</script></div>
+    <div class="clear"></div>
+    <div id="post_next_prev">
+
+    <a href="https://www.cnblogs.com/Lowp/archive/2012/09/13/2683130.html" class="p_n_p_prefix">« </a> 上一篇：    <a href="https://www.cnblogs.com/Lowp/archive/2012/09/13/2683130.html" title="发布于 2012-09-13 16:07">个人理解Java程序设计原则—面向接口编程</a>
+    <br>
+    <a href="https://www.cnblogs.com/Lowp/archive/2012/09/21/2696825.html" class="p_n_p_prefix">» </a> 下一篇：    <a href="https://www.cnblogs.com/Lowp/archive/2012/09/21/2696825.html" title="发布于 2012-09-21 14:19">创新工场笔试最后两道题</a>
+
+</div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date">2012-09-16 19:46</span>&nbsp;
+<a href="https://www.cnblogs.com/Lowp/">Lowp</a>&nbsp;
+阅读(<span id="post_view_count">9966</span>)&nbsp;
+评论(<span id="post_comment_count">2</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=2687745" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(2687745);return false;">收藏</a></div>
+        </div>
+	    
+	    
+    </div><!--end: topics 文章、评论容器-->
+</div>
+<script src="Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8BFormatter%E7%9A%84%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3(%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F%E5%8C%96)%20-%20Lowp%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/highlight.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 114145, cb_blogApp = 'Lowp', cb_blogUserGuid = 'bda8e25e-cc80-e111-aa3f-842b2b196315';
+    var cb_entryId = 2687745, cb_entryCreatedDate = '2012-09-16 19:46', cb_postType = 1;
+    updatePostStats(
+        [cb_entryId],
+        function(id, count) { $("#post_view_count").text(count) },
+        function(id, count) { $("#post_comment_count").text(count) })
+</script>
+<a name="!comments"></a>
+<div id="blog-comments-placeholder">
+
+<div id="comment_pager_top">
+    
+</div>
+
+<br>
+<div class="feedback_area_title">评论列表</div>
+<div class="feedbackNoItems">
+    <div class="feedbackNoItems"></div>
+</div>
+    <div class="feedbackItem">
+        <div class="feedbackListSubtitle">
+            <div class="feedbackManage">
+                &nbsp;&nbsp;
+
+<span class="comment_actions">
+    
+    
+    
+    
+</span>
+
+
+            </div>
+            
+<a href="#2480061" class="layer">#1楼</a>
+<a name="2480061" id="comment_anchor_2480061"></a>
+ 
+<span class="comment_date">2012-09-24 14:31</span>
+
+ 
+        <a id="a_comment_author_2480061" href="https://www.cnblogs.com/lmtoo/" target="_blank">lmtoo</a>
+
+        </div>
+        <div class="feedbackCon">
+            
+<div id="comment_body_2480061" data-format-type="Ubb" class="blog_comment_body cnblogs-ubb">
+    太复杂了，一时接受不了
+</div>
+        <div class="comment_vote">
+            <span class="comment_error" style="color: red"></span>
+            <a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2480061, 'Digg', this.parentElement, false);">
+                支持(0)
+            </a>
+            <a href="javascript:void(0);" class="comment_burry" onclick="return voteComment(2480061, 'Bury', this.parentElement, false);">
+                反对(0)
+            </a>
+        </div>
+        <span id="comment_2480061_avatar" style="display:none">
+            https://pic.cnblogs.com/face/u106029.bmp?id=04163133
+        </span>
+
+        </div>
+    </div>
+    <div class="feedbackItem">
+        <div class="feedbackListSubtitle">
+            <div class="feedbackManage">
+                &nbsp;&nbsp;
+
+<span class="comment_actions">
+    
+    
+    
+    
+</span>
+
+
+            </div>
+            
+<a href="#2480705" class="layer">#2楼</a>
+<a name="2480705" id="comment_anchor_2480705"></a>
+[<span class="louzhu">楼主</span>]    <span id="comment-maxId" style="display: none">2480705</span>
+    <span id="comment-maxDate" style="display: none">2012/9/25 上午11:15:45</span>
+ 
+<span class="comment_date">2012-09-25 11:15</span>
+
+ 
+        <a id="a_comment_author_2480705" href="https://www.cnblogs.com/Lowp/" target="_blank">Lowp</a>
+
+        </div>
+        <div class="feedbackCon">
+            
+<div id="comment_body_2480705" data-format-type="Ubb" class="blog_comment_body cnblogs-ubb">
+    <a href="#2480061" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2480061);">@</a>
+lmtoo<br>抓主要的，抓常见的几个看下就够用了，和C语言的printf输出其实差不多
+</div>
+        <div class="comment_vote">
+            <span class="comment_error" style="color: red"></span>
+            <a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2480705, 'Digg', this.parentElement, false);">
+                支持(0)
+            </a>
+            <a href="javascript:void(0);" class="comment_burry" onclick="return voteComment(2480705, 'Bury', this.parentElement, false);">
+                反对(0)
+            </a>
+        </div>
+        <span id="comment_2480705_avatar" style="display:none">
+            https://pic.cnblogs.com/face/u396154.jpg?id=10165254
+        </span>
+
+        </div>
+    </div>
+
+<div id="comment_pager_bottom">
+    
+</div>
+
+
+</div>
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container" style="visibility: visible;"><div class="login_tips">
+    登录后才能发表评论，立即 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login('commentform');">登录</a> 或
+    <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，
+    <a href="https://www.cnblogs.com/">访问</a> 网站首页
+</div>
+<div class="under-comment-nav">
+        <a href="https://brands.cnblogs.com/aws/free" target="_blank" onclick="ga('send', 'event', 'Link', 'click', 'T2-login-tip-aws')">博客园派送云上免费午餐，AWS注册立享12个月免费套餐</a>
+</div></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id="div-gpt-ad-1592365906576-0" style="width: 300px; height: 250px;"></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id="div-gpt-ad-1592366332455-0" style="width: 468px; height: 60px;"></div>
+    </div>
+    <div id="under_post_kb">
+<div class="itnews c_ad_block">
+    <b>最新 IT 新闻</b>:
+    <br>
+ ·          <a href="https://news.cnblogs.com/n/677002/" target="_blank">转转11.11二手盛典，“李佳琦”词条下转售商品量达30%</a>
+        <br>
+ ·          <a href="https://news.cnblogs.com/n/677001/" target="_blank">苹果：拨弄中、美、日命运的人</a>
+        <br>
+ ·          <a href="https://news.cnblogs.com/n/677000/" target="_blank">逐梦电竞圈：腾讯落子，围剿阿里</a>
+        <br>
+ ·          <a href="https://news.cnblogs.com/n/676999/" target="_blank">走下沉、发补贴、拼电池，巨头们的共享电单车生意还好吗？</a>
+        <br>
+ ·          <a href="https://news.cnblogs.com/n/676998/" target="_blank">杨伟东受贿背后：优酷上市时其财富大幅缩水，或致心里失衡</a>
+        <br>
+    » <a href="https://news.cnblogs.com/" title="IT 新闻" target="_blank">更多新闻...</a>
+</div></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+       var commentManager = new blogCommentManager();
+       commentManager.renderComments(0);
+       fixPostBody();
+       deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);       deliverT2();
+       deliverC1C2();
+       loadNewsAndKb();
+       loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);       LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+       GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+       loadOptUnderPost();
+       GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+   </script>
+</div>
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+	<div id="sideBar">
+		<div id="sideBarMain">
+			<div id="sidebar_news" class="newsItem"><!--done-->
+<h3 class="catListTitle">公告</h3>
+
+<div id="blog-news">
+    
+    <div id="profile_block">
+        昵称：
+        <a href="https://home.cnblogs.com/u/Lowp/">
+            Lowp
+        </a>
+        <br>
+        园龄：
+        <a href="https://home.cnblogs.com/u/Lowp/" title="入园时间：2012-04-08">
+            8年7个月
+        </a>
+        <br>
+        粉丝：
+        <a href="https://home.cnblogs.com/u/Lowp/followers/">
+            3
+        </a>
+        <br>
+        关注：
+        <a href="https://home.cnblogs.com/u/Lowp/followees/">
+            0
+        </a>
+        <div id="p_b_follow">
+<a href="javascript:void(0)" onclick="follow('bda8e25e-cc80-e111-aa3f-842b2b196315')">+加关注</a></div>
+        <script>getFollowStatus('bda8e25e-cc80-e111-aa3f-842b2b196315');</script>
+    </div>
+</div>
+
+</div>
+<div id="sidebar_ad"></div>
+			<div id="blog-calendar" style="">
+
+<table id="blogCalendar" class="Cal" title="Calendar" cellspacing="0" cellpadding="0" border="0">
+    <tbody>
+        <tr>
+            <td colspan="7">
+                <table class="CalTitle" cellspacing="0" border="0">
+                    <tbody>
+                        <tr>
+                            <td class="CalNextPrev">
+                                <a href="javascript:void(0);" onclick="loadBlogCalendar('2012/08/16'); return false;">&lt;</a>
+                            </td>
+                            <td align="center">2012年9月</td>
+                            <td class="CalNextPrev" align="right">
+                                <a href="javascript:void(0);" onclick="loadBlogCalendar('2012/10/16'); return false;">&gt;</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    <tr>
+        <th class="CalDayHeader" abbr="日" scope="col" align="center">日</th>
+        <th class="CalDayHeader" abbr="一" scope="col" align="center">一</th>
+        <th class="CalDayHeader" abbr="二" scope="col" align="center">二</th>
+        <th class="CalDayHeader" abbr="三" scope="col" align="center">三</th>
+        <th class="CalDayHeader" abbr="四" scope="col" align="center">四</th>
+        <th class="CalDayHeader" abbr="五" scope="col" align="center">五</th>
+        <th class="CalDayHeader" abbr="六" scope="col" align="center">六</th>
+    </tr>
+            <tr>
+                            <td class="CalOtherMonthDay" align="center">26</td>
+                            <td class="CalOtherMonthDay" align="center">27</td>
+                            <td class="CalOtherMonthDay" align="center">28</td>
+                            <td class="CalOtherMonthDay" align="center">29</td>
+                            <td class="CalOtherMonthDay" align="center">30</td>
+                            <td class="CalOtherMonthDay" align="center">31</td>
+                    <td class="CalWeekendDay" align="center">
+                        <a href="https://www.cnblogs.com/Lowp/archive/2012/09/01.html"><u>1</u></a>
+                    </td>
+            </tr>
+                <tr>
+                        <td class="CalWeekendDay" align="center">
+                            2
+                        </td>
+                            <td class="" align="center">
+                                <a href="https://www.cnblogs.com/Lowp/archive/2012/09/03.html"><u>3</u></a>
+                            </td>
+                            <td class="" align="center">
+                                4
+                            </td>
+                            <td class="" align="center">
+                                5
+                            </td>
+                            <td class="" align="center">
+                                6
+                            </td>
+                            <td class="" align="center">
+                                <a href="https://www.cnblogs.com/Lowp/archive/2012/09/07.html"><u>7</u></a>
+                            </td>
+                        <td class="CalWeekendDay" align="center">
+                            <a href="https://www.cnblogs.com/Lowp/archive/2012/09/08.html"><u>8</u></a>
+                        </td>
+                </tr>
+                <tr>
+                        <td class="CalWeekendDay" align="center">
+                            9
+                        </td>
+                            <td class="" align="center">
+                                10
+                            </td>
+                            <td class="" align="center">
+                                11
+                            </td>
+                            <td class="" align="center">
+                                <a href="https://www.cnblogs.com/Lowp/archive/2012/09/12.html"><u>12</u></a>
+                            </td>
+                            <td class="" align="center">
+                                <a href="https://www.cnblogs.com/Lowp/archive/2012/09/13.html"><u>13</u></a>
+                            </td>
+                            <td class="" align="center">
+                                14
+                            </td>
+                        <td class="CalWeekendDay" align="center">
+                            15
+                        </td>
+                </tr>
+                <tr>
+                        <td class="CalWeekendDay" align="center">
+                            <a href="https://www.cnblogs.com/Lowp/archive/2012/09/16.html"><u>16</u></a>
+                        </td>
+                            <td class="" align="center">
+                                17
+                            </td>
+                            <td class="" align="center">
+                                18
+                            </td>
+                            <td class="" align="center">
+                                19
+                            </td>
+                            <td class="" align="center">
+                                20
+                            </td>
+                            <td class="" align="center">
+                                <a href="https://www.cnblogs.com/Lowp/archive/2012/09/21.html"><u>21</u></a>
+                            </td>
+                        <td class="CalWeekendDay" align="center">
+                            <a href="https://www.cnblogs.com/Lowp/archive/2012/09/22.html"><u>22</u></a>
+                        </td>
+                </tr>
+                <tr>
+                        <td class="CalWeekendDay" align="center">
+                            23
+                        </td>
+                            <td class="" align="center">
+                                24
+                            </td>
+                            <td class="" align="center">
+                                25
+                            </td>
+                            <td class="" align="center">
+                                26
+                            </td>
+                            <td class="" align="center">
+                                27
+                            </td>
+                            <td class="" align="center">
+                                28
+                            </td>
+                        <td class="CalWeekendDay" align="center">
+                            29
+                        </td>
+                </tr>
+                <tr>
+                        <td class="CalWeekendDay" align="center">
+                            30
+                        </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                1
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                2
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                3
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                4
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                5
+                            </td>
+                        <td class="CalOtherMonthDay" align="center">
+                            6
+                        </td>
+                </tr>
+    </tbody>
+</table></div><script>loadBlogDefaultCalendar();</script>			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><!-- 搜索 -->
+<div id="sidebar_search" class="sidebar-block">
+    <div id="sidebar_search" class="mySearch">
+        <h3 class="catListTitle">搜索</h3>
+        <div id="sidebar_search_box">
+            <div id="widget_my_zzk" class="div_my_zzk">
+                <input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk">
+            </div>
+            <div id="widget_my_google" class="div_my_zzk">
+                <input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 常用链接 -->
+<div id="sidebar_shortcut" class="sidebar-block"><div class="catListLink">
+<h3 class="catListTitle">
+常用链接
+</h3>
+<ul>
+    
+<li><a href="https://www.cnblogs.com/Lowp/p/" title="我的博客的随笔列表">我的随笔</a></li>
+<li><a href="https://www.cnblogs.com/Lowp/MyComments.html" title="我的发表过的评论列表">我的评论</a></li>
+<li><a href="https://www.cnblogs.com/Lowp/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li>
+<li><a href="https://www.cnblogs.com/Lowp/RecentComments.html" title="我的博客的评论列表">最新评论</a></li>
+<li><a href="https://www.cnblogs.com/Lowp/tag/" title="我的博客的标签列表">我的标签</a></li>
+
+</ul>
+</div>
+
+</div>
+
+<!-- 最新随笔 -->
+
+
+<!-- 我的标签 -->
+<div id="sidebar_toptags" class="sidebar-block"><div class="catListTag">
+<h3 class="catListTitle">我的标签</h3>
+<ul>
+        <li>
+            <a href="https://www.cnblogs.com/Lowp/tag/java/">java<span class="tag-count">(16)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/Lowp/tag/HttpClient/">HttpClient<span class="tag-count">(2)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/Lowp/tag/%E4%BA%8C%E5%8F%89%E6%A0%91/">二叉树<span class="tag-count">(2)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/Lowp/tag/%E6%8E%A5%E5%8F%A3/">接口<span class="tag-count">(2)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/Lowp/tag/%E7%B2%BE%E9%AB%93/">精髓<span class="tag-count">(1)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/Lowp/tag/%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95/">模拟登录<span class="tag-count">(1)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/Lowp/tag/%E6%A8%A1%E6%8B%9F%E6%B5%8F%E8%A7%88%E5%99%A8/">模拟浏览器<span class="tag-count">(1)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/Lowp/tag/%E5%86%85%E5%AD%98/">内存<span class="tag-count">(1)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/Lowp/tag/%E4%B8%89%E5%85%83%E8%BF%90%E7%AE%97%E7%AC%A6/">三元运算符<span class="tag-count">(1)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/Lowp/tag/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86/">设计原理<span class="tag-count">(1)</span></a>
+        </li>
+    <li>
+        <a href="https://www.cnblogs.com/Lowp/tag/">更多</a>
+    </li>
+
+</ul>
+</div>
+
+</div>
+
+<!-- 积分与排名 -->
+
+
+<!-- 随笔分类、随笔档案、文章分类、新闻分类、相册、链接 -->
+<div id="sidebar_categories">
+        <div id="sidebar_postarchive" class="catListPostArchive sidebar-block">
+            <h3 class="catListTitle">
+                
+随笔档案
+<span style="font-size:11px;font-weight:normal">(15)</span>
+
+
+            </h3>
+
+
+            <ul>
+
+                        <li>
+                            
+<a href="https://www.cnblogs.com/Lowp/archive/2016/06.html" rel="" target="">
+    2016年6月(1)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/Lowp/archive/2016/05.html" rel="" target="">
+    2016年5月(1)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/Lowp/archive/2013/10.html" rel="" target="">
+    2013年10月(1)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/Lowp/archive/2013/02.html" rel="" target="">
+    2013年2月(1)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/Lowp/archive/2012/11.html" rel="" target="">
+    2012年11月(1)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/Lowp/archive/2012/09.html" rel="" target="">
+    2012年9月(10)
+</a>
+ 
+
+                        </li>
+
+            </ul>
+
+
+        </div>
+</div>
+
+<!-- 最新评论 -->
+<div id="sidebar_recentcomments" class="sidebar-block"><div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div class="RecentCommentBlock">
+        <ul>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/Lowp/archive/2012/09/03/2668154.html">1. Re:Java探究心得之三元运算符</a></li>
+                    <li class="recent_comment_body">真希望啥时候三元运算符后面两个表达式不强制要求有返回值就好了。</li>
+                    <li class="recent_comment_author">--子明sir</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/Lowp/archive/2012/09/03/2668154.html">2. Re:Java探究心得之三元运算符</a></li>
+                    <li class="recent_comment_body">为什么一定要返回值呢？<br>如果没有这个限制，很多地方能使用三元表达式 替代 if else 了。<br><br>不知道jdk 以后是否会提供这种功能</li>
+                    <li class="recent_comment_author">--hwy1782</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/Lowp/archive/2012/09/21/2696825.html">3. Re:创新工场笔试最后两道题</a></li>
+                    <li class="recent_comment_body">还不错哦 继续努力</li>
+                    <li class="recent_comment_author">--xiaoyukid</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/Lowp/archive/2012/09/16/2687745.html">4. Re:Java学习笔记之Formatter的用法详解</a></li>
+                    <li class="recent_comment_body">@ lmtoo抓主要的，抓常见的几个看下就够用了，和C语言的printf输出其实差不多...</li>
+                    <li class="recent_comment_author">--Lowp</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/Lowp/archive/2012/09/16/2687745.html">5. Re:Java学习笔记之Formatter的用法详解</a></li>
+                    <li class="recent_comment_body">太复杂了，一时接受不了</li>
+                    <li class="recent_comment_author">--lmtoo</li>
+        </ul>
+    </div>
+</div>
+
+</div>
+
+
+<!-- 阅读排行榜 -->
+<div id="sidebar_topviewedposts" class="sidebar-block"><div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock">
+        <ul style="word-break:break-all">
+                    <li>
+                        <a href="https://www.cnblogs.com/Lowp/archive/2012/09/22/2698574.html">
+                            1. Java学习笔记之Pattern类的用法详解(正则表达式)(30652)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/Lowp/archive/2012/09/03/2668154.html">
+                            2. Java探究心得之三元运算符(25001)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/Lowp/archive/2012/09/16/2687745.html">
+                            3. Java学习笔记之Formatter的用法详解(输出格式化)(9964)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/Lowp/p/5478473.html">
+                            4. Java语言使用HttpClient模拟浏览器登录(7217)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/Lowp/archive/2012/11/16/2774211.html">
+                            5. 八位二进制数批量转unicode码(2357)
+                        </a>
+                    </li>
+        </ul>
+    </div>
+</div>
+
+</div>
+
+<!-- 评论排行榜 -->
+<div id="sidebar_topcommentedposts" class="sidebar-block"><div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock">
+        <ul style="word-break:break-all">
+                    <li>
+                        <a href="https://www.cnblogs.com/Lowp/archive/2012/09/03/2668154.html">
+                            1. Java探究心得之三元运算符(3)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/Lowp/archive/2012/09/16/2687745.html">
+                            2. Java学习笔记之Formatter的用法详解(输出格式化)(2)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/Lowp/archive/2012/09/21/2696825.html">
+                            3. 创新工场笔试最后两道题(1)
+                        </a>
+                    </li>
+        </ul>
+    </div>
+</div>
+
+</div>
+
+<!-- 推荐排行榜 -->
+<div id="sidebar_topdiggedposts" class="sidebar-block">
+<div id="topdigg_posts_wrap">
+    <div class="catListView">
+        <h3 class="catListTitle">推荐排行榜</h3>
+        <div id="TopDiggPostsBlock">
+            <ul style="word-break: break-all">
+                        <li>
+                            <a href="https://www.cnblogs.com/Lowp/archive/2012/09/22/2698574.html">
+                                1. Java学习笔记之Pattern类的用法详解(正则表达式)(3)
+                            </a>
+                        </li>
+            </ul>
+        </div>
+    </div>
+</div></div></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright © 2020 Lowp
+<br><span id="poweredby">Powered by .NET 5.0.0-rc.2.20475.5 on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    
+
+
+</body></html>

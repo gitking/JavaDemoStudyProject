@@ -1,6 +1,8 @@
 package com.yale.test.math;
 
 import java.math.BigDecimal;
+import java.util.Formatter;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class FloatDemo {
@@ -46,12 +48,15 @@ public class FloatDemo {
          */
         float af = 1.0f - 0.9f;
         float bf = 0.9f - 0.8f;
+        if (af > bf)  {
+        	System.out.println("af和bf,等值判断不能用==,但是可以比大小无所谓");
+        }
         System.out.println("af：" + af);
         System.out.println("bf:" + bf);
         if (af == bf) {
         	System.out.println("af和bf相等");
         } else {
-        	System.out.println("af和bf不相等");
+        	System.out.println("af和bf不相等,本来我预期的是相等的,结果是不相等,但是这个误差可以忽略掉,我就认为他是相等的");
         }
         Float xf = new Float(af);
         Float yf = new Float(bf);
@@ -146,6 +151,8 @@ public class FloatDemo {
         //如果要把数据显示成我们期望的格式，就需要使用格式化输出的功能。格式化输出使用System.out.printf()，通过使用占位符%?，printf()可以把后面的参数格式化成指定格式：
         //Java的格式化功能提供了多种占位符，可以把各种数据类型“格式化”成指定的字符串：
         /*
+         * 语法规则
+         * %[argument_index$][flags][width][.precision]conversion
          * %d	格式化输出整数
 		   %x	格式化输出十六进制整数
 		   %f	格式化输出浮点数
@@ -160,11 +167,30 @@ public class FloatDemo {
         
         int nfo = 12345000;
         System.out.printf("将正数转换为十六进制:n=%d, hex=%x\n", nfo, nfo); // 注意，两个%占位符必须传入两个数
-        System.out.printf("将正数转换为十六进制,并用0补足8位:n=%d, hex=%08x", nfo, nfo); // 注意，两个%占位符必须传入两个数
+        System.out.printf("将正数转换为十六进制,并用0补足8位:n=%d, hex=%08x\n", nfo, nfo); // 注意，两个%占位符必须传入两个数
+        System.out.printf("将正数转换为十六进制,不足32位前面是空格: hex=%32x\n", nfo);
+        System.out.printf("将正数转换为十六进制,并用0补足32位: hex=%032x\n", nfo); 
+        System.out.printf("将正数转换为十六进制,#代表输出以0x开头: hex=%#32x\n", nfo); 
+
         /*
          * 详细的格式化参数请参考JDK文档java.util.Formatter
          * https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Formatter.html#syntax
+         * https://www.cnblogs.com/Lowp/archive/2012/09/16/2687745.html
+         * https://blog.csdn.net/kingboyworld/article/details/69951340
          */
+        StringBuilder sb = new StringBuilder();
+        Formatter formatter = new Formatter(sb, Locale.US);
+        System.out.println("formatter，4$代表第四个参数:" + formatter.format("%4$2s %3$2s %2$2s %1$2s", "111a", "b", "c", "d"));
+        System.out.println("formatter的结果会存储再sb里面:" + sb.toString());
+        System.out.println("****************");
+        System.out.println("formatter，---" + formatter.format(Locale.FRANCE, "e = %+10.4f", Math.E));
+        
+        Formatter formatter1 = new Formatter();
+        //如果该值为负，并且给出了 '(' 标志，那么预先考虑 '(' ('(')，并追加一个 ')' (')')。
+        System.out.println(formatter1.format("Amount gained or lost since last statement: $ %(,.2f", -6271.58));
+        
+        System.out.println(formatter1.format("Amount gained or lost since last statement: $ %(,.2f", 6271.58));
+
         
         Scanner scanner = new Scanner(System.in); // 创建Scanner对象,接收从用户从控制台的输入
         System.out.println("Input your name: "); // 打印提示

@@ -1,0 +1,47 @@
+package com.yale.test.run;
+
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+/*
+ * ConcurrentLinkedQueue，这个队列。memory leak，内存泄漏。链表内存泄露
+ * https://club.perfma.com/article/2041676?type=sub&last=2049632
+ * https://bugs.java.com/bugdatabase/view_bug.do?bug_id=8137185
+ * https://bugs.eclipse.org/bugs/show_bug.cgi?id=477817
+ * https://bugs.eclipse.org/bugs/attachment.cgi?id=256704
+ * JDK官方修复方法:http://hg.openjdk.java.net/jdk8u/jdk8u-dev/jdk/rev/8efe549f3c87
+ * jconsole、VisualVM、jmc
+ */
+public class TestLeak1 {
+	public static void main(String[] args) {
+		
+		/*
+		 * 这段代码在jdk1.8.0_251上运行,30秒就运行完了
+		 * 在jdk1.6.0_45上运行,要运行24个小时，都运行不完.
+		 */
+		ConcurrentLinkedQueue<Object> queue = new ConcurrentLinkedQueue<Object>();
+		queue.add(new Object());//jdk1.6.0_45把这行注释掉运行的也很快,不知道啥原因
+		Object object = new Object();
+		int loops = 0;
+		Runtime rt = Runtime.getRuntime();
+		long last = System.currentTimeMillis();
+		while (loops < 1000000000) {
+			if (loops % 10000 ==0) {
+				long now = System.currentTimeMillis();
+				long duration = now - last;
+				last = now;
+				System.err.printf("duration=%d,q.size=%d, memory max = %d, free=%d, totol=%d%n", duration, queue.size(), rt.maxMemory(), rt.freeMemory(), rt.totalMemory());
+			}
+			queue.add(object);
+			queue.remove(object);
+			loops++;
+		}
+		System.out.println("循环了:" + loops);
+		System.out.println("链表的长度应该为1:" + queue.size());
+		System.out.println(System.getProperty("java.version"));
+		System.out.println(System.getProperty("java.vm.version"));
+		System.out.println(System.getProperty("java.vm.vendor"));
+		System.out.println(System.getProperty("java.vm.name"));
+		System.out.println(System.getProperty("java.runtime.version"));
+		System.out.println(System.getProperty("java.vm.specification.vendor"));
+	}
+}

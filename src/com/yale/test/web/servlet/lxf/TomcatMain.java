@@ -48,8 +48,7 @@ public class TomcatMain {
 		//创建webapp
 		Context ctx = tomcat.addWebapp("", new File("src/main/webapp").getAbsolutePath());
 		WebResourceRoot resources = new StandardRoot(ctx);
-		//DirResourceSet这个tomcat9.0才有这个构造方法
-		//resources.addPreResources(new DirResourceSet(resources, "/WEB-INF/classes", new File("target/classes").getAbsoluteFile(), "/"));
+		resources.addPreResources(new DirResourceSet(resources, "/WEB-INF/classes", new File("target/classes").getAbsolutePath(), "/"));
 		ctx.setResources(resources);
 		tomcat.start();
 		tomcat.getServer().await();
