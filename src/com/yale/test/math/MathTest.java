@@ -74,6 +74,18 @@ public class MathTest {
          * SecureRandom的安全性是通过操作系统提供的安全的随机种子来生成随机数。这个种子是通过CPU的热噪声、读写磁盘的字节、网络流量等各种随机事件产生的“熵”。
 		 * 在密码学中，安全的随机数非常重要。如果使用不安全的伪随机数，所有加密体系都将被攻破。因此，时刻牢记必须使用SecureRandom来产生安全的随机数。
 		 * 需要使用安全随机数的时候，必须使用SecureRandom，绝不能使用Random！ 
+		 * 
+		 * https://github.com/openjdk/jdk/blob/jdk8-b120/jdk/src/share/classes/sun/security/provider/SunEntries.java
+		 * SecureRandom内部用到了sun.security.provider.SecureRandom,而SecureRandom在大量获取随机数的时候有性能问题见:perfma连接
+		 * https://club.perfma.com/article/2056948
+		 * 堆栈显示，阻塞在：void sun.security.provider.SecureRandom.engineNextBytes(byte[])上面，这就是一个经典的问题，Java Random
+		 * 涉及到两种随机数 seed 生成方式，一种是"file:/dev/random"，另一种是"file:/dev/urandom"，通过设置系统属性java.security.egd指定，默认是"file:/dev/random"
+		 * 两种 Random 原理与解决在 Linux 4.8 之前：和在 Linux 4.8 之后：
+		 * 在熵池不够用的时候，默认的"file:/dev/random"会阻塞，"file:/dev/urandom"不会，继续用。对于我们来说，"file:/dev/urandom"够用，
+		 * 所以通过-Djava.security.egd=file:/dev/./urandom设置系统属性，使用 urandom 来减少阻塞。
+		 * 注意：jvm参数值为/dev/./urandom而不是/dev/urandom，这里是jdk的一个bug引起。https://blog.51cto.com/leo01/1795447
+		 * bug产生的原因请注意下面SeedGenerator第四行源码，如果java.security.egd参数指定的是file:/dev/random或者file:/dev/urandom，则调用了无参的NativeSeedGenerator构造函数，而无参的构造函数将默认使用file:/dev/random 。openjdk的代码和hotspot的代码已经不同，openjdk在后续产生随机数的时候没有使用这个变量。
+		 * https://github.com/openjdk/jdk/blob/jdk8-b120/jdk/src/share/classes/sun/security/provider/SunEntries.java
          */
         SecureRandom sr = null;
         try {

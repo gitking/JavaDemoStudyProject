@@ -1,5 +1,7 @@
 package com.yale.test.java.demo.string;
 
+import java.util.Date;
+
 /*
  * 在Java中，String是一个引用类型，它本身也是一个class
  * 实际上字符串在String内部是通过一个char[]数组表示的，因此，按下面的写法也是可以的：
@@ -35,15 +37,61 @@ public class StringTest {
 		  * 
 		    %s：显示字符串；
 		    %d：显示整数；
-		    %x：显示十六进制整数；
+		    %x：显示十六进制整数；参数必须是byte,short,int,long, BigInteger
 		    %f：显示浮点数。
+		    %c: character
 		    占位符还可以带格式，例如%.2f表示显示两位小数。如果你不确定用啥占位符，那就始终用%s，因为%s可以显示任何数据类型。要查看完整的格式化语法，请参考JDK文档。
 		  https://docs.oracle.com/en/java/javase/14/docs/api/java.base/java/util/Formatter.html#syntax
 		  */
 		 String sfo = "Hi %s, your score is %d!";
 	     //System.out.println(s.formatted("Alice", 80));
 	     System.out.println(String.format("Hi %s, your score is %.2f!", "Bob", 59.5));
-		
+	     //FloatDemo.java里面也有关于格式化的代码
+	     //%是占位符',d'代表参数要使用的格式化的方式，%,d:这代表以十进制整数带有逗号的方式来表示。
+	     System.out.println(String.format("%,d", 1000000000));//格式化的结果为1,000,000,000
+	     //%.2f：这代表以小数点后俩位的方式来格式化此浮点数
+	     System.out.println(String.format("I have %.2f bugs to fix.", 476578.09876));
+	     System.out.println(String.format("I have %.2f bugs to fix.", 476578.09476));
+	     //%,.2f代表整数部分以有逗号的形式表示,小数部分以俩位来格式化
+	     System.out.println(String.format("I have %,.2f bugs to fix.", 476578.09476));
+	     
+	     //如果你要输出像下面这样的字符串:The rank is 20,456,654 out of 100,567,890,24
+	     int one = 20456654;
+	     double two = 100567890.248907;
+	     System.out.println(String.format("The rank is %,d out of %,.2f", one, two));
+	     /*
+	      * 格式化说明最多会有5个部分(不包括%符号)。下面的[]符号里面都是选择性的项目,因此只有%与type是必须的.
+	      * 格式化说明的顺序是有规定的,必须要以这个顺序来指定.
+	      * %[argument number][flags][width][.precision]type
+	      * [argument number],如果要格式化的参数超过一个以上,可以在这里指定是哪一个
+	      * [flags]特定类型的特定选项,例如数字要加逗号或正负号
+	      * [width]最小的字符数,注意这不是总数,输出可以超过此宽度,若不足则会主动补零
+	      * [.precision]精确度,注意前面有个圆点符号
+	      * type 一定要指定的类型
+	      * 在格式化指令中一定要给类型,如果还要指定其他项目,要把类型type放在最后,类型修饰符有十几种(这不包括日期和时间,它们有自己的一组)
+	      * 但大部分时间你会使用到%d和%f,且通常你会对%f加上精确度指示来设定所需要的小数长度。
+	      * 《Head First Java》第297页
+	      */
+	     System.out.println(String.format("%,6.1f", 42.000));
+	     System.out.println("%.3f会强制输出3位的小数");
+	     System.out.println(String.format("%.3f", 42.0));
+	     
+	     System.out.println("%x hexadecimal 参数必须是byte,short,int, long,显示十六进制整数");
+	     System.out.println(String.format("%x", 42));
+	     
+	     //%c参数必须是byte,short,int, long,ASCII的42代表"*"号
+	     System.out.println(String.format("%c", 42));
+	     
+	     //%tc完整的日期与时间
+	     System.out.println(String.format("%tc", new Date()));
+	     //%tr只有时间
+	     System.out.println(String.format("%tr", new Date()));
+	     //%tA %tB %td 周 月  日
+	     Date now = new Date();
+	     System.out.println(String.format("%tA, %tB %td", now, now, now));
+	     //同上不用重复给参数,"<"这个符号是个特殊的指示,用来告诉格式化程序重复利用之前用过的参数《Head First Java》
+	     System.out.println(String.format("%tA, %<tB %<td", now));
+
 		"".isEmpty(); // true，因为字符串长度为0
 		"  ".isEmpty(); // false，因为字符串长度不为0
 		//"  \n".isBlank(); // true，因为只包含空白字符

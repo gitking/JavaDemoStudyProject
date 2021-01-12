@@ -20,6 +20,14 @@ public class TestLeak1 {
 		 */
 		ConcurrentLinkedQueue<Object> queue = new ConcurrentLinkedQueue<Object>();
 		queue.add(new Object());//jdk1.6.0_45把这行注释掉运行的也很快,不知道啥原因
+		queue.add(new Object());//jdk1.6.0_45把这行注释掉运行的也很快,不知道啥原因
+		queue.add(new Object());//jdk1.6.0_45把这行注释掉运行的也很快,不知道啥原因
+		queue.add(new Object());//jdk1.6.0_45把这行注释掉运行的也很快,不知道啥原因
+		queue.add(new Object());//jdk1.6.0_45把这行注释掉运行的也很快,不知道啥原因
+		/*
+		 * jdk1.6.0_4,上会发生内存泄露是因为,你要删除队列里面的最后一个元素时才会这样,但是列表里面的元素最少要有俩个,然后就你去删除最后一个
+		 * 上面的queue.add(new Object());这行代码最少有一个,然后再循环里面循环添加和删除同一个元素,也就是循环添加和删除最后一个元素
+		 */
 		Object object = new Object();
 		int loops = 0;
 		Runtime rt = Runtime.getRuntime();

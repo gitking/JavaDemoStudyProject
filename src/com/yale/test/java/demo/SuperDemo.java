@@ -16,8 +16,21 @@ public  class SuperDemo extends Student{
 	public String stuName;// 注意：子类自动获得了父类的所有字段，严禁定义与父类重名的字段！ 
 
 	public SuperDemo(){
-		super("Student类的stuName");
-		strss = "";//这里不给strss初始化赋值,编译会报错
+		/*
+    	 * this()只能用在构造函数中,且它必须是第一行语句。
+    	 * 每个构造函数可以选择调用super()或this(),但不能同时调用,super()与this()不能兼得。
+    	 */
+		//super("Student类的stuName");
+		this("Student类的stuName");
+		/*
+		 * 如果调用了this("Student类的stuName");下面再调用
+		 * strss = "111";
+		 * 就会报错"The final field strss may already have been assigned",
+		 * 报错的意思是,final类型的字段strss,可能已经被赋值过了。为什么可能被赋值过了？
+		 * 因为你上面已经调用了this("Student类的stuName");这个构造方法了,这个构造方法里面肯定已经给
+		 * strss赋值过了,所以strss不能再次赋值了。
+		 */
+		//strss = "111";//这里不给strss初始化赋值,编译会报错
 		this.stuName = "子类SuperDemo的stuName";
 	}
 	public SuperDemo(String name) {

@@ -5,6 +5,8 @@ package com.yale.test.thread.heima.zhangxiaoxiang;
  * 当main线程对线程对象t调用join()方法时，主线程将等待变量t表示的线程运行结束，即join就是指等待该线程结束，然后才继续往下执行自身线程。
  * 所以，下述代码打印顺序可以肯定是main线程先打印start，t线程再打印hello，main线程最后再打印end。
  * 如果t线程已经结束，对实例t调用join()会立刻返回。此外，join(long)的重载方法也可以指定一个等待时间，超过等待时间后就不再继续等待。
+ * https://yq.aliyun.com/articles/610881?spm=a2c4e.11155435.0.0.24d67229e5YHHF
+ * https://blog.csdn.net/zhutulang/article/details/48504487
  */
 public class ThreadJoin2 {
 	public static void main(String[] args) throws InterruptedException {

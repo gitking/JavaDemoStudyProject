@@ -15,6 +15,11 @@ import java.util.Scanner;
 /*
  * 客户端
  * 相比服务器端，客户端程序就要简单很多。一个典型的客户端程序如下：
+ * TCP端口只是一个16位宽,用来识别服务器上特定程序的数字。
+ * HTTP的端口号是80,Telnet服务器的端口是23,POP3邮件服务器的端口是110,SMTP邮局交换服务器的端口是25，
+ * 每个服务器上面都有65536(0~65535)个端口,0~1023都已经保留给已知的特定服务使用了,你不应该使用0~1023的这些端口。
+ * 在java里面所有网络运作的底层细节都已经由java.net函数库处理掉了。java的一项好处是传送与接收网络上的数据只不过是链接上
+ * 使用不同链接串流的输入/输出而已。如果有BufferedReader就可以读取,若数据来自文件或网络另一端,则BufferedReader不用花费很多精力去照顾。也就是说你可以使用BufferedReader而不管是串流来自文件或Socket。
  */
 public class Client {
 	public static void main(String[] args) throws UnknownHostException, IOException {

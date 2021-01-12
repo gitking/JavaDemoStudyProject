@@ -148,10 +148,16 @@ public class RegexTest {
         String c = chinese.replaceAll(regexChinese, "$1");
         System.out.println("中文:[" + c + "]下标:" + chinese.indexOf(c));
         
+        /*
+         * "-?[0-9]+.?[0-9]*"这个正则表达式有漏洞,.点这个字符在正则表达式里面代表任意一个字符,
+		 * 上面的.?意思是:任意一个字符可以出现0次或者一次,所以200 80或者200s80这种字符串都是可以校验通过的
+		 * 解决办法是对.点这个字符进行转义"-?[0-9]+\\.?[0-9]*"
+         */
         boolean isNum = douStr.matches("-?[0-9]+.?[0-9]*");
-        System.out.println("这里有什么漏洞:" + isNum);
+        System.out.println(douStr + "这里有什么漏洞:" + isNum);
         if (isNum) {
             double doub = Double.valueOf(douStr);
+            System.out.println(doub);
         }
 	}
 	

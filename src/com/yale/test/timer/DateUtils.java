@@ -2,6 +2,7 @@ package com.yale.test.timer;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -67,5 +68,26 @@ public class DateUtils {
 		/**
 		 * JAVA官方API文档:https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#patterns
 		 */
+		
+		/**
+		 * 《Head First Java》
+		 * 要取得当前的日期时间就用Date,其余功能可以从Calendar上找,Calendar这个API的设计者打算要做全球化的思考,基本的想法是当你要操作日期时
+		 * 你会 要求一个Calendar,然后Java虚拟机会给你一个Calendar的子类实例,Clandar是个抽象类,有意思的是你取的是Calendar是符合所在地区(locate)特性的。
+		 * 通常大部分的地区适用公历,但你也有可能处于使用农历或其他特殊格式的情况,此时你可以让java函数库来处理这一类的日期。
+		 * java.util.GregorianClaendar《Head First Java》书上用的是这个类
+		 * Calendar可以让你将日期转换成毫秒的表示法,或将毫秒转换成日期。更精确的说法是相对于1970年1月1日的毫秒数,因此你可以执行精确的相对时间计算。
+		 */
+		Calendar cal = Calendar.getInstance();
+		cal.set(2004, 1, 7, 15, 40);//将时间设定为2004年1月7日15:40
+		long day1 = cal.getTimeInMillis();//将时间转换为毫秒
+		day1+= 1000 * 60 *60;
+		cal.setTimeInMillis(day1);//将时间加上一个小时
+		System.out.println("现在的hour小时为:" + cal.get(Calendar.HOUR_OF_DAY));
+		cal.add(Calendar.DATE, 35);//加上35天
+		System.out.println("加上35天之后" + cal.getTime());
+		cal.roll(Calendar.DATE, 35);//滚动35天,注意只有日期会滚动,月份不会滚动
+		System.out.println("滚动35天之后" + cal.getTime());
+		cal.set(Calendar.DATE, 1);//直接设定DATE的值
+		System.out.println("set date to 1:" + cal.getTime());
 	}
 }

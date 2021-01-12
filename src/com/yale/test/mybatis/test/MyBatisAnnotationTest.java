@@ -22,9 +22,10 @@ public class MyBatisAnnotationTest {
 		}
 		User user = new User();
 		user.setId(001);
-		user.setName("注解");
+		user.setName("注解111");
 		user.setPassword("9808009");
 		int res = sqlDao.addUser(user);
+		sqlSession.commit();//需要手动提交事务
 		System.out.println("使用注解插入数据:" + res);
 	}
 }

@@ -21,6 +21,10 @@ public class SubPersonDemo extends PersonDemo {
 	 * 这里还顺带引出了另一个问题：即子类不会继承任何父类的构造方法。子类默认的构造方法是编译器自动生成的，不是继承的。
      */
     public SubPersonDemo(String name, int age, int score){
+    	/*
+    	 * this()只能用在构造函数中,且它必须是第一行语句。
+    	 * 每个构造函数可以选择调用super()或this(),但不能同时调用,super()与this()不能兼得。
+    	 */
     	super(name, age);//如果父类没有无参构造方法,需要自己手工调用父类的构造方法
     	this.score = score;
     }

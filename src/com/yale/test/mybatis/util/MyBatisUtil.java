@@ -8,6 +8,14 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+/*
+ * https://www.cnblogs.com/fangjian0423/p/spring-mybatis-MapperScannerConfigurer-analysis.html
+ * https://www.cnblogs.com/fangjian0423/p/java-dynamic-proxy.html
+ * org.mybatis.spring.mapper.MapperScannerConfigurer
+ * <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+ * 		<property name="basePackage" value="com.isoftstone.pcis.file/client/mapper" />
+ *	</bean>
+ */
 public class MyBatisUtil {
 	public static void main(String[] args) {
 		

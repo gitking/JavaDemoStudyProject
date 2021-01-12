@@ -47,12 +47,38 @@ public class Base64Test {
 			 * 和标准的URL编码稍有不同，URLEncoder把空格字符编码成+，而现在的URL编码标准要求空格被编码为%20，不过，服务器都可以处理这两种情况。
 			 * 如果服务器收到URL编码的字符串，就可以对其进行解码，还原成原始字符串。Java标准库的URLDecoder就可以解码：
 			 * 要特别注意：URL编码是编码算法，不是加密算法。URL编码的目的是把任意文本数据编码为%前缀表示的文本，编码后的文本仅包含A~Z，a~z，0~9，-，_，.，*和%，便于浏览器和服务器处理。
+			 * URL编码原理:
+			 * 编码原理
+			 * 1、将需要转换的内容（ASCII码形式之外的内容），用十六进制表示法转换出来，并在之前加上%开头
+			 * eg:  0x9c  URLEncoder --> %9c
+			 * 2、内容中的空格‘ ’ ,全部用+代替
+			 * 3、注：与Hex不同，Hex是将所有的字符转换为16进制表示，而URLEncoder是将ASCII码集之外的转换为%加上相应的16进制，而ASCII码集内的字符不进行处理
+			 * 
+			 * java怎么把中文变成16进制？这好像设计Unicode和UTF-8的关系
 			 */
 			String encoded = URLEncoder.encode("中文!*", "UTF-8");
 			System.out.println("Java标准库提供了一个URLEncoder类来对任意字符串进行URL编码：" + encoded);
 			
 			String decoded = URLDecoder.decode("%E4%B8%AD%E6%96%87%21*", "UTF-8");
 		    System.out.println("Java标准库的URLDecoder就可以解码：" + decoded);
+		    
+		    String strHex = "中";
+		    byte[] strArr = strHex.getBytes();
+		    byte num = 110;
+		    int i = num;
+		    System.out.println(i);
+		    
+		    byte num0 = strArr[0];
+		    int i0 = num0;
+		    System.out.println(i0);
+		    //将byte转换为二进制看看
+		    System.out.println("转换为二进制:为什么这么长11111111111111111111111111100100:" + Integer.toBinaryString(strArr[0]));
+		    System.out.println("转换为二进制:为什么这么长11111111111111111111111111100100:" + Integer.toBinaryString(-28));
+		    
+		    System.out.println("e4:" + Integer.toHexString(strArr[0]));
+		    System.out.println("b8:" + Integer.toHexString(strArr[1]));
+		    System.out.println("ad:" + Integer.toHexString(strArr[2]));
+		    System.out.println("中这个字转换为字节之后,占几个字节?" + strArr.length);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -75,6 +101,9 @@ public class Base64Test {
 			└───────────┴───────────┴───────────┴───────────┘
 		 * 因为6位整数的范围总是0~63，所以，能用64个字符表示：字符A~Z对应索引0~25，字符a~z对应索引26~51，字符0~9对应索引52~61，最后两个索引62、63分别用字符+和/表示。
 		 * 在Java中，二进制数据就是byte[]数组。Java标准库提供了Base64来对byte[]数组进行编解码：
+		 * https://mp.weixin.qq.com/s/TcSNPY1a6z8kP76usH6dCA
+		 * 但因为 Base64 是每 3 个原始字符编码成 4 个字符，不够时补 =（下文会详述），因此编码后的大小是有可能会比原文件大的，所以 html 用 Base64 来展示图片而不是用具体的图片好处大概就只有少建立一条 http 连接以及少一个 http 请求（在 HTTP 1.1 以下），这种办法只有大量的小图片才有优越性了。
+		 * 更多 Base64 的信息，请查看：http://zh.wikipedia.org/zh/base64
 		 */
 		int num16 = 0xe4;
 		int num161 = 0xb8;
