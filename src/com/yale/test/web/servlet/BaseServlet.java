@@ -24,6 +24,8 @@ import javax.servlet.http.HttpServletResponse;
  * 	他会在一组资源(jsp,servlet,.css,.html等等)的前面执行,它可以让请求达到目标资源,也可以不让请求达到目标资源。
  * 	过滤器有拦截请求的能力.
  * 3、监听器
+ * 如果你本来就熟悉使用Perl来编写的CGI,那你就会知道我们说的servlet是什么。网页开发者使用CGI或servlet来操作用户提交(submit)给服务器的信息。
+ * 而servlet也可以使用RMI,最常见的J2EE技术混合了servlet和EJB,前者是后者的用户。此时,servlet是通过RMI来与EJB通信的。
  * @author dell
  */
 public abstract class BaseServlet extends HttpServlet {

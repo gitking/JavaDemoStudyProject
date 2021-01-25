@@ -1,66 +1,7 @@
-package com.yale.test.java.classpath;
+package com.yale.test.java.classpath.jws;
 /*
- * 如果我们需要在src目录下执行javac命令：
- * javac -d ../bin ming/Person.java hong/Person.java mr/jun/Arrays.java
- * https://www.liaoxuefeng.com/wiki/1252599548343744/1260466914339296
- * 
- * 在Java中，我们经常听到classpath这个东西。网上有很多关于“如何设置classpath”的文章，但大部分设置都不靠谱。
-到底什么是classpath？
-classpath是JVM用到的一个环境变量，它用来指示JVM如何搜索class。
-因为Java是编译型语言，源码文件是.java，而编译后的.class文件才是真正可以被JVM执行的字节码。因此，JVM需要知道，如果要加载一个abc.xyz.Hello的类，应该去哪搜索对应的Hello.class文件。
-所以，classpath就是一组目录的集合，它设置的搜索路径与操作系统相关。例如，在Windows系统上，用;分隔，带空格的目录用""括起来，可能长这样：
-C:\work\project1\bin;C:\shared;"D:\My Documents\project1\bin"
-在Linux系统上，用:分隔，可能长这样：
-/usr/shared:/usr/local/bin:/home/liaoxuefeng/bin
-现在我们假设classpath是.;C:\work\project1\bin;C:\shared，当JVM在加载abc.xyz.Hello这个类时，会依次查找：
-    <当前目录>\abc\xyz\Hello.class
-    C:\work\project1\bin\abc\xyz\Hello.class
-    C:\shared\abc\xyz\Hello.class
-注意到.代表当前目录。如果JVM在某个路径下找到了对应的class文件，就不再往后继续搜索。如果所有路径下都没有找到，就报错。
-classpath的设定方法有两种：
-在系统环境变量中设置classpath环境变量，不推荐；
-在启动JVM时设置classpath变量，推荐。
-我们强烈不推荐在系统环境变量中设置classpath，那样会污染整个系统环境。在启动JVM时设置classpath才是推荐的做法。实际上就是给java命令传入-classpath或-cp参数：
-java -classpath .;C:\work\project1\bin;C:\shared abc.xyz.Hello
-或者使用-cp的简写：
-java -cp .;C:\work\project1\bin;C:\shared abc.xyz.Hello
-没有设置系统环境变量，也没有传入-cp参数，那么JVM默认的classpath为.，即当前目录：
-java abc.xyz.Hello
-上述命令告诉JVM只在当前目录搜索Hello.class。
-在IDE中运行Java程序，IDE自动传入的-cp参数是当前工程的bin目录和引入的jar包。
-通常，我们在自己编写的class中，会引用Java核心库的class，例如，String、ArrayList等。这些class应该上哪去找？
-有很多“如何设置classpath”的文章会告诉你把JVM自带的rt.jar放入classpath，但事实上，根本不需要告诉JVM如何去Java核心库查找class，JVM怎么可能笨到连自己的核心库在哪都不知道？
-不要把任何Java核心库添加到classpath中！JVM根本不依赖classpath加载核心库！
-更好的做法是，不要设置classpath！默认的当前目录.对于绝大多数情况都够用了。
-jar包
-如果有很多.class文件，散落在各层目录中，肯定不便于管理。如果能把目录打一个包，变成一个文件，就方便多了。
-jar包就是用来干这个事的，它可以把package组织的目录层级，以及各个目录下的所有文件（包括.class文件和其他文件）都打成一个jar文件，这样一来，无论是备份，还是发给客户，就简单多了。
-jar包实际上就是一个zip格式的压缩文件，而jar包相当于目录。如果我们要执行一个jar包的class，就可以把jar包放到classpath中：
-java -cp ./hello.jar abc.xyz.Hello
-这样JVM会自动在hello.jar文件里去搜索某个类。
-那么问题来了：如何创建jar包？
-因为jar包就是zip包，所以，直接在资源管理器中，找到正确的目录，点击右键，在弹出的快捷菜单中选择“发送到”，“压缩(zipped)文件夹”，就制作了一个zip文件。然后，把后缀从.zip改为.jar，一个jar包就创建成功。
-假设编译输出的目录结构是这样：
-见jar.png
-package_sample
-└─ bin
-   ├─ hong
-   │  └─ Person.class
-   │  ming
-   │  └─ Person.class
-   └─ mr
-      └─ jun
-         └─ Arrays.class
-这里需要特别注意的是，jar包里的第一层目录，不能是bin，而应该是hong、ming、mr。如果在Windows的资源管理器中看，应该长这样：
-说明打包打得有问题，JVM仍然无法从jar包中查找正确的class，原因是hong.Person必须按hong/Person.class存放，而不是bin/hong/Person.class。
-jar包还可以包含一个特殊的/META-INF/MANIFEST.MF文件，MANIFEST.MF是纯文本，可以指定Main-Class和其它信息。JVM会自动读取这个MANIFEST.MF文件，如果存在Main-Class，我们就不必在命令行指定启动的类名，而是用更方便的命令：
-java -jar hello.jar
-jar包还可以包含其它jar包，这个时候，就需要在MANIFEST.MF文件里配置classpath了。
-在大型项目中，不可能手动编写MANIFEST.MF文件，再手动创建zip包。Java社区提供了大量的开源构建工具，例如Maven，可以非常方便地创建jar包。
-打jar包的命令 jar -cvf test.jar javalist.txt 
-javalist.txt文件放你要要打成jar包的class文件
-还有打War包的命令:
-jar包和war包的介绍和区别 - 简书  这个写到java文档里面去
+ * 还有打War包的命令:
+ * jar包和war包的介绍和区别 - 简书  这个写到java文档里面去
  * ---------------------------- Head First Java 第584页
  * 假如源代码(.java)存储在source目录下。在编译时动点手脚让输出(.class)产生在classes目录。有个编译器选项能够这么搞
  * 编译时加上-d(directory)选项。
@@ -168,13 +109,20 @@ jar包和war包的介绍和区别 - 简书  这个写到java文档里面去
  * 			<a href="MyApp2.jnlp">Launch My Application</a>
  * 		</BODY>
  * </HTML>
+ * 问:Java Web Start与applet有什么不同?
+ * 答:applet无法独立于浏览器之外。applet是网页的一部分而不是单独的.浏览器会使用Java的plug-in来执行applet.applet没有类似程度的自动更新等功能,
+ * 且一定得从浏览器上面执行.对JWS应用程序而言,一旦从网站上面下载后,用户不必通过浏览器就可以离线执行程序。
+ * 问:JWS有什么安全性的限制?
+ * 答:JWS有包括用户硬盘的读写等好几项限制。但JWS自有一套API可操作特殊的对话框来打开和存储文件,因此应用程序可以在用户同意的情况下存取硬盘上特定受限区域的文件。
+ * 要点:
+ * JavaWebStart技术让你能够从网站来部署独立的客户端程序。
+ * Java Web Start有个必须要安装在客户端的helper app(当然也需要Java)
+ * 当浏览器从服务器上取得.jnlp文件时,浏览器就会启动JWS的helper app.
+ * JWS的helper app会读取.jnlp来判断要从服务器上下载的可以执行JAR。
+ * 取得JAR之后它就会调用.jnlp指定的main()
  */
-public class ClassPathTest {
+public class JWSDemo {
 	public static void main(String[] args) {
-		/**
-		 * CLASSPATH就是JVM去哪找你的class文件
-		 * CLASSPATH的值是.就代表去当前目录中找
-		 * CLASSPATH的值也可以设置为别的路径:d:\demo这种路径,那JVM就去这找路径
-		 */
+
 	}
 }
