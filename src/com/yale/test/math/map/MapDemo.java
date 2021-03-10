@@ -57,6 +57,8 @@ import java.util.concurrent.ConcurrentHashMap;
   	这个List就越长，Map的get()方法效率就越低，这就是为什么要尽量满足条件二：
   	 如果两个对象不相等，则两个对象的hashCode()尽量不要相等。 
   	 hashCode()方法编写得越好，HashMap工作的效率就越高。
+ * ConcurrentHashMap内部默认分解为16个Segment,数据都是先查找Segment,再在内部加锁,因此在理想情况下,锁粒度可以降低16倍,那么自然的应该允许16个并行,当然并不排除
+ * 由于热点问题,导致某些Segment上的请求更多,而某些Segment上的没有争用。最坏的情况就是所有的请求分布到了同一个Segment上
  * @author dell
  */
 public class MapDemo {

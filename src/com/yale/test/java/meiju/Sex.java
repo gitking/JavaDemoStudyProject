@@ -5,6 +5,7 @@ interface IColor {
 }
 /**
  * 枚举类就是类多例模式的实现
+ * enum就是一种特殊的类,enum会隐含继承java.lang.Enum
  * 从java1.5开始有了枚举
  */
 public enum Sex implements IColor{

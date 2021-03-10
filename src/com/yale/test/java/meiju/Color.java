@@ -12,8 +12,6 @@ public class Color {
 	public Color(String title) {
 		this.title = title;
 	}
-	
-	
 	public static Color getInstance(int ch) {
 		switch(ch) {
 			case 0: return RED;

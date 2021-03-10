@@ -1,5 +1,7 @@
 package com.yale.test.math;
 
+import java.lang.reflect.Modifier;
+
 /**
  * 二进制的计算规则
  * 1 * 1 = 1 
@@ -33,6 +35,8 @@ public class BinaryTest {
 		
 		System.out.println("java中的进制转换方法:");
 		System.out.println("转换二进制显示:" + Integer.toBinaryString(dec));
+		long lNum = 9999999L;//数字本身就是以二进制形式存储的,如果要在UI界面上看到这个数字的二进制位,所以才转换成字符串来显示.
+		System.out.println("Long转换二进制显示:" + Long.toBinaryString(lNum));
 		System.out.println("转换为八进制显示:" + Integer.toOctalString(dec));
 		System.out.println("转换为十六进制显示:" + Integer.toHexString(dec));
 		System.out.println("**********************************************");
@@ -46,17 +50,29 @@ public class BinaryTest {
 
 		System.out.println("**********************************************");
 		System.out.println();
-
+		
+		//将其他进制的数据转换为十进制数据,使用Integer.parseInt(String, int),Integer.valueOf(String, int)来完成,Long也有类似的方法
 		System.out.println("将字符串转换为数字:Integer.parseInt(String s, int radix)方法:");
 		System.out.println("将字符串转换为数字:Integer.valueOf(String s, int radix)方法:");
 		System.out.println("Integer.parseInt将二进制的字符串转换为十进制:" + Integer.parseInt("1100010", 2));
 		System.out.println("Integer.parseInt将八进制的字符串转换为十进制:" + Integer.parseInt("142", 8));
 		System.out.println("Integer.parseInt将十六进制的字符串转换为十进制:" + Integer.parseInt("62", 16));
 		
-		System.out.println("valueOf方法里面用的就是parseInt" + Integer.valueOf("1100010", 2));
+		System.out.println("valueOf方法里面用的就是parseInt" + Integer.valueOf("1100010", 2)); 
 		System.out.println("*************************************");
 		System.out.println("什么是位运算:位运算就是直接对整数在内存中的二进制位进行操作,位运算实际上是对二进制进行的操作,而不是数学运算,位运算分为俩种:逻辑操作和位移操作");
 
+		/*
+		 * 数字与byte[]之间的转换是什么意思呢?大家都知道,在java语言中,int是由4个字节(byte)组成的,在网络上发送数据的时候,都是通过byte流来处理的.
+		 * 所以会发送4个byte的内容,4个byte会由高到底顺序排列发送,接收方反方向解析,在java中可以基于DataOutputStream,DataInputStream的writeInt(int)
+		 * 和readInt()来得到正确的数据.
+		 * 如果使用了通道相关的技术,ByteBuffer则由相关的API来实现,如果其他语言提供的API希望将这些byte位交互位置(如果要求低位先发送),那么你就要自己来处理了.
+		 * 而处理方式就可以参考DataXXXStream的处理方式.DataXXXStream还有一个readFull()方法,这个方法要求读满一个缓冲区后才返回数据,它会在内部循环处理.
+		 * DataXXXStream中不仅仅有对int类型的处理,还有对boolean,byte,unsignedbyte,short,unsigned short,char, int, long,float,unsigned float,double,
+		 * UTF的处理.
+		 * 在ByteBuffer的实现类中也提供了各种数据类型的put,get操作,内部也是通过byte转换来完成的.
+		 * 在java.io.Bits,java.nio.Bits类中也有大量的数字与byte[]的转换操作(这个俩个类我们的程序无法直接使用,但是可以看源码),可以参考他们的代码来实现自己的特定需求.
+		 */
 		System.out.println("比特(bit):信息量的最小单位,单位是小写b,bit只能表示二进制的1或者0");
 		System.out.println("字节(byte):表示信息的最小单位,单位是大写B,1byte=8bit,计算机中所有的数据都是以字节为单位存储的.");
 		System.out.println("机器数:将数据的首位设定为符号位:,0为正,1为负,机器数的数值大小受到机器字长的限制,不像你在纸上想写多长的数字就写多长的数字");
@@ -160,42 +176,155 @@ public class BinaryTest {
         short s2 = (short) i2; // 24910
         System.out.println(s2);
         
-		
-		System.out.println("按位与运算:&,定义:参加运算的俩个数据,按二进制位进行‘于’运算,与运算:俩个数都为 1,则结果为1");
+        //&可以用来控制范围,比如A&4999,这个操作得到数据将会永远<=4999,类似于A%4999(取余数)永远不可能大于4999一样的道理
+        int areaNum = 10;//10的二进制组合是1010,意味着任何数字与10进行&操作后都得不到0001(1),0100(8),0101(9)这三个数字,因为&这个运算符只要碰到0就是会变成0
+        //所以使用&来控制范围的时候最好选择二进制位都是1的数字,如1,127,255,511,1023等.注意,二进制的尾数如果是1的话,他就是奇数
+        int areaResult = 9999 & areaNum;
+		System.out.println("areaResult的结果肯定小于10:" + areaResult);
+
+		System.out.println("按位与运算:&,定义:参加运算的俩个数据,按二进制位进行‘于’运算,与运算:俩个数都为 1,则结果为1");//"与运算"（AND）
 		System.out.println("&位与运算:1&1 = 1, 1&0 = 0, 0&1 =0, 0&0 = 0 ");
 		System.out.println("示例:14&3即0000 1110 & 0000 0011 = 0000 0010 = 整数2,因此14&3=2,特点:①清零特定位②获取特定位");
 		System.out.println("注意,二进制的尾数如果是1的话,他就是奇数");
+		int xt = 10;//位组合是0000 1010
+		int yt = 6;//位组合是0000 0110
+		//按位与运算符:&,如果俩个位都是1才会返回1,否则返回0.
+		int at = xt & yt; //位组合是0000 0010
 		
-		System.out.println("按位或运算:|,定义:参加运算的俩个数据,按二进制位进行‘或’运算,或运算:俩个数有一个为 1,则结果为1");
+		/*
+		 * 大量判定"是|否"的操作
+		 * 如果一个系统中的许多操作都是在判定是与否,为了节约内存不会为每一个是,否的值用一个单独int来存储,因为int会占用4个字节32bit.注意在java中单独定义boolean类型也是占用32bit(4个字节)
+		 * 有些同学判断是否的时候会先用Integer.toBinaryString(dec)将int变量转换二进制字符串,然后再取出这个字符串上指定位置的char,再判断这个char是0还是1,这显然有点过分了
+		 * 我们可以模仿Java自己类库里面是怎么操作的,例如“java.lang.reflect.Modifier”,它对类型修饰符有各种各样的判定,
+		 * 例如:public final static 这样的一长串内容只用一个数字来表达,它是怎么做到的？Java将这些符号进行了固定的规格的编码,这个编码会在生成class文件时存在,JVM运行时也会使用
+		 * 是否为public,使用十六进制数据0x00000001表示
+		 * 是否为static,使用十六进制数据0x00000008表示,十六进制的8代表二进制的最后4位是1000.
+		 * 是否为final,使用十六进制数据0x00000010表示。十六进制的10代表二进制最后5位为10000.
+		 * 在Modifier类中大家可以找到private,protected,synchronized,volatile,transient,native,interface,abstract,strict等各种类型的表达数字.
+		 * java程序在读取字节码时,读取到一个数字,该数字只需要与对应的编码进行"&"操作,根据结果是否为0即可得到是否具有相应的标志位了,java用一个数字可以表达多个修饰字符串.
+		 * 很多时候需要判断它是不是public final static的,这么多类型要一个一个判断好麻烦,这种情况可以打组合拳,用|或运算,比如Modifier类中定义的:
+		 * private static final int CONSTRUCTOR_MODIFIERS = Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE;
+		 * 由于这三项内容的二进制并不冲突,所以做或运算就代表三者都成立,当传入参数后,只需要与这个值做"按位与&"运算就能得到结果,
+		 * 不过,现在结果不是跟0比较,而是与CONSTRUCTOR_MODIFIERS比较是否一样(因为需要每个二进制位都要对应上,才能证明它的3个特征都成立),所有的二进制都必须匹配上,一个匹配不上都不行
+		 * public static boolean isPublicFinalStatic(int mod) {
+		 * 		return (mod & PUBLIC_FINAL_STATIC) == PUBLIC_FINAL_STATIC;
+		 * }
+		 */
+		System.out.println("按位或运算:|,定义:参加运算的俩个数据,按二进制位进行‘或’运算,或运算:俩个数有一个为 1,则结果为1");//"或运算"（OR）
 		System.out.println("|位或运算:1|1 = 1, 1|0 = 1, 0|1 =1, 0|0 = 0 ");
 		System.out.println("示例:14|3即0000 1110 | 0000 0011 = 0000 1111 = 整数15,因此14|3=15,特点:①将特定位设为1");
+		//按位或运算符:|,只要其中一个是1就会返回1.
+		int ac = xt | yt;//位组合是0000 1110
 		
+		//大家比较熟悉的逻辑运算，主要是"与运算"（&AND）和"或运算"（|OR），还有一种"异或运算"（XOR），也非常重要。
+		//XOR 是 exclusive OR 的缩写。英语的 exclusive 意思是"专有的，独有的"，可以理解为 XOR 是更单纯的 OR 运算。
+		//http://www.ruanyifeng.com/blog/2021/01/_xor.html
+		/*
+		 * XOR 运算有以下的运算定律。由于非常简单，这里就省略证明了。
+		 * 1,一个值与自身的运算，总是为 false。x ^ x = 0
+		 * 2,一个值与 0 的运算，总是等于其本身。 x ^ 0 = x
+		 * 3,可交换性 x ^ y = y ^ x
+		 * 4,结合性 x ^ (y ^ z) = (x ^ y) ^ z
+		 * 根据上面的这些运算定律，可以得到异或运算的很多重要应用。
+		 * 简化计算：多个值的异或运算，可以根据运算定律进行简化。
+		 *   a ^ b ^ c ^ a ^ b 
+		 * = a ^ a ^ b ^ b ^ c 
+		 * = 0 ^ 0 ^ c 
+		 * = c
+		 * 交换值
+		 * 两个变量连续进行三次异或运算，可以互相交换值。
+		 * 假设两个变量是x和y，各自的值是a和b。下面就是x和y进行三次异或运算，注释部分是每次运算后两个变量的值。
+		 * x = x ^ y // (a ^ b, b)
+		 * y = x ^ y // (a ^ b, a ^ b ^ b) => (a ^ b, a)
+		 * x = x ^ y // (a ^ b ^ a, a) => (b, a)
+		 * 这是两个变量交换值的最快方法，不需要任何额外的空间。
+		 * 加密
+		 * 异或运算可以用于加密。
+		 * 第一步，明文（text）与密钥（key）进行异或运算，可以得到密文（cipherText）。
+		 * text ^ key = cipherText
+		 * 第二步，密文与密钥再次进行异或运算，就可以还原成明文。
+		 * cipherText ^ key = text
+		 * 原理很简单，如果明文是 x，密钥是 y，那么 x 连续与 y 进行两次异或运算，得到自身。
+		 *   (x ^ y) ^ y
+		 * = x ^ (y ^ y)
+		 * = x ^ 0
+		 * = x
+		 * 数据备份
+		 * 异或运算可以用于数据备份
+		 * 文件 x 和文件 y 进行异或运算，产生一个备份文件 z。
+		 * x ^ y = z
+		 * 以后，无论是文件 x 或文件 y 损坏，只要不是两个原始文件同时损坏，就能根据另一个文件和备份文件，进行还原。
+		 *   x ^ z
+		 * = x ^ (x ^ y)
+		 * = (x ^ x) ^ y
+		 * = 0 ^ y
+		 * = y
+		 * 上面的例子是 y 损坏，x 和 z 进行异或运算，就能得到 y。
+		 * 一道面试题
+		 * 一些面试的算法题，也能使用异或运算快速求解。
+		 * 请看下面这道题。
+		 * 一个数组包含 n-1 个成员，这些成员是 1 到 n 之间的整数，且没有重复，请找出缺少的那个数字。
+		 * 最快的解答方法，就是把所有数组成员（A[0] 一直到 A[n-2]）与 1 到 n 的整数全部放在一起，进行异或运算。
+		 * A[0] ^ A[1] ^ ... ^ A[n-2] ^ 1 ^ 2 ^ ... ^ n
+		 * 贴上 力扣上缺失的数字题目 https://leetcode-cn.com/problems/que-shi-de-shu-zi-lcof/
+		 * 上面这个式子中，每个数组成员都会出现两次，相同的值进行异或运算就会得到 0。只有缺少的那个数字出现一次，所以最后得到的就是这个值。
+		 * 你可能想到了，加法也可以解这道题。
+		 * 1 + 2 +  ... + n - A[0] - A[1] - ... - A[n-2]
+		 * 但是，加法的速度没有异或运算快，而且需要额外的空间。如果数字比较大，还有溢出的可能。
+		 * 下面是一道类似的题目，大家可以作为练习。
+		 * 一个数组包含 n+1 个成员，这些成员是 1 到 n 之间的整数。只有一个成员出现了两次，其他成员都只出现一次，请找出重复出现的那个数字。
+		 */
 		System.out.println("按位异或运算:^,定义:参加运算的俩个数据,按二进制位进行‘异或’运算,异或运算:俩个数不同,则结果为1");
 		System.out.println("|位或运算:1^1 = 0, 1^0 = 1, 0^1 =1, 0^0 = 0 ");
 		System.out.println("示例:14|3即0000 1110 ^ 0000 0011 = 0000 1101 = 整数13,因此14^3=13,特点:①与自身异或得0 ②与同一个数连续异或得自身");
+		//按位异或运算符:^,位相同时返回0,否则返回1
+		int aca = xt ^ yt;//位组合是0000 1100
+		int t1 = 999;
+		int t2 = 999;
+		int zero = t1 ^ t2;
+		System.out.println("俩个相同的数字^异域的结果应该是0:[" + zero + "]");
+		
+		long numL = 98989898989L;
+		long num = 0;
+		long res = numL ^ num;
+		System.out.println("一个值与 0 异或的运算，总是等于其本身。x ^ 0 = x结果应该是numL:[" + res + "]");
 		
 		System.out.println("按位取反运算:~,定义:对一个二进制数按位取反,0变1,1变0");
 		System.out.println("~取反运算:~1 = 0, ~0 = 1 ");
 		System.out.println("示例:~14即~0000 1110 得 1111 0001 = 整数-15,因此~14=-15,这里再次重申计算机当中整数都是以补码的方式存放的");
+		//~按位非运算符:~,这个运算符会将primitive主数据类型的字节组合值取反
+		int x = 10;//位组合是00001010
+		x = ~x;//位组合是11110101
 		
-		
+		/*
+		 * 移位运算符
+		 * 此运算符取用单一primitive主数据类型并向某个方向执行移位,如果你的二进制运算技巧够好的话,你就会发现左移的效果与乘以2是一样的,而右移跟除以2一样。
+		 * 以下将全世界最短的负数表示成补码,整数最左方的字节称为符号位.Java中的负整数此位永远是1,正数此位永远是0,Java使用补码来存储负值,
+		 * 改变正负号时要把位取反然后加1.
+		 */
+		int yy = -11;//位组合是1111 0101
 		System.out.println("<<左位移运算:<<,定义:将一个二进制数向左移动对应的位数,而这个移动是不包括符号位的");
 		System.out.println("规则:符号位不变,右侧低位补0,左侧高位舍弃 ");
 		System.out.println("示例:14<<1 即0000 1110 << 1 得 0001 1100 = 整数28,因此14<<1=28,");
 		System.out.println("<<左位移的特点就是相当于乘以这个数的2的位移次方:m<<n = m x 2的n次方(在最高位不为1的情况下),");
+		//左移运算符:<<,与>>>一样,但方向相反,右方补0,正负号可能改变
+		int zy = yy << 2; //位组合是1101 0100
 		
 		System.out.println(">>右位移运算:>>,定义:将一个二进制数向右移动对应的位数,而这个移动是不包括符号位的");
 		System.out.println("规则:符号位不变,右侧低位舍弃,左侧高位正数补0,负数补1 ");
 		System.out.println("示例:14>>1 即0000 1110 >> 1 得 0000 0111 = 整数7,因此14>>1=7,");
 		System.out.println("示例:-14>>2 即1111 0010 >> 2 得 1111 1100 = 整数-4,因此-14>>2=-4,");
 		System.out.println(">>右位移的特点就是相当于除以这个数的2的位移次方:m<<n = m ÷ 2的n次方(低位为1时,精度会丢失,并非为完全整除的情况),");
-		
-		
+		//右移运算符:>>,以指定量右移字节组合,左方补0,正负号不变。
+		int yxy = yy >> 2;//位组合是1111 1101
+	
 		System.out.println(">>>无符号右位移运算:>>>,无符号右位移是包括了符号位的,正数无符号位移操作没有什么区别,主要是在负数");
 		System.out.println("规则:右侧低位舍弃,左侧高位补0 ");
 		System.out.println("示例:-14>>>2 即1111 0010 >>> 2  得 0011 1100 = 整数60,因此-14>>>2=60,");
 		System.out.println("这里要说明:数据规定存储的不同字节,负数位移得到的结果也是不同的,不同位数,负数的结果不同");
 		System.out.println("示例:这次用俩个字节来存储-14得的结果就大不相同,-14>>>2 即1111 1111 1111 0010 >>> 2 得 0011 1111 1111 1100= 整数16380,");
+		//无符号右移运算符:>>>,与>>一样,但第一个位也会补0,正负号可能会改变
+		int wy = yy >>> 2; //位组合是0011 1101
 		
 		System.out.println("无符号右位移只是在操作的时候不去考虑符号位,而在最终结果的识别方面,它还是以补码的方式存储,也是有符号位的,这一点一定要注意");
 		

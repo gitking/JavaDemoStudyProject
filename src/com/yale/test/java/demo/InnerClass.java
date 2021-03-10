@@ -17,6 +17,15 @@ public class InnerClass {
 		
 		//创建内部类的实例
 		InnerClass.MyInner inner = in.new MyInner();
+		
+		InnerClass.Inner staticInner = new InnerClass.Inner();//静态内部类,不需要外部类的实例
+		//匿名内部类
+		Thread th = new Thread(new Runnable(){
+			@Override
+			public void run() {
+				System.out.println("匿名内部类");
+			}
+		});
 	}
 	
 	private static void test() {
@@ -24,12 +33,17 @@ public class InnerClass {
 		System.out.println("由于Java支持嵌套类，如果一个类内部还定义了嵌套类，那么，嵌套类拥有访问private的权限：");
 	}
 	
-	static class Inner {
+	static class Inner {//静态内部类,不需要外部类的实例
+		//静态内部类很像一般非内部类,静态内部类并未与外层对象产生特殊关联.但因为还被认为是外层的一个成员,
+		//所以能够存取任何外层的私有成员,然而只限于静态的私有成员,
 		public void hi() {
 			InnerClass.test();//静态内部类,可以访问外部类的private属性和方法
 		}
 	}
 	
+	/*
+	 * 要记住你需要外部类的实例才能取得内部类的实例,因为内部类是外部的一个成员.
+	 */
 	class MyInner{
 		void go() {
 			System.out.println("内部类");

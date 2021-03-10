@@ -25,7 +25,7 @@ public class FileOutputStreamDemo {
 				file.getParentFile().mkdirs();
 			}
 			//OutputStream是一个抽象类,FileOutputStream默认会覆盖文件,如果追加文件使用另外一个构造方法
-			//如果文件不存在,则会自动创建,不再需要编写createNewFile()方法手工创建
+			//如果文件不存在,则会自动创建(前提是文件的父目录必须存在),不再需要编写createNewFile()方法手工创建
 			os = new FileOutputStream(file);
 			//new FileOutputStream(file, true),往文件里面追加内容
 			//OutputStream os = new FileOutputStream(file, true);

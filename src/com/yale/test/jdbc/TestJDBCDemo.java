@@ -120,6 +120,27 @@ public class TestJDBCDemo {
 		}
 		pwRs.close();
 		
+		/*
+		 * 今天在实现一个数据库批量更新的代码时，发现
+		 * String sql = "UPDATE t_demo SET columns='Well' WHERE column_id IN (?)";
+		 * 这条语句中的参数在使用PrepareStatement来预编译之后，是不可以传入一个拼接字符串的，比如
+		 * String criteria="'a','b','c'";
+		 * prepareStatement.setString(1,criteria);
+		 * 想要达到的效果是和执行下边一条语句一样：
+		 * UPDATE t_demo SET columns='Well' WHERE column_id IN ('a','b','c')
+		 * 但是最后发现这样并不起作用，最后思考后恍然大悟。 
+		 * 因为PrepareStatement是预编译的，所以在编译完sql语句后发现这个sql只有一个参数，所以在设置参数的时候会默认（’a’,’b’,’c’）为一个参数，就会去查找column_id为“’a’,’b’,’c’”的数据，结果当然是不符合期望的。
+		 * 可以通过PrepareStatement的setArray()方法
+		 * 这个也是在网上发现的方法，这个是不支持mysql数据库的，在mysql环境下使用会报SQLFeatureNotSupportedException异常 
+		 * 可能支持Oracle（没有测试）。 代码如下。
+		 * String arr[]={"a","b","c"};
+		 * Array v=conn.createArrayOf("VARCHAR", arr);
+		 * prepareStatement.setArray(1, v);
+		 * prepareStatement.executeUpdate(); 注意这个不经常用
+		 * 上边几个方法都在我的mysql环境中阵亡了之后，就只好使用笨方法了。那就是在in的条件中多加几个“？”。
+		 * 注意你更新或者查询用到IN的话,本质上就是批处理,就用JDBC的批处理一条数据一条数据更新就行。
+		 * https://blog.csdn.net/lismooth/article/details/76934980
+		 */
 		String psQueryLike = " SELECT mid, name, age, birthday, note FROM member where name like ? ";
 		PreparedStatement psLike = conn.prepareStatement(psQueryLike);
 		ResultSet rsLike = psLike.executeQuery();

@@ -72,6 +72,12 @@ public class AtomicIntegerDemo {
 		 * 答:去github上面看jdk的源码发现,unsafe.getAndAddInt这个方法内部调的也是unsafe.compareAndSwapInt方法,所以说肯定是原子性的
 		 * https://github.com/openjdk/jdk/blob/jdk8-b120/jdk/src/share/classes/sun/misc/Unsafe.java
 		 * 如果是JDK8，推荐使用LongAdder对象，比AtomicLong性能更好（减少乐观锁的重试次数）。《阿里巴巴Java开发手册（泰山版）.  VolatileDemo.java
+		 * JDKBug清单:https://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8168628
+		 * 知乎:https://www.zhihu.com/answer/170264788
+		 * 问:为什么OpenJDK只有share,solaris,windows下有源码而bsd和Linux没有呢?
+		 * RednaxelFX(R大)答:因为OpenJDK里,Java标准库和部分工具的源码repo(jdk目录)里,BSD和Linux的平台相关源码都是在solaris目录里的。原本SunJDK的源码里
+		 * 平台相关的目录就是从solaris和windows这俩个目录开始的,后来Unix系的平台相关代码全都放在solaris目录下了,共用大部分代码.
+		 * 另外:OpenJDK里的HotSpot VM的目录结构(hotspot目录)跟jdk目录的就不太一样 ,请区分开来讨论。
 		 */
 		System.out.println("incrementAndGet的方法意思是:返回当前值加1之后的值:" + ai.incrementAndGet());
 		System.out.println("得到当前值:" + ai.get());

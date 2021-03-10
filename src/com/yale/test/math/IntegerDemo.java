@@ -1,11 +1,16 @@
 package com.yale.test.math;
 
+
 /**
  * 我们已经知道，Java的数据类型分两种：
  * 基本类型：byte，short，int，long，boolean，float，double，char
  * 引用类型：所有class和interface类型
  * 装箱和拆箱会影响代码的执行效率，因为编译后的class代码是严格区分基本类型和引用类型的。并且，自动拆箱执行时可能会报NullPointerException：
  * 除了基本数据类型，其他的都是引用数据类型
+ * 当你创建像下面这个包装对象时：
+ * Integer iWrap = new Integer(42);
+ * 它的值永远会是42,包装对象没有setter.你当然还是能够让iWrap引用别的包装对象,但是会产生俩个对象.
+ * 包装对象创建后就会无法改变改对象的值!
  * @author dell
  */
 public class IntegerDemo {
@@ -31,6 +36,12 @@ public class IntegerDemo {
          * 仔细观察结果的童鞋可以发现，==比较，较小的两个相同的Integer返回true，较大的两个相同的Integer返回false，这是因为Integer是不变类，
          * 编译器把Integer x = 127;自动变为Integer x = Integer.valueOf(127);，为了节省内存，Integer.valueOf()对于较小的数，
          * 始终返回相同的实例，因此，==比较“恰好”为true，但我们绝不能因为Java标准库的Integer内部有缓存优化就用==比较，必须用equals()方法比较两个Integer。
+         * 在编译阶段,若将原始类型int赋值给Integer类型,就会将原始类型自动编译为Integer.valueOf(int);
+         * 如果将Integer类型赋值给int类型,则会自动转换调用intValue()方法,如果Integer对象为null,会报空指针异常。(这个自动转换可以通过javap命令来证明)
+         * Integer.valueOf()这个方法的源码可以看到会用到IntegerCache.cache缓存,默认值在IntegerCache.low(low是固定的-128)到IntegerCache.high之间
+         * IntegerCache.high的值默认是127,不过可以通过设置JVM启动参数-Djava.lang.Integer.IntegerCache.high=200来设置,
+         * 也可以通过-XX:AutoBoxCacheMax=<size>设置,这个看源码注释就知道了.《java特种兵》第29页
+         * https://www.zhihu.com/question/58735131/answer/307771944 知乎用户 陈亮 的回答
          * 按照语义编程，而不是针对特定的底层实现去“优化”。 
          * 因为Integer.valueOf()可能始终返回同一个Integer实例，因此，在我们自己创建Integer的时候，以下两种方法：
 		    方法1：Integer n = new Integer(100);

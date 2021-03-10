@@ -27,7 +27,7 @@ public class HttpClientUtil {
     	        	HttpConnectionManager manager = new MultiThreadedHttpConnectionManager();
     	        	HttpConnectionManagerParams managerParams = new HttpConnectionManagerParams();
     	        	managerParams.setConnectionTimeout(50000);//超时时间为50秒
-    	        	managerParams.setSoTimeout(50000);//超时时间为50秒
+    	        	managerParams.setSoTimeout(50000);//每次读取超时时间为50秒
     	        	//甚至超出了虚拟化平台对容器的2000线程数限制(平台为了避免机器上的部分容器线程数过高，导致机器整体夯死而设置的熔断保护),因此实例是被虚拟化平台kill了
     	        	managerParams.setMaxTotalConnections(2000);
     	        	//maxHostConnections的含义:每个host路由的默认最大连接,需要通过setDefaultMaxConnectionsPerHost来设置,否则默认值是2。

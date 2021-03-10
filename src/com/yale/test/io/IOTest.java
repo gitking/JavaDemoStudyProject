@@ -5,6 +5,15 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/*
+ * IOPS:磁盘每次最多可以完成的I/O次数,这个I/O大家不要理解为一次做大量数据处理的读/写I/O,一般是指小I/O,很大的数据读/写也通常会被分解为多次小的I/O读/写来操作。
+ * 随机读/写:这是一个相对的概念,磁盘本身在每次发生读/写操作的过程中,需要寻找位置再进行读写操作.由于频繁地发生磁盘小I/O请求(例如4KB),
+ * 所以就频繁地寻找位置,就像是随机读写.
+ * 顺序读/写:是相对随机读/写来说的,每次读/写的数据会比较大(例如1MB,对于过大的数据块读写,也会拆分为多个小I/O请求).简单来说,如果找到了位置,那么处理1MB和
+ * 处理4KB的数据时间是差不多的.
+ * Buffer是缓冲,缓冲最终还是把数据一次性送出去
+ * Cache是缓存,缓存就是数据永远在这里了,供程序就近读取.
+ */
 public class IOTest {
 	public static void main(String[] args) throws IOException {
 		System.out.println("IO的操作部分重点掌握俩个代码模型.整个IO的核心组成:五个类(File,OutputStream,InputStream,Reader,Writer),一个接口(Serializable)");

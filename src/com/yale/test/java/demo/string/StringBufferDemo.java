@@ -44,6 +44,10 @@ public class StringBufferDemo {
 		System.out.println("**********************");
 		changeStr(buf);
 		System.out.println("StringBuffer的对象值变了:" + buf);
+		
+		StringBuffer sb = new StringBuffer("spring");
+		sb = sb.delete(3, 6).insert(2, "umme").deleteCharAt(1);
+		System.out.println("sb = " + sb);//结果是sb = summer;
 	}
 	
 	public static void changeStr(StringBuffer str) {

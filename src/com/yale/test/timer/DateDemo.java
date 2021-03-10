@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 /*
  * 这是日期：2019-11-20,2020-1-1
@@ -208,5 +209,33 @@ public class DateDemo {
         Date d1 = c1.getTime();
         System.out.println(sdf11.format(d1));// 2019-11-25 6:15:00
         System.out.println("计算机表示的时间是以整数表示的时间戳存储的，即Epoch Time，Java使用long型来表示以毫秒为单位的时间戳，通过System.currentTimeMillis()获取当前时间戳。");
+        
+        
+        /*
+         * 我们可以将nanoTime除以1_000_000_000 ，或使用TimeUnit.SECONDS.convert进行转换。
+         * 注意:1秒= 1_000_000_000纳秒
+         * 除了sleep的功能外，TimeUnit还提供了便捷方法用于把时间转换成不同单位，例如，如果你想把秒转换成毫秒，你可以使用下面代码：
+         */
+        long oneMi = TimeUnit.SECONDS.convert(1, TimeUnit.MINUTES);// 1分钟转换为秒数 
+        System.out.println("1分钟转换为秒数 :[" + oneMi + "]秒");
+
+        long convert = TimeUnit.SECONDS.convert(1_000_000_000, TimeUnit.NANOSECONDS);
+        System.out.println("1_000_000_000纳秒转换为秒数 :[" + convert + "]秒");
+
+        long milSec = TimeUnit.SECONDS.toMillis(44);//想把秒转换成毫秒
+        System.out.println("想把44秒转换成毫秒:[" + milSec + "]毫秒");
+        long sec = TimeUnit.SECONDS.toMinutes(60);//60秒转换为分钟数 
+        System.out.println("想把60秒转换成分钟:[" + sec + "]分钟");
+        
+        long startTime = System.nanoTime();
+		try {
+			Thread.sleep(2100);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
+		long entTime = System.nanoTime();
+		System.out.println("1秒等于多少纳秒:" + (entTime - startTime));
+		System.out.println("1秒等于多少毫秒:" + TimeUnit.NANOSECONDS.toMillis((entTime - startTime)));
+		System.out.println("1秒等于多少秒:" + TimeUnit.NANOSECONDS.toSeconds((entTime - startTime)));
 	}
 }

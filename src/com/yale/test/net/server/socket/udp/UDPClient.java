@@ -25,7 +25,7 @@ public class UDPClient {
 		 * 这一点和服务器端不一样，服务器端可以无限等待，因为它本来就被设计成长时间运行。
 		 */
 		DatagramSocket ds = new DatagramSocket();
-		ds.setSoTimeout(1000);
+		ds.setSoTimeout(1000);//设置每次读取超时时间
 		/*
 		 * 连接指定服务器和端口
 		 * 注意到客户端的DatagramSocket还调用了一个connect()方法“连接”到指定的服务器端。不是说UDP是无连接的协议吗？为啥这里需要connect()？

@@ -2,6 +2,8 @@ package com.yale.test.thread.mldn;
 /**
  * java的源码在jdk的安装目录里面,D:\jdk1.8_251\src.zip,但是你要用jdk的exe文件安装才有这个Src文件
  * 不过sun包下面的代码都不在src.zip里,sun包源码来这里看https://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/63cecc0bd71d/src/share/classes/sun/nio/cs/ArrayDecoder.java
+ * 一般来讲安装完JDK后,在JDK的根目录下会有一个叫"src.zip"的压缩包,解压后是一个目录,其中包含了常见的Java源码,但是以sun开头的源码是找不到的。
+ * 你可以通过一些反编译手段得到,也可在OpenJDK上找到一些源码.
  * @author dell
  */
 class MyThread extends Thread {

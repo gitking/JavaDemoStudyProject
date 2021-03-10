@@ -25,6 +25,7 @@ package com.yale.test.java.meiju;
 	}
 	所以，编译后的enum类和普通class并没有任何区别。但是我们自己无法按定义普通class那样来定义enum，必须使用enum关键字，这是Java语法规定的。
 	因为enum是一个class，每个枚举的值都是class实例，因此，这些实例有一些方法：
+ * 
  */
 enum ColorDemo {
 	RED, GREEN, BLUE//这里实际上调用的是ColorDemo的无参构造方法,如果没有无参构造方法,这里必须传值,见Sex.java类

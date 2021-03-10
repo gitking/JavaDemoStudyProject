@@ -1,5 +1,7 @@
 package com.yale.test.java.demo.string;
 
+import java.nio.charset.Charset;
+
 public class CharTest {
 	/**
 	 * 字符:各种文字和符号的总称,指各国家文字,标点等等
@@ -27,6 +29,7 @@ public class CharTest {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		System.out.println("获取默认的字符集编码:" + Charset.defaultCharset().name());;
 		System.out.println("boolean单独定义占用4个字节,定义在数组中占1个字节");
 		System.out.println("课程总结:值得注意的是二进制的小数问题,大多数的十进制小数转换成二进制存储都是无限循环的");
 		
