@@ -75,6 +75,10 @@ class Data {//负责数据保存
 				 * 	       报错java.lang.IllegalMonitorStateException,sleep必须捕获异常，而wait，notify，notifyAll的不需要捕获异常。
 				 *    sleep()方法不会释放锁(就是系统资源,所以sleep时间到了之后才会立刻就是就绪状态),但会释放CPU资源,sleep在休眠指定时间之后,线程立即恢复为就绪状态,而不是等待状态.sleep可以在任何地方使用.
 				 *    sleep方法会自动唤醒，如果时间不到，想要唤醒，可以使用interrupt方法强行打断。
+				 *    sleep方法是静态方法,wait()方法是对象想法,不过这俩个都是native方法
+				 *    调用sleep方法之后线程的状态会变成:java.lang.Thread.State: TIMED_WAITING (sleeping)
+				 *    调用wait()方法不指定时间之后线程的状态会变成: java.lang.Thread.State: WAITING (on object monitor,在对象锁上等待)
+				 *    调用wait(1000000)方法指定时间之后线程的状态会变成:java.lang.Thread.State: TIMED_WAITING (on object monitor,在对象锁上等待)
 				 */
 				this.wait(10000000);//wait()方法是调用的是wait(0)方法,wait(1000);是等待一定的时间,时间单位是毫秒,wait(long timeout, int nanos)nanos是纳秒的意思,自己看源码把
 				/**

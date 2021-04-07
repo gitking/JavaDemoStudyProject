@@ -26,6 +26,8 @@ public class MavenSpringApp {
 		ManagementFactory.getOperatingSystemMXBean().getSystemLoadAverage();
 		// 4.获取内存相关的
 		ManagementFactory.getMemoryMXBean().getHeapMemoryUsage();// 堆内存
+		//https://cloud.tencent.com/developer/article/1129904 今咱们来聊聊JVM 堆外内存泄露的BUG是如何查找的
+		//https://club.perfma.com/article/1835499?from=groupmessage#/article/1835499?from=groupmessage
 		ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage();// 堆外内存
 		// 5.获取堆栈信息相当于jstack
 		ManagementFactory.getThreadMXBean().dumpAllThreads(false, false);

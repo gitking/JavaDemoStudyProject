@@ -1,6 +1,9 @@
 package com.yale.test.web.filter;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.util.Map;
 
 import javax.servlet.Filter;
@@ -32,7 +35,7 @@ public class FilterAll implements Filter {
 		//ServletContext sc = request.getServletContext();
 		ServletContext sc = this.fliterConfig.getServletContext();
 		Map<String, Integer> map = (Map<String, Integer>)sc.getAttribute("map");
-		String ipAddr = request.getRemoteAddr();//获取IP地址
+		String ipAddr = request.getRemoteAddr();//获取用户IP地址
 		if (map.containsKey(ipAddr)) {
 			int count  = map.get(ipAddr);
 			map.put(ipAddr, count + 1);

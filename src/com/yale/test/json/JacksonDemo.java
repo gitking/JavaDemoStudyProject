@@ -125,6 +125,13 @@ public Author author;
 不知道有没有更好的处理方法。
 public Map<String,String> author;我用map好像没问题的
 
+fastJson与一起堆内存溢出'血案' https://club.perfma.com/article/1656271?from=timeline#/article/1656271?from=timeline
+很简单，就是一定要记住fastjson序列化的时候要加上IgnoreNonFieldGetter就可以了。
+SerializerFeature.IgnoreNonFieldGetter
+首先getNextTrainCost这个getter中的nextTrainCost被当成了一个field，因为其返回值是一个JSONArray,其本身是可以作为setter用到的。其反序列化，用json中"nextTrainCost"相关反序列化
+该字符串是[{".config.cost[0]"} 即使用了fastjson的循环引用,这个反序列化出来为[null] (因为本身config压根就不属于field,只是一个get方法而已)
+然后调用setter(本身就是一个setter),得到cost,然后将这个[null] add到cost上
+然后每反序列化一次都向cost中加入一个[null],进而使cost越来越大(JSONArray#底层数组还会自动expand)
  */
 public class JacksonDemo {
 	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {

@@ -99,8 +99,8 @@ public class FloatDemo {
 			NaN表示Not a Number
 			Infinity表示无穷大
 			-Infinity表示负无穷大
+			冷知识
          */
-        
         double d1 = 0.0 / 0; // NaN
         System.out.println(d1);
         System.out.println("Not a Number:" + Double.isNaN(d1));

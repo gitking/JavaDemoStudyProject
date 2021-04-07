@@ -10,6 +10,9 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * https://bugs.eclipse.org/bugs/attachment.cgi?id=256704
  * JDK官方修复方法:http://hg.openjdk.java.net/jdk8u/jdk8u-dev/jdk/rev/8efe549f3c87
  * jconsole、VisualVM、jmc
+ * 
+ * https://cloud.tencent.com/developer/article/1129904 今咱们来聊聊JVM 堆外内存泄露的BUG是如何查找的
+ * https://club.perfma.com/article/1835499?from=groupmessage#/article/1835499?from=groupmessage
  */
 public class TestLeak1 {
 	public static void main(String[] args) {

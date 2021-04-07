@@ -24,6 +24,9 @@ public class MathTest {
 		
 		System.out.println("max方法返回俩个数字最大的那一个:" + Math.max(18.44, 55));
 		System.out.println("min方法返回俩个数字最小的那一个:" + Math.min(18.44, 55));
+		System.out.println("Math.floor() 向下取整，即小于这个数的最大的那个整数,即floor 返回不大于的最大整数:" + Math.floor(18.44));
+		System.out.println("Math.ceil() 向上取整，即大于这个数的最小的那个整数。:" + Math.ceil(18.44));
+		System.out.println("Math.rint() 返回最接近该值的那个整数。注意: 如果存在两个这样的整数，则返回其中的偶数。:" + Math.rint(18.44));
 		
 		System.out.println("求绝对值:" + Math.abs(-7.8));
 		System.out.println("计算√x：" + Math.sqrt(2));
@@ -37,9 +40,9 @@ public class MathTest {
 			Math.tan(3.14); // -0.0015...
 			Math.asin(1.0); // 1.57079...
 			Math.acos(1.0); // 0.0
-
 		 */
-
+		System.out.println("Math.round() 四舍五入，但当参数为负数时不太好理解，直接上源码应该比较好理解，注意返回的是整型。");
+		//Math.round(x) = Math.floor(x + 0.5)  
 		System.out.println(Math.round(18.44));
 		System.out.println(Math.round(18.49));
 		System.out.println(Math.round(18.51));

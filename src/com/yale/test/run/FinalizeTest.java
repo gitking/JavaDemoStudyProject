@@ -1,5 +1,11 @@
 package com.yale.test.run;
 
+/*
+ * https://club.perfma.com/article/1835499?from=groupmessage#/article/1835499?from=groupmessage
+ * JVM finalize实现原理与由此引发的血案 https://sq.163yun.com/blog/article/198141339137806336
+ * java.util.zip.ZipFile$ZipFileInflaterInputStream，赶紧Google发现还是有许多小伙伴碰到相同的问题，例如：Java压缩流GZIPStream导致的内存泄露 。
+ * Java压缩流GZIPStream导致的内存泄 https://www.jianshu.com/p/5841df465eb9
+ */
 public class FinalizeTest {
 	private static FinalizeTest test;
 	/**
