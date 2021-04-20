@@ -9,6 +9,10 @@ import java.nio.charset.Charset;
 import java.util.Iterator;
 import java.util.Set;
 
+/*
+ * https://zhuanlan.zhihu.com/p/23488863  Java NIO浅析  美团技术团队
+ * https://blog.csdn.net/u013096088/article/details/78774627#:~:text=DirectBy,%E5%BB%BA%E3%80%81%E4%BD%BF%E7%94%A8%E5%92%8C%E9%94%80%E6%AF%81%E3%80%82 Java NIO学习笔记三（堆外内存之 DirectByteBuffer 详解）
+ */
 public class NioClientHandler implements Runnable{
 	
 	private Selector selector;

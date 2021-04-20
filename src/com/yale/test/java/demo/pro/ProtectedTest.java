@@ -25,6 +25,8 @@ import com.yale.test.java.demo.SubPersonDemo;
  * private 设定给大部分的实例变量,以及不想开发给外部程序调用的方法.
  */
 public class ProtectedTest{
+	
+	private float value;
 	public static void main(String[] args) {
 		SubPersonDemo spd = new SubPersonDemo("test", 10, 99);
 		//int sc = spd.score;score是对象属性,只能在子类的对象方法里面使用
@@ -32,5 +34,9 @@ public class ProtectedTest{
 		SubClass sc = new SubClass("test", 10, 99);
 		//sc.score = 10;//因为在不同包中,这里会报错,只能在子类中使用,
 		//sc.staticFile = 20;//因为在不同包中,这里会报错,只能在子类中使用
+	}
+	
+	public void testPrivate(ProtectedTest pt){
+		System.out.println("这里可以直接调用private私有属性" + pt.value);
 	}
 }

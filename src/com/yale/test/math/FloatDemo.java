@@ -51,8 +51,13 @@ public class FloatDemo {
         if (af > bf)  {
         	System.out.println("af和bf,等值判断不能用==,但是可以比大小无所谓");
         }
-        System.out.println("af：" + af);
-        System.out.println("bf:" + bf);
+        if(af == bf){
+        	// 预期进入此代码快，执行其它业务逻辑
+        	// 但事实上af==bf的结果为false
+        	System.out.println("af和bf,等值判断不能用==,但是可以比大小无所谓");
+        }
+        System.out.println("俩者的精度不一样,af：" + af);
+        System.out.println("俩者的精度不一样,bf:" + bf);
         if (af == bf) {
         	System.out.println("af和bf相等");
         } else {
@@ -61,11 +66,17 @@ public class FloatDemo {
         Float xf = new Float(af);
         Float yf = new Float(bf);
         if (xf.equals(yf)) {//这里走的是不相等:包装数据类型不能用equals来判断:不相等0.100000024,0.099999964
+        	// 预期进入此代码快，执行其它业务逻辑,但事实上equals的结果为false
         	System.out.println("包装数据类型不能用equals来判断:相等" + xf.toString() + "," + yf.toString());
         } else {
         	System.out.println("包装数据类型不能用equals来判断:不相等"  + xf.toString() + "," + yf.toString());
         }
         
+        float constF = 0.1f;
+        float constF1 = 0.1f;
+        if (constF == constF1)  {
+        	System.out.println("constF和constF1,是相等的,因为值直接赋值的");
+        }
         //解决办法：指定一个误差范围，两个浮点数的差值在此范围之内，则认为是相等的。
         float a = 1.0f - 0.9f;
         float b = 0.9f - 0.8f;
@@ -73,7 +84,8 @@ public class FloatDemo {
         if (Math.abs(a - b) < diff) {
         	System.out.println("a 和 b 相等:true");
         }
-        //解决办法:使用BigDecimal来定义值，再进行浮点数的运算操作。
+        //解决办法:使用BigDecimal来定义值，再进行浮点数的运算操作。来自《阿里巴巴Java开发手册（泰山版）.pdf》
+        //推荐 总是使用compareTo()比较两个BigDecimal的值，不要使用equals()！BigDecimalTest
         BigDecimal aBig = new BigDecimal("1.0");
         BigDecimal bBig = new BigDecimal("0.9");
         BigDecimal cBig = new BigDecimal("0.8");
@@ -147,6 +159,16 @@ public class FloatDemo {
         
         double dformat = 12900000;
         System.out.println("格式化输出:" + dformat); // 1.29E7
+        
+        System.out.println("将double类型的值转换成IEEE 754规定的位:" + Double.doubleToLongBits(0.01));
+        if (Double.compare((double)af, (double)bf) == 0) {
+        	//Double.compare源码用的就是Double.doubleToLongBits比的
+            System.out.println("Double.compare比较---------af和bf,相等");
+        } else if (Double.compare((double)af, (double)bf) > 0) {
+            System.out.println("Double.compare比较---------af大于bf");
+        } else if (Double.compare((double)af, (double)bf) <0) {
+            System.out.println("Double.compare比较---------af小于bf");
+        }
         
         //如果要把数据显示成我们期望的格式，就需要使用格式化输出的功能。格式化输出使用System.out.printf()，通过使用占位符%?，printf()可以把后面的参数格式化成指定格式：
         //Java的格式化功能提供了多种占位符，可以把各种数据类型“格式化”成指定的字符串：

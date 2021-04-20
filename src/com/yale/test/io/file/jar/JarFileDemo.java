@@ -44,6 +44,7 @@ public class JarFileDemo {
 	         * ArrayDecoder源码来这里看
 	         * https://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/63cecc0bd71d/src/share/classes/sun/nio/cs/ArrayDecoder.java
 	         * sun下面的都不在src.zip里
+	         * java.util.zip.ZipFile$ZipFileInflaterInputStream，赶紧Google发现还是有许多小伙伴碰到相同的问题，例如：Java压缩流GZIPStream导致的内存泄露 。
 			 */
 	      String str = new String("D:\\浙商SVN\\03-开发\\修改说明UTF-8.zip");
 	      System.out.println(str);

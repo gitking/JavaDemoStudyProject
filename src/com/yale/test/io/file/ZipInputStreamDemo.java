@@ -70,6 +70,7 @@ public class ZipInputStreamDemo {
 		 * 我们要创建一个ZipInputStream，通常是传入一个FileInputStream作为数据源，然后，循环调用getNextEntry()，直到返回null，表示zip流结束。
 		 * 一个ZipEntry表示一个压缩文件或目录，如果是压缩文件，我们就用read()方法不断读取，直到返回-1：
 		 * 下面的代码没有考虑文件的目录结构。如果要实现目录层次结构，new ZipEntry(name)传入的name要用相对路径。
+		 * java.util.zip.ZipFile$ZipFileInflaterInputStream，赶紧Google发现还是有许多小伙伴碰到相同的问题，例如：Java压缩流GZIPStream导致的内存泄露 。
 		 */
 		try(ZipOutputStream zip = new ZipOutputStream(new FileOutputStream(""))){
 			File[] files = new File("").listFiles();

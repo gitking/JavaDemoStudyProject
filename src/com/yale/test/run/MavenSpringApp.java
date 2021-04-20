@@ -28,6 +28,9 @@ public class MavenSpringApp {
 		ManagementFactory.getMemoryMXBean().getHeapMemoryUsage();// 堆内存
 		//https://cloud.tencent.com/developer/article/1129904 今咱们来聊聊JVM 堆外内存泄露的BUG是如何查找的
 		//https://club.perfma.com/article/1835499?from=groupmessage#/article/1835499?from=groupmessage
+		//难道是linux glibc 中经典的 64M 内存问题?一次 Java 进程 OOM 的排查分析（glibc 篇） https://club.perfma.com/article/1709425?last=1714757&type=parent#/article/1709425?last=1714757&type=parent
+		//JAVA堆外内存排查小结 https://zhuanlan.zhihu.com/p/60976273
+		//https://developer.aliyun.com/article/657160 一次堆外内存泄露的排查过程
 		ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage();// 堆外内存
 		// 5.获取堆栈信息相当于jstack
 		ManagementFactory.getThreadMXBean().dumpAllThreads(false, false);

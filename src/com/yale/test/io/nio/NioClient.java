@@ -14,6 +14,8 @@ import java.util.Scanner;
 	而异步IO是指，读写IO时仅发出请求，然后立刻执行后续代码，它的优点是CPU执行效率高，缺点是代码编写复杂。
 	Java标准库的包java.io提供了同步IO，而java.nio则是异步IO。上面我们讨论的InputStream、OutputStream、Reader和Writer都是同步IO的抽象类，对应的具体实现类，以文件为例，有FileInputStream、FileOutputStream、FileReader和FileWriter。
 	本节我们只讨论Java的同步IO，即输入/输出流的IO模型。
+ * https://zhuanlan.zhihu.com/p/23488863  Java NIO浅析  美团技术团队
+ * https://blog.csdn.net/u013096088/article/details/78774627#:~:text=DirectBy,%E5%BB%BA%E3%80%81%E4%BD%BF%E7%94%A8%E5%92%8C%E9%94%80%E6%AF%81%E3%80%82 Java NIO学习笔记三（堆外内存之 DirectByteBuffer 详解）
  */
 public class NioClient {
 	public void start(String nickName) throws IOException {

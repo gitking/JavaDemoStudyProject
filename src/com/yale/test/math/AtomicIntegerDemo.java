@@ -72,7 +72,14 @@ public class AtomicIntegerDemo {
 		 * 答:去github上面看jdk的源码发现,unsafe.getAndAddInt这个方法内部调的也是unsafe.compareAndSwapInt方法,所以说肯定是原子性的
 		 * https://github.com/openjdk/jdk/blob/jdk8-b120/jdk/src/share/classes/sun/misc/Unsafe.java
 		 * 如果是JDK8，推荐使用LongAdder对象，比AtomicLong性能更好（减少乐观锁的重试次数）。《阿里巴巴Java开发手册（泰山版）.  VolatileDemo.java
-		 * JDKBug清单:https://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8168628
+		 * JDKBug清单:
+		 * 1,https://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8168628
+		 * 2,https://bugs.java.com/bugdatabase/view_bug.do?bug_id=6209663 JConsole连接不上问题
+		 * 3,http://java.sun.com/j2se/1.5.0/docs/guide/management/jconsole.html JConsole连接不上问题
+		 * 在Windows版JDK里带上SA的相关bug是：
+		 * 4,Bug 6743339: Enable building sa-jdi.jar and sawindbg.dll on Windows with hotspot build(http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6743339)
+	     * 5,Bug 6755621: Include SA binaries into Windows JDK(https://bugs.java.com/bugdatabase/view_bug.do?bug_id=6755621)
+	     * 6,https://bugs.java.com/bugdatabase/view_bug.do?bug_id=8137185
 		 * 知乎:https://www.zhihu.com/answer/170264788
 		 * 问:为什么OpenJDK只有share,solaris,windows下有源码而bsd和Linux没有呢?
 		 * RednaxelFX(R大)答:因为OpenJDK里,Java标准库和部分工具的源码repo(jdk目录)里,BSD和Linux的平台相关源码都是在solaris目录里的。原本SunJDK的源码里

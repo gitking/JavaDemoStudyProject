@@ -19,6 +19,15 @@ import java.util.Set;
  * 麻烦:NIO类库和API繁杂
  * 心累:可靠性能力补齐,工作量和难度都非常大
  * 有坑:Selector空轮询,导致CPU100%
+ * https://zhuanlan.zhihu.com/p/23488863  Java NIO浅析  美团技术团队
+ * https://blog.csdn.net/u013096088/article/details/78774627#:~:text=DirectBy,%E5%BB%BA%E3%80%81%E4%BD%BF%E7%94%A8%E5%92%8C%E9%94%80%E6%AF%81%E3%80%82 Java NIO学习笔记三（堆外内存之 DirectByteBuffer 详解）
+ * https://cloud.tencent.com/developer/article/1129904 今咱们来聊聊JVM 堆外内存泄露的BUG是如何查找的
+ * https://club.perfma.com/article/1835499?from=groupmessage#/article/1835499?from=groupmessage
+ * 难道是linux glibc 中经典的 64M 内存问题?一次 Java 进程 OOM 的排查分析（glibc 篇） https://club.perfma.com/article/1709425?last=1714757&type=parent#/article/1709425?last=1714757&type=parent
+ * JAVA堆外内存排查小结 https://zhuanlan.zhihu.com/p/60976273
+ * https://developer.aliyun.com/article/657160 一次堆外内存泄露的排查过程
+ * Linux中使用gdb dump内存 https://blog.csdn.net/qq_36119192/article/details/96474833
+ * netty 堆外内存泄露排查盛宴 https://mp.weixin.qq.com/s/fxx_AxH2mbtsr5BgdZ6uFA  https://github.com/mrniko/netty-socketio
  * @author dell
  */
 public class NioServer {
