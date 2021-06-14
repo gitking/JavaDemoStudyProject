@@ -7,6 +7,7 @@ import java.lang.management.MemoryMXBean;
 import java.lang.management.MemoryUsage;
 import java.lang.management.OperatingSystemMXBean;
 import java.lang.management.RuntimeMXBean;
+import java.lang.management.ThreadInfo;
 import java.lang.management.ThreadMXBean;
 import java.util.List;
 import java.util.Map;
@@ -157,7 +158,18 @@ public class JVMInfoTest {
 		long peakThreadCount = bean.getPeakThreadCount();// 返回自从 Java  虚拟机启动或峰值重置以来峰值活动线程计数
 
 		long totalStartedThreadCount = bean.getTotalStartedThreadCount();// 返回自从  Java  虚拟机启动以来创建和启动的线程总数目。
+		
+		bean.getCurrentThreadCpuTime();
+		bean.getCurrentThreadUserTime();
+		bean.getDaemonThreadCount();
+		bean.isThreadCpuTimeSupported();
 		System.out.println("线程  线程数："+threadCount+" 峰值活动线程数："+peakThreadCount+"  总线程数:"+totalStartedThreadCount);
+		
+		
+		ThreadInfo threadInfo =  bean.getThreadInfo(1024);//得到指定线程的线程信息
+		
+		System.out.println(threadInfo.getThreadState().RUNNABLE);
+
 		// dumpAllThreads(boolean  lockedMonitors,  boolean  lockedSynchronizers) //打印线程信息
 
 	}
@@ -181,6 +193,7 @@ public class JVMInfoTest {
 		String vmName = bean.getVmName();// Java 虚拟机实现名称。        
 		System.out.println("虚拟机规范名称"+specName+" 虚拟机规范供应商"+specVendor+" 虚拟机规范版本"+specVersion    +" 虚拟机实现版本"+vmVersion+" 虚拟机实现供应商"+vmVendor+" 虚拟机实现名称"+vmName);                
 
+		//有没有什么命令可以看JVM 已经运行了多长时间了？
 		long startTime = bean.getStartTime();// Java 虚拟机的启动时间（以毫秒为单位）。       // Java 虚拟机的正常运行时间（以毫秒为单位）。
 
 		long uptime = bean.getUptime();        

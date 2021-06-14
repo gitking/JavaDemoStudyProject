@@ -19,6 +19,8 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 	XML结构：一个班级—>一个老师(卡卡西)—>三个学生(小樱，佐助，鸣人)
 	班级类：Group
 	https://blog.csdn.net/u014746965/article/details/78647616
+ * 《定制 Jackson 解析器来完成对复杂格式 XML 的解析 ｜ Java Debug 笔记》https://juejin.cn/post/6961271701271216141?share_token=b126d332-8bd5-40df-9c7e-45089baca931
+ * 《将海量动态数据以 JSON 格式导出 | Java Debug 笔记》https://juejin.cn/post/6961029395825819661?share_token=8aefa481-1a07-4499-a721-c62e41d92bf7
  */
 @JacksonXmlRootElement(localName="Class")
 public class Group {

@@ -8,6 +8,12 @@ import java.util.Set;
 public class SystemTest {
 
 	public static void main(String[] args) {
+		
+		System.out.println(System.getProperty("java.version"));
+		System.out.println(System.getProperty("java.runtime.version"));
+		System.out.println(System.getProperty("java.vm.name"));
+		System.out.println(System.getProperty("os.name"));
+		
 		//System.arraycopy(src, srcPos, dest, destPos, length);数组复制
 		System.out.println(System.currentTimeMillis());
 		
@@ -53,6 +59,17 @@ public class SystemTest {
 		
 		
  		System.out.println(System.identityHashCode(20)); 
+ 		
+ 		/*
+ 		 * https://bbs.csdn.net/topics/370066482
+ 		 * 话说，6 年前，我去 myjavaserver.com 注册了一个账户，然后测试了一下，在里面上传一个 hello.jsp，里面写着下面这句话，           <% System.exit(1); %>大家都懂的，第二天，我的账户被设置成只读的了，不能再上传文件了 ^_^ ，
+ 		 * 楼主想，人家做一个共享的服务器，一句话都让所有程序退出就那足以证明它用的是同一个 jvm 进程。我之所以写这个 jsp 是为了测试它是否安装了合适的 java.security.policy。
+ 		 * 以前我还在里面上传了一个让 Eclipse 3.0 支持 Eclipse 3.4 里面的右下角那个 GC 功能的插件呢，我没留源码，想去下载这个插件，不过现在我再想起来这个网站时，它已经关闭数年了。 ^_^
+ 		 * 为什么不是exit(250)啊
+ 		 * java.security.policy和System.exit(1)这个俩个之间有什么关系吗?
+ 		 * -Djava.security.policy=/data/weblogic/wls/wlserver_10.3/server/lib/weblogic.policy 我们公司指定的java.security.policy为这个
+ 		 */
+ 		System.exit(1);//退出JVM虚拟进程
 
 	}
 }

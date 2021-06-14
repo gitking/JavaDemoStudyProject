@@ -10,6 +10,8 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 /*
  * @JacksonXmlRootElement 这个注解是指名根节点，见名知意不用多说。
  * 重点是@JacksonXmlElementWrapper将某节点下单元素解析为Array或者Collection类型，因为除了公共字段外，其他字段都可能是变化的所以在集合哪儿使用了泛型。
+ * 《定制 Jackson 解析器来完成对复杂格式 XML 的解析 ｜ Java Debug 笔记》https://juejin.cn/post/6961271701271216141?share_token=b126d332-8bd5-40df-9c7e-45089baca931
+ * 《将海量动态数据以 JSON 格式导出 | Java Debug 笔记》https://juejin.cn/post/6961029395825819661?share_token=8aefa481-1a07-4499-a721-c62e41d92bf7
  */
 @JacksonXmlRootElement(localName = "student")
 public class Student<T> extends Base {

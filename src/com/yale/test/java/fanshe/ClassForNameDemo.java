@@ -1,5 +1,9 @@
 package com.yale.test.java.fanshe;
 
+/*
+ *  反射工具类 MethodUtils  org.apache.commons.beanutils.MethodUtils    commons-beanutils-1.8.3.jar 
+ *	反射工具类 MethodUtils  org.apache.commons.lang.reflect.MethodUtils commons-lang-2.6.jar
+ */
 class ForName {
 	public ForName() {
 		System.out.println("构造方法先执行还是,static块先执行");

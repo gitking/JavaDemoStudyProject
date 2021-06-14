@@ -34,6 +34,10 @@ import org.springframework.stereotype.Component;
  *  那么最终的问题来了：proxy实例的成员变量，也就是从UserService继承的zoneId，它的值是null。
  *  在UserService$$EnhancerBySpringCGLIB中，并未执行。原因是，没必要初始化proxy的成员变量，因为proxy的目的是代理方法。
  * https://zhuanlan.zhihu.com/p/131584403
+ * 有空研究一下Spring的这个类StaticMethodMatcherPointcutAdvisor
+ * Spring-AOP 静态普通方法名匹配切面 : https://blog.csdn.net/yangshangwei/article/details/77393421
+ * https://www.cnblogs.com/HigginCui/p/6323131.html
+ * Spring AOP 五大通知类型 https://www.cnblogs.com/chuijingjing/p/9806651.html
  */
 @Aspect
 @Component

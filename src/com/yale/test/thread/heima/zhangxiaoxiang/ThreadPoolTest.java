@@ -18,6 +18,7 @@ import java.util.concurrent.TimeUnit;
  *  	 1） FixedThreadPool和SingleThreadPool： 允许的请求队列长度为Integer.MAX_VALUE，可能会堆积大量的请求，从而导致OOM。
  *		 2） CachedThreadPool： 允许的创建线程数量为Integer.MAX_VALUE，可能会创建大量的线程，从而导致OOM。
  * 《阿里巴巴Java开发手册（泰山版）.pdf》
+ * https://club.perfma.com/article/2375443#/article/2375443 Java 线程池中的线程复用是如何实现的？
  * @author dell
  */
 public class ThreadPoolTest {

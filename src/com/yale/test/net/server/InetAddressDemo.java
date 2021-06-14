@@ -28,6 +28,15 @@ public class InetAddressDemo {
 		System.out.println("获取用户名:" + userName);
 		System.out.println("获取计算机名:" + computerName);
 		System.out.println("获取计算机域名:" + userDomain);
+		
+		
+		if (loaclIp.indexOf(".") != -1) {
+			loaclIp = loaclIp.substring(loaclIp.lastIndexOf(".") + 1, loaclIp.length());
+		} else {
+			loaclIp = localname;
+		}
+		
+		System.out.println(loaclIp + "服务器");
 
 		try {
 			byte[] mac = NetworkInterface.getByInetAddress(ip).getHardwareAddress();

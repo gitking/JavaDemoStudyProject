@@ -5,6 +5,16 @@ package com.yale.test.run;
  * JVM finalize实现原理与由此引发的血案 https://sq.163yun.com/blog/article/198141339137806336
  * java.util.zip.ZipFile$ZipFileInflaterInputStream，赶紧Google发现还是有许多小伙伴碰到相同的问题，例如：Java压缩流GZIPStream导致的内存泄露 。
  * Java压缩流GZIPStream导致的内存泄 https://www.jianshu.com/p/5841df465eb9
+ * https://juejin.cn/post/6844904004569464840#comment  一个JDK线程池BUG引发的GC机制思考
+ * 当对象仍存在于作用域（stack frame）时，finalize也可能会被执行
+ * oracle jdk文档中有一段关于finalize的介绍：
+ * A reachable object is any object that can be accessed in any potential continuing computation from any live thread.
+ * Optimizing transformations of a program can be designed that reduce the number of objects that are reachable to be less than those which would naively be considered reachable. For example, a Java compiler or code generator may choose to set a variable or parameter that will no longer be used to null to cause the storage for such an object to be potentially reclaimable sooner.
+ * 大概意思是：可达对象(reachable object)是可以从任何活动线程的任何潜在的持续访问中的任何对象；java编译器或代码生成器可能会对不再访问的对象提前置为null，使得对象可以被提前回收
+ * 也就是说，在jvm的优化下，可能会出现对象不可达之后被提前置空并回收的情况
+ * JDK官方文档:https://docs.oracle.com/javase/specs/jls/se8/html/jls-12.html#jls-12.6.1
+ * 本类可以结合com.yale.test.java.fanshe.perfma.VolatileDemo.java和com.yale.test.java.fanshe.perfma.JitFinalize.java一起看
+ * 还有com.yale.test.thread.heima.zhangxiaoxiang.ThreadPoolBugTest
  */
 public class FinalizeTest {
 	private static FinalizeTest test;

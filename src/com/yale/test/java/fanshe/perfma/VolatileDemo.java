@@ -75,11 +75,44 @@ public class VolatileDemo {
 		//这个程序会出现死循环问题,但是加上-Xint、-XX:-UseOnStackReplacement就能解决问题。
 		System.out.println("Main11111-》:" + num);
 		long i= 0;
-		while (num == 0) {
+		while (num == 0) {//JIT 编译器的优化技术之: 1,表达式提升（expression hoisting）
 			i++;
 			if (i>999999999999l && i <(999999999999l+10000)) {
 				Thread.sleep(1000);//加上行代码也会解决死循环问题,sleep会释CPU,但不会释放锁
 				//System.out.println(i + "非常奇怪,加了这个System.out.println进行打印就不会出现死循环了,不加System.out.println就会死循环");
+				/*
+				 * 如果run()方法被HotSpot Server Compiler编译了：这个多加的System.out.println()调用干扰了编译器的优化，导致hoisting没有成功——读stopRequested的动作没有被挪到循环外面。只要循环每次都还去读取一次stopRequested变量，就总有读到修改过后的值的机会，所以循环会可以结束。
+				 * 然而也有可能这个run()方法压根还没来得及被编译，stopRequested变量就被main线程置为true了，因而run()方法里的代码还在解释器里跑，并没有得到任何优化，就直接跑到头了。此时如果还是想观察编译了的情况，请适当增加main线程sleep()的时间长度，例如说调整到TimeUnit.SECONDS.sleep(30)。
+				 * 这个stopRequested是一个静态字段，编译器本来是需要对它做保守处理的。但编译器发现这个方法是个叶子方法（leaf method）——并不调用任何其它方法——所以只要这个run()方法正在运行，在同一线程内就不可能有其它代码能观测到stopRequested的值的变化。
+				 * 因此，编译器就大胆冒进一把，将stopRequested当作循环不变量（因为本方法并没有对其值所任何修改），而将其读取操作提升（hoist）到循环之外。被优化后的代码就变成这样了：
+				 * public void run() { 
+				 * 	int i = 0; 
+				 *  boolean hoistedStopRequested = stopRequested; 
+				 * 	while (!hoistedStopRequested) { 
+				 * 		i++; 
+				 * 		// no memory effects here 
+				 * 	} 
+				 * }
+				 * 这么一来，这个循环就真的完全没可能观测到别的线程对stopRequested的修改了。而当添加了一个System.out.println()调用之后：
+				 * public void run() { 
+				 * 	int i = 0; 
+				 * 	while (!stopRequested) { 
+				 * 		i++; 
+				 * 		System.out.println(i);//full memory kill here
+				 * 	} 
+				 * }
+				 * 这个println()调用在HotSpot VM Server Compiler的实现里无法完全内联到底，总是得留下至少一个未内联的方法调用。
+				 * 未内联的方法调用，从编译器的角度看是一个“full memory kill”，也就是说副作用不明、必须对内存的读写操作做保守处理。
+				 * 这里的代码中，下一轮循环的stopRequested读取操作按顺序说要发生在上一轮循环的System.out.println()之后，这里“保守处理”具体的体现就是：就算上一轮我已经读取了stopRequested的值，由于经过了一个副作用不明的地方，再到下一次访问就必须重新读取了。
+				 * 还有一点需要注意的是，虽然题主没说，但显然题主是在x86平台上跑的实验。x86本身有比较强的内存模型，所以就算此例中不显式生成内存屏障指令(volatile)，这里只要重复读取stopRequest的值也足以“在某个时候”看到更新。
+				 * 因而经过JIT编译器优化后，stopRequested的读取操作仍然保留在循环中而没有被提升到外面，循环最终就能读到改变过的值从而退出。就这么简单而已。
+				 * 这里涉及的原理其实在《CS:APP》(https://book.douban.com/subject/3023631/)里就有提到。在第5.1小节，书中提到memory aliasing阻碍了优化，其实本质上也是由于有可能出现未知副作用而迫使编译器放弃对其优化。这是本挺全面的入门书，值得好好品味。所以我也把它放在我的书单里了：学习编程语言与编译优化的一个书单(https://zhuanlan.zhihu.com/p/20130808)
+				 * run()方法的其余节点可以在这边看：PrintIdeal for Item 66 from Effective Java, 2nd, with an additional println(i) in the loop.(https://gist.github.com/rednaxelafx/23a19fc8d3741d232632)
+				 * 这个例子其实也从一个侧面体现了当前HotSpot VM的JIT编译器的优化的局限性——它更多的是做过程内分析（intraprocedural analysis），而只做非常非常有限的过程间分析（interprocedural analysis），例如类层次分析（CHA）。<br>如果能基于封闭环境（closed-world assumption）做全程序分析的话，就会知道System.out.println()不可能修改stopRequested的值，于是照样可以在这个例子里把stopRequested的读取操作提升到循环外，再次导致循环无法结束。
+				 * 说了半天，怎样才能保证循环一定能结束呢？《Effective Java》第二版已经给出了正解：做足同步。最简单的，给stopRequested字段加上volatile声明即可。不做同步的话，Java语言规范与JVM规范是允许上述优化的。
+				 * volatile在此对编译器的影响之一就是会迫使编译器放弃对它做任何冒进的优化，而总是会从内存重新访问其值。当然它还有其它语义，例如说保证volatile变量的读写之间的效果的顺序，但对这个例子来说最重要的就是保证每次都重新访问内存。
+				 * https://www.zhihu.com/question/39458585/answer/81521474
+				 */
 			}
 			//https://blog.csdn.net/C_AJing/article/details/103307797 System.out.println()对共享变量和多线程的影响，为什么会造成while循环终止
 			//System.out.println("非常奇怪,加了这个System.out.println进行打印就不会出现死循环了,不加System.out.println就会死循环");
@@ -104,6 +137,9 @@ public class VolatileDemo {
 			 * 你这个问题绝对跟JIT的激进编译没有关系，就是num变量的可见性问题,JMM的规范:每个线程都有自己的工作内存。
 			 * 第一：你说的JDK7、JDK8均已试验，均能偶然触发。为啥偶然触发呢？是因为一旦Main线程在num=0时候先执行了while()循环,然后子线程再对num进行加1操作,就会出现死循环的情况。你说的偶然就看Main线程跟子线程谁先运行了。就像你评论里面回复别人的 ‘在num++前面加行Thread.sleep(1000)。’，你发现没?在num++前面加了Thread.sleep(1000)就百分之百会出现死循环,这是为啥呢？就是因为Main线程在num=0时候先执行了while()循环,然后子线程再对num进行加1操作,就会出现死循环的情况。
 			 * 第二：为啥加了-Xint、-XX:-UseOnStackReplacement参数，问题就不会出现了？这个评论里面的人已经说出来了，加了-Xint解释执行情况下getstatic指令是从内存读取值的，所以Main线程每次循环的时候都是从主内存读值的,子线程修改了num的值,Main线程可以读到，所以加了-Xint解释执行肯定不会出现死循环。
+			 * https://club.perfma.com/article/2462327  一个 println 竟然比 volatile 还好使？ 大神 空无H 的这篇文章彻底解决了我所有的疑问。
+			 * 知乎R大(RednaxelaFX) 的回答 下面的代码 Java 线程结束原因是什么？https://www.zhihu.com/question/39458585/answer/81521474
+			 * 请问R大 有没有什么工具可以查看正在运行的类的c/汇编代码 https://hllvm-group.iteye.com/group/topic/34932#post-232535
 			 */
 		}
 		System.out.println("Main:" + num);

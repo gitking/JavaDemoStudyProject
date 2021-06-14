@@ -132,10 +132,28 @@ SerializerFeature.IgnoreNonFieldGetter
 该字符串是[{".config.cost[0]"} 即使用了fastjson的循环引用,这个反序列化出来为[null] (因为本身config压根就不属于field,只是一个get方法而已)
 然后调用setter(本身就是一个setter),得到cost,然后将这个[null] add到cost上
 然后每反序列化一次都向cost中加入一个[null],进而使cost越来越大(JSONArray#底层数组还会自动expand)
+ * 《定制 Jackson 解析器来完成对复杂格式 XML 的解析 ｜ Java Debug 笔记》https://juejin.cn/post/6961271701271216141?share_token=b126d332-8bd5-40df-9c7e-45089baca931
+ * 《将海量动态数据以 JSON 格式导出 | Java Debug 笔记》https://juejin.cn/post/6961029395825819661?share_token=8aefa481-1a07-4499-a721-c62e41d92bf7
  */
 public class JacksonDemo {
 	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
 		InputStream input = JacksonDemo.class.getResourceAsStream("/book.json");
+		//核心代码是创建一个ObjectMapper对象。关闭DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES功能使得解析时如果JavaBean不存在该属性时解析不会报错。
+		//要把JSON的某些值解析为特定的Java对象，例如LocalDate，也是完全可以的。例如：
+		/*
+		 * {
+			    "name": "Java核心技术",
+			    "pubDate": "2016-09-01"
+			}
+			要解析为：
+			public class Book {
+			    public String name;
+			    public LocalDate pubDate;
+			}
+		 * 只需要引入标准的JSR 310关于JavaTime的数据格式定义至Maven：com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.10.0
+		 * 然后，在创建ObjectMapper时，注册一个新的JavaTimeModule：
+		 * ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
+		 */
 		ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
 		//反序列化时忽略不存在的javaBean属性
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -147,8 +165,9 @@ public class JacksonDemo {
 		System.out.println(book.tags);
 		System.out.println(book.pubDate);
 		System.out.println(book.price);
-		//序列化为JSON
 		
+		//序列化为JSON
+		//把JSON解析为JavaBean的过程称为反序列化。如果把JavaBean变为JSON，那就是序列化。要实现JavaBean到JSON的序列化，只需要一行代码：
 		String json = mapper.writeValueAsString(book);
 		System.out.println(json);
 	}

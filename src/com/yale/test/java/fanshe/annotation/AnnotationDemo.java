@@ -18,6 +18,8 @@ import java.util.ArrayList;
 	这类注解会被编译进入.class文件，但加载结束后并不会存在于内存中。这类注解只被一些底层库使用，一般我们不必自己处理。
 	第三类是在程序运行期能够读取的注解，它们在加载后一直存在于JVM中，这也是最常用的注解。例如，一个配置了@PostConstruct的方法会在调用
 	构造方法后自动被调用（这是Java代码读取该注解实现的功能，JVM并不会识别该注解）。
+ *	反射工具类 MethodUtils  org.apache.commons.beanutils.MethodUtils    commons-beanutils-1.8.3.jar 
+ *	反射工具类 MethodUtils  org.apache.commons.lang.reflect.MethodUtils commons-lang-2.6.jar
  * @author dell
  */
 public class AnnotationDemo {

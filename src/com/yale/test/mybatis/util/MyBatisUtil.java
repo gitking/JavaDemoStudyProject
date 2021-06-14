@@ -12,8 +12,8 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
  * https://www.cnblogs.com/fangjian0423/p/spring-mybatis-MapperScannerConfigurer-analysis.html
  * https://www.cnblogs.com/fangjian0423/p/java-dynamic-proxy.html
  * org.mybatis.spring.mapper.MapperScannerConfigurer
- * <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
- * 		<property name="basePackage" value="com.isoftstone.pcis.file/client/mapper" />
+ * <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"> 这里就是参考公司的影像系统
+ * 		<property name="basePackage" value="com.file/client/mapper" />
  *	</bean>
  */
 public class MyBatisUtil {

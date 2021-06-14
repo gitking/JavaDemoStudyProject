@@ -25,6 +25,8 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 	参考资料
 	Jackson官网xml文档(https://github.com/FasterXML/jackson-dataformat-xml)
 	Jackson_XML注解(https://github.com/FasterXML/jackson-dataformat-xml/wiki/Jackson-XML-annotations)
+ * 《定制 Jackson 解析器来完成对复杂格式 XML 的解析 ｜ Java Debug 笔记》https://juejin.cn/post/6961271701271216141?share_token=b126d332-8bd5-40df-9c7e-45089baca931
+ * 《将海量动态数据以 JSON 格式导出 | Java Debug 笔记》https://juejin.cn/post/6961029395825819661?share_token=8aefa481-1a07-4499-a721-c62e41d92bf7
  */
 public class JacksonXMLTest {
 	public static void main(String[] args) throws JsonProcessingException {

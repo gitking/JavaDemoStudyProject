@@ -56,6 +56,18 @@ public class FloatDemo {
         	// 但事实上af==bf的结果为false
         	System.out.println("af和bf,等值判断不能用==,但是可以比大小无所谓");
         }
+        boolean result = floatCompare(af, bf);
+        if (result) {
+        	System.out.println("变量比较不一样" + af + ",bf" + bf);
+        } else {
+        	System.out.println("变量比较不一样" + af + ",bf" + bf);
+        }
+        boolean resu = floatCompare(0.1f, 0.1f);
+        if (resu) {
+        	System.out.println("常量比较结果一样" + 0.1f + ",bf" + 0.1f);
+        } else {
+        	System.out.println("常量比较结果不一样" + 0.1f + ",bf" + 0.1f);
+        }
         System.out.println("俩者的精度不一样,af：" + af);
         System.out.println("俩者的精度不一样,bf:" + bf);
         if (af == bf) {
@@ -72,6 +84,38 @@ public class FloatDemo {
         	System.out.println("包装数据类型不能用equals来判断:不相等"  + xf.toString() + "," + yf.toString());
         }
         
+        if (xf.compareTo(yf) > 0) {//这里走的是不相等:包装数据类型不能用equals来判断:不相等0.100000024,0.099999964
+        	// 预期进入此代码快，执行其它业务逻辑,但事实上equals的结果为false
+        	System.out.println("包装数据类型不能用equals,但是应该可以用compareTo来判断:xf比yf大---->" + xf.toString() + "," + yf.toString());
+        } else if (xf.compareTo(yf) < 0){
+        	System.out.println("包装数据类型不能用equals,但是应该可以用compareTo来判断:xf比yf小---->"  + xf.toString() + "," + yf.toString());
+        } else if (xf.compareTo(yf) == 0) {
+        	System.out.println("包装数据类型不能用equals,但是应该可以用compareTo来判断:xf等于yf---->"  + xf.toString() + "," + yf.toString());
+        }
+        
+        /*
+         * https://club.perfma.com/question/2376934
+         * 上面这个问题是我自己写的,到这里我算是明白了,不能用==或者equals去比较的原因,都是因为==和equals和compareTo比较的是精确的值,而不是我们预期的值知道吗？
+         * 比如这俩个float af = 1.0f - 0.9f;float bf = 0.9f - 0.8f;我们预期af和bf是相等的都是0.1,但实际上af的值是0.100000024,bf的值是0.099999964
+         * 如果你看精确值去比较,比如你用==和equals和compareTo去比较,那肯定是不一样的,因为==和equals和compareTo这三个比较的都是精确的值,而不是我们预期的值
+         * 我们预期的值是有误差的不精确的,所以人家阿里巴巴《阿里巴巴Java开发手册（泰山版）.pd》才推荐：指定一个误差范围，两个浮点数的差值在此范围之内，则认为是相等的。 float a = 1.0f - 0.9f;
+         * 《阿里巴巴Java开发手册（泰山版）.pd》里面的正例： 
+			(1) 指定一个误差范围，两个浮点数的差值在此范围之内，则认为是相等的。 float a = 1.0f - 0.9f;
+			float b = 0.9f - 0.8f;
+			float diff = 1e-6f;
+			if (Math.abs(a - b) < diff) {
+			System.out.println("true");
+			} 
+			(2) 使用BigDecimal来定义值，再进行浮点数的运算操作。
+			BigDecimal a = new BigDecimal("1.0");
+			BigDecimal b = new BigDecimal("0.9");
+			BigDecimal c = new BigDecimal("0.8");
+			BigDecimal x = a.subtract(b);
+			BigDecimal y = b.subtract(c);
+			if (x.equals(y)) {
+			System.out.println("true");
+			}
+         */
         float constF = 0.1f;
         float constF1 = 0.1f;
         if (constF == constF1)  {
@@ -220,5 +264,11 @@ public class FloatDemo {
         System.out.print("Input your age: "); // 打印提示
         int age = scanner.nextInt(); // 读取一行输入并获取整数
         System.out.printf("Hi, %s, you are %d\n", name, age); // 格式化输
+	}
+	
+	public static boolean floatCompare(float a, float b) {
+		System.out.println("浮点数a的值为:" + a);
+		System.out.println("浮点数b的值为:" + b);
+		return a == b;
 	}
 }

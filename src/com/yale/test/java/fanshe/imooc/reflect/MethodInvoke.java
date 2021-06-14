@@ -3,6 +3,10 @@ package com.yale.test.java.fanshe.imooc.reflect;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+/*
+ *  反射工具类 MethodUtils  org.apache.commons.beanutils.MethodUtils    commons-beanutils-1.8.3.jar 
+ *	反射工具类 MethodUtils  org.apache.commons.lang.reflect.MethodUtils commons-lang-2.6.jar
+ */
 public class MethodInvoke {
 	public static void main(String[] args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		A a1 = new A();

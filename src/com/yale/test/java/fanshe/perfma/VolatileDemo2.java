@@ -109,6 +109,11 @@ public class VolatileDemo2 {
 			}.start();
 		}
 		
+		/*
+		 * Thread.activeCount(),返回当前线程组里面的线程数
+		 * Thread.activeCount()最终调用的还是ThreadGroup这个类的方法
+		 * currentThread().getThreadGroup().activeCount()
+		 */
 		while(Thread.activeCount()>1){//activeCount这个方法只用于调试,因为值有可能不准,自己看activeCount方法的注释。
 			Thread.yield();//yield:yield是Thread类中的方法,意思向调度程序提示当前线程愿意让步当前使用的处理器。 调度程序可以随意忽略此提示。会释放锁,看源码注释就知道了
 		}

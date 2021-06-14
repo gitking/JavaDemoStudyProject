@@ -3,7 +3,9 @@ package com.yale.test.net.server.http;
 import java.awt.FlowLayout;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URI;
+import java.net.URL;
 //import java.net.http.HttpClient;
 //import java.net.http.HttpClient.Version;
 //import java.net.http.HttpRequest;
@@ -218,4 +220,16 @@ public class HttpClinet {
 //		HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 //		System.out.println(response.body());
 //	}
+	
+//这个是电子投保单签署H5的里面的代码,可以看一下taobao-sdk-java-auto_1479188381469-20210512.jar 钉钉提供的这个jar里面的代码,我自己写的有公众号里面有说钉钉是怎么用jdk的HttpURLConnection这个东西的。
+//可以看下钉钉是怎么设置超时时间的。
+//	URL url = new URL(urlString);
+//    conn = (HttpURLConnection) url.openConnection();
+//    conn.setDoOutput(true);
+//    conn.setDoInput(true);
+//    conn.setRequestMethod(method);
+//    conn.setRequestProperty("Accept-Charset", "utf-8");
+//    conn.setRequestProperty("Content-Type", "application/json");
+//    conn.setConnectTimeout(connectTimeout);
+//    conn.setReadTimeout(readTimeout);这里还可以设置ReadTimeout的时间
 }
