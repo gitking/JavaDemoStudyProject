@@ -10,7 +10,7 @@ import java.io.ObjectOutputStream;
 public class DungeonTest {
 	public static void main(String[] args) {
 		DungeonGame d = new DungeonGame();
-		System.out.println("序列化之前的值:" + (d.getX() + d.getY() + d.getZ()));
+		System.out.println("序列化之前X的值:" + d.getX() + ",Y（注意Y这个字段是用transient关键字修饰的,不会被序列化）:" + d.getY() + ",Z:" + d.getZ());
 		try {
 			FileOutputStream fos = new FileOutputStream("dg.ser");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -27,6 +27,6 @@ public class DungeonTest {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		System.out.println("解序列化之后(那个瞬时的变量没有了):" + (d.getX() + d.getY() + d.getZ()));
+		System.out.println("解序列化之后(那个瞬时的变量没有了)X的值:" + d.getX() + ",Y（注意Y这个字段是用transient关键字修饰的,不会被序列化）:" + d.getY() + ",Z的值:" + d.getZ());
 	}
 }

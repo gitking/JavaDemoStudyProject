@@ -1,6 +1,8 @@
 package com.yale.test.math;
 
 import java.math.BigInteger;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 
 /**
  * 大数类BigInteger
@@ -92,6 +94,22 @@ public class BigIntegerTest {
 		System.out.println("BigInteger的>>右移运算:" + big01.shiftRight(1));
 		//要特别注意，Integer有个getInteger(String)方法，它不是将字符串转换为int，而是把该字符串对应的系统变量转换为Integer：
 		System.out.println("获取java系统版本号:" + Integer.getInteger("java.version")); // 版本号，11
+		
+		
+		try {
+			//构造一个随机生成的正 BigInteger，它可能是质数，具有指定的 bitLength。 数(质数)是指在大于1的自然数中，除了1和它本身以外不再有其他因数的自然数。
+			//所以这个构造方法BigInteger的第一个参数bitLength必须大于等于2,否则会报错java.lang.ArithmeticException: bitLength < 2
+			BigInteger pn = new BigInteger(99, 2, SecureRandom.getInstanceStrong());
+			System.out.println("生成一个随机素数(质数):" + pn.intValue());
+			
+			//返回一个可能是质数的正 BigInteger，具有指定的 bitLength。 此方法返回的 BigInteger 为复合的概率不超过 2<sup>-100</sup>。 
+			//probablePrime这个方法跟BigInteger(99, 2, SecureRandom.getInstanceStrong());这个构造方法差不多是一个意思
+			//这个知识点来自《Effective Java中文版》第2版,第4页。静态工厂方法与构造器不同的第一大优势在于,他们有名称。
+			BigInteger primeNumber = BigInteger.probablePrime(99, SecureRandom.getInstanceStrong());
+			System.out.println("生成一个随机素数(质数):" + primeNumber);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
 		
 	}
 }

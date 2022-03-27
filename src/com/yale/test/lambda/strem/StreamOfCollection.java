@@ -104,6 +104,36 @@ public class StreamOfCollection {
 		 * Stream可以输出为集合：
 		 * Stream通过collect()方法可以方便地输出为List、Set、Map，还可以分组输出。
 		 */
+		
+		/**
+		 * 3. 【强制】在使用java.util.stream.Collectors类的toMap()方法转为Map集合时，一定要使用含有参数类型为BinaryOperator，参数名为mergeFunction的方法，否则当出现相同key值时会抛出IllegalStateException异常。 
+		 * 说明：参数mergeFunction的作用是当出现key重复时，自定义对value的处理策略。
+		 * 正例：
+			List<Pair<String, Double>> pairArrayList = new ArrayList<>(3);
+			pairArrayList.add(new Pair<>("version", 12.10));
+			pairArrayList.add(new Pair<>("version", 12.19));
+			pairArrayList.add(new Pair<>("version", 6.28));
+			Map<String, Double> map = pairArrayList.stream().collect(
+			// 生成的map集合中只有一个键值对：{version=6.28}
+			Collectors.toMap(Pair::getKey, Pair::getValue, (v1, v2) -> v2)); 
+		 * 反例：
+			String[] departments = new String[] {"iERP", "iERP", "EIBU"};
+			// 抛出IllegalStateException异常
+			Map<Integer, String> map = Arrays.stream(departments)
+			.collect(Collectors.toMap(String::hashCode, str -> str));
+		 * 4. 【强制】在使用java.util.stream.Collectors类的toMap()方法转为Map集合时，一定要注意当value为null时会抛NPE异常。 
+		 * 说明：在java.util.HashMap的merge方法里会进行如下的判断：
+			if (value == null || remappingFunction == null)
+			throw new NullPointerException(); 
+		 * 反例：
+			List<Pair<String, Double>> pairArrayList = new ArrayList<>(2);
+			pairArrayList.add(new Pair<>("version1", 8.3));
+			pairArrayList.add(new Pair<>("version2", null));
+			Map<String, Double> map = pairArrayList.stream().collect(
+			// 抛出NullPointerException异常
+			Collectors.toMap(Pair::getKey, Pair::getValue, (v1, v2) -> v2));
+		 * 《阿里巴巴Java开发手册嵩山版2020.pdf》
+		 */
 	}
 }
 

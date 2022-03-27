@@ -10,7 +10,16 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
 import java.util.Map;
-
+/*
+ * https://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_i.html 《互联网协议入门（一）》
+ * https://www.ruanyifeng.com/blog/2012/06/internet_protocol_suite_part_ii.html 《互联网协议入门（二）》
+ * https://mp.weixin.qq.com/s/D_Zrq6L9m4cjS6oji0c9sw《Mac 地址会重复吗？Mac 地址也会耗尽吗？ 》
+ * MAC地址（物理地址、硬件地址）是实实在在的网络设备出身地址，它是由厂商写入网络设备的bios中。
+ * 网络设备厂商也并不能随意的使用Mac地址，需要向IEEE申请，当然厂商申请需要付费。
+ * Mac地址通常表示为12个16进制数，每2个16进制数之间用冒号隔开，前6位16进制数代表了网络硬件制造商的编号，由IEEE分配，而后3位16进制数是由网络产品制造产商自行分配。
+ * 这样就可以保证世界上每个网络设备具有唯一的MAC地址，比如一台电脑的网卡坏掉了之后，更换一块网卡之后MAC地址就会变。
+ * step1：源主机首先会向局域网中发送ARP的广播请求，只要目标mac地址是FF:FF:FF:FF:FF:FF，局域网内的所有设备都会受到这个请求。
+ */
 public class InetAddressDemo {
 	public static void main(String[] args) throws UnknownHostException {
 		String osName = System.getProperty("os.name").toLowerCase();
@@ -117,6 +126,28 @@ public class InetAddressDemo {
 			e.printStackTrace();
 		}
 		
+		try {//获取本机的IP地址
+			Enumeration<NetworkInterface> el = NetworkInterface.getNetworkInterfaces();
+			while (el.hasMoreElements()) {
+				 NetworkInterface ni = (NetworkInterface) el.nextElement();
+                 // ----------特定情况，可以考虑用ni.getName判断
+                 // 遍历所有ip
+                 Enumeration<InetAddress> ipEnum = ni.getInetAddresses();
+                 while (ipEnum.hasMoreElements()) {
+                     ip = (InetAddress) ipEnum.nextElement();
+                     if (ip.isSiteLocalAddress() && !ip.isLoopbackAddress()
+                             && ip.getHostAddress().indexOf(":") == -1) {
+                    	 System.out.println("本机所有的IP地址为:" + ip.getHostAddress());
+                    	 System.out.println("ni.getName()是什么东西？:" + ni.getName());
+                     }
+                     
+                	 System.out.println("不加if判断能获取到多少个_本机所有的IP地址为:" + ip.getHostAddress());
+                	 System.out.println("ni.getName()是什么东西？:" + ni.getName());
+                 }
+			}
+		} catch (SocketException e) {
+			e.printStackTrace();
+		}
 		
 		if(osName.startsWith("windows")){
 			//本地是windows

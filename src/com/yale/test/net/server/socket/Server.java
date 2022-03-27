@@ -42,7 +42,8 @@ import java.nio.charset.StandardCharsets;
  * 域名
  * 因为直接记忆IP地址非常困难，所以我们通常使用域名访问某个特定的服务。域名解析服务器DNS负责把域名翻译成对应的IP，客户端再根据IP地址访问服务器
  * 用nslookup可以查看域名对应的IP地址：
- * 有一个特殊的本机域名localhost，它对应的IP地址总是本机地址127.0.0.1。
+ * 有一个特殊的本机域名localhost，它对应的IP地址总是本机地址127.0.0.1。localhost和127.0.0.1都代表本机的IP地址。
+ * localhost其实是域名，一般windows系统默认将localhost指向127.0.0.1，但是localhost并不等于127.0.0.1，localhost指向的IP地址是可以配置的
  * 网络模型
  * 由于计算机网络从底层的传输到高层的软件设计十分复杂，要合理地设计计算机网络模型，必须采用分层模型，每一层负责处理自己的操作。
  * OSI（Open System Interconnect）网络模型是ISO组织定义的一个计算机互联的标准模型，注意它只是一个定义，目的是为了简化网络各层的操作，

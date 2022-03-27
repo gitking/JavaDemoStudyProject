@@ -17,7 +17,7 @@ public  class SuperDemo extends Student{
 
 	public SuperDemo(){
 		/*
-    	 * this()只能用在构造函数中,且它必须是第一行语句。
+    	 * this()和super()只能用在构造函数中,且它必须是第一行语句。
     	 * 每个构造函数可以选择调用super()或this(),但不能同时调用,super()与this()不能兼得。
     	 */
 		//super("Student类的stuName");

@@ -8,13 +8,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserService {
 	/*
+	 * https://zhuanlan.zhihu.com/p/131584403
 	 * 实际上，成员变量的初始化是在构造方法中完成的。这是我们看到的代码：
 	 * public class UserService {
 		    public final ZoneId zoneId = ZoneId.systemDefault();
 		    public UserService() {
 		    }
 		}
-		这是编译器实际编译的代码：
+		这是编译器实际编译的代码：编译后的代码
 		public class UserService {
 		    public final ZoneId zoneId;
 		    public UserService() {

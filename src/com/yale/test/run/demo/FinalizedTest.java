@@ -4,6 +4,9 @@ package com.yale.test.run.demo;
  * https://juejin.cn/post/6844904004569464840#comment 一个JDK线程池BUG引发的GC机制思考
  * 本类一定要结合com.yale.test.thread.heima.zhangxiaoxiang.ThreadPoolBugTest.java一起观看.这俩个类是在说同一个问题.
  * 下面来验证一下猜想：
+ * https://www.heapdump.cn/article/2504997 记一次因线程池 BUG 引起的问题分析
+ * 本类要结合com.yale.test.java.fanshe.perfma.JitFinalize.java和com.yale.test.thread.heima.zhangxiaoxiang.ThreadPoolBugTest.java一起看
+ * R大的解释:https://www.zhihu.com/question/51244545/answer/126055789知乎R大的回答必看
  */
 public class FinalizedTest {
 

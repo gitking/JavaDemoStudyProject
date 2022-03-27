@@ -150,5 +150,27 @@ public class LocalDateTimeDemo {
 		 * 有的童鞋可能发现Java 8引入的java.timeAPI。怎么和一个开源的Joda Time(https://www.joda.org/)很像？难道JDK也开始抄袭开源了？
 		 * 其实正是因为开源的Joda Time设计很好，应用广泛，所以JDK团队邀请Joda Time的作者Stephen Colebourne共同设计了java.timeAPI。
 		 */
+		
+		/**
+		 * 5. 【强制】不要在程序中写死一年为365天，避免在公历闰年时出现日期转换错误或程序逻辑错误。
+		 * 正例：
+		 * 获取今年的天数 int daysOfThisYear = LocalDate.now().lengthOfYear(); 
+		 * 获取指定某年的天数 LocalDate.of(2011, 1, 1).lengthOfYear();
+		 * 反例：
+		 * 第一种情况：在闰年366天时，出现数组越界异常 int[] dayArray = new int[365]; 
+		 * 第二种情况：一年有效期的会员制，今年1月26日注册，硬编码365返回的却是1月25日 
+		 * Calendar calendar = Calendar.getInstance(); calendar.set(2020, 1, 26); calendar.add(Calendar.DATE, 365);
+		 * 6. 【推荐】避免公历闰年2月问题。闰年的2月份有29天，一年后的那一天不可能是2月29日。
+		 * 7. 【推荐】使用枚举值来指代月份。如果使用数字，注意Date，Calendar等日期相关类的月份month取值在0-11之间。 
+		 * 说明：参考JDK原生注释，Month value is 0-based. e.g., 0 for January. 
+		 * 正例： Calendar.JANUARY，Calendar.FEBRUARY，Calendar.MARCH等来指代相应月份来进行传参或比较。
+		 * 《阿里巴巴Java开发手册嵩山版2020.pdf》
+		 */
+		//获取今年的天数 
+		int daysOfThisYear = LocalDate.now().lengthOfYear();
+		//获取指定某年的天数 
+		LocalDate.of(2011, 1, 1).lengthOfYear();
+		
+		
 	}
 }

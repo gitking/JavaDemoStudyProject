@@ -1,0 +1,21 @@
+<Response>
+	<Head>
+		<ErrorCode>609904</ErrorCode>
+		<ErrorDesc>[(${errorMsg})]</ErrorDesc>
+		<ErrorDesc th:text="${errorMsg}"></ErrorDesc>
+		<ErrorDesc th:value="${errorMsg}"></ErrorDesc>
+		<ErrorDesc th:text="#{errorMsg}"></ErrorDesc>
+		<ErrorDesc th:text="#{strings.escapeXml('errorMsg')}"></ErrorDesc>
+		<ErrorDesc>[[${errorMsg}]]</ErrorDesc>
+		<ErrorDesc th:utext="${errorMsg}"></ErrorDesc>
+		<ErrorDesc th:utext="${errorMsg}">[[${${errorMsg}}]]</ErrorDesc>
+		<ErrorDesc th:text="${errorMsg}">[[${errorMsg}]]</ErrorDesc>
+		<ErrorDesc th:id="${errorMsg}"></ErrorDesc>
+		<ErrorDesc th:id="#{errorMsg}"></ErrorDesc>
+		<ErrorDesc th:attr="id=#{errorMsg}"></ErrorDesc>
+		<ErrorDesc th:attr="id=${errorMsg}"></ErrorDesc>
+		<ErrorDesc th:attr="id=@{errorMsg}"></ErrorDesc>
+		<ErrorDesc id="${errorMsg}"></ErrorDesc>
+		<ErrorDesc id="[(${errorMsg})]"></ErrorDesc>
+	</Head>
+</Response>

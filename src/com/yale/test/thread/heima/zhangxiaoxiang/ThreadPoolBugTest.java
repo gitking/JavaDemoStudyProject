@@ -21,6 +21,10 @@ import java.util.concurrent.FutureTask;
  * JDK官方文档:https://docs.oracle.com/javase/specs/jls/se8/html/jls-6.html#jls-6.3
  * 线程池的这个问题，在JDK的论坛里也是一个公开但未解决状态的问题 https://bugs.openjdk.java.net/browse/JDK-8145304 不过在JDK11下，该问题已经被修复：
  * https://stackoverflow.com/questions/58714980/rejectedexecutionexception-inside-single-executor-service
+ * https://stackoverflow.com/questions/24376768/can-java-finalize-an-object-when-it-is-still-in-scope
+ * https://www.heapdump.cn/article/2504997 记一次因线程池 BUG 引起的问题分析
+ * 本类要结合com.yale.test.java.fanshe.perfma.JitFinalize.java和com.yale.test.run.demo.FinalizedTest.java一起看
+ * https://www.zhihu.com/question/51244545/answer/126055789 知乎R大的回答必看
  */
 public class ThreadPoolBugTest {
 	/**
@@ -44,6 +48,13 @@ public class ThreadPoolBugTest {
 	/*
 	 * 这个程序运行一段时间之后会报错,如下:
 	 * Exception in thread "Thread-6" Exception in thread "Thread-0" java.util.concurrent.RejectedExecutionException: Task java.util.concurrent.FutureTask@3e666490 rejected from java.util.concurrent.ThreadPoolExecutor@46653985[Terminated, pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0]
+	 * at java.util.concurrent.ThreadPoolExecutor$AbortPolicy.rejectedExecution(ThreadPoolExecutor.java:2063)
+	at java.util.concurrent.ThreadPoolExecutor.reject(ThreadPoolExecutor.java:830)
+	at java.util.concurrent.ThreadPoolExecutor.execute(ThreadPoolExecutor.java:1379)
+	at java.util.concurrent.Executors$DelegatedExecutorService.execute(Executors.java:668)
+	at com.yale.test.thread.heima.zhangxiaoxiang.ThreadPoolBugTest.submit(ThreadPoolBugTest.java:43)
+	at com.yale.test.thread.heima.zhangxiaoxiang.ThreadPoolBugTest$2.run(ThreadPoolBugTest.java:63)
+	at java.lang.Thread.run(Thread.java:748)
 	 * 为什么会报这个错误？
 	 * 现在再回到上面的线程池问题，根据上面介绍的机制，在分析没有引用之后，对象会被提前finalize
 	 * 可在上述代码中，return之前明明是有引用的executorService.execute(futureTask)，为什么也会提前finalize呢？

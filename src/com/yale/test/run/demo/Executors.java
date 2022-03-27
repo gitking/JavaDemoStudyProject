@@ -1,6 +1,7 @@
 package com.yale.test.run.demo;
 
 //Executors.java，模拟juc的Executors
+//http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/tip/src/share/classes/java/util/concurrent/Executors.java#l677 《 Executors$DelegatedExecutorService.submit() 》
 public class Executors {
 
 	/**

@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
  * 方法引用
  * 使用Lambda表达式，我们就可以不必编写FunctionalInterface接口的实现类，从而简化代码：
  * 实际上，除了Lambda表达式，我们还可以直接传入方法引用。例如：
+ * com.yale.test.java.demo.OptionalDemo.java一起看
  */
 public class LambdaMethod {
 

@@ -1,5 +1,6 @@
 package com.yale.test.java.classpath;
 /*
+ * javac -d /myWebApplication/WEB-INF/classes myServlet.java
  * 如果我们需要在src目录下执行javac命令：
  * javac -d ../bin ming/Person.java hong/Person.java mr/jun/Arrays.java
  * https://www.liaoxuefeng.com/wiki/1252599548343744/1260466914339296
@@ -168,6 +169,14 @@ jar包和war包的介绍和区别 - 简书  这个写到java文档里面去
  * 			<a href="MyApp2.jnlp">Launch My Application</a>
  * 		</BODY>
  * </HTML>
+ * 
+ * 然后用javac编译Main.java，编译的时候要指定classpath，不然编译器找不到我们引用的org.apache.commons.logging包。编译命令如下：
+ * javac -cp commons-logging-1.2.jar Main.java
+ * 
+ * java -cp .:commons-logging-1.2.jar Main
+ * 注意到传入的classpath有两部分：一个是.，一个是commons-logging-1.2.jar，用;分割。.表示当前目录，如果没有这个.，JVM不会在当前目录搜索Main.class，就会报错。
+ * 如果在Linux或macOS下运行，注意classpath的分隔符不是;，而是:：
+ * https://www.liaoxuefeng.com/wiki/1252599548343744/1264738932870688
  */
 public class ClassPathTest {
 	public static void main(String[] args) {

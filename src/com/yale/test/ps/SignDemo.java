@@ -58,6 +58,13 @@ public class SignDemo {
 		byte[] message = "Hello, I'm Bob!".getBytes(StandardCharsets.UTF_8);
 		
 		//用私钥签名
+		/*
+		 * 为什么要针对原消息的hash签名？是不是RSA加密太慢了？如果原消息是一个很大的文件或者很长的消息，如果直接中RSA签名运算速度太慢了，所以把原消息通过hash算法变成一个固定长度的hash值,然后再对这个hash值签名运算速度是不是就大大提高了？我的猜想对不对，朋友们？
+		 * hash算法可以防篡改。
+		 * RSA签名可以防篡改，并且还可以防耍赖（抗否认性，可以证明消息 就是某个人发出的）。
+		 * https://www.liaoxuefeng.com/wiki/1252599548343744/1304227968188450
+		 * https://www.liaoxuefeng.com/wiki/1252599548343744/1304227943022626
+		 */
 		Signature sign = Signature.getInstance("SHA1withRSA");
 		sign.initSign(sk);
 		sign.update(message);
@@ -70,5 +77,19 @@ public class SignDemo {
 		v.update(message);
 		boolean valid = v.verify(signed);
 		System.out.println("公钥验证是否通过?valid:" + valid);
+		
+		
+		/*
+		 * 廖神，我最近又复习了一遍您官网(https://www.liaoxuefeng.com/wiki/1252599548343744/1304227943022626)的JAVA教程，在看到《加密与安全》这个章节的时候，
+		 * 发现您大量的在使用new BigInteger(1, signed)。想问您：1.为什么加密的这几章一直在用这个构造方法？是不是加密后得到的byte数组本质上就是一个很大的数字啊,并且是一个很大的整数。
+		 * 2.计算机上的加密，无论是对文件加密还是对图片、视频、字符加密，能不能理解为最终都是对一大串二进制(01)加密，所以无论什么东西加密之后得到结果就是一串数字，所以您才用new BigInteger(1, signed)将加密后的byte数组转换成int数值
+		 */
+		System.out.println("能把汉语字符变成整数吗？答案是可以的，:->" + new BigInteger(1, "new BigInteger(1, signed)为什么加密的这几章一直在用这个方法？是不是加密后得到的byte数组,本质上就是一个很大的数字啊,并且是一个很大的整数。".getBytes(StandardCharsets.UTF_8)));
+		System.out.println("能把汉语字符变成整数吗？答案是可以的，再变成16进制:->" + new BigInteger(1, "new BigInteger(1, signed)为什么加密的这几章一直在用这个方法？是不是加密后得到的byte数组,本质上就是一个很大的数字啊,并且是一个很大的整数。".getBytes(StandardCharsets.UTF_8)).toString(16));
+		
+		System.out.println("2的3次方为(2x2x2):->" + new BigInteger("2").pow(3));
+		System.out.println("2的4次方为(2x2x2x2):->" + new BigInteger("2").pow(4));
+		System.out.println("2的8次方为(2x2x2x2x2x2x2x2):->" + new BigInteger("2").pow(8));
+		System.out.println("2的256次方:->" + new BigInteger("2").pow(256));
 	}
 }

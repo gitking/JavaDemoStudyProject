@@ -76,6 +76,7 @@ import org.springframework.context.annotation.Profile;
  * 小结
  * Spring允许通过@Profile配置不同的Bean；
  * Spring还提供了@Conditional来进行条件装配，Spring Boot在此基础上进一步提供了基于配置、Class、Bean等条件进行装配。
+ * https://www.liaoxuefeng.com/wiki/1252599548343744/1308043874664482
  */
 @Configuration
 @ComponentScan

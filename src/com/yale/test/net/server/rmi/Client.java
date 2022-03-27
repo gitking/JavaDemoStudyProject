@@ -42,6 +42,16 @@ import com.yale.test.net.server.rmi.shared.WorldClock;
  * 答:序列化/反序列化只要只涉及数据，不涉及代码，理论上就是安全的，JMS的ByteMessage和StringMessage不涉及序列化
  * 问:RMI要求服务端和客户端共享接口，例子给的是同一个项目里建立的接口WorldClock 。那么不同项目里是不是要求两个项目建立的接口要完全一致？
  * 答:把需要共享的接口单独拆个工程，两边都引用这个共享的工程
+ * -----------------------
+ * 我们也会很快第看过Servlet,Enterprise Java Bean(EJB),Jini以及EJB与Jini是如何运用RMI。
+ * 为什么会需要RMI，比如能力有限的便携设备想要拥有运算能力强大的服务器的运算能力。
+ * 远程过程调用的设计要创建出4种东西:服务器,客户端,服务器辅助设施和客户端辅助设施。
+ * 辅助设施会处理所有客户端和服务器的底层网络输入/输出细节,让你的客户端和程序好像在处理本机调用一样。辅助设施是个在实际执行通信的对象。他们会让客户端感觉上好像是在调用本机的对象。事实上正是这样,
+ * 客户端调用辅助设施的方法,就好像客户端就是服务器一样。客户端是真正服务的代理(proxy)。客户端对象看起来像是在调用远程的方法,但实际上它只是在调用本地处理Socket和串流细节的"代理"。
+ * 辅助设施会去连接服务器,将调用的信息传送过去(像是方法的名称和参数内容),然后等待服务器的响应。服务器的辅助设施会通过Socket连接来自客户端设施的要求,解析打包送来的消息,然后调用真正的服务,因此对服务对象来说此调用
+ * 来自于本地。在RMI中,客户端的辅助设施称为stub,而服务器端的辅助设施称为skeleton。
+ * 《Head First Java》第611页,远程部署的RMI
+ * 此类可以和com.yale.test.java.classpath.rmi.MyRemote.java结合起来看
  */
 public class Client {
 	public static void main(String[] args) throws RemoteException, NotBoundException {

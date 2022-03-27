@@ -3,7 +3,7 @@ package com.yale.test.java.classpath.rmi;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 /*
-*远程部署的RMI-分布式计算
+ * 远程部署的RMI-分布式计算
 * 这一章会介绍Java的远程程序调用(Remote Method Invocation,RMI)技术。我们也会很快地看到Servlet,
 * Enterprise Java Bean(EJB),Jini以及EJB与Jini是如何运用RMI。最后你还会以Java创建出一个通用服务浏览器。
 * Executable Jar-->(HTTP)Web Start-->RMI app-->HTTP Servlet
@@ -45,7 +45,9 @@ import java.rmi.RemoteException;
 * 
 * Enterprise JavaBeans:打了类固醇的RMI
 * RMI很适合编写并运行远程服务。但你不会单独使用RMI来执行Amazon或eBay网站服务。对于大型网站来说,需要enterprise application server.
-* 用java术语来说,这就是Java 2 Enterprise Edition(J2EE)服务器。J2EE服务器包括了Web服务器和Enterprise JavaBeans(EJB)服务器
+* 用java术语来说,这就是Java 2 Enterprise Edition(J2EE)服务器。J2EE服务器包括了Web服务器和Enterprise JavaBeans(EJB)服务器。
+* EJB服务器具有一组你光靠RMI不会有的服务,比如交易管理,安全性,并发性,数据库和网络功能。EJB服务器作用于RMI调用和服务层之间。
+* 此类可以和com.yale.test.net.server.rmi.Client.java结合起来看
 */
 public interface MyRemote extends Remote {//注意我们的接口类MyRemote继承了Remote这个接口,1.创建远程接口MyRemote
 	

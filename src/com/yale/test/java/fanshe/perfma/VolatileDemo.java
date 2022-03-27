@@ -38,6 +38,11 @@ package com.yale.test.java.fanshe.perfma;
  * 回写主内存。
  * 这3步多个线程可以同时进行。
  * https://mp.weixin.qq.com/s/x78EZQ0E0fgKSwGdK5vtwg
+ * 
+ * https://www.heapdump.cn/question/2610787
+ * ferdi回答:x86架构的CPU有完善的cache同步机制，也就是高速缓存一致性协议（MESI）所以说在多核x86平台上，这个线程的这个cacheline在未来的某个时间肯定会被刷新，只要你一直在读就肯定能在未来某个时刻看到更新后的值。
+ * volatile在此对编译器的影响之一就是会迫使编译器放弃对它做任何冒进的优化，而总是会从内存重新访问其值。当然它还有其它语义，例如说保证volatile变量的读写之间的效果的顺序，但对这个例子来说最重要的就是保证每次都重新访问内存。
+ * https://www.zhihu.com/question/296949412 既然CPU有缓存一致性协议（MESI），为什么JMM还需要volatile关键字？
  * @author dell
  */
 public class VolatileDemo {
@@ -121,8 +126,9 @@ public class VolatileDemo {
 			//Thread.sleep(1000);加上行代码也会解决死循环问题,sleep会释CPU,但不会释放锁
 			
 			/**
-			 * https://club.perfma.com/question/267086
-			 * https://club.perfma.com/question/2079981
+			 * https://www.heapdump.cn/question/267086 一道面试题引发的对Java内存模型的一点疑问？
+			 * https://www.heapdump.cn/question/2079981 一道面试题引发的对Java内存模型的一点疑问，第二部。
+			 * https://www.heapdump.cn/question/2610787 一道面试题引发的对Java内存模型的一点疑问，第三部。
 			 * 按照我的理解,你这个程序如果Main线程在num=0时候先执行了while()循环,然后子线程再对num进行加1操作,肯定会出现死循环的情况。
 			 * 因为JMM规定普通的共享变量存在于主内存当中，然后每个线程都有自己的工作内存，每个线程用到变量的时候会先从主存中复制一份到自己的工作内存。
 			 * 就你这程序来说,如果Main线程在num=0时候先执行了while()循环,这个时候Main线程会把num的值复制一份到自己的工作内存,
@@ -149,6 +155,7 @@ public class VolatileDemo {
 	 * 在早期的 CPU 中，是通过在总线上加 LOCK# 锁的形式来解决缓存不一致的问题。因为 CPU 和其他部件进行通信都是通过总线来进行的，如果对总线加 LOCK# 锁的话，
 	 * 也就是说阻塞了其他 CPU 对其他部件访问（如内存），从而使得只能有一个 CPU 能使用这个变量的内存。由于在锁住总线期间，其他 CPU 无法访问内存，导致效率低下。
 	 * 所以就出现了缓存一致性协议。最出名的就是 Intel 的 MESI 协议，MESI 协议保证了每个缓存中使用的共享变量的副本是一致的。它核心的思想是：当 CPU 写数据时，如果发现操作的变量是共享变量，即在其他 CPU 中也存在该变量的副本，
+	 * MESI协议是由四个单词的缩写组成的?modifield被修改的,exclusive独占的,shared共享的,invalid失效的,因为有四个状态,所以每个CPU的缓存行,都要拿出俩个比特来表示这个状态.
 	 * 会发出信号通知其他 CPU 将该变量的缓存行置为无效状态，因此当其他 CPU 需要读取这个变量时，发现自己缓存中缓存该变量的缓存行是无效的，那么它就会从内存重新读取。
 	 * 
 	 * 看了那么多文章,其实我发现volatile只有俩个大的作用,第一个是禁止指令重排序。第二个就是可见性。什么是指令重排序？看下面的代码

@@ -10,6 +10,9 @@ import java.time.ZonedDateTime;
  * 实际上，Instant内部只有两个核心字段：
  * 一个是以秒为单位的时间戳，一个是更精确的纳秒精度。它和System.currentTimeMillis()返回的long相比，只是多了更高精度的纳秒。
  * 既然Instant就是时间戳，那么，给它附加上一个时区，就可以创建出ZonedDateTime：
+ * 《阿里巴巴Java开发手册嵩山版2020.pdf》
+ * 3. 【强制】获取当前毫秒数：System.currentTimeMillis(); 而不是new Date().getTime()。 
+ * 说明：如果想获取更加精确的纳秒级时间值，使用System.nanoTime的方式。在JDK8中，针对统计时间等场景，推荐使用Instant类。
  */
 public class InstantDemo {
 	public static void main(String[] args) {

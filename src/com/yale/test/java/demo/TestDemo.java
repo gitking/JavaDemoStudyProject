@@ -2,11 +2,18 @@ package com.yale.test.java.demo;
 
 import java.util.Arrays;
 
+/*
+ * com.yale.test.java.demo.pro.ProtectedTest结合这个类看
+ */
 public class TestDemo {
 	public String[] nameFiled;
 	private String strVal;
 	
 	public static void main(String[] args) {
+		
+		DClass dclass = new DClass();
+		System.out.println("DClass这个类只能在同一个包中的类中才能访问,在不同的包下面会报错,编译直接不通过:" + dclass.defaultField);
+		
 		System.out.println("可变参数" + add(1,2,2));
 		//可变参数可以接收数组
 		System.out.println("可变参数可以接收数组" + add(new int[] {6,7,8,8,9}));

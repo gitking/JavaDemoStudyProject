@@ -24,6 +24,21 @@ public class ComparatorTest implements Comparator<PersonSec>{
 		System.out.println("当前的语言环境" + Locale.getDefault());
 	}
 
+	/**
+	 * 15. 【强制】在JDK7版本及以上，Comparator实现类要满足如下三个条件，不然Arrays.sort，Collections.sort会抛IllegalArgumentException异常。 
+	 * 说明：三个条件如下 
+	 * 		1） x，y的比较结果和y，x的比较结果相反。 
+	 * 		2） x>y，y>z，则x>z。 
+	 * 		3） x=y，则x，z比较结果和y，z比较结果相同。 
+	 * 反例：下例中没有处理相等的情况，交换两个对象判断结果并不互反，不符合第一个条件，在实际使用中 可能会出现异常。
+	 * new Comparator<Student>() {
+		@Override
+		public int compare(Student o1, Student o2) {
+			return o1.getId() > o2.getId() ? 1 : -1;
+			}
+		};
+	 * 《阿里巴巴Java开发手册嵩山版2020.pdf》
+	 */
 	@Override
 	public int compare(PersonSec o1, PersonSec o2) {
 		if (o1.getAge() > o2.getAge()) {

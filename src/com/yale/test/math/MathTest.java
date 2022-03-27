@@ -24,6 +24,16 @@ public class MathTest {
 		
 		System.out.println("max方法返回俩个数字最大的那一个:" + Math.max(18.44, 55));
 		System.out.println("min方法返回俩个数字最小的那一个:" + Math.min(18.44, 55));
+		
+		/**
+		 * 强制类型转换,如果要将小数点强制转换成整形,小数点后面的部分会直接被揭掉，而不是临近舍入。
+		 * 静态方法Math.round(2.4);是根据第一位小数来进行四舍五入的，返回结果是long类型，结果是2。
+		 * Math.round(2.49);的结果还是2，因为他是根据第一位小数来四舍五入的。
+		 * Math.round(2.5);结果是3。
+		 * Math.floor(2.99);是向下取整，返回结果是dobule类型，结果是2.0；floor英文单词是地面的意思。
+		 * Math.ceil(2.11);是向上取整，返回结果是dobule类型，结果是3.0;ceil英文单词是天花板的意思。
+		 * https://blog.csdn.net/u010477645/article/details/51713375
+		 */
 		System.out.println("Math.floor() 向下取整，即小于这个数的最大的那个整数,即floor 返回不大于的最大整数:" + Math.floor(18.44));
 		System.out.println("Math.ceil() 向上取整，即大于这个数的最小的那个整数。:" + Math.ceil(18.44));
 		System.out.println("Math.rint() 返回最接近该值的那个整数。注意: 如果存在两个这样的整数，则返回其中的偶数。:" + Math.rint(18.44));
@@ -80,7 +90,7 @@ public class MathTest {
 		 * 
 		 * https://github.com/openjdk/jdk/blob/jdk8-b120/jdk/src/share/classes/sun/security/provider/SunEntries.java
 		 * SecureRandom内部用到了sun.security.provider.SecureRandom,而SecureRandom在大量获取随机数的时候有性能问题见:perfma连接
-		 * https://club.perfma.com/article/2056948
+		 * https://club.perfma.com/article/2056948《JFR 定位因为 SSL 导致 CPU Load 飚高的问题》
 		 * 堆栈显示，阻塞在：void sun.security.provider.SecureRandom.engineNextBytes(byte[])上面，这就是一个经典的问题，Java Random
 		 * 涉及到两种随机数 seed 生成方式，一种是"file:/dev/random"，另一种是"file:/dev/urandom"，通过设置系统属性java.security.egd指定，默认是"file:/dev/random"
 		 * 两种 Random 原理与解决在 Linux 4.8 之前：和在 Linux 4.8 之后：
@@ -89,6 +99,11 @@ public class MathTest {
 		 * 注意：jvm参数值为/dev/./urandom而不是/dev/urandom，这里是jdk的一个bug引起。https://blog.51cto.com/leo01/1795447
 		 * bug产生的原因请注意下面SeedGenerator第四行源码，如果java.security.egd参数指定的是file:/dev/random或者file:/dev/urandom，则调用了无参的NativeSeedGenerator构造函数，而无参的构造函数将默认使用file:/dev/random 。openjdk的代码和hotspot的代码已经不同，openjdk在后续产生随机数的时候没有使用这个变量。
 		 * https://github.com/openjdk/jdk/blob/jdk8-b120/jdk/src/share/classes/sun/security/provider/SunEntries.java
+		 * https://mp.weixin.qq.com/s/bVvP3PmJPFwZNwgXJuFYnA 《/dev/urandom和/dev/random的区别 》
+		 * /dev/random 是真随机数生成器，它会消耗熵值来产生随机数，同时在熵耗尽的情况下会阻塞，直到有新的熵生成.
+			/dev/urandom 是伪随机数生成器，它根据一个初始的随机种子(这个种子来源就是熵池中的熵)来产生一系列的伪随机数，而并不会在熵耗尽的情况下阻塞。
+			但是 若在系统启动阶段使用 =/dev/urandom= 则可能存在熵池中还不存在任何熵的情况，这时用 =/dev/urandom= 产生的随机数是可预测的！
+			结合两者的特点，可以看出，除非要在启动启动阶段产生随机数，否则绝大多数情况下还是使用 /dev/urandom 来产生随机数，这样才不会引起程序莫名的挂起。
          */
         SecureRandom sr = null;
         try {

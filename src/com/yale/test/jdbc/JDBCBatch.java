@@ -2,7 +2,7 @@ package com.yale.test.jdbc;
 
 /**
  * JDBC Batch
- * 使用JDBC操作数据库的时候，经常会执行一些批量操作。
+ * 使用JDBC操作数据库的时候，经常会执行一些批量操作。批处理
  * 例如，一次性给会员增加可用优惠券若干，我们可以执行以下SQL代码：
  * INSERT INTO coupons (user_id, type, expires) VALUES (123, 'DISCOUNT', '2030-12-31');
  * INSERT INTO coupons (user_id, type, expires) VALUES (234, 'DISCOUNT', '2030-12-31');

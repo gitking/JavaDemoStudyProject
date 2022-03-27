@@ -5,6 +5,11 @@ package com.yale.test.leetcode;
 	特别指出：第0项是0，第1项是第一个1。
 	这个数列从第三项开始，每一项都等于前两项之和。
 	https://www.runoob.com/java/java-examples.html
+ * 数列大全的搜索结果：https://oeis.org/search?q=3++4++6++8++12++14++18&language=english&go=Search
+ * @游识猷 读到一个数字谜题——
+ * 3  4  6  8  12  14  18
+ * 这个数字序列可以用一个非常简单的规律来概括，你猜得出吗？
+ * 按照这个规律的话，下一个数字是什么？ 
  */
 public class Fibonacci {
 	public static void main(String[] args) {

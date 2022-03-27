@@ -117,7 +117,7 @@ public class ClassDemo {
 		fruitSec.eat();
 		
 		IFruit fruitThir = FactoryThir.getInstance("com.yale.test.java.fanshe.Apple");
-		fruitSec.eat();
+		fruitThir.eat();
 		
 		IMessage message = FactoryThir.getInstance("com.yale.test.java.fanshe.MessageImpl");
 		message.print();

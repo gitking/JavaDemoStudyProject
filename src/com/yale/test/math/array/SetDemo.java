@@ -79,6 +79,14 @@ class PersonSec implements Comparable<PersonSec> {
  * List(允许重复),Set(不允许重复)
  * List有三个非常重要的子类：ArrayList,Vector,LinkedList
  * Set有俩个常用子类:HashSet(不允许重复,无序存储),TreeSet(不允许重复,升序存储)
+ * 
+ * (六) 集合处理
+ * 1. 【强制】关于hashCode和equals的处理，遵循如下规则： 
+ * 	1） 只要覆写equals，就必须覆写hashCode。 
+ *  2） 因为Set存储的是不重复的对象，依据hashCode和equals进行判断，所以Set存储的对象必须覆写这两种方法。 
+ *  3） 如果自定义对象作为Map的键，那么必须覆写hashCode和equals。 说明：String因为覆写了hashCode和equals方法，所以可以愉快地将String对象作为key来使用。
+ *  《阿里巴巴Java开发手册嵩山版2020.pdf》
+ *  https://www.liaoxuefeng.com/wiki/1252599548343744/1265117217944672
  * @author dell
  */
 public class SetDemo {

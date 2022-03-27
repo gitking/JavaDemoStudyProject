@@ -7,7 +7,18 @@ import java.math.RoundingMode;
 /**
  * https://www.imooc.com/video/21177
  * 慕课网的 舞马 老师 二进制与Java中的基本数据类型 课程
- * 小数在计算机中的存储方式有俩点：1、定点数2、浮点数
+ * 【【计算机科学速成课】[40集全/精校] - Crash Course Computer Science-哔哩哔哩】https://b23.tv/ZlioyU
+ * 什么是浮点数:浮点数指的是小数点的位置可以浮动的数,比如220.5=22.05x10^1又可以=2.205x10^2。计算机时基于二进制的,所以所有的小数都是使用二进制存储的。
+ * 根据IEEE754指定的浮点数表示标准,对于任何一个小数来说呢,计算机都会将其规格化表达为1.xxx乘2的N次方这样的表达形式。对于任何一个小数来说，它的二进制表示呢第一位一定是1,剩下的XXX表示尾数。
+ * 浮点数在JAVA中有俩种,double是双精度占64位,float单精度占32位。以float为例,32bit分为三段,第一段占一个bit代表符号位,第二段为指数位占8bit,第三段为有效数字占23bit。
+ * double符号占1bit,指数位占11bit,有效数字占52bit.那精度是什么东西呢？以float为例,float的有效数字占23bit,23bit可以表示最大得十进制数字为2^23=8388608（七位数）。但是要注意
+ * 计算机存储浮点数的第一位一定是1,所以计算机在存储浮点数的时候并不存储第一位,所以float的最大精度是2^24=16777216(八位数,严格来说是7到8位,这块有知识点还没搞明白)。所以float的精度实际上能表示八个十进制位的数字。
+ * 那double的精度就是2^53=9,007,199,254,740,992(16位，严格来说是16到17位,这块有知识点还没搞明白),所以System.out.println(0.3-0.1);的结果是“0.19999999999999998”总共17位。
+ * 有一个问题不存储第一位,那0.0怎么存？IEEE754规定:最高位有效数字M,计算机默认存储数值1,但这是指数位E不全为1或者全为0的情况,如果指数位全为0，则还原的就是0.XXXXX,
+ * 这时候,如果有效数字也全为0的话,那就是0.0了。
+ * 【Java那些事.02.求你了，别用Double和Float进行小数计算/精度缺失引发的血案-哔哩哔哩】https://b23.tv/BhojxL
+ * 小数在计算机中的存储方式有俩点：1、定点数2、浮点数(因为小数点可以在数字间浮动，有好几种方法表示浮点数，最常见的是IEEE 754标准,它用类似科学计数法的方法,来存十进制值，例如:625.9可以写成0.6259x10^3。
+ * 这里有俩个重要数字:.6259叫有效位数,3是指数.在32位浮点数中,第1位表示数字的正负,接下来8位存指数(指数位),剩下23位存有效位数.)
  * 定点数:约定所有数值数据的小数点隐含在某一个固定位置上.
  * 		定点数优点:首先我们确定了小数点的位置,他的整数部分和小数部分都可以完全的表示出来。
  * 		定点数缺点:它表示的范围和存储的空间有着非常密切的联系.如果固定使用几个字节表示,那它表示的范围就很有限了.
@@ -47,6 +58,7 @@ import java.math.RoundingMode;
  * 使用BigDecimal进行浮点精确计算，BigDecimal用于表示精确的小数，常用于财务计算；
  * 和BigInteger类似，BigDecimal可以表示一个任意大小且精度完全准确的浮点数。
  * 如果查看BigDecimal的源码，可以发现，实际上一个BigDecimal是通过一个BigInteger和一个scale来表示的，即BigInteger表示一个完整的整数，而scale表示小数位数：
+ * BigDecimal这个类的原理：在处理十进制小数扩大N倍变成整数，然后再保留精度信息。
  * @author dell
  */
 public class BigDecimalTest {
@@ -125,11 +137,46 @@ public class BigDecimalTest {
 			System.out.println("n不是m的整数倍");
 		}
 		
+		/**
+		 * 10. 【强制】如上所示BigDecimal的等值比较应使用compareTo()方法，而不是equals()方法。 
+		 * 说明：equals()方法会比较值和精度（1.0与1.00返回结果为false），而compareTo()则会忽略精度。
+		 * 《阿里巴巴Java开发手册嵩山版2020.pdf》
+		 * 12. 【强制】禁止使用构造方法BigDecimal(double)的方式把double值转化为BigDecimal对象。 
+		 * 说明：BigDecimal(double)存在精度损失风险，在精确计算或值比较的场景中可能会导致业务逻辑异常。
+		 * 如：BigDecimal g = new BigDecimal(0.1F); 实际的存储值为：0.10000000149 
+		 * 正例：优先推荐入参为String的构造方法，或使用BigDecimal的valueOf方法，此方法内部其实执行了Double的toString，而Double的toString按double的实际能表达的精度对尾数进行了截断。 
+		 * BigDecimal recommend1 = new BigDecimal("0.1"); 
+		 * BigDecimal recommend2 = BigDecimal.valueOf(0.1);
+		 */
 		//在比较两个BigDecimal的值是否相等时，要特别注意，使用equals()方法不但要求两个BigDecimal的值相等，还要求它们的scale()相等：
 		BigDecimal d111 = new BigDecimal("123.456");
 		BigDecimal d22 = new BigDecimal("123.45600");
 		System.out.println(d111.equals(d22)); // false,因为scale不同
 		System.out.println(d111.equals(d22.stripTrailingZeros())); // true,因为d2去除尾部0后scale变为2
 		System.out.println("推荐 总是使用compareTo()比较两个BigDecimal的值，不要使用equals()！ " + d111.compareTo(d22)); // 0
+		
+		BigDecimal nVatVar = new BigDecimal("123.45600");
+		System.out.println("nVatVar的值为:" + nVatVar);
+		System.out.println("nVatVar的值取反为:negate就是取反的意思" + nVatVar.negate());
+		
+		BigDecimal recommend1 = new BigDecimal(0.1F);
+		System.out.println("实际的存储值为：" + recommend1.toString());
+		System.out.println("实际的存储值为：" + recommend1.toEngineeringString());
+		System.out.println("实际的存储值为：" + recommend1.toPlainString());
+		
+		BigDecimal recommendTest = new BigDecimal("0.1");
+		System.out.println("实际的存储值为：" + recommendTest.toString());
+		System.out.println("实际的存储值为：" + recommendTest.toEngineeringString());
+		System.out.println("实际的存储值为：" + recommendTest.toPlainString());
+		
+		BigDecimal recommendTest1 = BigDecimal.valueOf(0.1F);
+		System.out.println("实际的存储值为：" + recommendTest1.toString());
+		System.out.println("实际的存储值为：" + recommendTest1.toEngineeringString());
+		System.out.println("实际的存储值为：" + recommendTest1.toPlainString());
+		
+		BigDecimal recommendTest2 = BigDecimal.valueOf(0.1);
+		System.out.println("实际的存储值为：" + recommendTest2.toString());
+		System.out.println("实际的存储值为：" + recommendTest2.toEngineeringString());
+		System.out.println("实际的存储值为：" + recommendTest2.toPlainString());
 	}
 }

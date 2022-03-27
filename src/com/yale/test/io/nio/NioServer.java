@@ -28,6 +28,8 @@ import java.util.Set;
  * https://developer.aliyun.com/article/657160 一次堆外内存泄露的排查过程
  * Linux中使用gdb dump内存 https://blog.csdn.net/qq_36119192/article/details/96474833
  * netty 堆外内存泄露排查盛宴 https://mp.weixin.qq.com/s/fxx_AxH2mbtsr5BgdZ6uFA  https://github.com/mrniko/netty-socketio
+ * Netty堆外内存泄漏排查盛宴 https://www.heapdump.cn/article/2956826
+ * 一次netty"引发的"诡异old gc问题排查过程 https://www.heapdump.cn/article/2963029
  * @author dell
  */
 public class NioServer {

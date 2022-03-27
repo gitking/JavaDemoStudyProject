@@ -1,6 +1,7 @@
 package com.yale.test.math.array;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.DoubleSummaryStatistics;
@@ -55,6 +56,10 @@ public class CollectionsDemo {
 		Set<String> emptySet = Collections.EMPTY_SET;
 		
 		//Collections提供了一系列方法来创建一个单元素集合：
+		/*
+		 * 7. 【强制】Collections类返回的对象，如：emptyList()/singletonList()等都是immutable list，不可对其进行添加或者删除元素的操作。 
+		 * 反例：如果查询无结果，返回Collections.emptyList()空集合对象，调用方一旦进行了添加元素的操作，就会触发UnsupportedOperationException异常。
+		 */
 		List<String> singleList = Collections.singletonList("");
 		//List<String> list1 = List.of("apple");这俩个方法是等价的
 		/*
@@ -71,7 +76,7 @@ public class CollectionsDemo {
 		listTest.add("不变结合");
 		//Collections还提供了一组方法把可变集合封装成不可变集合：
 		List<String> listFinal = Collections.unmodifiableList(listTest);
-		listFinal.add("添加补进去");//报错java.lang.UnsupportedOperationException
+		//listFinal.add("添加补进去");//报错java.lang.UnsupportedOperationException
 		//因此，如果我们希望把一个可变List封装成不可变List，那么，返回不可变List后，最好立刻扔掉可变List的引用，
 		//这样可以保证后续操作不会意外改变原始对象，从而造成“不可变”List变化了：
 		listFinal = null;
@@ -227,6 +232,43 @@ public class CollectionsDemo {
 		
 		Collection<String> listInter = CollectionUtils.intersection(listOne, listTwo);
 		System.out.println("结果是俩个集合的交集:" + listInter);
-
+		
+		CollectionUtils.retainAll(all, listInter);//俩个集合取交集
+		
+		CollectionUtils.union(all, listInter);//俩个集合取并集
+		
+		
+		
+		//两个List集合取交集
+		//List<String> listStr = Arrays.asList("a","b","c");//java.lang.UnsupportedOperationException
+		//List<String> listStr2 = Arrays.asList("a","b","d");//java.lang.UnsupportedOperationException
+		List<String> listStr = new ArrayList<String>();
+		listStr.add("a");
+		listStr.add("b");
+		listStr.add("c");
+		List<String> listStr2 = new ArrayList<String>();
+		listStr2.add("a");
+		listStr2.add("b");
+		listStr2.add("d");
+		listStr.retainAll(listStr2);//不能使用Arrays.asList("a","b","c")否则会报错java.lang.UnsupportedOperationException
+		System.out.println("取俩个list结合的交集:" + listStr);
+		
+		/**
+		 * 5. 【强制】ArrayList的subList结果不可强转成ArrayList，否则会抛出 ClassCastException异常：java.util.RandomAccessSubList cannot be cast to java.util.ArrayList。 
+		 * 说明：subList()返回的是ArrayList的内部类SubList，并不是 ArrayList本身，而是ArrayList 的一个视图，对于SubList的所有操作最终会反映到原列表上。
+		 * 8. 【强制】在subList场景中，高度注意对父集合元素的增加或删除，均会导致子列表的遍历、增加、删除产生ConcurrentModificationException 异常。
+		 */
+		List<String> listStrSub = new ArrayList<String>();
+		listStrSub.add("A");
+		listStrSub.add("B");
+		listStrSub.add("C");
+		//Exception in thread "main" java.lang.ClassCastException: java.util.ArrayList$SubList cannot be cast to java.util.ArrayList
+		ArrayList<String> subArrList = (ArrayList<String>)listStrSub.subList(0, 1);
+		/**
+		 * 10. 【强制】在使用Collection接口任何实现类的addAll()方法时，都要对输入的集合参数进行NPE判断。 
+		 * 说明：在ArrayList#addAll方法的第一行代码即Object[] a = c.toArray(); 其中c为输入集合参数，如果为null，则直接抛出异常。
+		 * 《阿里巴巴Java开发手册嵩山版2020.pdf》
+		 */
+		listStrSub.addAll(collList);
 	}
 }

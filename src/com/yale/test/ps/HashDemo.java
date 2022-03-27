@@ -5,6 +5,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.HashMap;
 
 /*
  * MD5(Message Digest algorithm 5，信息摘要算法)
@@ -23,12 +24,12 @@ import java.util.Arrays;
  * 	碰撞概率低；
  *	不能猜测输出。
  * 常用的哈希算法有：
- *  算法			输出长度（位）	输出长度（字节）
- * 	MD5			128 bits		16 bytes
- *	SHA-1		160 bits		20 bytes
- *	RipeMD-160	160 bits		20 bytes
- *	SHA-256		256 bits		32 bytes
- *	SHA-512		512 bits		64 bytes
+ *  算法						输出长度（位）	输出长度（字节）
+ * 	MD5						128 bits		16 bytes
+ *	SHA-1(SHA1)				160 bits		20 bytes
+ *	RipeMD-160(RipeMD160)	160 bits		20 bytes
+ *	SHA-256(SHA256)			256 bits		32 bytes
+ *	SHA-512(SHA512)			512 bits		64 bytes
  * 根据碰撞概率，哈希算法的输出长度越长，就越难产生碰撞，也就越安全。
  * Java标准库提供了常用的哈希算法，并且有一套统一的接口。我们以MD5算法为例，看看如何对输入计算哈希：
  * 哈希算法的用途
@@ -80,9 +81,16 @@ public class HashDemo {
 		System.out.println("hash碰撞,，两个不同的输入得到了相同的输出：");
 		System.out.println("AaAaAa".hashCode());// 0x7460e8c0
 		System.out.println("BBAaBB".hashCode());// 0x7460e8c0
-		
+		System.out.println("data-123456".hashCode());
+		System.out.println("data-ABCDEF".hashCode());
+		HashMap<String, String> hashMap = new HashMap<String, String>();
+		hashMap.put("AaAaAa", "取不到了");
+		hashMap.put("BBAaBB", "取到了");
+		System.out.println("能不能取到正确的值:" + hashMap.get("BBAaBB"));
+		System.out.println("能不能取到正确的值:" + hashMap.get("AaAaAa"));
 		try {
 			/*
+			 * Java标准库提供了常用的哈希算法，并且有一套统一的接口。我们以MD5算法为例，看看如何对输入计算哈希：
 			 * 使用MessageDigest时，我们首先根据哈希算法获取一个MessageDigest实例，然后，反复调用update(byte[])输入数据。
 			 * 当输入结束后，调用digest()方法获得byte[]数组表示的摘要，最后，把它转换为十六进制的字符串。
 			 * 运行下述代码，可以得到输入HelloWorld的MD5是68e109f0f40ca72a15e05cc22786f8e6。
@@ -117,7 +125,16 @@ public class HashDemo {
 			//new BigInteger(1, result1).toString(16)有个大坑：0开头的，0最终会被省略,使用String.format代替
 			System.out.println("SHA-1:" + new BigInteger(1, result).toString(16));
 			
+			int num = new BigInteger("0004e473f59ab5bd4639f848dd8ed27f1b3f6b0d", 16).intValue();
+			System.out.println("0004e473f59ab5bd4639f848dd8ed27f1b3f6b0d 的值整数值为:" + num);
+			//String.format的用法见类com.yale.test.java.demo.string.StringTest.java
+			//结合com.yale.test.math.FloatDemo一起看.
 			System.out.println(String.format("%040x", new BigInteger("0004e473f59ab5bd4639f848dd8ed27f1b3f6b0d", 16)));// 0004e473f59ab5bd4639f848dd8ed27f1b3f6b0d
+			
+			 System.out.println("注意看前面的三个0没有了:" + new BigInteger("0004e473f59ab5bd4639f848dd8ed27f1b3f6b0d", 16).toString(16));// 0004e473f59ab5bd4639f848dd8ed27f1b3f6b0d
+			 System.out.println("注意看前面的三个0没有了:" + String.format("%x", new BigInteger("0004e473f59ab5bd4639f848dd8ed27f1b3f6b0d", 16)));// 0004e473f59ab5bd4639f848dd8ed27f1b3f6b0d
+			 //%040x的意思是,如果后面的参数不足40位就在开头用0补足40位.注意"0004e473f59ab5bd4639f848dd8ed27f1b3f6b0d"的长度刚好就是40位。
+			 System.out.println("注意看前面的三个0有了:" + String.format("%040x", new BigInteger("0004e473f59ab5bd4639f848dd8ed27f1b3f6b0d", 16)));// 0004e473f59ab5bd4639f848dd8ed27f1b3f6b0d
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {

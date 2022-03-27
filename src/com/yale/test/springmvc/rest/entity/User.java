@@ -10,6 +10,11 @@ import java.time.format.DateTimeFormatter;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * com.yale.test.json.JacksonDemo.java一起看
+ * com.yale.test.xml.jackson.Book.java 一起看
+ * @author issuser
+ */
 public class User {
 	private Long id;
 	private String email;

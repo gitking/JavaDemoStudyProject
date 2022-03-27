@@ -34,6 +34,19 @@ import java.util.concurrent.RecursiveTask;
  * https://www.liaoxuefeng.com/wiki/1252599548343744/1306581226487842
  * https://zhuanlan.zhihu.com/p/26685513 
  * Java8直接用parallelStream不行吗
+ * 
+ * JDK17竟然有个大Bug：ForkJoinPool在单核机器上会挂起，平时开发都是4核8核，结果扔到AWS的单核跑就挂了：
+ * https://bugs.openjdk.java.net/browse/JDK-8274349
+ * 临时解决方案：
+ * 加启动参数
+ * -Djava.util.concurrent.ForkJoinPool.common.parallelism=1
+ * 或者在main()的第一行开始写
+ * if (Runtime.getRuntime().availableProcessors() <= 1) {
+ *  	System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "1");
+ * }
+ * 看了一眼，这bug不10月份就修了。。。不过的确奇葩
+ * 源码修了，各个发行版还得自己编译发行，至少我测试的Ubuntu 20.04的apt还没修
+ * https://zhuanlan.zhihu.com/p/455322898 《ForkJoinPool在JDK17上挂起的bug》
  */
 public class ForkJoinDemo {
 	static Random random = new Random(0);

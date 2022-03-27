@@ -37,6 +37,9 @@ import sun.misc.BASE64Encoder;
  *  Base64是网络上最常见的用于传输8Bit字节代码的编码方式之一，大家可以查看RFC2045～RFC2049，上面有MIME的详细规范。Base64编码可用于在HTTP环境下传递较长的标识信息。
  *  例如，在Java Persistence系统Hibernate中，就采用了Base64来将一个较长的唯一标识符（一般为128-bit的UUID）编码为一个字符串，用作HTTP表单和HTTP GET URL中的参数。
  *  在其他应用程序中，也常常需要把二进制数据编码为适合放在URL（包括隐藏表单域）中的形式。此时，采用Base64编码具有不可读性，即所编码的数据不会被人用肉眼所直接看到
+ *  https://www.liaoxuefeng.com/wiki/1252599548343744/1304227703947297
+ *  比特币里面的区块链使用的是Base58编码，还有Bech32编码。
+ *  Bech32编码实际上由两部分组成：一部分是bc这样的前缀，被称为HRP（Human Readable Part，用户可读部分），另一部分是特殊的Base32编码，使用字母表qpzry9x8gf2tvdw0s3jn54khce6mua7l，中间用1连接。对一个公钥进行Bech32编码的代码如下：
  */
 public class Base64Test {
 	public static void main(String[] args) {
@@ -56,10 +59,15 @@ public class Base64Test {
 			 * 
 			 * java怎么把中文变成16进制？这好像设计Unicode和UTF-8的关系
 			 */
-			String encoded = URLEncoder.encode("中文!*", "UTF-8");
+			String encoded = URLEncoder.encode("中文!*", "UTF-8");//Java标准库提供了一个URLEncoder类来对任意字符串进行URL编码：
 			System.out.println("Java标准库提供了一个URLEncoder类来对任意字符串进行URL编码：" + encoded);
 			
+			//如果服务器收到URL编码的字符串，就可以对其进行解码，还原成原始字符串。Java标准库的URLDecoder就可以解码：
 			String decoded = URLDecoder.decode("%E4%B8%AD%E6%96%87%21*", "UTF-8");
+			/**
+			 * 5. 【强制】不能使用过时的类或方法。 说明：java.net.URLDecoder 中的方法decode(String encodeStr) 这个方法已经过时，应该使用双参数decode(String source, String encode)。
+			 * 接口提供方既然明确是过时接口，那么有义务同时提供新的接口；作为调用方来说，有义务去考证过时方法的新实现是什么。
+			 */
 		    System.out.println("Java标准库的URLDecoder就可以解码：" + decoded);
 		    
 		    String strHex = "中";
@@ -113,6 +121,7 @@ public class Base64Test {
 		System.out.println("16进制0xad:的值是多少" + num162);
 		
 		byte[] input = new byte[] { (byte) 0xe4, (byte) 0xb8, (byte) 0xad };//三个字节
+		//在Java中，二进制数据就是byte[]数组。Java标准库提供了Base64来对byte[]数组进行编解码：
         String b64encoded = Base64.getEncoder().encodeToString(input);
         System.out.println("Base64编码把三个字节的数据用4个int整数表示:" + b64encoded);
 		//编码后得到5Lit4个字符。要对Base64解码，仍然用Base64这个类：

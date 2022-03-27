@@ -46,6 +46,10 @@ import java.io.InputStream;
  * 简单地说就是：多个catch语句只有一个能被执行。例如：
  * 存在多个catch的时候，catch的顺序非常重要：子类必须写在前面。例如：
  * 某些情况下，可以没有catch，只使用try ... finally结构。例如：
+ * 9. 【强制】在调用RPC、二方包、或动态生成类的相关方法时，捕捉异常必须使用Throwable类来进行拦截。 说明：通过反射机制来调用方法，如果找不到方法，抛出NoSuchMethodException。
+ * 什么情况会抛出NoSuchMethodError呢？二方包在类冲突时，仲裁机制可能导致引入非预期的版本使类的方法签名不匹配，或者在字节码修改框架（比如：ASM）动态创建或修改类时，修改了相应的方法签名。
+ * 这些情况，即使代码编译期是正确的，但在代码运行期时，会抛出NoSuchMethodError。
+ * 《阿里巴巴Java开发手册嵩山版2020.pdf》
  */
 public class ExceptionDemo {
 	public static void main(String[] args) {

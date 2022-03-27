@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+ "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    <bean id="serviceTarget" class="com.yale.test.spring.lxf.demo.service.impl.MyServiceBean" />
+    
+    <bean id="logAdvisor" class="com.yale.test.spring.lxf.demo.service.aop.LogAdvisor"/>
+    <bean id="passwordAdvisorTarget" class="com.yale.test.spring.lxf.demo.service.aop.PasswordAdvisor"/>
+    <bean id="exceptionAdviorTarget" class="com.yale.test.spring.lxf.demo.service.aop.ExceptionAdvisor"/>
+    
+    <bean id="passwordAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+    	<property name="advice">
+    		<ref bean="passwordAdvisorTarget"/>
+    	</property>
+    	<property name="patterns">
+    		<list>
+    			<value>.*getPassword</value>
+    		</list>
+    	</property>
+    </bean>
+    <bean id="service" class="org.springframework.aop.framework.ProxyFactoryBean">
+    	<property name="proxyInterfaces"><value>com.yale.test.spring.lxf.demo.service.ServiceBean</value></property>
+    	<!-- <ref local="serviceTarget"/> local这个关键字现在用不了拉 -->
+    	<property name="target"><ref bean="serviceTarget"/></property>
+    	<property name="interceptorNames">
+    		<list>
+    			<value>logAdvisor</value>
+    			<value>passwordAdvisor</value>
+    			<value>exceptionAdviorTarget</value>
+    		</list>
+    	</property>
+    </bean>
+</beans>

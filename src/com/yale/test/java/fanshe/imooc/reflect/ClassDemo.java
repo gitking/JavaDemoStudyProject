@@ -1,4 +1,8 @@
 package com.yale.test.java.fanshe.imooc.reflect;
+/**
+ * 结合com.yale.test.java.fanshe.ClassForNameDemo这个类看
+ * @author issuser
+ */
 class Foo {
 	static {
 		//这里用的是一个参数版的forName()，也就是使用当前方法所在类的ClassLoader来加载

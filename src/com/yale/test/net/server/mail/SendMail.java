@@ -64,7 +64,7 @@ import javax.mail.internet.MimeMessage;
  * 从上面的调试信息可以看出，SMTP协议是一个请求-响应协议，客户端总是发送命令，然后等待服务器响应。服务器响应总是以数字开头，后面的信息才是用于调试的文本。这些响应码已经被定义在SMTP协议中了，查看具体的响应码就可以知道出错原因。
  * 如果一切顺利，对方将收到一封文本格式的电子邮件：
  */
-public class SendMail {
+public class SendMail extends PostfixMailDemo{
 	final String smtpHost;
 	final String username;
 	final String password;
@@ -75,7 +75,6 @@ public class SendMail {
 		this.password = password;
 		this.debug = true;
 	}
-	
 	/*
 	 * QQ邮箱填写的口令不是QQ密码，而是授权码。可以在QQ邮箱->设置->账户生成授权码。
 	 * 另外，QQ邮箱好像只支持SSL连接，因为我测试TLS的时候失败了。。
@@ -86,7 +85,6 @@ public class SendMail {
 		final String password = "你自己邮箱的真实密码";
 		final String from = "yale268sh@163.com";
 		final String to = "937243987@qq.com";
-		
 		SendMail sender = new SendMail(smtp, username, password);
 		Session session = sender.createTLSSession();
 		Message message = createTextMessage(session, from, to, "JavaMail邮件", "Hello,这是一封来自javamail的邮件");

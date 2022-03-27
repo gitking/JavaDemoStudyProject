@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * 12. 【强制】泛型通配符<? extends T>来接收返回的数据，此写法的泛型集合不能使用add方法，而<? super T>不能使用get方法，两者在接口调用赋值的场景中容易出错。 
+ * 说明：扩展说一下PECS(Producer Extends Consumer Super)原则：第一、频繁往外读取内容的，适合用<? extends T>。第二、经常往里插入的，适合用<? super T>
+ * 《阿里巴巴Java开发手册嵩山版2020.pdf》
+ * @author issuser
+ */
 public class PairTest {
 	public static void main(String[] args) {
 		Pair<Number> p1 = new Pair<>(12.3, 4.56);

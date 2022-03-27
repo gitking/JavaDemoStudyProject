@@ -3,6 +3,12 @@ package com.yale.test.timer;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 《阿里巴巴Java开发手册嵩山版2020.pdf》
+ * 3. 【强制】获取当前毫秒数：System.currentTimeMillis(); 而不是new Date().getTime()。 说明：如果想获取更加精确的纳秒级时间值，使用System.nanoTime的方式。在JDK8中，针对统计时间等场景，推荐使用Instant类。
+ * @author issuser
+ *
+ */
 public class TimeUnitDemo {
      private TimeUnit timeUnit =TimeUnit.DAYS;
 
@@ -54,6 +60,19 @@ public class TimeUnitDemo {
 		System.out.println("1秒等于多少纳秒:" + takeTime);
 		System.out.println("1秒等于多少毫秒:" + TimeUnit.NANOSECONDS.toMillis(takeTime));
 		System.out.println("1秒等于多少秒:" + TimeUnit.NANOSECONDS.toSeconds(takeTime));
+		
+		long beginTime = System.nanoTime();
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		long takeTime1 = System.nanoTime() - beginTime;
+		long endTime = TimeUnit.NANOSECONDS.toMillis(takeTime1);
+		int nanoSeconds = (int)(takeTime - (endTime * 1000 * 1000));
+		System.out.println("nanoTime准不准:线程sleep了" + endTime + "毫秒又零" + nanoSeconds+ "纳秒");
+		
 		
 		//下面这俩行代码是抄袭TimeUnit类里面的excessNanos这个方法的,TimeUnit类里面的sleep方法就是这样精确计算的
 		long mi = TimeUnit.NANOSECONDS.toMillis(takeTime);

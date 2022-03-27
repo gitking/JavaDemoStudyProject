@@ -1,7 +1,8 @@
 package com.yale.test.java.demo.pro;
 
 import com.yale.test.java.demo.SubPersonDemo;
-
+import com.yale.test.java.demo.DClass2;
+//import com.yale.test.java.demo.DClass;
 /*
  * 存取权限和存取修饰符(谁可以看到什么)
  * java有4种存取权限等级与3种存取修饰符,只有3种修饰符的原因是因为有一个缺省的(不加任何的修饰符)的权限等级。
@@ -34,6 +35,11 @@ public class ProtectedTest{
 		SubClass sc = new SubClass("test", 10, 99);
 		//sc.score = 10;//因为在不同包中,这里会报错,只能在子类中使用,
 		//sc.staticFile = 20;//因为在不同包中,这里会报错,只能在子类中使用
+		//DClass这个类是用default修饰的所以在这个类里面不能访问
+		//DClass dc = new DClass();
+		System.out.println("DClass这个类只能在同一个包中的类中才能访问,在不同的包下面会报错,编译直接不通过:");
+		DClass2 dc2 = new DClass2();
+		//dc2.defaultField;//在当前这个包里面访问不到DClass2类的属性defaultField.
 	}
 	
 	public void testPrivate(ProtectedTest pt){

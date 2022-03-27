@@ -862,6 +862,7 @@ public class XPathTest {
 	}
 	
 	public static void examples22() throws DocumentException {
+		//MOD(求余函数),mod运算符做求余运算，15625mod23=8
 		System.out.println("div运算符做浮点除法运算, mod运算符做求余运算, floor函数返回不大于参数的最大整数(趋近于正无穷), ceiling返回不小于参数的最小整数(趋近于负无穷)");
 		String text = "<AAA>\n" +
 						"    <BBB/>\n" + 

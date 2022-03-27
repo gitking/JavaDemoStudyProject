@@ -161,6 +161,29 @@ import javax.swing.JLabel;
  * 小结
  * Java提供了HttpClient作为新的HTTP客户端编程接口用于取代老的HttpURLConnection接口；
  * HttpClient使用链式调用并通过内置的BodyPublishers和BodyHandlers来更方便地处理数据。
+ * 使用POST发送数据
+ * 以POST方式发送数据主要是为了向服务器发送较大量的客户端的数据，它不受URL的长度限制。
+ * POST请求将数据以URL编码的形式放在HTTP正文中，字段形式为fieldname=value，用&分隔每个字段。注意所有的字段都被作为字符串处理。
+ * 实际上我们要做的就是模拟浏览器POST一个表单。以下是IE发送一个登陆表单的POST请求：
+ * POST http://127.0.0.1/login.do HTTP/1.0
+	Accept: image/gif, image/jpeg, image/pjpeg, *\/*
+	Accept-Language: en-us,zh-cn;q=0.5
+	Content-Type: application/x-www-form-urlencoded
+	User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)
+	Content-Length: 28
+	username=admin&password=1234
+ * 要在MIDP应用程序中模拟浏览器发送这个POST请求，首先设置HttpConnection的请求方式为POST：
+ * hc.setRequestMethod(HttpConnection.POST);
+ * 然后构造出HTTP正文：
+ * byte[] data = "username=admin&password=1234".getBytes();
+ * 并计算正文长度，填入Content-Type和Content-Length：
+ * hc.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+ * hc.setRequestProperty("Content-Length", String.valueOf(data.length));
+ * 然后打开OutputStream将正文写入：
+ * OutputStream output = hc.openOutputStream();
+ * output.write(data);
+ * 需要注意的是，数据仍需要以URL编码格式编码，由于MIDP库中没有J2SE中与之对应的URLEncoder类，因此，需要自己动手编写这个encode()方法，可以参考java.net.URLEncoder.java的源码。剩下的便是读取服务器响应，代码与GET一致，这里就不再详述。
+ * https://www.liaoxuefeng.com/article/895889887461120
  */
 public class HttpClinet {
 //	static HttpClient httpClient = HttpClient.newBuilder().build();

@@ -29,10 +29,20 @@ public class SubPersonDemo extends PersonDemo {
     	this.score = score;
     }
     
-    
     /*
      * 在继承关系中，子类如果定义了一个与父类方法签名完全相同的方法，被称为覆写（Override）。
      * Override覆写和Overload方法重载不同的是，如果方法签名如果不同，就是Overload，Overload方法是一个新方法；
      * 如果方法签名相同，并且返回值也相同，就是Override。
      */
+    
+    public void test() {
+    	System.out.println(this.score);
+    	System.out.println(SubPersonDemo.staticFile);
+    }
+    
+    protected void testProtectedMethod() {
+    	System.out.println("testProtectedMethod这个方法只能在子类中使用,注意是只能在子类中使用,如果你再别的类中new了一个子类对象,也是不能访问这个方法的,但是子类可以重写这个方法,并且可以将修饰符变成public的");
+    	System.out.println(this.score);
+    	System.out.println(SubPersonDemo.staticFile);
+    }
 }

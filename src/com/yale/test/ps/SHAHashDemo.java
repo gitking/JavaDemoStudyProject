@@ -21,6 +21,9 @@ import org.apache.commons.codec.digest.Sha2Crypt;
  * 2, 对密码分析的安全性：由于MD5的设计，易受密码分析的攻击，SHA-1显得不易受这样的攻击。
  * 3, 速度：在相同的硬件上，SHA-1的运行速度比MD5慢。
  * http://www.jfh.com/jfperiodical/article/818
+ * https://zhuanlan.zhihu.com/p/21513964 《论计算机加密算法的原理与实践》
+ * 在计算机中，经常用MD5或者SHA1作为签名算法，你看到的一串乱七八糟的数字d41d8cd9...就是MD5签名。经常用迅雷在网上乱下软件的童鞋，可以用专门的软件计算下载文件的MD5签名，再去官网对比，如果一致，说明软件没有被篡改过。
+ * 但是签名算法不是加密算法，不能用来加密，它的作用是防篡改。
  */
 public class SHAHashDemo {
 	public static void main(String[] args) {

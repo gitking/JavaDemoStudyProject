@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import cfca.paperless.bizfep.common.util.StringUtil;
+
 public class RegexTest {
 	public static void main(String[] args) {
 		System.out.println("abc是数字吗? == " + isNumber("abc"));
@@ -148,6 +150,9 @@ public class RegexTest {
         String c = chinese.replaceAll(regexChinese, "$1");
         System.out.println("中文:[" + c + "]下标:" + chinese.indexOf(c));
         
+        //正则表达式替换汉字
+		System.out.println("宝马(BMW)BMW7201HMHEV插电式混合动力轿车".replaceAll("[\u4e00-\u9fa5]+", ""));
+
         /*
          * "-?[0-9]+.?[0-9]*"这个正则表达式有漏洞,.点这个字符在正则表达式里面代表任意一个字符,
 		 * 上面的.?意思是:任意一个字符可以出现0次或者一次,所以200 80或者200s80这种字符串都是可以校验通过的
@@ -178,4 +183,20 @@ public class RegexTest {
 		}
 		return true;
 	}
+	
+	
+	/**
+     * @Description: 字符串中是否包含汉字
+     * @param str
+     * @return
+     * @return: boolean
+     */
+    public static boolean isContainChinese(String str) {
+        Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
+        Matcher m = p.matcher(str);
+        if (m.find()) {
+            return true;
+        }
+        return false;
+    }
 }

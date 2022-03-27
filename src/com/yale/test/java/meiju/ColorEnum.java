@@ -25,7 +25,12 @@ package com.yale.test.java.meiju;
 	}
 	所以，编译后的enum类和普通class并没有任何区别。但是我们自己无法按定义普通class那样来定义enum，必须使用enum关键字，这是Java语法规定的。
 	因为enum是一个class，每个枚举的值都是class实例，因此，这些实例有一些方法：
- * 
+ * 18. 【参考】枚举类名带上Enum后缀，枚举成员名称需要全大写，单词间用下划线隔开。 说明：枚举其实就是特殊的常量类，且构造方法被默认强制是私有。 
+ * 正例：枚举名字为ProcessStatusEnum的成员名称：SUCCESS / UNKNOWN_REASON。
+ * 3. 【推荐】不要使用一个常量类维护所有常量，要按常量功能进行归类，分开维护。 说明：大而全的常量类，杂乱无章，使用查找功能才能定位到修改的常量，不利于理解，也不利于维护。
+ * 正例：缓存相关常量放在类CacheConsts下；系统配置相关常量放在类SystemConfigConsts下。
+ * 5. 【推荐】如果变量值仅在一个固定范围内变化用enum类型来定义。 说明：如果存在名称之外的延伸属性应使用enum类型，下面正例SeasonEnum.java中的数字就是延伸信息，表示一年中的第几个季节。
+ * 《阿里巴巴Java开发手册嵩山版2020.pdf》
  */
 enum ColorDemo {
 	RED, GREEN, BLUE//这里实际上调用的是ColorDemo的无参构造方法,如果没有无参构造方法,这里必须传值,见Sex.java类

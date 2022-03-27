@@ -4,6 +4,8 @@ import java.nio.charset.Charset;
 
 public class CharTest {
 	/**
+	 * 本类可以结合com.yale.test.ps.URLEncoderDemo.java一起看
+	 * 本类可以结合:com.yale.test.java.demo.string.StringTest.java一起看
 	 * 字符:各种文字和符号的总称,指各国家文字,标点等等
 	 * 计算机只能处理数字,必须把文本转换为数字才能处理
 	 * 字符集:包含字库表,编码字符集,字符编码
@@ -29,7 +31,14 @@ public class CharTest {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.out.println("获取默认的字符集编码:" + Charset.defaultCharset().name());;
+		String s = new String("hello");
+		String t = new String("hello");
+		char[] ca1 = {'h','e','l','l','o'};
+		System.out.println("获取默认的字符集编码:" + (s==t));
+		System.out.println("获取默认的字符集编码:" + (s.equals(t)));
+		System.out.println("获取默认的字符集编码:" + (t.equals(ca1)));
+
+		System.out.println("获取默认的字符集编码:" + Charset.defaultCharset().name());
 		System.out.println("boolean单独定义占用4个字节,定义在数组中占1个字节");
 		System.out.println("课程总结:值得注意的是二进制的小数问题,大多数的十进制小数转换成二进制存储都是无限循环的");
 		

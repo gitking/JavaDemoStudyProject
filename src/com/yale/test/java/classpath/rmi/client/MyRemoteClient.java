@@ -11,6 +11,10 @@ import com.yale.test.java.classpath.rmi.MyRemote;
  * 客户端如何取得stub对象?
  * 客户端必须取得stub对象,因为客户端必须要调用它的方法.这就得靠RMI registry了。
  * 客户端会像查询电话簿一样地搜索,找出上面有想法名称的服务。
+ * RMI 允许一个应用程序访问另外一个服务器或虚拟机上的对象，方法和服务，它使远程方法调用就像在本地调用一样简单。它为用户屏蔽了底层的网络传输细节，使用的时候只需适当处理异常即可。所以 RMI 是非常容易使用的，但同时是非常强大的。
+ * RMI 协议的数据序列化目前支持以下两种模式：
+ * 1.基于 JDK 本身的对象序列化
+ * 2.基于 HTTP 协议的数据序列化
  */
 public class MyRemoteClient {
 	public static void main(String[] args) {

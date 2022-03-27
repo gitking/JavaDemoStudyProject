@@ -23,6 +23,14 @@ import java.util.Vector;
 	    Stack：基于Vector实现的LIFO的栈。
 	还有一小部分接口是遗留接口，也不应该继续使用：
     	Enumeration<E>：已被Iterator<E>取代。
+ * 集合类的根接口Collection
+ * boolean add(Object c)
+ * add()方法将添加一个新元素。注意这个方法会返回一个boolean，但是返回值不是表示添加成功与否。仔细阅读doc可以看到，Collection规定：
+ * 如果一个集合拒绝添加这个元素，无论任何原因，都必须抛出异常。这个返回值表示的意义是add()方法执行后，集合的内容是否改变了（就是元素有无数量，位置等变化），这是由具体类实现的。即：如果方法出错，总会抛出异常；返回值仅仅表示该方法执行后这个Collection的内容有无变化。
+ * Object[] toArray()方法很简单，把集合转换成数组返回。Object[] toArray(Object[] a)方法就有点复杂了，首先，返回的Object[]仍然是把集合的所有元素变成的数组，但是类型和参数a的类型是相同的，比如执行：
+ * String[] o = (String[])c.toArray(new String[0]);
+ * 得到的o实际类型是String[]。
+ * https://www.liaoxuefeng.com/article/895885644922112
  * @author dell
  */
 public class CollectionDemo {

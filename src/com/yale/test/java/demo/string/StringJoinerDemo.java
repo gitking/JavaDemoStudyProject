@@ -1,6 +1,9 @@
 package com.yale.test.java.demo.string;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 /*
  * 要高效拼接字符串，应该使用StringBuilder。
@@ -41,5 +44,13 @@ public class StringJoinerDemo {
         String[] nameArr = new String[]{"Bob", "Alice", "Grace"};
         String sjoin = String.join(", ", nameArr);
         System.out.println("Stirng.join:" + sjoin);
+        
+        List<String> listHep = Arrays.asList("a", "b", "c");
+        //第一种方法:将List集合拼接成以逗号分隔的字符串,使用Stream流
+        String joinStream = listHep.stream().collect(Collectors.joining(","));
+        System.out.println("输出<a,b,c>:" + joinStream);
+        //第二种方法,其实String也有join方法可以实现这个功能
+        String joinStr = String.join(",", listHep);
+        System.out.println("输出结果为:" +  joinStr);
 	}
 }

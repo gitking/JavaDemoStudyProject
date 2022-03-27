@@ -1,11 +1,14 @@
 package com.yale.test.thread.mldn;
 
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import com.yale.test.thread.heima.zhangxiaoxiang.UserThreadFactory;
 
@@ -39,6 +42,8 @@ import com.yale.test.thread.heima.zhangxiaoxiang.UserThreadFactory;
  * 《阿里巴巴Java开发手册（泰山版）.pdf》
  * 如果优雅的使用线程池:https://crossoverjie.top/2018/07/29/java-senior/ThreadPool/
  * 一个公平的洗牌算法 :https://imoegirl.com/2019/12/30/algo-knuth-shuffle/
+ * https://www.zhihu.com/question/51244545/answer/126055789
+ *  http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/tip/src/share/classes/java/util/concurrent/Executors.java#l677 《 Executors$DelegatedExecutorService.submit() 》
  * @author dell
  *
  */
@@ -57,6 +62,44 @@ public class ExecutorServiceDemo {
 			});
 		}
 		executorService.shutdown();//当线程池里面的所有任务都执行完时,线程处于空闲状态时,关闭线程池
+		
+		ExecutorService executorServiceFuture = Executors.newCachedThreadPool(new UserThreadFactory("创建线程池时,自己设置线程的名字"));
+		Future future1 = executorServiceFuture.submit(()->{
+			System.out.println("注意看线程池的名字,可以看到创建了好多个线程" + Thread.currentThread().getName() + ",index = ");
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		});
+		
+		Future future2= executorServiceFuture.submit(()->{
+			System.out.println("注意看线程池的名字,可以看到创建了好多个线程" + Thread.currentThread().getName() + ",index = ");
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		});
+		
+		try {
+			future1.get(10 , TimeUnit.SECONDS );
+			boolean future1Done = future1.isDone(); 
+			
+			future2.get(30 , TimeUnit.SECONDS);
+			boolean future2Done = future2.isDone();
+			System.out.println("第一个线程跑完了:" + future1Done);
+			System.out.println("第二个线程跑完了:" + future2Done + "这个肯定要比第一个慢2s,当线程没有执行完毕时,线程会阻塞在这里");
+		} catch (InterruptedException | ExecutionException | TimeoutException e1) {
+			e1.printStackTrace();
+			 if (future1 != null) {//发生异常时取消这个线程的执行
+				 future1.cancel(true);
+			 }
+			 if (future1 != null) {
+				 future2.cancel(true);
+			 }
+		} 
+		executorServiceFuture.shutdown();//当线程池里面的所有任务都执行完时,线程处于空闲状态时,关闭线程池
 		/*
 		 * 线程池在程序结束的时候要关闭。
 		 * 使用shutdown()方法关闭线程池的时候，它会等待正在执行的任务先完成，然后再关闭。

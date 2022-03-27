@@ -2,7 +2,9 @@ package com.yale.test.java.fanshe.perfma;
 
 /*
  * https://club.perfma.com/article/2462327 一个 println 竟然比 volatile 还好使？
- * https://club.perfma.com/question/2079981
+ * https://www.heapdump.cn/question/267086 一道面试题引发的对Java内存模型的一点疑问？
+ * https://www.heapdump.cn/question/2079981 一道面试题引发的对Java内存模型的一点疑问，第二部。
+ * https://www.heapdump.cn/question/2610787 一道面试题引发的对Java内存模型的一点疑问，第三部。
  * JIT（Just-in-Time） 的优化
  * 众所周知，JAVA 为了实现跨平台，增加了一层 JVM，不同平台的 JVM 负责解释执行字节码文件。虽然有一层解释会影响效率，但好处是跨平台，字节码文件是平台无关的。
  * 在 JAVA 1.2 之后，增加了 即时编译（Just-in-Time Compilation，简称 JIT） 的机制，在运行时可以将执行次数较多的热点代码编译为机器码，这样就不需要 JVM 再解释一遍了，可以直接执行，增加运行效率。
@@ -29,6 +31,7 @@ package com.yale.test.java.fanshe.perfma;
  * 所以，如果不是搞编译器开发的话，JIT 相关的编译知识，作为一个知识储备就好。
  * 也不用去猜测 JIT 到底会怎么优化你的代码，你（可能）猜不准……
  * 参考连接:
+ * HotSpot VM JIT 的各种优化项:上面只是介绍了几个简单常用的编译优化机制，JVM JIT 更多的优化机制可以参考下面这个图。这是 OpenJDK 文档中提供的一个 pdf 材料，里面列出了 HotSpot JVM 的各种优化机制，相当多……
  * 《JSR-133 Java Memory Model and Thread Specification 1.0 Proposed Final Draft》https://jcp.org/en/jsr/detail?id=133
  * 《Oracle JVM Just-in-Time Compiler (JIT)》https://docs.oracle.com/en/database/oracle/oracle-database/19/jjdev/Oracle-JVM-JIT.html#GUID-9466BE4E-E7EE-486F-9DF8-D331B316359D
  * 《JVM JIT-compiler overview - Vladimir Ivanov HotSpot JVM Compiler Oracle Corp.》http://cr.openjdk.java.net/~vlivanov/talks/2015_JIT_Overview.pdf
@@ -39,6 +42,60 @@ package com.yale.test.java.fanshe.perfma;
  * X86 asm代码 是怎么才能看到？https://hllvm-group.iteye.com/group/topic/21769
  * 本例来自:https://stackoverflow.com/questions/24376768/can-java-finalize-an-object-when-it-is-still-in-scope
  * https://stackoverflow.com/questions/58714980/rejectedexecutionexception-inside-single-executor-service
+ * https://www.heapdump.cn/article/2504997 记一次因线程池 BUG 引起的问题分析
+ * 本类要结合com.yale.test.thread.heima.zhangxiaoxiang.ThreadPoolBugTest.java和com.yale.test.run.demo.FinalizedTest.java一起看
+ * R大的解释:https://www.zhihu.com/question/51244545/answer/126055789知乎R大的回答必看
+ * 吃完瓜了，我希望阅读这个回答的同学们要是嫌太长读不完的话，至少记住这两个方法：
+ * Java 9：java.lang.ref.Reference.reachabilityFence(Object ref)
+ * .NET：System.GC.KeepAlive(object obj)
+ * 就够了。它们都是用来保证传进去的引用类型参数在调用这俩方法的位置上一定存活用的，保证在这个位置上GC还不能回收掉传进去的引用所指向的对象。
+ * https://www.iteye.com/blog/rednaxelafx-248610 this的寿命？
+ * https://nyaruru.hatenablog.com/entry/20060626/p4
+ * https://docs.microsoft.com/en-us/archive/blogs/cbrumme/lifetime-gc-keepalive-handle-recycling Lifetime, GC.KeepAlive, handle recycling
+ * https://devblogs.microsoft.com/oldnewthing/?p=13153 When do I need to use GC.KeepAlive?
+ * https://docs.microsoft.com/en-us/dotnet/api/system.gc.keepalive?redirectedfrom=MSDN&view=net-5.0#System_GC_KeepAlive_System_Object_   《GC.KeepAlive(Object) Method》
+ * 先送上Java语言规范的一段： https://docs.oracle.com/javase/specs/jls/se8/html/jls-12.html#jls-12.6.1
+ * 参数 / 局部变量的活跃区间:其实这事情很简单：因为一个成员方法里“this”参数的作用域虽然覆盖整个方法，但是其“活跃范围”（liveness）却不一定覆盖整个方法。在方法中的某个位置上，一个不再活跃的参数/局部变量就是就是死变量，GC就不会在乎它的值是多少而照样可以回收它所引用的对象。
+ * https://www.zhihu.com/question/26161033/answer/43447161  《如果变量在后面的代码中不再被引用, 在生存期内, 它的寄存器可以被编译器挪为他用吗?》
+ * https://www.zhihu.com/question/34341582/answer/58444959  《这段 Java 代码中的局部变量能够被提前回收吗？编译器或 VM 能够实现如下的人工优化吗？》
+ * https://groups.google.com/forum/#!msg/mechanical-sympathy/PbVDvcKmm9g/DqCPYNw6BMYJ 《Overriding finalize() - mechanical-sympathy - Google Groups》
+ * Java 8或之前的话，其实自己想办法写个接收一个引用类型参数的方法，保证JIT编译器不要内联它就好了。既然涉及跟JIT编译器玩对抗，这就必然没有“跨JVM平台”的法子，而只能针对每个JVM实现去摸索办法。
+ * 在HotSpot VM上的话，用 -XX:CompileCommand=dontinline,fully/qualified/ClassName,methodName 参数即可保证某个方法不被内联。JMH里的blackhole()系方法就是这样实现的。
+ * 题主的例子，在Java 9里只要加上一个reachabilityFence()调用就没事了：
+ * private static void newSingleThreadPool() {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.submit(new Runnable() {
+            @Override
+            public void run() {
+                byte[] bytes = new byte[1024 * 1024 * 4];
+                System.out.println(Thread.currentThread().getName());
+            }
+        });
+        Reference.reachabilityFence(executor); // HERE
+ *   }
+ * 而在Java 8或之前的Java版本里，建议像下面这样显式调用executor.shutdown()其实跟reachabilityFence()的目的是类似的，只是用了更绕弯的方式来达到目的而已：
+ * private static void newSingleThreadPool() {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.submit(new Runnable() {
+            @Override
+            public void run() {
+                byte[] bytes = new byte[1024 * 1024 * 4];
+                System.out.println(Thread.currentThread().getName());
+            }
+        });
+ *      executor.shutdown(); // HERE
+ * }
+ * 上面引用的mechanical-sympathy讨论串里，有位大大给出了这样的一个例子：
+ * ByteBuffer.allocateDirect(4096).put(ByteBuffer.allocate(4096));
+ * 这个例子也可以触发由于“this”的寿命可以比一个实例方法调用要短而造成的问题。大家有兴趣的话请自己分析一下看看？
+ * （注意：Oracle JDK / OpenJDK的标准库实现中，每个DirectByteBuffer有一个关联的sun.misc.Cleaner对象（基于PhantomReference）来负责清理该buffer背后的native memory。这个Cleaner的作用跟finalizer很相似。）
+ * 不过，讲道理，只要一个“this”没有被某种弱引用盯着（finalizer、sun.misc.Cleaner都是基于弱引用的），其实“this”的寿命比实例方法短对于Java应用来说是完全看不出来区别的。
+ * 所以大家也不必太担心，该怎么写代码还怎么写，只要留心一下有基于弱引用的清理动作的地方要自己确保持强引用即可——不过当然咯，用别人写的库的时候也很可能不知道人家在底下有没有做基于弱引用的清理动作…
+ * 可被finalize的对象
+ * 带有非空的finalize()方法的类会被JVM特殊处理：当GC发现这样的类的一个实例已经不再被任何活的强引用所引用时，就会把它放入finalizer queue，排队调用其finalize()方法。而当这样的一个实例的fianlize()方法被调用（并且该实例没有被复活）之后，下一次GC就可以把它看作普通对象来清理掉了。
+ * 所以一个带finalize()方法的类的实例，从已经失去所有强引用到真正被GC回收，通常要经历两次GC。
+ * 这是常识了，只是放在这里帮助同学们回忆一下有这么一回事。
+ *  http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/file/tip/src/share/classes/java/util/concurrent/Executors.java#l677 《 Executors$DelegatedExecutorService.submit() 》
  */
 public class JitFinalize {
 	

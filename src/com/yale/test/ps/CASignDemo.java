@@ -58,7 +58,7 @@ public class CASignDemo {
 		//读取私钥:
 		PrivateKey privateKey = (PrivateKey)ks.getKey("mycert", "123456".toCharArray());
 		
-		//读取证书:
+		//读取证书:公钥以X509Certificate表示实际上数字证书只包含公钥，因此，读取证书并不需要口令，只有读取私钥才需要。如果部署到Web服务器上，例如Nginx，需要把私钥导出为Private Key格式，把证书导出为X509Certificate格式。
 		X509Certificate certificate = (X509Certificate)ks.getCertificate("mycert");
 		
 		//加密:

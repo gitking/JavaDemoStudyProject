@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * 使用注解的方式,就不需要实现Spring的控制器Controller了
+ * 使用注解的方式,就不需要实现Spring的控制器Controller了,可以看HelloController.java这个类,这类实现了Spring的Controller接口
  * @author dell
  * SpringMvc是一个轻量级的，基于请求响应的mvc框架。特点：简单、便捷、易学，比Struts2性能好太多了,天生和SpringMvc无缝继承。使用约定优于配置。能够进行Junit测试，支持Restful风格
  * 异常处理，支持Resful风格，本地化，国际化，数据验证类型转换，拦截器

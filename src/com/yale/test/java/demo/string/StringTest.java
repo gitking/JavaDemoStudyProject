@@ -1,12 +1,21 @@
 package com.yale.test.java.demo.string;
 
+import java.math.BigInteger;
 import java.util.Date;
+import java.util.Objects;
+
+import org.apache.commons.lang.StringUtils;
 
 /*
  * 在Java中，String是一个引用类型，它本身也是一个class
  * 实际上字符串在String内部是通过一个char[]数组表示的，因此，按下面的写法也是可以的：
  * Java字符串的一个重要特点就是字符串不可变。这种不可变性是通过内部的private final char[]字段，以及没有任何修改char[]的方法实现的。
  * https://www.liaoxuefeng.com/wiki/1252599548343744/1260469698963456
+ * 结合com.yale.test.math.FloatDemo一起看.
+ * com.yale.test.ps.HashDemo
+ * 6. 【强制】Object的equals方法容易抛空指针异常，应使用常量或确定有值的对象来调用equals。 
+ * 正例："test".equals(object); 反例：object.equals("test"); 说明：推荐使用JDK7引入的工具类java.util.Objects#equals(Object a, Object b)
+ * 《阿里巴巴Java开发手册嵩山版2020.pdf》
  */
 public class StringTest {
 	public static void main(String[] args) {
@@ -26,14 +35,13 @@ public class StringTest {
 		String str = "a,b,c,,";
 		String[] ary = str.split(",");
 		//预期大于3，结果是3
-		System.out.println(ary.length);
+		System.out.println("预期大于3，结果是3-->" + ary.length);
 		
 		String[] arr = {"A", "B", "C"};
 		String sar = String.join("***", arr); // "A***B***C"
 		System.out.println("拼接字符串使用静态方法join()，它用指定的字符串连接字符串数组" + sar);
 		
 		 /*
-		  * 
 		    %s：显示字符串；
 		    %d：显示整数；
 		    %x：显示十六进制整数；参数必须是byte,short,int,long, BigInteger
@@ -77,6 +85,20 @@ public class StringTest {
 	     
 	     System.out.println("%x hexadecimal 参数必须是byte,short,int, long,显示十六进制整数");
 	     System.out.println(String.format("%x", 42));
+	     
+		 System.out.println("注意看前面的三个0没有了:" + new BigInteger("0004e473f59ab5bd4639f848dd8ed27f1b3f6b0d", 16).toString(16));// 0004e473f59ab5bd4639f848dd8ed27f1b3f6b0d
+		 System.out.println("注意看前面的三个0没有了:" + String.format("%x", new BigInteger("0004e473f59ab5bd4639f848dd8ed27f1b3f6b0d", 16)));// 0004e473f59ab5bd4639f848dd8ed27f1b3f6b0d
+		 //%x是将参数格式化成16进制,%040x的意思是,如果后面的参数不足40位就在开头用0补足40位.注意"0004e473f59ab5bd4639f848dd8ed27f1b3f6b0d"的长度刚好就是40位。
+		 System.out.println("注意看前面的三个0有了:" + String.format("%040x", new BigInteger("0004e473f59ab5bd4639f848dd8ed27f1b3f6b0d", 16)));// 0004e473f59ab5bd4639f848dd8ed27f1b3f6b0d
+		 System.out.println("注意这个时候结果变成前面有一大串空格,字符串的总长度为140:" + String.format("%140x", new BigInteger("0004e473f59ab5bd4639f848dd8ed27f1b3f6b0d", 16)));// 0004e473f59ab5bd4639f848dd8ed27f1b3f6b0d
+		 System.out.println("这个就啥也不是了:" + String.format("%+40x", new BigInteger("0004e473f59ab5bd4639f848dd8ed27f1b3f6b0d", 16)));// 0004e473f59ab5bd4639f848dd8ed27f1b3f6b0d
+		 System.out.println("注意看%#,#代表输出以0x开头,50是字符长度:" + String.format("%#50x", new BigInteger("0004e473f59ab5bd4639f848dd8ed27f1b3f6b0d", 16)));// 0004e473f59ab5bd4639f848dd8ed27f1b3f6b0d
+		 System.out.println("注意这个时候结果变成前面有一大串空格,字符串的总长度为140:" + String.format("%<140x", new BigInteger("0004e473f59ab5bd4639f848dd8ed27f1b3f6b0d", 16)));// 0004e473f59ab5bd4639f848dd8ed27f1b3f6b0d
+		 System.out.println("注意这个时候结果变成前面有一大串空格,字符串的总长度为140:" + String.format("%a140x", new BigInteger("0004e473f59ab5bd4639f848dd8ed27f1b3f6b0d", 16)));// 0004e473f59ab5bd4639f848dd8ed27f1b3f6b0d
+		 //这说明%040x里面的第一个0代表[flags]参数,40代表[width]参数.%140x里面的140代表[width]参数。
+		 //这也说明了,width参数是从%后面第一个不为零的数字开始计算的
+		 //%#40x和%<140x和%a140x都会报错,format这个方法超级不好用,参数位置非常不明确垃圾东西.
+
 	     
 	     //%c参数必须是byte,short,int, long,ASCII的42代表"*"号
 	     System.out.println(String.format("%c", 42));
@@ -450,6 +472,25 @@ https://www.liaoxuefeng.com/wiki/1252599548343744/1260469698963456
         System.out.println("反转(逆转,翻转)之后,字符串为:" + reverSe);
         String bq = "😸😾";//获取bq字符串 "😸😾" 的长度，正确答案应该是 2,这个字符串是一个emoji表情
         System.out.println("bq的字符串长度为:" + bq.length());
+        
+        String bigStr = "BIG";
+        String smallStr = "big";
+        if (bigStr.equalsIgnoreCase(smallStr)) {//比较俩个字符串对象是否相等,忽略大小写
+        	System.out.println();
+        }
+        
+        //比较俩个对象是否相等,如果用equals比较俩个对象是否相等,还要判断左边的对象不为null,否则可能会报空指针,可以使用java.util包下面的Objects类来比较
+        if (Objects.equals(smallStr, bigStr)) {
+        	
+        }
+        
+        Objects.requireNonNull(smallStr);//为null就报错
+        smallStr = Objects.toString(smallStr, "");
+        StringUtils.defaultIfBlank("15000", "15000");
+        System.out.println("Objects.equals这个对象有个坑就是当俩个对象都为null的时候,返回的也是true:哈哈," + Objects.equals(null, null));
+        System.out.println("Objects.equals这个对象有个坑就是当俩个对象都为null的时候,返回的也是true:哈哈," + Objects.deepEquals(null, null));
+        
+        Objects.isNull(smallStr);
         
 	}
 	

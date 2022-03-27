@@ -19,6 +19,7 @@ public class SingletonLday {
 	}
 	
 	public static SingletonLday getInstance() {
+		System.out.println("在这类里面");
 		return instance;
 	}
 }

@@ -2,6 +2,19 @@ package com.yale.test.java.exception;
 
 import java.util.Optional;
 
+/**
+ * 11. 【推荐】防止NPE，是程序员的基本修养，注意NPE产生的场景： 1） 返回类型为基本数据类型，return包装数据类型的对象时，自动拆箱有可能产生NPE。 
+ * 反例：public int f() { return Integer对象}， 如果为null，自动解箱抛NPE。 
+ * 2） 数据库的查询结果可能为null。 
+ * 3） 集合里的元素即使isNotEmpty，取出的数据元素也可能为null。 
+ * 4） 远程调用返回对象时，一律要求进行空指针判断，防止NPE。 
+ * 5） 对于Session中获取的数据，建议进行NPE检查，避免空指针。 
+ * 6） 级联调用obj.getA().getB().getC()；一连串调用，易产生NPE。
+ * 正例：使用JDK8的Optional类来防止NPE问题。
+ * 《阿里巴巴Java开发手册嵩山版2020.pdf》
+ * @author issuser
+ *
+ */
 public class NpeDemo {
 	/*
 	 * NullPointerException即空指针异常，俗称NPE。

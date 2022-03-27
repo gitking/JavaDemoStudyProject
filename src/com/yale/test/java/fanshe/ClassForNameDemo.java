@@ -1,12 +1,13 @@
 package com.yale.test.java.fanshe;
 
 /*
+ * 结合com.yale.test.java.fanshe.imooc.reflect.ClassDemo这个类看
  *  反射工具类 MethodUtils  org.apache.commons.beanutils.MethodUtils    commons-beanutils-1.8.3.jar 
  *	反射工具类 MethodUtils  org.apache.commons.lang.reflect.MethodUtils commons-lang-2.6.jar
  */
 class ForName {
 	public ForName() {
-		System.out.println("构造方法先执行还是,static块先执行");
+		System.out.println("ForName-------构造方法先执行还是,static块先执行");
 	}
 	//static属性和static代码块是按照代码的先后顺序执行的
 	private static ForName forNam = new ForName();
@@ -50,5 +51,7 @@ public class ClassForNameDemo {
 		ForName fn = new ForName();//Class.forName和new对象的时候JVM才会加载这个类,并且执行类中的static块代码
 		Class<?> cls = ForName.class;//这种叫静态加载类,静态加载类不会初始化类,把上面那个代码注释执行这个发现,上面的静态代码块没有被执行
 		Class test = ForName.class.getClass();//这种叫静态加载类,静态加载类不会初始化类,这行代码也不能让JVM记载类,上面的静态代码块也不会被执行
+		
+		System.out.println("结束了");
 	}
 }

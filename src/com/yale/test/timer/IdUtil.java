@@ -7,6 +7,8 @@ import java.time.ZoneId;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.hibernate.id.IdentifierGenerator;
+import org.hibernate.id.UUIDHexGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -103,6 +105,10 @@ public class IdUtil {
 	public static void main(String[] args) {
 		System.out.println("雪花id:" + IdUtil.nextId());
 		System.out.println("雪花id:" + IdUtil.nextId());
+		
+		IdentifierGenerator gen = new UUIDHexGenerator();//主键生成UUIDHex对象hibernate-core-5.4.2.Final.jar
+		System.out.println("利用hibernate生成主键随机ID:" + gen.generate(null, null));
+		//plyFeeVO.setCPkId((String)gen.generate(null, null));//主键  永久代存储的都是什么数据？ 
 	}
 	
 	public static long nextId() {
